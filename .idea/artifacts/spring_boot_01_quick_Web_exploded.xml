@@ -1,0 +1,13 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="spring-boot-01-quick:Web exploded">
+    <output-path>$PROJECT_DIR$/src/main/java/com/xiaoxiaobulletscreen</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="Kaciry/web/Web" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="Kaciry" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>

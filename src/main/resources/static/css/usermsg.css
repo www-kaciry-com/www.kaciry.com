@@ -1,0 +1,12 @@
+.usermsg-nav {
+    width: 200px;
+    padding: 10px auto;
+}
+
+.nav-wrapper-user {
+    background-image: url(/static/img/nav_wrapper.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 200px;
+    margin-top: 50px;
+}

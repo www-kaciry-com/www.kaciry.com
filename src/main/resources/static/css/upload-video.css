@@ -1,0 +1,74 @@
+.nav1 {
+    border: 2px solid red;
+    padding: 0;
+}
+
+.uploadform {
+    /*border: 1px solid #0003ff;*/
+    margin-top: 50px;
+}
+
+.uploadform input {
+    margin: 20px auto;
+}
+
+.uploadform label {
+    margin: 26px auto;
+}
+
+.uploadform select {
+    margin: 20px auto;
+}
+
+.col-md-2 {
+    margin-top: 50px;
+}
+
+.navbar {
+    margin-bottom: 0;
+    padding-right: 0;
+}
+
+.broadside-nav {
+    margin-left: -45px;
+    text-align: center;
+
+}
+
+.broadside-nav a {
+    font-size: 17px;
+}
+
+.nav-li {
+    padding-top: 12px;
+    padding-bottom: 12px;
+}
+
+.nav-li img {
+    width: 100%;
+    height: 100%;
+}
+
+.tab-content1 {
+    border: 1px solid red;
+}
+
+.tab-pane1 {
+    border: 1px solid #ff0fce;
+}
+
+.uploadform1 input {
+    width: 60%;
+    margin-left: 300px;
+}
+
+.col-form-label {
+    text-align: right;
+}
+
+.file-group {
+    width: 100%;
+}
+#videoDescription{
+    height: 100px;
+}

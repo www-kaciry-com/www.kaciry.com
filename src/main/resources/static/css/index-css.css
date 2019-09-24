@@ -1,0 +1,248 @@
+/*辅助线*/
+/*.container-fliud {*/
+/*    border: 1px red solid;*/
+/*}*/
+/*.container {*/
+/*    border: 1px blue solid;*/
+/*}*/
+/*页头，header*/
+.back-img {
+    background-image: url(/static/img/indexIcon/header-leg.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 650px;
+    margin-top: -100px;
+    z-index: -1;
+    /*模糊效果*/
+    /*filter: blur(4px);*/
+}
+
+/*用户头像*/
+
+.site-master {
+    text-align: center;
+    width: 70%;
+    margin: auto;
+    top: -200px;
+    padding: 40px 0;
+    font-size: 14px;
+    opacity: .98;
+    background: rgba(230, 244, 249, .8);
+    z-index: 1;
+    animation: b 1s ease-out;
+    position: relative;
+    border-radius: 5px;
+}
+.site-master .site-master-avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 100%;
+}
+.site-master-description {
+    margin-top: 2%;
+    font-size: 30px;
+}
+.site-master-description span:nth-child(1){
+    color: red ;
+}
+.site-master-description span:nth-child(2){
+    color: blue ;
+}
+/*次导航区*/
+.num-wrap span {
+    background-color: #97bcff;
+    border-radius: 3px;
+    color: #fff;
+    padding: 1px 3px;
+
+}
+
+.child {
+    float: left;
+    margin-right: 25px;
+    text-align: center;
+}
+
+a {
+    text-decoration: none !important;
+}
+
+.divChild {
+    margin-top: 10px;
+    height: 50px;
+}
+
+/*轮播图以及热度最高的视频区*/
+.best-videos {
+    margin-top: 20px;
+}
+
+/*轮播图*/
+
+.carousel-item {
+    height: 330px;
+    margin-top: 10px;
+}
+
+.carousel-item img {
+    border-radius: 3%;
+}
+
+.d-block {
+    width: 100%;
+    height: 100%;
+}
+
+/*热度视频*/
+.recommend {
+    height: 150px;
+    margin: 10px auto;
+}
+
+.recommend img {
+    width: 100%;
+    height: 100%;
+    border-radius: 3%;
+}
+
+.videos {
+    padding-left: 5px !important;
+    padding-right: 5px !important;
+}
+
+.card-mark {
+    position: relative;
+    left: 0;
+    top: -40px;
+    font-size: 15px;
+    padding: 10px 5px;
+    overflow: hidden;
+    border-radius: 3%;
+    background: linear-gradient(transparent, rgba(0, 0, 0, .1) 20%, rgba(0, 0, 0, .2) 35%, rgba(95, 85, 85, 0.52) 65%, rgba(0, 0, 0, .9));
+}
+
+.card-mark p {
+    margin: 0;
+    display: block; /*内联对象需加*/
+    overflow: hidden;
+    text-overflow: ellipsis; /*超出部分用...代替*/
+    white-space: nowrap; /*不显示的地方用省略号...代替*/
+}
+
+/*推广区*/
+.Promote-img {
+    width: 40px;
+    height: 40px;
+}
+
+.Promote-img img {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.Promote {
+    margin-top: 20px;
+    /*border: 1px red solid;*/
+}
+
+.Promote-content {
+    margin-top: 10px;
+}
+
+.Promote-name {
+    margin-top: 6px;
+    margin-left: 10px;
+}
+
+.Promote-one {
+    font-size: small;
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+    /*border: 1px red solid;*/
+}
+
+.Promote-one img {
+    width: 100%;
+    height: 100%;
+}
+
+.Promote-one-img img {
+    height: 90px;
+}
+
+/*Rank*/
+.number {
+    margin-top: 7px;
+    width: 20px;
+    height: 20px;
+    float: left;
+}
+
+.number img {
+    height: 100%;
+    width: 100%;
+}
+
+.rank a {
+    margin-top: 13px;
+    display: block; /*内联对象需加*/
+    overflow: hidden;
+    text-overflow: ellipsis; /*超出部分用...代替*/
+    white-space: nowrap; /*不显示的地方用省略号...代替*/
+}
+
+.Music div {
+    padding-right: 5px;
+    padding-left: 5px;
+}
+
+.Music a:link {
+    color: #222222;
+}
+
+.Music a:hover {
+    color: #005cbf;
+}
+
+.Music li {
+    font-size: 15px;
+}
+
+.Music-card span {
+    font-size: small;
+    display: block; /*内联对象需加*/
+    overflow: hidden;
+    text-overflow: ellipsis; /*超出部分用...代替*/
+    white-space: nowrap; /*不显示的地方用省略号...代替*/
+}
+
+/*记得设置高度*/
+.Music-img {
+    height: 70%;
+}
+
+.Music-img img {
+    width: 100%;
+    height: 100%;
+    border-radius: 3%;
+}
+
+/*番剧板块*/
+.Animation span {
+    display: block; /*内联对象需加*/
+    overflow: hidden;
+    text-overflow: ellipsis; /*超出部分用...代替*/
+    white-space: nowrap; /*不显示的地方用省略号...代替*/
+}
+
+.Animation-one {
+    font-size: small;
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+}
+
+.Animation-one img {
+    width: 100%;
+    height: 100%;
+}

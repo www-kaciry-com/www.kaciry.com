@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>重置密码</title>
+    <link rel="stylesheet" href="/static/bootstrap-4.3.1/dist/css/bootstrap.css">
+    <style>
+        .input-email {
+            border: 1px solid black;
+            border-radius: 5px;
+            padding: 50px 60px;
+        }
+
+        .signin-form input[type="text"], .signin-form input[type="email"], .signin-form input[type="password"] {
+            color: rgb(70, 78, 96);
+            font-size: 16px;
+            font-weight: 400;
+            padding: 0 18px;
+        }
+
+        .signin-form .form-control {
+            box-shadow: none;
+            height: 46px;
+            background: transparent;
+            border-width: 1px;
+            border-style: solid;
+            border-color: rgb(195, 198, 207);
+            border-image: initial;
+            border-radius: 3px;
+            padding: 0;
+            transition: all 0.5s linear 0s;
+            outline: 0 !important;
+        }
+
+        .btn.signin_btn, .btn.signin_btn:focus {
+            height: 40px;
+            color: rgb(255, 255, 255);
+            font-size: 14px;
+            text-transform: uppercase;
+            box-shadow: rgba(0, 66, 255, 0.3) 0 5px 30px;
+            margin-top: 23px;
+            padding: 0;
+            background: rgb(90, 132, 253);
+            border-radius: 3px;
+        }
+        .signin-form .form-control:hover, .signin-form .form-control:focus {
+            border: 1px solid #474d5b;
+            color: #464e60;
+            box-shadow: 0 5px 10px rgba(45,50,64,.2);
+        }
+        .signin-form label {
+            color: rgb(124, 128, 137);
+            font-size: 16px;
+            font-weight: 500;
+            text-transform: capitalize;
+            margin-bottom: 15px;
+        }
+
+        .steps-icon {
+            background-color: #fff;
+            width: 25px;
+            height: 25px;
+            color: #99a2aa;
+            font-weight: 700;
+            border-radius: 50%;
+            line-height: 20px;
+            border: 2px solid #99a2aa;
+            text-align: center;
+            margin: 10px;
+        }
+
+        .des {
+            color: #99a2aa;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+
+        .form {
+            display: block;
+            margin-top: 50px;
+
+        }
+        .row {
+            margin-left: 0;
+            margin-right: 0;
+        }
+        .steps-line {
+            height: 1px;
+            background: #e5e9ef;
+            width: 60px;
+            margin-top: 20px;
+            margin-left: 10px;
+        }
+        .content {
+            margin-top: 17%;
+        }
+    </style>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row justify-content-center ">
+        <div class="content">
+            <div class="row justify-content-center">
+
+                <div class="steps-icon">1</div>
+                <div class="des">输入绑定邮箱</div>
+
+                <i class="steps-line"></i>
+
+                <div class="steps-icon">2</div>
+                <div class="des">输入验证码</div>
+
+                <i class="steps-line"></i>
+
+                <div class="steps-icon">3</div>
+                <div class="des">重置密码</div>
+
+
+            </div>
+            <div class="row form">
+                <form id="input-email" class="input-email ">
+                    <div class="form-group signin-form">
+                        <label for="email">邮箱</label>
+                        <input type="email" class="form-control" id="email" placeholder="enter your email here" value=""
+                               name="email"
+                               required>
+                        <button class="btn signin_btn form-control" id="signup_btn" onclick="return sendCode()">
+                            发送
+                        </button>
+                    </div>
+                </form>
+                <form id="input-code" class="input-email" hidden>
+                    <div class="form-group signin-form">
+                        <label for="v-code">验证码</label>
+                        <input type="text" class="form-control" id="v-code" placeholder="enter verification Code here"
+                               value=""
+                               name="v-code"
+                               required>
+                        <button class="btn signin_btn form-control" onclick="return checkCode()">
+                            确定
+                        </button>
+                    </div>
+                </form>
+                <form id="reset-password" class="input-email" hidden>
+                    <div class="form-group signin-form">
+                        <div class="form-group">
+                            <label for="password-1">重置密码</label>
+                            <input type="password" class="form-control" id="password-1" placeholder="enter your password here"
+                                   value="" name="password-1" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="password-2">再次键入密码</label>
+                            <input type="password" class="form-control" id="password-2" placeholder="enter your password here again"
+                                   value="" name="password-1" required>
+                        </div>
+
+                        <button class="btn signin_btn form-control" onclick="return resetPassword()">
+                            确定重置
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/static/js/Jquery/jquery-3.4.1.js"></script>
+<script src="/static/bootstrap-4.3.1/dist/js/bootstrap.js"></script>
+<script src="/static/js/resetPassword/verificationCode.js"></script>
+</body>
+</html>
+
+
+

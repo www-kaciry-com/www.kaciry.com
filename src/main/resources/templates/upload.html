@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/css/upload-video.css">
+    <title>xiaoxiao创作中心</title>
+    <style>
+
+    </style>
+</head>
+<body>
+<div class="container-fluid">
+    <div th:include="nav"></div>
+    <div class="container-fluid broadside-nav">
+        <div class="col-md-2 col-lg-2 col-xs-3">
+            <div>
+                <ul class="nav navbar-default" role="tablist">
+
+                    <li role="presentation" class="active nav-li">
+                        <a href="#tab1" data-toggle="tab"><img src="/static/img/videoOps/brand.png" alt="xiaoxiao创作中心">投稿</a>
+                    </li>
+                    <li role="presentation" class="nav-li">
+                        <a href="#tab2" data-toggle="tab">首页管理</a>
+                    </li>
+                    <li role="presentation" class="nav-li">
+                        <a href="#tab3" data-toggle="tab">内容管理</a>
+                    </li>
+                    <li role="presentation" class="nav-li">
+                        <a href="#tab4" data-toggle="tab">数据中心</a>
+                    </li>
+                    <li role="presentation" class="nav-li">
+                        <a href="#tab5" data-toggle="tab">粉丝管理</a>
+                    </li>
+                    <li role="presentation" class="nav-li">
+                        <a href="#tab6" data-toggle="tab">互动管理</a>
+                    </li>
+                    <li role="presentation" class="nav-li">
+                        <a href="#tab7" data-toggle="tab">收益管理</a>
+                    </li>
+                    <li role="presentation" class="nav-li">
+                        <a href="#tab8" data-toggle="tab">个人设置</a>
+                    </li>
+                    <li role="presentation" class="nav-li">
+                        <a href="#tab9" data-toggle="tab">申诉管理</a>
+                    </li>
+                    <li role="presentation" class="nav-li">
+                        <a href="#tab10" data-toggle="tab">创作新秀奖</a>
+                    </li>
+                    <li role="presentation" class="nav-li">
+                        <a href="#tab11" data-toggle="tab">反馈与建议</a>
+                    </li>
+                    <li role="presentation" class="nav-li">
+                        <a href="#tab12" data-toggle="tab">帮助中心</a>
+                    </li>
+                    <li role="presentation" class="nav-li">
+                        <a href="#tab13" data-toggle="tab">XiaoXiao认证</a>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+        <div class="container col-md-10 col-lg-10 col-xs-9 " style="margin-top: 50px;">
+            <div class="nav navbar col-sm-12 col-xs-12 col-md-12 col-md-offset-4 col-xs-offset-0">
+                <ul class="nav navbar-nav">
+                    <li class="col-md-3 col-xs-6">
+                        <a href="#tab1" data-toggle="tab">视频投稿</a>
+                    </li>
+                    <li class="col-md-3 col-xs-6">
+                        <a href="#tab14" data-toggle="tab">专栏投稿</a>
+                    </li>
+                    <li class="col-md-3 col-xs-6">
+                        <a href="#tab15" data-toggle="tab">音频投稿</a>
+                    </li>
+                    <li class="col-md-3 col-xs-6">
+                        <a href="#tab16" data-toggle="tab">相簿投稿</a>
+                    </li>
+                </ul>
+
+            </div>
+
+            <div class="tab-content vertical-tab-content" style="margin-top: 10px">
+                <div role="tabpanel" class="tab-pane  fade in active" id="tab1">
+                    <form enctype="multipart/form-data" method="post" class="uploadform" th:action="@{upload}">
+                        <div class="form-group row">
+                            <label for="videoTitle" class="col-sm-2 col-form-label">视频标题 ：</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" id="videoTitle" name="videoTitle"
+                                       placeholder="Video Title" required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">视频类型 ：</label>
+                            <div class="col-sm-8">
+                                <select class="form-control" name="videoType">
+                                    <option value="动画">动画</option>
+                                    <option value="番剧">番剧</option>
+                                    <option value="国创">国创</option>
+                                    <option value="音乐">音乐</option>
+                                    <option value="舞蹈">舞蹈</option>
+                                    <option value="游戏">游戏</option>
+                                    <option value="科技">科技</option>
+                                    <option value="数码">数码</option>
+                                    <option value="生活">生活</option>
+                                    <option value="鬼畜">鬼畜</option>
+                                    <option value="时尚">时尚</option>
+                                    <option value="广告">广告</option>
+                                    <option value="娱乐">娱乐</option>
+                                    <option value="影视">影视</option>
+                                    <option value="燃向">燃向</option>
+                                    <option value="其他" selected>其他</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="videoName" class="col-sm-2 col-form-label">视频名称 ：</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" id="videoName" name="videoName"
+                                       placeholder="Video Name" required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="videoDescription" class="col-sm-2 col-form-label">视频描述 ：</label>
+                            <div class="col-sm-8">
+                                <textarea type="text" class="form-control" id="videoDescription" name="videoDescription"
+                                          placeholder="Video Description" maxlength="300" wrap="hard"
+                                          required></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="i-check" class="col-sm-2 col-form-label">选择视频文件 ：</label>
+                            <div class="col-sm-8">
+                                <div class="input-group file-group">
+                                    <input id='location' class="form-control" onclick="$('#i-file').click();">
+                                    <label class="input-group-btn">
+                                        <input type="button" id="i-check" value="浏览文件" class="btn btn-primary"
+                                               onclick="$('#i-file').click();">
+                                    </label>
+                                </div>
+                            </div>
+                            <input type="file" name="file" id='i-file' accept=".mp4, .flv"
+                                   onchange="$('#location').val($('#i-file').val());" style="display: none">
+                        </div>
+                        <div class="form-group row">
+                            <label for="i-check" class="col-sm-2 col-form-label">选择视频封面 ：</label>
+                            <div class="col-sm-8">
+                                <div class="input-group file-group">
+                                    <input id='location1' class="form-control" onclick="$('#i-file1').click();">
+                                    <label class="input-group-btn">
+                                        <input type="button" id="i-check1" value="浏览图片" class="btn btn-primary"
+                                               onclick="$('#i-file1').click();">
+                                    </label>
+                                </div>
+                            </div>
+                            <input type="file" name="file" id='i-file1' accept=".png, .jpg,.jpeg"
+                                   onchange="$('#location1').val($('#i-file1').val());" style="display: none">
+                        </div>
+                        <button type="submit" class="btn btn-default" style="width: 20%">提交</button>
+                    </form>
+                </div>
+                <div role="tabpanel" class="tab-pane fade in" id="tab2">这是..tab2.</div>
+                <div role="tabpanel" class="tab-pane fade in" id="tab3">这是..tab3.</div>
+                <div role="tabpanel" class="tab-pane fade in" id="tab4">这是.tab4..</div>
+                <div role="tabpanel" class="tab-pane fade in" id="tab5">这是..tab5.</div>
+                <div role="tabpanel" class="tab-pane fade in" id="tab6">这是..tab6.</div>
+                <div role="tabpanel" class="tab-pane fade in" id="tab7">这是..tab7.</div>
+                <div role="tabpanel" class="tab-pane fade in" id="tab8">这是..tab8.</div>
+                <div role="tabpanel" class="tab-pane fade in" id="tab9">这是..tab9.</div>
+                <div role="tabpanel" class="tab-pane fade in" id="tab10">这是..tab10.</div>
+                <div role="tabpanel" class="tab-pane fade in" id="tab11">这是..tab11.</div>
+                <div role="tabpanel" class="tab-pane fade in" id="tab12">这是..tab12.</div>
+                <div role="tabpanel" class="tab-pane fade in" id="tab13">这是..tab13.</div>
+                <div role="tabpanel" class="tab-pane fade in" id="tab14">这是..tab14.</div>
+                <div role="tabpanel" class="tab-pane fade in" id="tab15">这是..tab15.</div>
+                <div role="tabpanel" class="tab-pane fade in" id="tab16">这是..tab16.</div>
+            </div>
+            
+        </div>
+
+
+    </div>
+
+
+</div>
+<div th:include="logoutModal"></div>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+
+</script>
+</body>
+</html>

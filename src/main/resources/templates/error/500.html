@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>出错啦！ - kaciry.com</title>
+    <link rel="stylesheet" href="/static/bootstrap-4.3.1/dist/css/bootstrap.css">
+    <style>
+        .error-div {
+            margin-top: 60px;
+            height: 200px;
+        }
+
+        .error-div img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .error-msg {
+            margin-top: 50px;
+        }
+        .container {
+            background-color: rgba(231, 231, 231, 0.54);
+            border-radius: 7px;
+            margin-top: 10%;
+            height: 600px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="error-div col-12 col-sm-12  col-lg-8 col-md-10 col-xl-7">
+            <img src="/static/img/error/very_sorry_server.png" alt="">
+        </div>
+    </div>
+    <div class="error-msg row justify-content-center align-items-center">
+        <div class="col-4 col-sm-4 col-md-3 col-lg-2 col-xl-2 ">
+            <a class="btn btn-primary" href="#" type="button">返回上一页</a>
+        </div>
+        <div>
+            <p>错误号：500</p>
+            <p>用户IP：<span class="cip"></span></p>
+            <p>错误请求地址：<span class="error-url"></span></p>
+        </div>
+    </div>
+</div>
+<script src="/static/js/Jquery/jquery-3.4.1.js"></script>
+<script src="/static/bootstrap-4.3.1/dist/js/bootstrap.js"></script>
+<script src="http://pv.sohu.com/cityjson?ie=utf-8"></script>
+<script src="/static/js/error.js"></script>
+</body>
+</html>

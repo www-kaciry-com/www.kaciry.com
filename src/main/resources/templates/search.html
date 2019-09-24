@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="/static/bootstrap-4.3.1/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="/static/css/pagePlugCSS/mricode.pagination.css">
+    <title>Search</title>
+    <style>
+        .nav-search {
+            margin-right: 10px;
+        }
+
+    </style>
+</head>
+<body>
+<!--header-->
+<div th:include="nav"></div>
+<!--Content-->
+<div class="container">
+    <div class="heigh"></div>
+    <div class="search row justify-content-center">
+        <div class="row col-md-6">
+            <div class="col-sm-4 search-icon">
+                <img src="/static/img/searchIcon/img/search-icon.png" alt="search-icon">
+            </div>
+            <form th:action="@{/search}" class="form-inline col-sm-8 search-input">
+                <input class="form-control mr-sm-2" name="information" type="search" placeholder="Search"
+                       aria-label="Search">
+                <button class="btn btn-primary my-2 my-sm-0" type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+    <div class="searchContent row justify-content-center">
+        <ul class="nav nav-tabs nav-fill">
+            <li class="nav-item">
+                <a class="nav-link active" href="#allContent" role="tab" data-toggle="tab">综合</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#videos" role="tab" data-toggle="tab">视频</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#animation" role="tab" data-toggle="tab">番剧</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#films" data-toggle="tab">影视</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#users" data-toggle="tab">用户</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#users1" data-toggle="tab">专栏</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#users2" data-toggle="tab">话题</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#users3" data-toggle="tab">直播</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#users4" data-toggle="tab">相簿</a>
+            </li>
+        </ul>
+        <div class="container content tab-content">
+            <!--综合-->
+            <div class="allContent tab-pane fade show active" role="tabpanel" id="allContent">
+                <div class="container-fluid">
+                    <ul class="video-items"><!--                    <li class="video-item">-->
+                        <!--                        <div class="cover">-->
+                        <!--                            <a href="#"><img src="/static/img/searchIcon/img/a.jpg" alt="Cover"></a>-->
+                        <!--                        </div>-->
+                        <!--                        <div class="info">-->
+                        <!--                            <p class="title">【极客学院】一周学会Bootstrap</p>-->
+                        <!--                            <div class="tags">-->
+                        <!--                                <div class="playNum">-->
+                        <!--                                    <img src="/static/img/searchIcon/img/play.png" alt="playnum">-->
+                        <!--                                    <span>11.2万</span>-->
+                        <!--                                </div>-->
+                        <!--                                <div class="up-data">-->
+                        <!--                                    <img src="/static/img/searchIcon/img/time.png" alt="">-->
+                        <!--                                    <span>2017-05-19</span>-->
+                        <!--                                </div>-->
+                        <!--                            </div>-->
+
+                        <!--                            <div class="uper">-->
+                        <!--                                <a href="#"><img src="/static/img/searchIcon/img/user.png" alt="user"></a>-->
+                        <!--                                <span>Kaciry</span>-->
+                        <!--                            </div>-->
+                        <!--                        </div>-->
+                        <!--                    </li>--></ul>
+                </div>
+                <div class="clearfloat"></div>
+                <div id="page" class="m-pagination page"></div>
+
+            </div>
+            <div class="videos tab-pane fade in " role="tabpanel" id="videos">
+                Videos
+            </div>
+            <div class="animation tab-pane fade" role="tabpanel" id="animation">
+                Animation
+            </div>
+            <div class="films tab-pane fade" role="tabpanel" id="films">
+                Film
+            </div>
+            <div class="users tab-pane fade" role="tabpanel" id="users">
+                user
+            </div>
+            <div class="user tab-pane fade" role="tabpanel" id="users1">
+                user1
+            </div>
+            <div class="user tab-pane fade" role="tabpanel" id="users2">
+                user2
+            </div>
+            <div class="user tab-pane fade" role="tabpanel" id="users3">
+                user3
+            </div>
+            <div class="user tab-pane fade" role="tabpanel" id="users4">
+                user4
+            </div>
+        </div>
+
+    </div>
+    <div style="height: 50px"></div>
+</div>
+<!-- Modal -->
+<div th:include="logoutModal"></div>
+<script src="/static/js/Jquery/jquery-3.4.1.js"></script>
+<script src="/static/bootstrap-4.3.1/dist/js/bootstrap.js"></script>
+<script src="/static/js/search/search.js"></script>
+<script src="/static/js/pagePulg/mricode.pagination.js"></script>
+<!--<script src="https://unpkg.com/vue/dist/vue.js"></script>-->
+<!--<script src="https://cdn.staticfile.org/vue-resource/1.5.1/vue-resource.min.js"></script>-->
+<script>
+
+</script>
+</body>
+</html>

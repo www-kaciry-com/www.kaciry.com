@@ -1,0 +1,127 @@
+.content {
+    margin-top: 55px;
+}
+
+.videoInfo h3 {
+
+    margin-top: 30px;
+    margin-left: -.5em;
+}
+.dplayer {
+    height: 600px;
+}
+
+.video-data {
+    margin: 10px 0;
+}
+
+.video-data span {
+    color: #999;
+}
+
+/*.ops {*/
+/*    margin-top: -30px;*/
+/*    height: 62px;*/
+/*    border-bottom: 1px solid #e5e9ef;*/
+/*}*/
+
+.info span {
+    margin-top: 20px;
+    width: 700px;
+    white-space: pre-line;
+    overflow: hidden;
+    line-height: 22px;
+}
+
+.video-desc {
+    border-bottom: 1px solid #e5e9ef;
+}
+
+.discuss-head {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #e5e9ef;
+}
+
+.discuss {
+    font-size: 20px;
+}
+
+.discuss-input {
+    height: 100px;
+    margin-bottom: 30px;
+    margin-top: 40px;
+    border-bottom: 1px solid #e5e9ef;
+}
+
+
+body {
+    background: url(/static/img/bg.jpg) top/cover no-repeat fixed;
+    width: 100%;
+    height: 100%;
+    color: #666;
+    line-height: 22px;
+    margin: 0;
+}
+
+html {
+    width: 100%;
+    height: 100%;
+}
+
+/*.container {*/
+/*    background-color: white;*/
+/*}*/
+
+/*.media-nickname {*/
+/*    margin-top: 0;*/
+/*    margin-bottom: 5px;*/
+/*}*/
+
+/*.media-p {*/
+/*    margin: 0 0 5px;*/
+/*}*/
+
+.media-hr {
+    margin-top: 0;
+    margin-bottom: 25px;
+}
+
+.reply-child {
+    margin-left: 10px;
+}
+
+.media img {
+    border-radius: 50%;
+    width: 64px;
+    height: 64px;
+}
+/*.headIcon-div {*/
+/*    width: 50px;*/
+/*    height: 50px;*/
+/*}*/
+
+.m-pagination {
+    margin-left: 20px;
+}
+
+.ops span {
+    margin-right: 3%;
+}
+
+.ops {
+    margin-left: 5px;
+    margin-bottom: 10px;
+}
+
+.ops em {
+    margin-left: 5px;
+}
+
+a {
+    text-decoration: none !important;
+}
+
+hr {
+    margin-top: 10px !important;
+}

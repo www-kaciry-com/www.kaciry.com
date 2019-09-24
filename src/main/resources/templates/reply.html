@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="/static/bootstrap-4.3.1/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="/static/css/reply.css">
+    <title>我的消息</title>
+
+</head>
+<body>
+<div th:include="nav"></div>
+<div class="container">
+    <div class="row">
+        <div class="col-3 col-sm-3 col-md-3 col-lg-2  nav-op">
+            <ul class="nav flex-column" role="tablist">
+                <li role="presentation" class="active nav-li">
+                    <a href="#replyMe" data-toggle="tab">●&nbsp&nbsp回复我的</a>
+                </li>
+                <li role="presentation" class="nav-li">
+                    <a href="#callMe" data-toggle="tab">●&nbsp&nbsp&nbsp&nbsp@ 我的</a>
+                </li>
+                <li role="presentation" class="nav-li">
+                    <a href="#receivedStar" data-toggle="tab">●&nbsp&nbsp收到的赞</a>
+                </li>
+                <li role="presentation" class="nav-li">
+                    <a href="#SystemNotification" data-toggle="tab">●&nbsp&nbsp系统通知</a>
+                </li>
+                <li role="presentation" class="nav-li">
+                    <a href="#myMsg" data-toggle="tab">●&nbsp&nbsp我的消息</a>
+                </li>
+                <li role="presentation" class="nav-li">
+                    <a href="#privateLetters" data-toggle="tab">●&nbsp&nbsp我的私信</a>
+                </li>
+                <li role="presentation" class="nav-li" style="margin-top: 30px!important;">
+                    <a href="#Setting" data-toggle="tab"><img src="/static/img/setting_icon.png" alt=""
+                                                              style="width: 12px;height: 12px;">&nbsp&nbsp消息设置</a>
+                </li>
+
+
+            </ul>
+        </div>
+        <div class="col-9 col-sm-9 col-md-9 col-lg-10 content">
+            <div class="title">
+                <div class="title-content">测试标题栏</div>
+                <div class="content-body">
+                    <div class="tab-content" id="tabContent">
+                        <div class="tab-pane fade show active" id="replyMe">
+                            111111
+                        </div>
+                        <div class="tab-pane fade" id="callMe">
+                            2222
+                        </div>
+                        <div class="tab-pane fade" id="receivedStar">
+                            3333
+                        </div>
+                        <div class="tab-pane fade" id="SystemNotification">
+                            44444
+                        </div>
+                        <div class="tab-pane fade" id="myMsg">
+                            5555
+                        </div>
+                        <div class="tab-pane fade" id="privateLetters">
+                            666
+                        </div>
+                        <div class="tab-pane fade" id="Setting">
+                            7777
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:include="logoutModal"></div>
+
+<script src="/static/js/Jquery/jquery-3.4.1.js"></script>
+<script src="/static/bootstrap-4.3.1/dist/js/bootstrap.js"></script>
+<script>
+
+</script>
+</body>
+</html>

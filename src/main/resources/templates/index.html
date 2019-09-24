@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>筱筱弹幕网</title>
+    <link rel="stylesheet" href="/static/bootstrap-4.3.1/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="/static/live2d/css/live2d.css"/>
+    <link rel="stylesheet" href="/static/css/index-css.css">
+    <style>
+
+    </style>
+</head>
+<body>
+<!--header-->
+<div th:include="nav"></div>
+
+<!--页面头像特效区-->
+<div class="site-master">
+    <a href="" th:href="@{/userhomepage}">
+        <img class="site-master-avatar" src="" th:if="${session.user != null}" th:src="${session.user.getUserHeadIcon()}" alt="headicon">
+    </a>
+    <h2 class="site-master-description">
+        <span>欢迎访问，</span>
+        <span>筱筱弹幕网！</span>
+    </h2>
+</div>
+<!--页面内容区-->
+<div class="container-fluid" style="margin-top: -180px">
+    <!--页面内容区-->
+    <div class="container">
+        <!--次导航-->
+        <div class="navbar navbar-expand-lg navbar-light" style="background-color:#e7e7e742">
+
+            <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarColor02"
+                    aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse " id="navbarColor02">
+                <div class="child" style="margin-top: -7px">
+                    <a href="#">
+                        <div class="index-icon">
+                            <img src="/static/img/indexIcon/home.png" alt="home">
+                        </div>
+                        <div class="index-name">首页</div>
+                    </a>
+                </div>
+                <div class="child">
+                    <a href="#">
+                        <div class="num-wrap">
+                            <span class="num">999+</span>
+                        </div>
+                        <div class="nav-name">动画</div>
+                    </a>
+                </div>
+                <div class="child">
+                    <a href="#">
+                        <div class="num-wrap">
+                            <span class="num">999+</span>
+                        </div>
+                        <div class="nav-name">番剧</div>
+                    </a>
+                </div>
+                <div class="child">
+                    <a href="#">
+                        <div class="num-wrap">
+                            <span class="num">999+</span>
+                        </div>
+                        <div class="nav-name">音乐</div>
+                    </a>
+                </div>
+                <div class="child">
+                    <a href="#">
+                        <div class="num-wrap">
+                            <span class="num">999+</span>
+                        </div>
+                        <div class="nav-name">舞蹈</div>
+                    </a>
+                </div>
+                <div class="child">
+                    <a href="#">
+                        <div class="num-wrap">
+                            <span class="num">999+</span>
+                        </div>
+                        <div class="nav-name">游戏</div>
+                    </a>
+                </div>
+                <div class="child">
+                    <a href="#">
+                        <div class="num-wrap">
+                            <span class="num">999+</span>
+                        </div>
+                        <div class="nav-name">科技</div>
+                    </a>
+                </div>
+                <div class="child">
+                    <a href="#">
+                        <div class="num-wrap">
+                            <span class="num">999+</span>
+                        </div>
+                        <div class="nav-name">数码</div>
+                    </a>
+                </div>
+                <div class="child">
+                    <a href="#">
+                        <div class="num-wrap">
+                            <span class="num">999+</span>
+                        </div>
+                        <div class="nav-name">生活</div>
+                    </a>
+                </div>
+                <div class="child">
+                    <a href="#">
+                        <div class="num-wrap">
+                            <span class="num">999+</span>
+                        </div>
+                        <div class="nav-name">鬼畜</div>
+                    </a>
+                </div>
+                <div class="child">
+                    <a href="#">
+                        <div class="num-wrap">
+                            <span class="num">999+</span>
+                        </div>
+                        <div class="nav-name">时尚</div>
+                    </a>
+                </div>
+                <div class="child">
+                    <a href="#">
+                        <div class="num-wrap">
+                            <span class="num">999+</span>
+                        </div>
+                        <div class="nav-name">广告</div>
+                    </a>
+                </div>
+                <div class="child">
+                    <a href="#">
+                        <div class="num-wrap">
+                            <span class="num">999+</span>
+                        </div>
+                        <div class="nav-name">娱乐</div>
+                    </a>
+                </div>
+                <div class="child">
+                    <a href="#">
+                        <div class="num-wrap">
+                            <span class="num">999+</span>
+                        </div>
+                        <div class="nav-name">影视</div>
+                    </a>
+                </div>
+                <div class="child">
+                    <a href="#">
+                        <div class="num-wrap">
+                            <span class="num">999+</span>
+                        </div>
+                        <div class="nav-name">其他</div>
+                    </a>
+                </div>
+                <div class="child">
+                    <div class="cat">
+                        <a href="#">
+                            <img src="/static/img/indexIcon/cat.gif" alt="萌宠">
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+        <!--轮播图以及热度最高的视频区-->
+        <div class="row best-videos">
+            <!-- 轮播图-->
+            <div id="carouselExampleIndicators" class="carousel slide col-12 col-sm-12 col-md-5 col-lg-5 col-xl-5"
+                 data-ride="carousel">
+                <ol class="carousel-indicators">
+                    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                </ol>
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img class="d-block w-100" src="/static/img/indexIcon/panel/panel_1.jpg" alt="First slide">
+                    </div>
+                    <div class="carousel-item">
+                        <img class="d-block w-100" src="/static/img/indexIcon/panel/panel_2.jpg" alt="Second slide">
+                    </div>
+                    <div class="carousel-item">
+                        <img class="d-block w-100" src="/static/img/indexIcon/panel/panel_3.jpg" alt="Third slide">
+                    </div>
+                </div>
+            </div>
+            <!--热度视频-->
+            <div class="home-card col-12 col-sm-12 col-md-7 col-lg-7 col-xl-7">
+                <div class="row">
+                    <div class="col-6 col-sm-4 col-md-4 col-lg-4 col-xl-4 videos">
+                        <div class="recommend">
+                            <a href="#">
+                                <img src="" alt=""/>
+                            </a>
+                            <div class="card-mark">
+                                <p class="title">【测试】这是一个测试Video</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-sm-4 col-md-4 col-lg-4 col-xl-4 videos">
+                        <div class="recommend">
+                            <a href="#">
+                                <img src="" alt=""/>
+                            </a>
+                            <div class="card-mark">
+                                <p class="title">【测试】这是一个测试Video</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-sm-4 col-md-4 col-lg-4 col-xl-4  videos">
+                        <div class="recommend">
+                            <a href="#">
+                                <img src="" alt=""/>
+                            </a>
+                            <div class="card-mark">
+                                <p class="title">【测试】这是一个测试Video</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6 col-sm-4 col-md-4 col-lg-4 col-xl-4 videos">
+                        <div class="recommend">
+                            <a href="#">
+                                <img src="" alt=""/>
+                            </a>
+                            <div class="card-mark">
+                                <p class="title">【测试】这是一个测试Video</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-sm-4 col-md-4 col-lg-4 col-xl-4 videos">
+                        <div class="recommend">
+                            <a href="#">
+                                <img src="" alt=""/>
+                            </a>
+                            <div class="card-mark">
+                                <p class="title">【测试】这是一个测试Video</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-sm-4 col-md-4 col-lg-4 col-xl-4  videos">
+                        <div class="recommend">
+                            <a href="#">
+                                <img src="" alt=""/>
+                            </a>
+                            <div class="card-mark">
+                                <p class="title">【测试】这是一个测试Video</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!--    推广板块-->
+        <div class="Promote row">
+            <div class="row col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 Promote-tag">
+                <div class="Promote-img">
+                    <img src="/static/img/indexIcon/Promote.png" alt="Promote">
+                </div>
+                <div class="Promote-name">推广</div>
+            </div>
+            <div class="row Promote-content">
+                <div class="col-6 col-sm-4 col-lg-2 col-xl-2 col-md-4 Promote-one">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第一个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-4 col-lg-2 col-xl-2 col-md-4 Promote-one">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第一个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-4 col-lg-2 col-xl-2 col-md-4 Promote-one">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第一个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-4 col-lg-2 col-xl-2 col-md-4 Promote-one">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第一个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-4 col-lg-2 col-xl-2 col-md-4 Promote-one">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第一个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-4 col-lg-2 col-xl-2 col-md-4 Promote-one">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第一个测试推广视频文字描述</span>
+                </div>
+            </div>
+        </div>
+        <!--    直播板块-->
+        <div class="Promote row">
+            <div class="row col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 Promote-tag">
+                <div class="Promote-img">
+                    <img src="/static/img/indexIcon/live.png" alt="Promote">
+                </div>
+                <div class="Promote-name">正在直播</div>
+            </div>
+            <div class="Live-content">
+                <h1>正在建设，敬请期待！</h1>
+                <h3>Coming Soon.</h3>
+            </div>
+        </div>
+        <!--音乐板块-->
+        <div class="Promote row">
+            <div class="row col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 Promote-tag">
+                <div class="Promote-img">
+                    <img src="/static/img/indexIcon/Music.png" alt="Promote">
+                </div>
+                <div class="Promote-name">音乐</div>
+            </div>
+            <div class="row Promote-content Music justify-content-between">
+                <div class="row col-12 col-sm-12 col-md-9 col-lg-9 col-xl-8">
+                    <div class="col-6 col-sm-6 col-md-3 col-lg-3 col-xl-3 Music-card">
+                        <a href="#">
+                            <div class="Promote-one-img Music-img">
+                                <img src=""
+                                     alt="Promote-one-img">
+                            </div>
+                        </a>
+                        <span>第一个测试音乐视频文字描述描述</span>
+                    </div>
+                    <div class="col-6 col-sm-6 col-md-3 col-lg-3 col-xl-3 Music-card">
+                        <a href="#">
+                            <div class="Promote-one-img Music-img">
+                                <img src=""
+                                     alt="Promote-one-img">
+                            </div>
+                        </a>
+                        <span>第一个测试音乐视频文字描述描述</span>
+                    </div>
+                    <div class="col-6 col-sm-6 col-md-3 col-lg-3 col-xl-3 Music-card">
+                        <a href="#">
+                            <div class="Promote-one-img Music-img">
+                                <img src=""
+                                     alt="Promote-one-img">
+                            </div>
+                        </a>
+                        <span>第一个测试音乐视频文字描述描述</span>
+                    </div>
+                    <div class="col-6 col-sm-6 col-md-3 col-lg-3 col-xl-3 Music-card">
+                        <a href="#">
+                            <div class="Promote-one-img Music-img">
+                                <img src=""
+                                     alt="Promote-one-img">
+                            </div>
+                        </a>
+                        <span>第一个测试音乐视频文字描述描述</span>
+                    </div>
+                    <div class="col-6 col-sm-6 col-md-3 col-lg-3 col-xl-3 Music-card">
+                        <a href="#">
+                            <div class="Promote-one-img Music-img">
+                                <img src=""
+                                     alt="Promote-one-img">
+                            </div>
+                        </a>
+                        <span>第一个测试音乐视频文字描述描述</span>
+                    </div>
+                    <div class="col-6 col-sm-6 col-md-3 col-lg-3 col-xl-3 Music-card">
+                        <a href="#">
+                            <div class="Promote-one-img Music-img">
+                                <img src=""
+                                     alt="Promote-one-img">
+                            </div>
+                        </a>
+                        <span>第一个测试音乐视频文字描述描述</span>
+                    </div>
+                    <div class="col-6 col-sm-6 col-md-3 col-lg-3 col-xl-3 Music-card">
+                        <a href="#">
+                            <div class="Promote-one-img Music-img">
+                                <img src=""
+                                     alt="Promote-one-img">
+                            </div>
+                        </a>
+                        <span>第一个测试音乐视频文字描述描述</span>
+                    </div>
+                    <div class="col-6 col-sm-6 col-md-3 col-lg-3 col-xl-3 Music-card">
+                        <a href="#">
+                            <div class="Promote-one-img Music-img">
+                                <img src=""
+                                     alt="Promote-one-img">
+                            </div>
+                        </a>
+                        <span>第一个测试音乐视频文字描述描述</span>
+                    </div>
+                </div>
+
+                <div class="rank col-12 col-sm-12 col-md-3 col-lg-3 col-xl-4">
+                    <span style="font-size: 20px">播放排行</span>
+                    <ul class="nav">
+                        <li role="presentation" class="nav-li rank-li">
+                            <div class="number"><img src="/static/img/indexIcon/Number/1.png" alt="1"/></div>
+                            <a href="#">请问up，封面这个杀UP主的是什么番?</a>
+                        </li>
+                        <li role="presentation" class="nav-li rank-li">
+                            <div class="number"><img src="/static/img/indexIcon/Number/2.png" alt="2"/></div>
+                            <a href="#">超级英雄导致900人无辜伤亡，复联被美国</a>
+                        </li>
+                        <li role="presentation" class="nav-li rank-li">
+                            <div class="number"><img src="/static/img/indexIcon/Number/3.png" alt="3"/></div>
+                            <a href="#">这动画结局直接封神！评分9.9，主角骚到你</a>
+                        </li>
+                        <li role="presentation" class="nav-li rank-li">
+                            <div class="number"><img src="/static/img/indexIcon/Number/4.png" alt="4"/></div>
+                            <a href="#">如果发现自己网上的基友是美少女，你会干</a>
+                        </li>
+                        <li role="presentation" class="nav-li rank-li">
+                            <div class="number"><img src="/static/img/indexIcon/Number/5.png" alt="5"/></div>
+                            <a href="#">前方高能！让世界享受这场逮虾户盛宴！</a>
+                        </li>
+                        <li role="presentation" class="nav-li rank-li">
+                            <div class="number"><img src="/static/img/indexIcon/Number/6.png" alt="6"/></div>
+                            <a href="#">从星河舰队到鬼火摩托！带你看崩坏3理之律</a>
+                        </li>
+                        <li role="presentation" class="nav-li rank-li">
+                            <div class="number"><img src="/static/img/indexIcon/Number/7.png" alt="7"/></div>
+                            <a href="#">高能炸裂，超神打斗！简评《鬼灭之刃》第</a>
+                        </li>
+                        <li role="presentation" class="nav-li rank-li">
+                            <div class="number"><img src="/static/img/indexIcon/Number/8.png" alt="8"/></div>
+                            <a href="#">黑暗笼罩，你能否找到未来的钥匙？</a>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+
+
+        </div>
+        <!--番剧板块-->
+        <div class="Promote row">
+            <div class="row col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 Promote-tag">
+                <div class="Promote-img">
+                    <img src="/static/img/indexIcon/Animation.png" alt="Promote">
+                </div>
+                <div class="Promote-name">番剧</div>
+            </div>
+            <div class="row Promote-content Animation">
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第一个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第二个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第三个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第四个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第五个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第六个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第一个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第二个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第三个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第四个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第五个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第六个测试推广视频文字描述</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--live2d看板娘-->
+<div id="landlord">
+    <div class="message" style="opacity:0"></div>
+    <canvas id="live2d" width="290" height="250" class="live2d"></canvas>
+    <div class="hide-button">隐藏</div>
+</div>
+<!-- Modal -->
+<div th:include="logoutModal"></div>
+<!--footer-->
+<footer class="footer" style="text-align: center;margin-top: 50px">
+    <div class="container-fluid" style="background-color: rgb(229,229,229)">
+        <p></p>
+        <p>筱筱弹幕网</p>
+        <p>互联网ICP备案：鲁ICP备19037510号</p>
+        <p>Copyright © 2019 Kaciry. All rights reserved.</p>
+        <p style="margin-bottom: 0">联系方式：kaciry@126.com</p>
+    </div>
+</footer>
+<script src="/static/js/Jquery/jquery-3.4.1.js"></script>
+<script src="/static/bootstrap-4.3.1/dist/js/bootstrap.js"></script>
+
+<script type="text/javascript">
+    let message_Path = '/static/live2d/';
+    let home_Path = 'https://kaciry.com/'; //此处修改为你的域名，必须带斜杠
+</script>
+<script type="text/javascript" src="/static/live2d/js/live2d.js"></script>
+<script type="text/javascript" src="/static/live2d/js/message.js"></script>
+<script type="text/javascript" src="/static/js/indexJS/indexjs.js"></script>
+<script>
+    $('.carousel').carousel({
+        interval: 3000
+    })
+</script>
+</body>
+</html>
+
