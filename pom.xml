@@ -11,7 +11,6 @@
     <groupId>com.xiaoxiaobulletscreen</groupId>
     <artifactId>spring-boot-01-quick</artifactId>
     <version>1.0.1-SNAPSHOT</version>
-    <userRealName>spring-boot-01-quick</userRealName>
 <!--    <packaging>war</packaging>-->
     <description>Demo project for Spring Boot</description>
 
@@ -41,9 +40,7 @@
         <dependency>
 
             <groupId>org.thymeleaf</groupId>
-
             <artifactId>thymeleaf-spring5</artifactId>
-
         </dependency>
 
         <dependency>

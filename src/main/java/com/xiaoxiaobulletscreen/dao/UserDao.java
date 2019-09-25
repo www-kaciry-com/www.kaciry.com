@@ -35,7 +35,7 @@ public interface UserDao {
 
     //将用户上传的文件名保存到数据库
     @Insert("insert into user_video (username,videoTitle,videoType,videoState,videoName,videoFilename,videoDescription,videoCover,videoData,videoStars,videoCoins,videoConnections,videoShares,videoPlayNum,videoBarrages)" +
-            " values(#{username},#{videoTitle},#{videoType},#{state},#{videoName},#{videoFileName},#{videoDescription},#{videoCover},#{videoData},#{videoStars},#{videoCoins},#{videoConnections},#{videoShares},#{playNum},#{videoBarrages})")
+            " values(#{username},#{videoTitle},#{videoType},#{videoState},#{videoName},#{videoFilename},#{videoDescription},#{videoCover},#{videoData},#{videoStars},#{videoCoins},#{videoConnections},#{videoShares},#{videoPlayNum},#{videoBarrages})")
     boolean insertVideo(VideoInfo videoInfo);
 
     //查询用户的投稿,查询相关视频信息

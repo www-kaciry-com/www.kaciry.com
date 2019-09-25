@@ -91,14 +91,14 @@ function analysisData(data) {
     $.each(data, function (i, element) {
         str += "<li class=\"video-item\">\n" +
             "                        <div class=\"cover\">\n" +
-            "                            <a href=\"/video?videoid=" + element.videoFileName + " \"><img src=\"/files/videoCover/" + element.videoCover + "\" alt=\"Cover\"></a>\n" +
+            "                            <a href=\"/video?videoid=" + element.videoFilename + " \"><img src=\"/files/videoCover/" + element.videoCover + "\" alt=\"Cover\"></a>\n" +
             "                        </div>\n" +
             "                        <div class=\"info\">\n" +
             "                            <p class=\"title\">" + element.videoName + "</p>\n" +
             "                            <div class=\"tags\">\n" +
             "                                <div class=\"playNum\">\n" +
             "                                    <img src=\"/static/img/searchIcon/img/play.png\" alt=\"playnum\">\n" +
-            "                                    <span>" + element.playNum + "</span>\n" +
+            "                                    <span>" + element.videoPlayNum + "</span>\n" +
             "                                </div>\n" +
             "                                <div class=\"up-data\">\n" +
             "                                    <img src=\"/static/img/searchIcon/img/time.png\" alt=\"\">\n" +
@@ -108,7 +108,7 @@ function analysisData(data) {
             "\n" +
             "                            <div class=\"uper\">\n" +
             "                                <a href=\"#\"><img src=\"/static/img/searchIcon/img/user.png\" alt=\"user\"></a>\n" +
-            "                                <span>" + element.nickname + "</span>\n" +
+            "                                <span>" + element.userNickName + "</span>\n" +
             "                            </div>\n" +
             "                        </div>\n" +
             "                    </li>";

@@ -12,7 +12,73 @@
 </head>
 <body>
 <div class="container-fluid">
-    <div th:include="nav"></div>
+    <nav class="navbar  navbar-fixed-top navbar-default">
+        <!-- container容器，左右留有余地 -->
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <!--
+                            在浏览器的宽度很小时，button出现。
+                            图案为方框内有三道杠。
+                   data-target="#TaoistsNavBar" 与 div id="TaoistsNavBar" 相对应
+                -->
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                        data-target="#TaoistsNavBar" aria-expanded="false">
+                    <!--                        <span class="sr-only">Toggle navigation</span>-->
+                    <!--
+                        icon-bar有一个，那个图标就有一道杠。这里有三个，那么图标就有三道杠
+                    -->
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+
+            </div>
+
+            <div class="collapse navbar-collapse" role="navigation" id="TaoistsNavBar">
+                <ul class="nav navbar-nav">
+
+                    <li class="active"><a href="#" th:href="@{/index}">主页</a></li>
+                    <li><a href="#">音频</a></li>
+                    <li><a href="http://www.4399.com">游戏中心</a></li>
+                    <li><a href="#">会员购</a></li>
+                    <li><a href="#">漫画</a></li>
+                    <li><a href="#">下载APP</a></li>
+                </ul>
+                <div class="nav-wrapper" th:if="${session.user != null}">
+                    <ul class="nav navbar-nav navbar-right ">
+
+                        <li><a href="#" th:href="@{/userhomepage}">我的</a></li>
+                        <li><a href="#" th:href="@{/reply}">动态</a></li>
+                        <li><a href="#">稍后再看</a></li>
+                        <li><a href="#">收藏</a></li>
+                        <li><a href="#">历史</a></li>
+                        <li><a href="#" th:href="@{/contribute}">投稿</a></li>
+                        <li><a href="#" data-toggle="modal" data-target="#logoutModal">注销</a></li>
+                    </ul>
+                    <form class="navbar-form navbar-right form-inline" th:action="@{/search}">
+                        <div class="input-group">
+                            <div class="form-group">
+                                <input type="search" name="information" class="form-control" placeholder="输入搜索的内容"/>
+                            </div>
+                            <span class="input-group-btn">
+                                   <button class="btn btn-default">
+                                         <span class="glyphicon glyphicon-search"></span>
+                                   </button>
+                                </span>
+                        </div>
+                    </form>
+                </div>
+                <div class="nav-wrapper" th:if="${session.user == null}">
+                    <ul class="nav navbar-nav">
+                        <li><a href="/login" th:href="@{/signin}">登陆</a></li>
+                        <li><a href="/login" th:href="@{/register}">注册</a></li>
+
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </nav>
     <div class="container-fluid broadside-nav">
         <div class="col-md-2 col-lg-2 col-xs-3">
             <div>

@@ -126,12 +126,12 @@ function analysisData(data) {
     let str = '';
     $.each(data, function (i, element) {
         str += "<li class=\"col-6 col-md-3 items\" style=\"display: block\">\n" +
-            "                            <a href=\"/video?videoid=" + element.videoFileName + "  \" target=\"_blank\" class=\"cover\">\n" +
+            "                            <a href=\"/video?videoid=" + element.videoFilename + "  \" target=\"_blank\" class=\"cover\">\n" +
             "                                <div class=\"cover\"><img src=\"/files/videoCover/" + element.videoCover + "\" alt=\"cover\" class=\"videoCover\"></div>\n" +
             "                            </a>\n" +
             "                            <a href=\"\" target=\"_blank\" title=\"\" class=\"title\">" + element.videoName + "</a>\n" +
             "                            <div class=\"meta\">\n" +
-            "                                <span class=\"play\"><i class=\"icon\">" + element.playNum + "</i></span>\n" +
+            "                                <span class=\"play\"><i class=\"icon\">" + element.videoPlayNum + "</i></span>\n" +
             "                                <span class=\"time\"><i class=\"icon\">" + element.videoData.substring(0, 11) + "</i></span>\n" +
             "                            </div>\n" +
             "                        </li>";
