@@ -61,6 +61,55 @@
             margin-top: 70px;
             margin-left: 35px;
         }
+        .cur-headicon-img img {
+            width: 200px;
+            height: 200px;
+            border-radius: 5%;
+        }
+        #pre {
+            width: 200px;
+            height: 200px;
+            border-radius: 5%;
+        }
+
+        .first-change-lb i[data-v-15325571] {
+            margin: 52px auto 0;
+            width: 54px;
+            height: 46px;
+            display: block;
+            background: url(https://s1.hdslb.com/bfs/static/account-fe/static/img/icons_m_2.57e5263.png) -101px -1065px;
+        }
+
+        .cg-headicon-img {
+            width: 200px;
+            height: 200px;
+            /*border: 1px solid red;*/
+            margin: auto 0;
+            background-color: #e6e6e6;
+            border-radius: 5%;
+        }
+
+        .cg-headicon-img label {
+            width: 100%;
+            height: 100%;
+            display: inline-table;
+
+        }
+        #file_input {
+            display: none;
+        }
+        .descript {
+            font: 12px/1.5 Microsoft YaHei,tahoma,\\5B8B\4F53,sans-serif;
+            text-align: center;
+            margin: 100px auto;
+            padding: 0;
+            line-height: 16px;
+            color: #abb4bc;
+        }
+        .sub {
+            display: block;
+            margin: auto;
+        }
     </style>
 </head>
 <body>
@@ -81,7 +130,7 @@
         <div class="nav flex-column nav-pills col-12 col-sm-12 col-md-12 col-lg-2 col-xl-3" id="v-pills-tab"
              role="tablist" aria-orientation="vertical">
             <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab"
-               aria-controls="v-pills-home" aria-selected="true">主页</a>
+               aria-controls="v-pills-home" aria-selected="true">我的头像</a>
             <a class="nav-link" id="v-pills-info-tab" data-toggle="pill" href="#v-pills-info" role="tab"
                aria-controls="v-pills-info" aria-selected="false"  onclick="selectInfo()">个人信息</a>
             <a class="nav-link" id="v-pills-contribute-tab" data-toggle="pill" href="#v-pills-contribute" role="tab"
@@ -91,7 +140,26 @@
         </div>
         <div class="tab-content col-12 col-sm-12 col-md-12 col-lg-10 col-xl-9" id="v-pills-tabContent">
             <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
-                主页
+                <form th:action="@{/modifyHeadIcon}" enctype="multipart/form-data" method="post">
+                    <div class="row justify-content-center text-center">
+                        <div class="cg-headicon-img col-lg-3">
+                            <label data-v-15325571="" for="file_input" class="first-change-lb text-center">
+                                <i data-v-15325571=""></i>
+                                <span data-v-15325571="">选择图片</span>
+                            </label>
+                            <input data-v-15325571="" type="file" name="file" id="file_input" accept="image/png,image/jpg,image/jpeg">
+                        </div>
+                        <div class="cur-headicon-img col-6 col-lg-3">
+                            <img src="" th:src="${session.user.getUserHeadIcon()}" alt="" class="site-master-avatar">
+                        </div>
+                        <div class="cur-headicon-img col-lg-3 offset-lg-1">
+                            <img src="" alt="预览" id="pre" class="site-master-avatar">
+                        </div>
+                        <p data-v-15325571="" class="descript">请选择图片上传：大小180 * 180像素支持JPG、PNG等格式，图片需小于2M</p>
+                    </div>
+                    <button type="submit" class="btn btn-primary sub col-lg-2 col-md-2 col-xl-2 col-sm-3 col-6">更新</button>
+                </form>
+
             </div>
             <div class="tab-pane fade" id="v-pills-info" role="tabpanel" aria-labelledby="v-pills-info-tab">
                 <div class="user-infos">
@@ -205,5 +273,25 @@
 <script src="/static/bootstrap-4.3.1/dist/js/bootstrap.js"></script>
 <script src="/static/js/userInfoManager.js"></script>
 <script src="/static/js/pagePulg/mricode.pagination.js"></script>
+<script>
+    $("#file_input").change(function(){
+        var objUrl = getObjectURL(this.files[0]) ;//获取文件信息
+        console.log("objUrl = "+objUrl);
+        if (objUrl) {
+            $("#pre").attr("src", objUrl);
+        }
+    }) ;
+    function getObjectURL(file) {
+        var url = null;
+        if (window.createObjectURL!==undefined) {
+            url = window.createObjectURL(file) ;
+        } else if (window.URL!==undefined) { // mozilla(firefox)
+            url = window.URL.createObjectURL(file) ;
+        } else if (window.webkitURL!==undefined) { // webkit or chrome
+            url = window.webkitURL.createObjectURL(file) ;
+        }
+        return url ;
+    }
+</script>
 </body>
 </html>

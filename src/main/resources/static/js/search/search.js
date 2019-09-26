@@ -1,6 +1,9 @@
 let keyword = GetQueryString("information");
+let type = GetQueryString("k");
+if (!type && typeof(type)!="undefined" && type!==0) {
+    type = "s";
+}
 $(document).ready(function () {
-
     $.ajax({
         url: '/searchMsg',//请求的地址
         type: 'post', //请求的方式
@@ -9,6 +12,7 @@ $(document).ready(function () {
             pageNum: 1,
             pageSize: 20,
             keyword: keyword,
+            type:type,
         },
         error: function () {
             alert("服务器未响应，加载视频信息失败！");
@@ -54,6 +58,7 @@ $("#page").on("pageClicked", function (event, data) {
             pageNum: data.pageIndex + 1,
             pageSize: 20,
             keyword: keyword,
+            type:type,
         },
         success: function (result) {
 
@@ -75,6 +80,7 @@ $("#page").on("jumpClicked", function (event, data) {
             pageNum: data.pageIndex + 1,
             pageSize: 20,
             keyword: keyword,
+            type:type,
         },
         success: function (result) {
 

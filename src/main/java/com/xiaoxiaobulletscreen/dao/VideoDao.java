@@ -27,7 +27,7 @@ public interface VideoDao {
     VideoInfo initVideoInfo(String videoAddress);
 
     //使user_video表中videoFilename对应的star数量加一
-    @Update("update user_video set videoStar = videoStar + 1 where videoFilename = #{videoFilename}")
+    @Update("update user_video set videoStars = videoStars + 1 where videoFilename = #{videoFilename}")
     void updateVideoStarAdd(String videoFilename);
 
     //使user_video表中videoFilename对应的collection数量加一

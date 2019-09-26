@@ -19,4 +19,10 @@ public class SearchDataServiceImpl implements SearchDataService {
 
             return res;
     }
+
+    @Override
+    public List<VideoInfo> SearchByType(String keyword) {
+
+        return indexDataDao.SelectVideoData(keyword);
+    }
 }

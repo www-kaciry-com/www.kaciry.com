@@ -29,7 +29,7 @@ $(document).ready(function () {
                 //添加文字描述
                 spanTag.eq(i).text(element.videoName);
                 // videoTag.eq(i).attr("value",element.videoFileName);
-                videoTag1.eq(i).attr("href", "/video?videoid=" + element.videoFileName);
+                videoTag1.eq(i).attr("href", "/video?videoid=" + element.videoFilename);
             });
             // console.log(videoTag.eq(0).val());
         }

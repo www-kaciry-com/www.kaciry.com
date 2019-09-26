@@ -8,4 +8,6 @@ public interface SearchDataService {
 
     List<VideoInfo> SearchKeyword(String keyword);
 
+    List<VideoInfo> SearchByType(String keyword);
+
 }

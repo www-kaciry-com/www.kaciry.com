@@ -20,6 +20,9 @@ public interface UserService {
 
     boolean updatePassword(String email, String password);
 
+    //修改用户头像
+    boolean updateUserHeadIcon(String userHeadIcon , String username);
+
     List<VideoInfo> queryCollect(String username);
 
 }

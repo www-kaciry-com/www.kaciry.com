@@ -61,6 +61,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public boolean updateUserHeadIcon(String userHeadIcon, String username) {
+        return userDao.updateUserHeadIcon(userHeadIcon,username);
+    }
+
+    @Override
     public List<VideoInfo> queryCollect(String username) {
         List<VideoInfo> videoInfoList = new ArrayList() ;
         List<String> videoName = userDao.queryCollect(username,1);

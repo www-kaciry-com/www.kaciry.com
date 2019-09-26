@@ -11,9 +11,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
+import java.io.File;
 import java.util.List;
+import java.util.Objects;
 
 @Controller
 public class UserInfoController {
@@ -35,8 +38,34 @@ public class UserInfoController {
     @PostMapping(value = "/changeInfo")
     @ResponseBody
     public User changeInfo(User user){
-        System.out.println(user);
         return userService.changeInfo(user);
+    }
+
+    @PostMapping(value = "modifyHeadIcon")
+    @ResponseBody
+    public boolean modifyHeadIcon(MultipartFile file, HttpSession session){
+        try {
+            //获取文件名
+            String fileName = session.getAttribute("username").toString();
+            String fileSuffix = Objects.requireNonNull(file.getOriginalFilename()).substring(file.getOriginalFilename().lastIndexOf("."));
+            //Linux下上传目录
+            //String filePathCover = "/www/wwwroot/www.kaciry.com/upload/HeadIcon/";
+            //Windows下上传目录
+            String filePath = "F:/upload/HeadIcon/";
+            //创建文件
+            File files = new File(filePath + fileName + fileSuffix);
+            //上传文件
+            file.transferTo(files);
+            //创建文件路径
+            String userHeadIconPathName = "/files/HeadIcon/" + fileName + fileSuffix;
+            //修改数据库中头像路径
+            return userService.updateUserHeadIcon(userHeadIconPathName,session.getAttribute("username").toString());
+
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+
     }
 
     @PostMapping("/postUpdatePwd")

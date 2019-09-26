@@ -25,13 +25,30 @@ public class SearchController {
 
     @PostMapping(value = "/searchMsg")
     @ResponseBody
-    public PageInfo<VideoInfo> searchMsg(Integer pageNum,Integer pageSize,String keyword){
-        List<VideoInfo> videoInfoList;
+    public PageInfo<VideoInfo> searchMsg(Integer pageNum,Integer pageSize,String keyword,String type){
+        List<VideoInfo> videoInfoList = null;
 
         PageHelper.startPage(pageNum, pageSize);
-
-        videoInfoList = searchDataService.SearchKeyword(keyword);
-
+        if (type.equals("s")){
+            videoInfoList = searchDataService.SearchKeyword(keyword);
+        }else if (type.equals("n")){
+            videoInfoList = searchDataService.SearchByType(keyword);
+        }else {
+            System.out.println("Search error!");
+        }
         return new PageInfo<>(videoInfoList);
     }
+
+//    @PostMapping(value = "searchByType")
+//    @ResponseBody
+//    public PageInfo<VideoInfo> searchByType(Integer pageNum,Integer pageSize,String keyword ){
+//
+//        List<VideoInfo> videoInfoList;
+//
+//        PageHelper.startPage(pageNum, pageSize);
+//
+//        videoInfoList = searchDataService.SearchByType(keyword);
+//
+//        return new PageInfo<>(videoInfoList);
+//    }
 }

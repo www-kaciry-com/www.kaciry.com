@@ -18,4 +18,7 @@ public interface IndexDataDao {
     @Select("select * from user_video where videoName like '%${keyword}%'")
     List<VideoInfo> FuzzySearch(@Param("keyword") String keyword);
 
+    @Select("select * from user_video where videoName = #{keyword}")
+    List<VideoInfo> SearchByType(@Param("keyword") String keyword);
+
 }

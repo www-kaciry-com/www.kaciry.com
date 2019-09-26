@@ -25,6 +25,10 @@ public interface UserDao {
     @Update({"update user set userEmail = #{userEmail},userPhoneNumber = #{userPhoneNumber},userNickName = #{userNickName},userSex = #{userSex} where username = #{username}"})
     boolean updateUserInfo(User user);
 
+    //修改头像
+    @Update("update user set userHeadIcon = #{userHeadIcon} where username = #{username}")
+    boolean updateUserHeadIcon(@Param("userHeadIcon")String userHeadIcon,@Param("username") String username);
+
     //修改密码
     @Update("update user set userPassword = #{userPassword} where userEmail = #{userEmail}")
     boolean updatePassword(@Param("userEmail") String userEmail, @Param("userPassword") String userPassword);
