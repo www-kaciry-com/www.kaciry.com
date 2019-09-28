@@ -4,6 +4,7 @@ import com.xiaoxiaobulletscreen.entity.VideoInfo;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class DataWeightSort {
@@ -50,6 +51,7 @@ public class DataWeightSort {
             arrayList.add(selectInfo(videoInfo, array[i]));
         }
 //        System.out.println("arrayList : " + arrayList);
+        Collections.reverse(arrayList);
         return arrayList;
     }
     //根据index索引值查找videoInfo对应的数据项并返回

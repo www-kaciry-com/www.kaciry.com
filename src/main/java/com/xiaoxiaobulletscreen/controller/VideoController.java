@@ -40,6 +40,7 @@ public class VideoController {
         return "upload";
     }
 
+    //投稿视频Controller
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
     @ResponseBody
     public String uploadFile(MultipartFile[] file, HttpSession session, HttpServletRequest req) {
@@ -124,6 +125,7 @@ public class VideoController {
         }
     }
 
+    //投币点赞收藏Controller
     @PostMapping(value = "/opsStar")
     @ResponseBody
     public boolean opsStar(String username, String videoFileName, String option) {
@@ -147,5 +149,6 @@ public class VideoController {
         return res;
 
     }
+
 
 }

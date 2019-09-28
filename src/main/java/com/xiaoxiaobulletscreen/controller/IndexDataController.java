@@ -23,6 +23,12 @@ public class IndexDataController {
         return result;
     }
 
+    //首页播放排行榜Controller
+    @PostMapping(value = "/playRank")
+    @ResponseBody
+    public List<VideoInfo> indexPlayRankInit(String videoType,int length){
 
+        return indexDataService.SelectIndexDataByType(videoType,length,true);
+    }
 
 }

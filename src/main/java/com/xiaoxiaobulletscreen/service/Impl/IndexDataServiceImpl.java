@@ -22,5 +22,9 @@ public class IndexDataServiceImpl implements IndexDataService {
 
     }
 
+    public List<VideoInfo> SelectIndexDataByType(String VideoType,int length,boolean rank) {
+        return indexDataDao.SelectVideoDataByType(VideoType,length);
+    }
+
 
 }
