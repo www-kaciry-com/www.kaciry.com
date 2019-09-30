@@ -87,7 +87,7 @@ $(document).ready(function () {
             let aTag = $(".rank a");
 
             $.each(json, function (i, element) {
-                aTag.eq(i).attr("href" , "/video?videoid=" + element.videoFilename);
+                aTag.eq(i).attr("href", "/video?videoid=" + element.videoFilename);
                 aTag.eq(i).text(element.videoName);
             })
 
@@ -96,4 +96,16 @@ $(document).ready(function () {
 
     return false;
 });
+
+
+//工具 , 导航栏中固定定位对锚点链接影响的解决方法
+function locateAt(e) {
+    e = document.getElementById(e);/*以id命名的锚点*/
+    let y = e.offsetTop;
+    while (e === e.offsetParent) {
+        y += e.offsetTop;
+    }
+    y -= 55;/*悬浮菜单的高度*/
+    window.scrollTo(0, y);
+}
 

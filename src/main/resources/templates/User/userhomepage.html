@@ -6,113 +6,11 @@
     <link rel="stylesheet" href="/static/bootstrap-4.3.1/dist/css/bootstrap.css">
     <link rel="stylesheet" href="/static/css/index-css.css">
     <link rel="stylesheet" href="/static/css/pagePlugCSS/mricode.pagination.css">
+    <link rel="stylesheet" href="/static/css/user/user.css">
     <title th:text="${session.user.getUserNickName()} + '的个人主页'">我的主页</title>
-    <style>
-        .container {
-            margin-top: -180px;
-            padding-top: 30px;
-            background: rgba(230, 244, 249, .8);
-            min-height: 600px;
-        }
 
-        #v-pills-tab {
-            text-align: center;
-        }
-
-        .user-infos label {
-            text-align: right;
-        }
-
-        .cover {
-            width: 170px;
-            height: 100px;
-        }
-
-        .videoCover {
-            border-radius: 4%;
-        }
-
-        .cover img {
-            width: 100%;
-            height: 100%;
-        }
-
-        .meta {
-            text-align: left;
-            color: #999999;
-            font-style: normal;
-        }
-
-        .title {
-            color: #0f0f0f !important;
-            margin: 2px 5px;
-            display: block; /*内联对象需加*/
-            overflow: hidden;
-            text-overflow: ellipsis; /*超出部分用...代替*/
-            width: 170px;
-            white-space: nowrap; /*不显示的地方用省略号...代替*/
-        }
-
-        .items {
-            margin-bottom: 20px;
-        }
-
-        .m-pagination {
-            margin-top: 70px;
-            margin-left: 35px;
-        }
-        .cur-headicon-img img {
-            width: 200px;
-            height: 200px;
-            border-radius: 5%;
-        }
-        #pre {
-            width: 200px;
-            height: 200px;
-            border-radius: 5%;
-        }
-
-        .first-change-lb i[data-v-15325571] {
-            margin: 52px auto 0;
-            width: 54px;
-            height: 46px;
-            display: block;
-            background: url(https://s1.hdslb.com/bfs/static/account-fe/static/img/icons_m_2.57e5263.png) -101px -1065px;
-        }
-
-        .cg-headicon-img {
-            width: 200px;
-            height: 200px;
-            /*border: 1px solid red;*/
-            margin: auto 0;
-            background-color: #e6e6e6;
-            border-radius: 5%;
-        }
-
-        .cg-headicon-img label {
-            width: 100%;
-            height: 100%;
-            display: inline-table;
-
-        }
-        #file_input {
-            display: none;
-        }
-        .descript {
-            font: 12px/1.5 Microsoft YaHei,tahoma,\\5B8B\4F53,sans-serif;
-            text-align: center;
-            margin: 100px auto;
-            padding: 0;
-            line-height: 16px;
-            color: #abb4bc;
-        }
-        .sub {
-            display: block;
-            margin: auto;
-        }
-    </style>
 </head>
-<body>
+<body onload="queryCollections()">
 <!--header-->
 <div th:include="nav"></div>
 <!--页面头像特效区-->
@@ -274,15 +172,16 @@
 <script src="/static/js/userInfoManager.js"></script>
 <script src="/static/js/pagePulg/mricode.pagination.js"></script>
 <script>
+    //图片预览js
     $("#file_input").change(function(){
-        var objUrl = getObjectURL(this.files[0]) ;//获取文件信息
+        let objUrl = getObjectURL(this.files[0]) ;//获取文件信息
         console.log("objUrl = "+objUrl);
         if (objUrl) {
             $("#pre").attr("src", objUrl);
         }
     }) ;
     function getObjectURL(file) {
-        var url = null;
+        let url = null;
         if (window.createObjectURL!==undefined) {
             url = window.createObjectURL(file) ;
         } else if (window.URL!==undefined) { // mozilla(firefox)
@@ -291,6 +190,22 @@
             url = window.webkitURL.createObjectURL(file) ;
         }
         return url ;
+    }
+</script>
+<script>
+    //跳转tab js
+    let hash = location.hash;//获取到跳转页面的参数
+    let tab = $('#v-pills-tab a');
+    let con = $('.tab-content .tab-pane');
+    for(let i=0;i<con.length;i++){
+        let mm = con[i];
+        let selectCon = "#"+ $(mm).attr('id');
+        if(hash === selectCon){
+            tab.siblings().removeClass('active');
+            con.siblings().removeClass('active');
+            $(tab[i]).addClass('active show');
+            $(con[i]).addClass('active show');
+        }
     }
 </script>
 </body>

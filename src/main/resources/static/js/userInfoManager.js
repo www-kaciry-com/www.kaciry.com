@@ -2,6 +2,8 @@
 let collectPage = $("#page1");
 let contributePage = $("#page");
 
+window.onload = queryCollections;
+
 function changeInfo() {
     $.ajax({
         url: '/changeInfo', //请求的url
