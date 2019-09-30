@@ -63,9 +63,13 @@ html {
 
 .content-body {
     background-color: rgba(248, 247, 249, 0.68);
-    min-height: 90%;
-    height: 1080px;
-    margin-top: 40px;
+    /*min-height: 90%;*/
+    /*height: 980px;*/
+    margin-top: 20px;
     border-radius: 6px;
-    padding: 20px;
+    /*padding: 20px;*/
+}
+
+.main {
+    margin-top: 5px;
 }

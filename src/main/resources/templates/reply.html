@@ -3,15 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600" rel="stylesheet">
     <link rel="stylesheet" href="/static/bootstrap-4.3.1/dist/css/bootstrap.css">
     <link rel="stylesheet" href="/static/css/reply.css">
+    <link rel="stylesheet" href="/static/css/Chat/reset.min.css">
+    <link rel="stylesheet" href="/static/css/Chat/style.css">
     <title>我的消息</title>
 
 </head>
 <body>
 <div th:include="nav"></div>
 <div class="container">
-    <div class="row">
+    <div class="row main">
         <div class="col-3 col-sm-3 col-md-3 col-lg-2  nav-op">
             <ul class="nav flex-column" role="tablist">
                 <li role="presentation" class="active nav-li">
@@ -33,7 +36,7 @@
                     <a href="#privateLetters" data-toggle="tab">●&nbsp&nbsp我的私信</a>
                 </li>
                 <li role="presentation" class="nav-li">
-                    <a href="#privateLetters" data-toggle="tab">●&nbsp&nbsp实时聊天</a>
+                    <a href="#real-time-chat" data-toggle="tab">●&nbsp&nbsp实时聊天</a>
                 </li>
                 <li role="presentation" class="nav-li" style="margin-top: 30px!important;">
                     <a href="#Setting" data-toggle="tab"><img src="/static/img/setting_icon.png" alt=""
@@ -49,7 +52,7 @@
                 <div class="content-body">
                     <div class="tab-content" id="tabContent">
                         <div class="tab-pane fade show active" id="replyMe">
-                            111111
+                            111111221
                         </div>
                         <div class="tab-pane fade" id="callMe">
                             2222
@@ -64,10 +67,13 @@
                             5555
                         </div>
                         <div class="tab-pane fade" id="privateLetters">
-                            666
+                            <div th:replace="Chat/Chat :: chat"></div>
+                        </div>
+                        <div class="tab-pane fade" id="real-time-chat">
+                            777
                         </div>
                         <div class="tab-pane fade" id="Setting">
-                            7777
+                            888
                         </div>
                     </div>
                 </div>
@@ -79,6 +85,8 @@
 
 <script src="/static/js/Jquery/jquery-3.4.1.js"></script>
 <script src="/static/bootstrap-4.3.1/dist/js/bootstrap.js"></script>
+<script src="/static/js/about-me/chat.js"></script>
+<script src="/static/js/Chat/index.js"></script>
 <script>
 
 </script>
