@@ -2,6 +2,7 @@ package com.xiaoxiaobulletscreen.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.xiaoxiaobulletscreen.entity.ResultBean;
 import com.xiaoxiaobulletscreen.entity.User;
 import com.xiaoxiaobulletscreen.entity.VideoInfo;
 import com.xiaoxiaobulletscreen.service.Impl.UserServiceImpl;
@@ -107,6 +108,13 @@ public class UserInfoController {
 
         videoInfoList = userService.queryCollect(session.getAttribute("username").toString());
         return new PageInfo<>(videoInfoList);
+    }
+
+    @PostMapping(value = "/followHim")
+    @ResponseBody
+    public ResultBean followOthers(String username, String hisUsername) {
+
+        return userService.followOthers(username,hisUsername);
     }
 
 }

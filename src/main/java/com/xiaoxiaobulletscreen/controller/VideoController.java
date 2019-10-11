@@ -150,5 +150,23 @@ public class VideoController {
 
     }
 
+    //获取视频作者信息
+    @PostMapping(value = "/getVideoUser")
+    @ResponseBody
+    public VideoFollowPage getVideoUser(String videoAddress,String username) {
+        String hisUsername = userService.queryVideoInfo(videoAddress).getUsername();
+        User user =  userService.selectInfo(hisUsername);
+        FansBean fansBean = userService.queryFollowsState(username,hisUsername);
+        if (fansBean != null){
+            return new VideoFollowPage(
+                    fansBean.getUserID(),fansBean.getFollowedUser(),fansBean.getFollowedDate(),user.getUsername(),user.getUserHeadIcon(),user.getUserSignature(),user.getUserNickName()
+            );
+        }else {
+            return new VideoFollowPage("null","null","null",user.getUsername(),user.getUserHeadIcon(),user.getUserSignature(),user.getUserNickName());
+        }
+
+    }
+
+
 
 }

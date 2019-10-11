@@ -1,5 +1,7 @@
 package com.xiaoxiaobulletscreen.service;
 
+import com.xiaoxiaobulletscreen.entity.FansBean;
+import com.xiaoxiaobulletscreen.entity.ResultBean;
 import com.xiaoxiaobulletscreen.entity.User;
 import com.xiaoxiaobulletscreen.entity.VideoInfo;
 
@@ -24,5 +26,13 @@ public interface UserService {
     boolean updateUserHeadIcon(String userHeadIcon , String username);
 
     List<VideoInfo> queryCollect(String username);
+
+    VideoInfo queryVideoInfo(String videoFilename);
+
+    //关注他人
+    ResultBean followOthers(String username,String hisUsername);
+
+    //查询关注状态
+    FansBean queryFollowsState(String username,String hisUsername);
 
 }

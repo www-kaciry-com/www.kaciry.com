@@ -2,6 +2,8 @@ let videoAddress = GetQueryString("videoid");
 let username = $("#username").val();
 let pageComment = $('#pageComment');
 let page = $("#page");
+let follow_sate = $(".follow-state");
+let hisUsername;
 $(document).ready(function () {
     // let videoid = document.getElementById("videoid").value;
 
@@ -148,11 +150,33 @@ $(document).ready(function () {
             }
             let str = analysisData(json);
             pageComment.append(str);
-
-
             return false;
         }
     });
+});
+$(document).ready(function () {
+    $.ajax({
+        url: '/getVideoUser',//请求的地址
+        type: 'post', //请求的方式
+        dateType: "json", //请求的数据格式
+        data: {
+            videoAddress: videoAddress,
+            username : username,
+        },
+        error: function () {
+            alert("服务器未响应，加载视频信息失败！");
+        },
+        success: function (result) {
+            // console.log(result);
+            $(".video-user-headicon").attr("src", "" + result.userHeadIcon + "");
+            $(".video-user-nickname").text(result.userNickName);
+            $(".video-user-signature").text(result.userSignature);
+            if (result.userID !== null) {
+                follow_sate.text("取消关注");
+            }
+            hisUsername = result.username;
+        }
+    })
 });
 
 function analysisData(data) {
@@ -290,7 +314,7 @@ function clickStar() {
             data: {
                 username: username,
                 videoFileName: videoAddress,
-                option : "star",
+                option: "star",
             },
             error: function () {
                 alert("服务器开小差了，请稍后重试!");
@@ -332,6 +356,7 @@ function clickStar() {
 
     return false;
 }
+
 function clickCollect() {
     if (typeof (username) == "undefined") {
         window.location.href = "/login";
@@ -343,7 +368,7 @@ function clickCollect() {
             data: {
                 username: username,
                 videoFileName: videoAddress,
-                option : "collect",
+                option: "collect",
             },
             error: function () {
                 alert("服务器开小差了，请稍后重试!");
@@ -383,6 +408,40 @@ function clickCollect() {
 
     return false;
 }
+
+function clickFollow() {
+
+    if (typeof (username) == "undefined") {
+        window.location.href = "/login";
+    } else {
+        $.ajax({
+            url: '/followHim',//请求的地址
+            type: 'post', //请求的方式
+            dateType: "json", //请求的数据格式
+            data: {
+                username: username,
+                hisUsername: hisUsername,
+            },
+            error: function () {
+                alert("服务器未响应，加载信息失败！");
+            },
+            success: function (result) {
+                if (result.code === 200) {
+                    follow_sate.text(result.msg)
+                } else if (result.code === 502) {
+                    follow_sate.text(result.msg);
+                } else {
+                    follow_sate.text(result.msg);
+                }
+
+
+            }
+        })
+    }
+
+    return false;
+}
+
 // function navTools(pageNum) {
 //
 //     $.ajax({

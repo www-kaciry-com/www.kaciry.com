@@ -17,6 +17,10 @@ public class UserChatBean {
         this.date = date;
     }
 
+    public int getUserChatID() {
+        return userChatID;
+    }
+
     public String getSenderID() {
         return senderID;
     }

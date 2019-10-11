@@ -1,11 +1,9 @@
 package com.xiaoxiaobulletscreen.dao;
 
+import com.xiaoxiaobulletscreen.entity.FansBean;
 import com.xiaoxiaobulletscreen.entity.User;
 import com.xiaoxiaobulletscreen.entity.VideoInfo;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -51,4 +49,16 @@ public interface UserDao {
 
     @Select("select * from user_video where videoFilename = #{videoFilename}")
     VideoInfo queryVideosByVideoFileName(@Param("videoFilename") String videoFilename);
+
+    //查询关注信息
+    @Select("select * from follow_others where userID = #{username} and followedUser = #{hisUsername}")
+    FansBean queryFansInfo(@Param("username") String username, @Param("hisUsername") String hisUsername);
+
+    //添加关注信息
+    @Insert("insert into follow_others(userID,followedUser,followedDate) values(#{userID},#{followedUser},#{followedDate})")
+    boolean addFansInfo(FansBean fansBean);
+
+    //取关
+    @Delete("delete from follow_others where userID=#{username} and followedUser=#{hisUsername}")
+    boolean cancelFollow(@Param("username") String username, @Param("hisUsername") String hisUsername);
 }

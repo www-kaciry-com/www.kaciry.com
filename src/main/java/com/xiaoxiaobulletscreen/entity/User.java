@@ -4,6 +4,7 @@ public class User {
     private String username;
     private String userPassword;
     private String userHeadIcon;
+    private String userSignature;
     private String userNickName;
     private String isVip;
     private String userLevel;
@@ -14,6 +15,14 @@ public class User {
     private int userCoins;
 
     public User() {
+    }
+
+    public String getUserSignature() {
+        return userSignature;
+    }
+
+    public void setUserSignature(String userSignature) {
+        this.userSignature = userSignature;
     }
 
     public String getUsername() {
@@ -122,6 +131,21 @@ public class User {
         this.username = username;
         this.userPassword = userPassword;
         this.userNickName = userNickName;
+        this.userLevel = userLevel;
+        this.userRealName = userRealName;
+        this.userEmail = userEmail;
+        this.userPhoneNumber = userPhoneNumber;
+        this.userSex = userSex;
+        this.userCoins = userCoins;
+    }
+
+    public User(String username, String userPassword, String userHeadIcon, String userSignature, String userNickName, String isVip, String userLevel, String userRealName, String userEmail, String userPhoneNumber, String userSex, int userCoins) {
+        this.username = username;
+        this.userPassword = userPassword;
+        this.userHeadIcon = userHeadIcon;
+        this.userSignature = userSignature;
+        this.userNickName = userNickName;
+        this.isVip = isVip;
         this.userLevel = userLevel;
         this.userRealName = userRealName;
         this.userEmail = userEmail;

@@ -34,7 +34,6 @@ public class loginController {
     public String login(HttpSession session, @ModelAttribute(value = "user") User user, Map<String, String> map) {
         User resUser = UserServiceImpl.login(user.getUsername(), user.getUserPassword());
         if (resUser.getUsername().equals(user.getUsername()) && resUser.getUserPassword().equals(user.getUserPassword())) {
-
             session.setAttribute("user", resUser);
             session.setAttribute("username", resUser.getUsername());
             return "redirect:/";

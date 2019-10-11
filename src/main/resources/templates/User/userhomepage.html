@@ -8,7 +8,42 @@
     <link rel="stylesheet" href="/static/css/pagePlugCSS/mricode.pagination.css">
     <link rel="stylesheet" href="/static/css/user/user.css">
     <title th:text="${session.user.getUserNickName()} + '的个人主页'">我的主页</title>
+    <style>
+        .follow-container {
+            margin-top: 0;
+            padding: 20px;
+        }
 
+        .allFollows {
+            font-size: 18px;
+            color: black;
+            display: inline-block;
+        }
+
+        .follow-item {
+            display: block;
+            padding-top: 5px;
+        }
+
+        .media {
+            padding-top: 10px;
+            padding-left: 10px;
+        }
+
+        .media img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+        }
+
+        .media button {
+            margin-right: 10px;
+        }
+
+        .follow-check {
+            display: inline;
+        }
+    </style>
 </head>
 <body onload="queryCollections()">
 <!--header-->
@@ -35,6 +70,8 @@
                aria-controls="v-pills-contribute" aria-selected="false"  onclick="selectContribution()">我的投稿</a>
             <a class="nav-link" id="v-pills-collect-tab" data-toggle="pill" href="#v-pills-collect" role="tab"
                aria-controls="v-pills-collect" aria-selected="false" onclick="queryCollections()">我的收藏</a>
+            <a class="nav-link" id="v-pills-friends-tab" data-toggle="pill" href="#v-pills-friends" role="tab"
+               aria-controls="v-pills-friends-tab" aria-selected="false">我的关注</a>
         </div>
         <div class="tab-content col-12 col-sm-12 col-md-12 col-lg-10 col-xl-9" id="v-pills-tabContent">
             <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
@@ -155,11 +192,47 @@
             <div class="tab-pane fade" id="v-pills-collect" role="tabpanel" aria-labelledby="v-pills-collect-tab">
                <div class="container-fluid">
                    <ul class="row My-Collections">
-
-
                    </ul>
                    <div id="page1" class="m-pagination"></div>
                </div>
+            </div>
+            <div class="tab-pane fade" id="v-pills-friends" role="tabpanel" aria-labelledby="v-pills-friends-tab">
+                <div class="container follow-container">
+                    <div class="allFollows" title="allFollows">全部关注</div>
+                    <hr>
+                    <div class="line" style="height: 20px"></div>
+                    <div class="follow-item">
+                        <div class="media">
+                            <img class="align-self-start mr-3" src="/static/img/testheadportrait.jpeg" alt="Generic placeholder image">
+                            <div class="media-body">
+                                <h5 class="mt-0">Kaciry</h5>
+                                <p>Cras sit amet nte sollicitudinra tunec .</p>
+                            </div>
+                            <div class="follow-check">
+                                <button class="btn btn-secondary btn-sm" type="button">取消关注</button>
+                                <button class="btn btn-primary btn-sm" type="button">发送消息</button>
+
+                            </div>
+                        </div>
+                        <hr>
+                    </div>
+                    <div class="follow-item">
+                        <div class="media">
+                            <img class="align-self-start mr-3" src="/static/img/testheadportrait.jpeg" alt="Generic placeholder image">
+                            <div class="media-body">
+                                <h5 class="mt-0">Kaciry</h5>
+                                <p>Cras sit amet nte sollicitudinra tunec .</p>
+                            </div>
+                            <div class="follow-check">
+                                <button class="btn btn-secondary btn-sm" type="button">取消关注</button>
+                                <button class="btn btn-primary btn-sm" type="button">发送消息</button>
+
+                            </div>
+                        </div>
+                        <hr>
+                    </div>
+                    <div id="page2" class="m-pagination"></div>
+                </div>
             </div>
         </div>
     </div>
