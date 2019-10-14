@@ -18,12 +18,14 @@
             margin-top: 20px;
 
         }
+
         .video-data h3 {
             display: block;
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
         }
+
         .media-body p {
             display: block;
             overflow: hidden;
@@ -48,8 +50,14 @@
         .media-body h5, p {
             margin-bottom: 0;
         }
+
         .media-body {
             width: 85%;
+        }
+
+        .dropdown-toggle::after {
+            border-right:0;
+            border-left:0;
         }
     </style>
 </head>
@@ -70,8 +78,10 @@
                      alt="Generic placeholder image">
                 <div class="media-body">
                     <h5 class="mt-0 video-user-nickname">Nickname here</h5>
-                    <p class="video-user-signature">Cras sit amet nte sollicitudinra tunec .Cras sit amet nte sollicitudinra tunec .</p>
-                    <button class="btn btn-primary btn-sm follow-state" type="button" onclick="clickFollow()">关注</button>
+                    <p class="video-user-signature">Cras sit amet nte sollicitudinra tunec .Cras sit amet nte
+                        sollicitudinra tunec .</p>
+                    <button class="btn btn-primary btn-sm follow-state" type="button" onclick="clickFollow()">关注
+                    </button>
                 </div>
             </div>
         </div>
@@ -102,10 +112,20 @@
             </a>
         </span>
         <span class="share">
-            <a href="#">
+            <input id="share-text" name="share-text" type="text" hidden="hidden" value="null">
+            <!--            <a class="share-btn" href="#" data-toggle="modal" data-target="#shareModal" onclick="shareHtml()">-->
+            <!--                <img src="/static/img/videoOps/share_before.png" alt=""/>-->
+            <!--                <em id="shareNum">99万</em>-->
+            <!--            </a>-->
+            <a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <img src="/static/img/videoOps/share_before.png" alt=""/>
                 <em id="shareNum">99万</em>
-            </a>
+             </a>
+            <span class="dropdown-menu dropdown-menu-share">
+                <a class="dropdown-item share-btn" href="#" data-toggle="modal" data-target="#shareModal">分享到贴吧</a>
+                <a class="dropdown-item share-btn" href="#" data-toggle="modal" data-target="#shareModal">分享到QQ空间</a>
+                <a class="dropdown-item share-btn" href="#" data-toggle="modal" data-target="#shareModal">分享到新浪微博</a>
+            </span>
         </span>
     </div>
     <hr>
@@ -157,11 +177,16 @@
 </div>
 <!--模态框-->
 <div th:include="logoutModal"></div>
+<div th:include="shareModal"></div>
 
 <script src="/static/js/Jquery/jquery-3.4.1.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
 <script src="/static/bootstrap-4.3.1/dist/js/bootstrap.js"></script>
 <script src="/static/js/DPlayer.min.js"></script>
 <script src="/static/js/pagePulg/mricode.pagination.js"></script>
 <script src="/static/js/video.js"></script>
+<script src="/static/js/clipboardjs/clipboard.js"></script>
 </body>
 </html>

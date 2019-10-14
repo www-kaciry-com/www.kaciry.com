@@ -1,8 +1,11 @@
-
 let collectPage = $("#page1");
+let followPage = $("#page2");
 let contributePage = $("#page");
+let username = $(".username").val();
+let followContainer = $(".content");
 
 window.onload = queryCollections;
+window.onload = queryFollows;
 
 function changeInfo() {
     $.ajax({
@@ -65,14 +68,14 @@ function selectContribution() {
                     showInfo: true,
                     showJump: true,
                     showPageSizes: true,
-                    showFirstLastBtn:true,
-                    firstBtnText:'首页',
-                    lastBtnText:'尾页',
-                    prevBtnText:'上一页',
-                    nextBtnText:'下一页',
-                    jumpBtnText:'跳转',
+                    showFirstLastBtn: true,
+                    firstBtnText: '首页',
+                    lastBtnText: '尾页',
+                    prevBtnText: '上一页',
+                    nextBtnText: '下一页',
+                    jumpBtnText: '跳转',
                     pageElementSort: ['$page', '$jump', '$info'],
-                    infoFormat:'{start}~{end},共{total}个投稿',
+                    infoFormat: '{start}~{end},共{total}个投稿',
                 });
             }
             let json = eval(result.list);
@@ -83,46 +86,6 @@ function selectContribution() {
 
 
 }
-
-contributePage.on("pageClicked", function (event, data) {
-    let contributeTag = $('.My-Contribution-content');
-    $.ajax({
-        url: "/selectMyVideo",
-        type: "POST",
-        dataType: "json",
-        data: {
-            pageNum: data.pageIndex + 1,
-            pageSize: 16
-        },
-        success: function (result) {
-            console.log(result);
-            contributeTag.children().remove();
-            let json = eval(result.list);
-            let str = analysisData(json);
-            contributeTag.append(str);
-
-        }
-    })
-});
-contributePage.on("jumpClicked", function (event, data) {
-    let contributeTag = $('.My-Contribution-content');
-    $.ajax({
-        url: "/selectMyVideo",
-        type: "POST",
-        dataType: "json",
-        data: {
-            pageNum: data.pageIndex + 1,
-            pageSize: 16
-        },
-        success: function (result) {
-
-            contributeTag.children().remove();
-            let json = eval(result.list);
-            let str = analysisData(json);
-            contributeTag.append(str);
-        }
-    });
-});
 
 function analysisData(data) {
     let str = '';
@@ -141,6 +104,30 @@ function analysisData(data) {
     return str;
 }
 
+function analysisFollowsData(data) {
+    let str = "";
+    $.each(data, function (i, ele) {
+        str += "<div class=\"follow-item\">\n" +
+            "                            <div class=\"media\">\n" +
+            "                                <img class=\"align-self-start mr-3 follow-img\" src=\"" + ele.userHeadIcon + "\" alt=\"Generic placeholder image\">\n" +
+            "                                <div class=\"media-body\">\n" +
+            "                                    <p class=\"username-data\" hidden=\"hidden\">" + ele.username + "</p>\n" +
+            "                                    <h5 class=\"mt-0 follow-nickname\">" + ele.userNickName + "</h5>\n" +
+            "                                    <p class=\"follow-signature\">" + ele.userSignature + "</p>\n" +
+            "                                </div>\n" +
+            "                                <div class=\"follow-check\">\n" +
+            "                                    <button class=\"btn btn-secondary btn-sm\" type=\"button\" onclick=\"cancelFollow(this)\">取消关注</button>\n" +
+            "                                    <button class=\"btn btn-primary btn-sm\" type=\"button\" onclick=\"toSendMsg()\">发送消息</button>\n" +
+            "                                </div>\n" +
+            "                            </div>\n" +
+            "                            <hr>\n" +
+            "                        </div>";
+    });
+
+    return str;
+}
+
+// 查询数据
 function queryCollections() {
     let collectionsTag = $('.My-Collections');
     $.ajax({
@@ -165,14 +152,14 @@ function queryCollections() {
                     showInfo: true,
                     showJump: true,
                     showPageSizes: true,
-                    showFirstLastBtn:true,
-                    firstBtnText:'首页',
-                    lastBtnText:'尾页',
-                    prevBtnText:'上一页',
-                    nextBtnText:'下一页',
-                    jumpBtnText:'跳转',
+                    showFirstLastBtn: true,
+                    firstBtnText: '首页',
+                    lastBtnText: '尾页',
+                    prevBtnText: '上一页',
+                    nextBtnText: '下一页',
+                    jumpBtnText: '跳转',
                     pageElementSort: ['$page', '$jump', '$info'],
-                    infoFormat:'{start}~{end},共{total}个投稿',
+                    infoFormat: '{start}~{end},共{total}个投稿',
                 });
             }
             let json = eval(result.list);
@@ -182,7 +169,89 @@ function queryCollections() {
     });
 }
 
+function queryFollows() {
 
+    followContainer.children().remove();
+
+    $.ajax({
+        url: '/postQueryFollows',//请求的地址
+        type: 'post', //请求的方式
+        dateType: "json", //请求的数据格式
+        data: {
+            username: username,
+            pageNum: 1,
+            pageSize: 10
+        },
+        error: function () {
+            alert("服务器未响应，加载信息失败！");
+        },
+        success: function (result) {
+            let isInited = followPage.pagination();
+            if (!isInited) {
+                followPage.pagination({
+                    pageIndex: 0,
+                    pageSize: 10,
+                    total: result.total,
+                    debug: false,
+                    showInfo: true,
+                    showJump: true,
+                    showPageSizes: true,
+                    showFirstLastBtn: true,
+                    firstBtnText: '首页',
+                    lastBtnText: '尾页',
+                    prevBtnText: '上一页',
+                    nextBtnText: '下一页',
+                    jumpBtnText: '跳转',
+                    pageElementSort: ['$page', '$jump', '$info'],
+                    infoFormat: '{start}~{end},共{total}个投稿',
+                });
+            }
+            followContainer.append(analysisFollowsData(result.list));
+        }
+    })
+}
+
+// 翻页控制
+contributePage.on("pageClicked", function (event, data) {
+    let contributeTag = $('.My-Contribution-content');
+    $.ajax({
+        url: "/selectMyVideo",
+        type: "POST",
+        dataType: "json",
+        data: {
+            pageNum: data.pageIndex + 1,
+            pageSize: 16
+        },
+        success: function (result) {
+            console.log(result);
+            contributeTag.children().remove();
+            let json = eval(result.list);
+            let str = analysisData(json);
+            contributeTag.append(str);
+
+        }
+    })
+});
+
+contributePage.on("jumpClicked", function (event, data) {
+    let contributeTag = $('.My-Contribution-content');
+    $.ajax({
+        url: "/selectMyVideo",
+        type: "POST",
+        dataType: "json",
+        data: {
+            pageNum: data.pageIndex + 1,
+            pageSize: 16
+        },
+        success: function (result) {
+
+            contributeTag.children().remove();
+            let json = eval(result.list);
+            let str = analysisData(json);
+            contributeTag.append(str);
+        }
+    });
+});
 
 collectPage.on("pageClicked", function (event, data) {
 
@@ -197,7 +266,6 @@ collectPage.on("pageClicked", function (event, data) {
             pageSize: 16
         },
         success: function (result) {
-            console.log(result);
             collectionsTag.children().remove();
             let json = eval(result.list);
             let str = analysisData(json);
@@ -206,7 +274,6 @@ collectPage.on("pageClicked", function (event, data) {
         }
     })
 });
-
 
 collectPage.on("jumpClicked", function (event, data) {
     let collectionsTag = $(".My-Collections");
@@ -226,3 +293,71 @@ collectPage.on("jumpClicked", function (event, data) {
         }
     });
 });
+
+followPage.on("pageClicked", function (event, data) {
+
+    let followsTag = $('.content');
+
+    $.ajax({
+        url: "/postQueryFollows",
+        type: "POST",
+        dataType: "json",
+        data: {
+            username: username,
+            pageNum: data.pageIndex + 1,
+            pageSize: 10
+        },
+        success: function (result) {
+            followsTag.children().remove();
+            followContainer.append(analysisFollowsData(result.list));
+
+        }
+    })
+});
+
+followPage.on("jumpClicked", function (event, data) {
+    let followsTag = $('.content');
+    $.ajax({
+        url: "/postQueryFollows",
+        type: "POST",
+        dataType: "json",
+        data: {
+            username: username,
+            pageNum: data.pageIndex + 1,
+            pageSize: 10
+        },
+        success: function (result) {
+            followsTag.children().remove();
+            followContainer.append(analysisFollowsData(result.list));
+        }
+    });
+});
+
+function cancelFollow(btn) {
+    let res = btn.parentElement.parentElement.children[1].children[0];
+    let curNode = btn.parentElement.parentElement.parentElement;
+    $.ajax({
+        url: '/followHim',//请求的地址
+        type: 'post', //请求的方式
+        dateType: "json", //请求的数据格式
+        data: {
+            username:username,
+            hisUsername: res.innerHTML
+        },
+        error: function () {
+            alert("服务器未响应，加载信息失败！");
+        },
+        success: function () {
+            curNode.remove()
+        }
+    })
+}
+
+function toSendMsg() {
+    //TODO 2019年10月11日14:42:04 转到发送消息界面
+
+}
+
+// $('#cancelModal').on('shown.bs.modal', function (e) {
+//
+// });

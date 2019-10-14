@@ -30,6 +30,10 @@ public interface VideoDao {
     @Update("update user_video set videoStars = videoStars + 1 where videoFilename = #{videoFilename}")
     void updateVideoStarAdd(String videoFilename);
 
+    //使user_video表中videoFilename对应的star数量加一
+    @Update("update user_video set videoShares = videoShares + 1 where videoFilename = #{videoFilename}")
+    void updateVideoShareAdd(String videoFilename);
+
     //使user_video表中videoFilename对应的collection数量加一
     @Update("update user_video set videoConnections = videoConnections + 1 where videoFilename = #{videoFilename}")
     void updateVideoCollectAdd(String videoFilename);
@@ -47,7 +51,7 @@ public interface VideoDao {
     Ops queryOpsState(Ops ops);
 
     //添加一条数据，状态符为参数
-    @Insert("insert into ops (username,videoFilename,isStar,isCoin,isCollect) values(#{username},#{videoFilename},#{isStar},#{isCoin},#{isCollect})")
+    @Insert("insert into ops (username,videoFilename,isStar,isCoin,isCollect,isShare) values(#{username},#{videoFilename},#{isStar},#{isCoin},#{isCollect},#{isShare})")
     void addOpsData(Ops ops);
 
 //    //查询是否点赞过
@@ -78,5 +82,6 @@ public interface VideoDao {
     @Delete("delete from ops where username=#{username} and videoFilename=#{videoFilename}")
     boolean deleteOpsData(Ops ops);
 
-
+    @Update("update ops set isShare = #{isShare} where username=#{username} and videoFilename=#{videoFilename}")
+    void changeShareData(Ops ops);
 }

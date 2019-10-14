@@ -6,7 +6,7 @@ public class Ops {
     private int isStar;
     private int isCoin;
     private int isCollect;
-
+    private int isShare;
 
     public Ops() {
     }
@@ -29,6 +29,23 @@ public class Ops {
         this.isStar = isStar;
         this.isCoin = isCoin;
         this.isCollect = isCollect;
+    }
+
+    public Ops(String username, String videoFilename, int isStar, int isCoin, int isCollect, int isShare) {
+        this.username = username;
+        this.videoFilename = videoFilename;
+        this.isStar = isStar;
+        this.isCoin = isCoin;
+        this.isCollect = isCollect;
+        this.isShare = isShare;
+    }
+
+    public int getIsShare() {
+        return isShare;
+    }
+
+    public void setIsShare(int isShare) {
+        this.isShare = isShare;
     }
 
     public String getUsername() {

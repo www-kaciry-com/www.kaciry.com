@@ -9,40 +9,7 @@
     <link rel="stylesheet" href="/static/css/user/user.css">
     <title th:text="${session.user.getUserNickName()} + '的个人主页'">我的主页</title>
     <style>
-        .follow-container {
-            margin-top: 0;
-            padding: 20px;
-        }
 
-        .allFollows {
-            font-size: 18px;
-            color: black;
-            display: inline-block;
-        }
-
-        .follow-item {
-            display: block;
-            padding-top: 5px;
-        }
-
-        .media {
-            padding-top: 10px;
-            padding-left: 10px;
-        }
-
-        .media img {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-        }
-
-        .media button {
-            margin-right: 10px;
-        }
-
-        .follow-check {
-            display: inline;
-        }
     </style>
 </head>
 <body onload="queryCollections()">
@@ -51,7 +18,8 @@
 <!--页面头像特效区-->
 <div class="site-master">
     <a href="">
-        <img class="site-master-avatar" src=""  th:if="${session.user != null}" th:src="${session.user.getUserHeadIcon()}"  alt="headicon">
+        <img class="site-master-avatar" src="" th:if="${session.user != null}"
+             th:src="${session.user.getUserHeadIcon()}" alt="headicon">
     </a>
     <h2 class="site-master-description">
         <span>欢迎访问，</span>
@@ -59,19 +27,22 @@
     </h2>
 </div>
 <div class="container">
+    <label>
+        <input hidden="hidden" type="text" class="username" th:value="${session.user.getUsername()}">
+    </label>
     <div class="row">
         <div class="nav flex-column nav-pills col-12 col-sm-12 col-md-12 col-lg-2 col-xl-3" id="v-pills-tab"
              role="tablist" aria-orientation="vertical">
             <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab"
                aria-controls="v-pills-home" aria-selected="true">我的头像</a>
             <a class="nav-link" id="v-pills-info-tab" data-toggle="pill" href="#v-pills-info" role="tab"
-               aria-controls="v-pills-info" aria-selected="false"  onclick="selectInfo()">个人信息</a>
+               aria-controls="v-pills-info" aria-selected="false" onclick="selectInfo()">个人信息</a>
             <a class="nav-link" id="v-pills-contribute-tab" data-toggle="pill" href="#v-pills-contribute" role="tab"
-               aria-controls="v-pills-contribute" aria-selected="false"  onclick="selectContribution()">我的投稿</a>
+               aria-controls="v-pills-contribute" aria-selected="false" onclick="selectContribution()">我的投稿</a>
             <a class="nav-link" id="v-pills-collect-tab" data-toggle="pill" href="#v-pills-collect" role="tab"
                aria-controls="v-pills-collect" aria-selected="false" onclick="queryCollections()">我的收藏</a>
             <a class="nav-link" id="v-pills-friends-tab" data-toggle="pill" href="#v-pills-friends" role="tab"
-               aria-controls="v-pills-friends-tab" aria-selected="false">我的关注</a>
+               aria-controls="v-pills-friends-tab" aria-selected="false" onclick="queryFollows()">我的关注</a>
         </div>
         <div class="tab-content col-12 col-sm-12 col-md-12 col-lg-10 col-xl-9" id="v-pills-tabContent">
             <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
@@ -82,7 +53,8 @@
                                 <i data-v-15325571=""></i>
                                 <span data-v-15325571="">选择图片</span>
                             </label>
-                            <input data-v-15325571="" type="file" name="file" id="file_input" accept="image/png,image/jpg,image/jpeg">
+                            <input data-v-15325571="" type="file" name="file" id="file_input"
+                                   accept="image/png,image/jpg,image/jpeg">
                         </div>
                         <div class="cur-headicon-img col-6 col-lg-3">
                             <img src="" th:src="${session.user.getUserHeadIcon()}" alt="" class="site-master-avatar">
@@ -92,7 +64,8 @@
                         </div>
                         <p data-v-15325571="" class="descript">请选择图片上传：大小180 * 180像素支持JPG、PNG等格式，图片需小于2M</p>
                     </div>
-                    <button type="submit" class="btn btn-primary sub col-lg-2 col-md-2 col-xl-2 col-sm-3 col-6">更新</button>
+                    <button type="submit" class="btn btn-primary sub col-lg-2 col-md-2 col-xl-2 col-sm-3 col-6">更新
+                    </button>
                 </form>
 
             </div>
@@ -190,49 +163,22 @@
 
             </div>
             <div class="tab-pane fade" id="v-pills-collect" role="tabpanel" aria-labelledby="v-pills-collect-tab">
-               <div class="container-fluid">
-                   <ul class="row My-Collections">
-                   </ul>
-                   <div id="page1" class="m-pagination"></div>
-               </div>
+                <div class="container-fluid">
+                    <ul class="row My-Collections">
+                    </ul>
+                    <div id="page1" class="m-pagination"></div>
+                </div>
             </div>
             <div class="tab-pane fade" id="v-pills-friends" role="tabpanel" aria-labelledby="v-pills-friends-tab">
                 <div class="container follow-container">
                     <div class="allFollows" title="allFollows">全部关注</div>
                     <hr>
                     <div class="line" style="height: 20px"></div>
-                    <div class="follow-item">
-                        <div class="media">
-                            <img class="align-self-start mr-3" src="/static/img/testheadportrait.jpeg" alt="Generic placeholder image">
-                            <div class="media-body">
-                                <h5 class="mt-0">Kaciry</h5>
-                                <p>Cras sit amet nte sollicitudinra tunec .</p>
-                            </div>
-                            <div class="follow-check">
-                                <button class="btn btn-secondary btn-sm" type="button">取消关注</button>
-                                <button class="btn btn-primary btn-sm" type="button">发送消息</button>
+                    <div class="content">
 
-                            </div>
-                        </div>
-                        <hr>
                     </div>
-                    <div class="follow-item">
-                        <div class="media">
-                            <img class="align-self-start mr-3" src="/static/img/testheadportrait.jpeg" alt="Generic placeholder image">
-                            <div class="media-body">
-                                <h5 class="mt-0">Kaciry</h5>
-                                <p>Cras sit amet nte sollicitudinra tunec .</p>
-                            </div>
-                            <div class="follow-check">
-                                <button class="btn btn-secondary btn-sm" type="button">取消关注</button>
-                                <button class="btn btn-primary btn-sm" type="button">发送消息</button>
-
-                            </div>
-                        </div>
-                        <hr>
-                    </div>
-                    <div id="page2" class="m-pagination"></div>
                 </div>
+                <div id="page2" class="m-pagination"></div>
             </div>
         </div>
     </div>
@@ -240,29 +186,31 @@
 </div>
 <!-- Modal -->
 <div th:include="logoutModal"></div>
+<!--<div th:include="cancelModal"></div>-->
 <script src="/static/js/Jquery/jquery-3.4.1.js"></script>
 <script src="/static/bootstrap-4.3.1/dist/js/bootstrap.js"></script>
 <script src="/static/js/userInfoManager.js"></script>
 <script src="/static/js/pagePulg/mricode.pagination.js"></script>
 <script>
     //图片预览js
-    $("#file_input").change(function(){
-        let objUrl = getObjectURL(this.files[0]) ;//获取文件信息
-        console.log("objUrl = "+objUrl);
+    $("#file_input").change(function () {
+        let objUrl = getObjectURL(this.files[0]);//获取文件信息
+        console.log("objUrl = " + objUrl);
         if (objUrl) {
             $("#pre").attr("src", objUrl);
         }
-    }) ;
+    });
+
     function getObjectURL(file) {
         let url = null;
-        if (window.createObjectURL!==undefined) {
-            url = window.createObjectURL(file) ;
-        } else if (window.URL!==undefined) { // mozilla(firefox)
-            url = window.URL.createObjectURL(file) ;
-        } else if (window.webkitURL!==undefined) { // webkit or chrome
-            url = window.webkitURL.createObjectURL(file) ;
+        if (window.createObjectURL !== undefined) {
+            url = window.createObjectURL(file);
+        } else if (window.URL !== undefined) { // mozilla(firefox)
+            url = window.URL.createObjectURL(file);
+        } else if (window.webkitURL !== undefined) { // webkit or chrome
+            url = window.webkitURL.createObjectURL(file);
         }
-        return url ;
+        return url;
     }
 </script>
 <script>
@@ -270,10 +218,10 @@
     let hash = location.hash;//获取到跳转页面的参数
     let tab = $('#v-pills-tab a');
     let con = $('.tab-content .tab-pane');
-    for(let i=0;i<con.length;i++){
+    for (let i = 0; i < con.length; i++) {
         let mm = con[i];
-        let selectCon = "#"+ $(mm).attr('id');
-        if(hash === selectCon){
+        let selectCon = "#" + $(mm).attr('id');
+        if (hash === selectCon) {
             tab.siblings().removeClass('active');
             con.siblings().removeClass('active');
             $(tab[i]).addClass('active show');

@@ -2,9 +2,7 @@ package com.xiaoxiaobulletscreen.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.xiaoxiaobulletscreen.entity.ResultBean;
-import com.xiaoxiaobulletscreen.entity.User;
-import com.xiaoxiaobulletscreen.entity.VideoInfo;
+import com.xiaoxiaobulletscreen.entity.*;
 import com.xiaoxiaobulletscreen.service.Impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,8 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
 import java.io.File;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Controller
 public class UserInfoController {
@@ -38,13 +35,13 @@ public class UserInfoController {
 
     @PostMapping(value = "/changeInfo")
     @ResponseBody
-    public User changeInfo(User user){
+    public User changeInfo(User user) {
         return userService.changeInfo(user);
     }
 
     @PostMapping(value = "modifyHeadIcon")
     @ResponseBody
-    public boolean modifyHeadIcon(MultipartFile file, HttpSession session){
+    public boolean modifyHeadIcon(MultipartFile file, HttpSession session) {
         try {
             //获取文件名
             String fileName = session.getAttribute("username").toString();
@@ -60,9 +57,9 @@ public class UserInfoController {
             //创建文件路径
             String userHeadIconPathName = "/files/HeadIcon/" + fileName + fileSuffix;
             //修改数据库中头像路径
-            return userService.updateUserHeadIcon(userHeadIconPathName,session.getAttribute("username").toString());
+            return userService.updateUserHeadIcon(userHeadIconPathName, session.getAttribute("username").toString());
 
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
@@ -71,10 +68,11 @@ public class UserInfoController {
 
     @PostMapping("/postUpdatePwd")
     @ResponseBody
-    public boolean updatePassword (String email,String password){
+    public boolean updatePassword(String email, String password) {
 
-        return userService.updatePassword(email,password);
+        return userService.updatePassword(email, password);
     }
+
     @RequestMapping(value = "/selectInfo", method = {RequestMethod.POST, RequestMethod.GET})
     @ResponseBody
     public User selectInfo(HttpSession session) {
@@ -97,7 +95,7 @@ public class UserInfoController {
 
     @PostMapping("/postQueryCollect")
     @ResponseBody
-    public PageInfo<VideoInfo> queryCollect(HttpSession session, Integer pageNum, Integer pageSize){
+    public PageInfo<VideoInfo> queryCollect(HttpSession session, Integer pageNum, Integer pageSize) {
 
         List<VideoInfo> videoInfoList;
         if (pageNum == null || pageSize == null) {
@@ -110,11 +108,30 @@ public class UserInfoController {
         return new PageInfo<>(videoInfoList);
     }
 
+    @PostMapping(value = "/postQueryFollows")
+    @ResponseBody
+    public PageInfo<UnionFansBean>  queryFollows(String username, Integer pageNum, Integer pageSize) {
+
+//        List<FansBean> list = userService.queryFollows(username);
+//        List<User> userList = new ArrayList<>();
+//
+//        for (FansBean fansBean : list) {
+//            userList.add(userService.selectInfo(fansBean.getFollowedUser()));
+//        }
+////        Map<List<FansBean>, List<User>> map = new HashMap<>();
+////        map.put(list,userList);
+//
+//        return new FollowsBean(list,userList);
+        PageHelper.startPage(pageNum, pageSize);
+        List<UnionFansBean> list = userService.queryFollows1(username);
+        return new PageInfo<>(list);
+    }
+
     @PostMapping(value = "/followHim")
     @ResponseBody
     public ResultBean followOthers(String username, String hisUsername) {
 
-        return userService.followOthers(username,hisUsername);
+        return userService.followOthers(username, hisUsername);
     }
 
 }

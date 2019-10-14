@@ -158,6 +158,22 @@ public class VideoServiceImpl implements VideoService {
         }
     }
 
+
+    //分享视频
+    @Override
+    public boolean opsShare(Ops ops) {
+        if (videoDao.queryOpsData(ops) != null){
+            ops.setIsShare(1);
+            videoDao.changeShareData(ops);
+        }else {
+            ops.setIsShare(1);
+            videoDao.addOpsData(ops);
+        }
+        // TODO: 2019/10/14 未解决恶意分享影响视频热度BUG
+        videoDao.updateVideoShareAdd(ops.getVideoFilename());
+        return true;
+    }
+
     //检查数据项是否为空
     @Override
     public void deleteOpsData(Ops ops) {
@@ -166,14 +182,15 @@ public class VideoServiceImpl implements VideoService {
         //1.查询ops中对应的数据，username 和 videoFileName
         Ops opsState = videoDao.queryOpsState(ops);
         //1.1 若全部都为空
-        if ((opsState.getIsStar() == 0) && (opsState.getIsCoin() == 0) && (opsState.getIsCollect() == 0)) {
+        if ((opsState.getIsStar() == 0) && (opsState.getIsCoin() == 0) && (opsState.getIsCollect() == 0)&& (opsState.getIsShare() == 0)) {
             //1.1.1 删除该条数据
             flag = videoDao.deleteOpsData(ops);
         }
-        if (!flag) {
-            // TODO: 2019/9/11 打印日志，记录错误信息
-            System.out.println("false");
-        }
+
+        // TODO: 2019/9/11 打印日志，记录错误信息
+//        if (!flag) {
+//
+//        }
     }
 
 }

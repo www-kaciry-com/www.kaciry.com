@@ -18,5 +18,7 @@ public interface VideoService {
 
     boolean opsCollect(Ops ops);
 
+    boolean opsShare(Ops ops);
+
     void deleteOpsData(Ops ops);
 }

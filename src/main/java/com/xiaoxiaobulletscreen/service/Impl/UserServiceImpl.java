@@ -1,10 +1,7 @@
 package com.xiaoxiaobulletscreen.service.Impl;
 
 import com.xiaoxiaobulletscreen.dao.UserDao;
-import com.xiaoxiaobulletscreen.entity.FansBean;
-import com.xiaoxiaobulletscreen.entity.ResultBean;
-import com.xiaoxiaobulletscreen.entity.User;
-import com.xiaoxiaobulletscreen.entity.VideoInfo;
+import com.xiaoxiaobulletscreen.entity.*;
 import com.xiaoxiaobulletscreen.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -125,5 +122,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public FansBean queryFollowsState(String username, String hisUsername) {
         return userDao.queryFansInfo(username,hisUsername);
+    }
+
+    @Override
+    public List<FansBean> queryFollows(String username) {
+        return userDao.queryFollows(username);
+    }
+
+    public List<UnionFansBean> queryFollows1(String username) {
+        return userDao.queryMyFollows(username);
     }
 }

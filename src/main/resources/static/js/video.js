@@ -4,6 +4,8 @@ let pageComment = $('#pageComment');
 let page = $("#page");
 let follow_sate = $(".follow-state");
 let hisUsername;
+
+
 $(document).ready(function () {
     // let videoid = document.getElementById("videoid").value;
 
@@ -155,13 +157,14 @@ $(document).ready(function () {
     });
 });
 $(document).ready(function () {
+
     $.ajax({
         url: '/getVideoUser',//请求的地址
         type: 'post', //请求的方式
         dateType: "json", //请求的数据格式
         data: {
             videoAddress: videoAddress,
-            username : username,
+            username: username,
         },
         error: function () {
             alert("服务器未响应，加载视频信息失败！");
@@ -171,7 +174,7 @@ $(document).ready(function () {
             $(".video-user-headicon").attr("src", "" + result.userHeadIcon + "");
             $(".video-user-nickname").text(result.userNickName);
             $(".video-user-signature").text(result.userSignature);
-            if (result.userID !== null) {
+            if (result.userID !== "null") {
                 follow_sate.text("取消关注");
             }
             hisUsername = result.username;
@@ -433,14 +436,82 @@ function clickFollow() {
                 } else {
                     follow_sate.text(result.msg);
                 }
-
-
             }
         })
     }
 
     return false;
 }
+
+function shareHtml() {
+    let url = window.location.href;
+    $("#share-text").attr("value", url);
+
+    let clipboard = new ClipboardJS('.share-btn', {
+        text: function () {
+            return $("input:hidden[name='share-text']").val();
+        }
+    });
+
+    clipboard.on('success', function (e) {
+        console.log(e);
+    });
+
+    clipboard.on('error', function (e) {
+        console.log(e);
+    });
+    return false;
+}
+
+$(".dropdown-menu-share a").click(function () {
+    shareHtml();
+    let index = $(".dropdown-menu-share a").index(this) + 1;
+    $(".modal-value").attr("value", index);
+
+});
+
+function jumpTo() {
+    let index = $(".modal-value").val();
+    console.log(index);
+    if (index == 1) {
+        clickShare();
+        window.location.href = "https://tieba.baidu.com/index.html";
+    } else if (index == 2) {
+        clickShare();
+        window.location.href = "https://qzone.qq.com";
+    } else if (index == 3) {
+        clickShare();
+        window.location.href = "https://weibo.com/";
+    }
+    return false;
+}
+
+function clickShare() {
+    $.ajax({
+        url: '/opsStar',//请求的地址
+        type: 'post', //请求的方式
+        dateType: "json", //请求的数据格式
+        data: {
+            username: username,
+            videoFileName: videoAddress,
+            option: "share",
+        },
+        error: function () {
+            alert("服务器未响应！");
+        },
+        success: function (result) {
+            //let json = eval(result);
+            //$.each(json, function (i, element) {
+            // })
+
+        }
+    })
+}
+
+// $('#shareModal').on('hidden.bs.modal', function (e) {
+//     // do something...
+//     window.location.href = "https://weibo.com/";
+// });
 
 // function navTools(pageNum) {
 //

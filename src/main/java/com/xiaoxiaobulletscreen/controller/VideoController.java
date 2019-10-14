@@ -144,6 +144,9 @@ public class VideoController {
                 res = videoService.opsCollect(ops);
                 break;
             }
+            case "share": {
+                res = videoService.opsShare(ops);
+            }
         }
         videoService.deleteOpsData(ops);
         return res;

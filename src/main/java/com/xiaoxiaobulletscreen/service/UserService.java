@@ -35,4 +35,6 @@ public interface UserService {
     //查询关注状态
     FansBean queryFollowsState(String username,String hisUsername);
 
+   List<FansBean> queryFollows(String username);
+
 }

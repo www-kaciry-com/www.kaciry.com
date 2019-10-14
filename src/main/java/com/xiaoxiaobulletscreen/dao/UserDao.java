@@ -1,6 +1,7 @@
 package com.xiaoxiaobulletscreen.dao;
 
 import com.xiaoxiaobulletscreen.entity.FansBean;
+import com.xiaoxiaobulletscreen.entity.UnionFansBean;
 import com.xiaoxiaobulletscreen.entity.User;
 import com.xiaoxiaobulletscreen.entity.VideoInfo;
 import org.apache.ibatis.annotations.*;
@@ -54,6 +55,10 @@ public interface UserDao {
     @Select("select * from follow_others where userID = #{username} and followedUser = #{hisUsername}")
     FansBean queryFansInfo(@Param("username") String username, @Param("hisUsername") String hisUsername);
 
+    //查询关注信息
+    @Select("select * from follow_others where userID = #{username}")
+    List<FansBean> queryFollows(@Param("username") String username);
+
     //添加关注信息
     @Insert("insert into follow_others(userID,followedUser,followedDate) values(#{userID},#{followedUser},#{followedDate})")
     boolean addFansInfo(FansBean fansBean);
@@ -61,4 +66,7 @@ public interface UserDao {
     //取关
     @Delete("delete from follow_others where userID=#{username} and followedUser=#{hisUsername}")
     boolean cancelFollow(@Param("username") String username, @Param("hisUsername") String hisUsername);
+
+    @Select("SELECT * FROM user LEFT JOIN follow_others on user.username = follow_others.followedUser WHERE userID = #{username} and  user.username = follow_others.followedUser")
+    List<UnionFansBean>  queryMyFollows(@Param("username")String username);
 }
