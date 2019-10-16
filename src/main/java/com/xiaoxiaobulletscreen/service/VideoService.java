@@ -1,8 +1,6 @@
 package com.xiaoxiaobulletscreen.service;
 
-import com.xiaoxiaobulletscreen.entity.Comment;
-import com.xiaoxiaobulletscreen.entity.Ops;
-import com.xiaoxiaobulletscreen.entity.VideoPage;
+import com.xiaoxiaobulletscreen.entity.*;
 
 import java.util.List;
 
@@ -21,4 +19,6 @@ public interface VideoService {
     boolean opsShare(Ops ops);
 
     void deleteOpsData(Ops ops);
+
+    ResultBean addOneReportVideoData(ReportVideoBean reportVideoBean);
 }

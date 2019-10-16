@@ -1,9 +1,6 @@
 package com.xiaoxiaobulletscreen.dao;
 
-import com.xiaoxiaobulletscreen.entity.FansBean;
-import com.xiaoxiaobulletscreen.entity.UnionFansBean;
-import com.xiaoxiaobulletscreen.entity.User;
-import com.xiaoxiaobulletscreen.entity.VideoInfo;
+import com.xiaoxiaobulletscreen.entity.*;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Component;
 
@@ -26,7 +23,7 @@ public interface UserDao {
 
     //修改头像
     @Update("update user set userHeadIcon = #{userHeadIcon} where username = #{username}")
-    boolean updateUserHeadIcon(@Param("userHeadIcon")String userHeadIcon,@Param("username") String username);
+    boolean updateUserHeadIcon(@Param("userHeadIcon") String userHeadIcon, @Param("username") String username);
 
     //修改密码
     @Update("update user set userPassword = #{userPassword} where userEmail = #{userEmail}")
@@ -68,5 +65,18 @@ public interface UserDao {
     boolean cancelFollow(@Param("username") String username, @Param("hisUsername") String hisUsername);
 
     @Select("SELECT * FROM user LEFT JOIN follow_others on user.username = follow_others.followedUser WHERE userID = #{username} and  user.username = follow_others.followedUser")
-    List<UnionFansBean>  queryMyFollows(@Param("username")String username);
+    List<UnionFansBean> queryMyFollows(@Param("username") String username);
+
+    //查询是否存在该用户对同一评论重复举报
+    @Select("SELECT * FROM reportComments WHERE commentID = #{commentID} AND reportedUser = #{reportedUser}")
+    Integer queryReportComment(ReportCommentBean reportCommentBean);
+
+    //插入举报评论信息
+    @Insert("INSERT INTO reportComments (commentID,reportedType,beReportedUser,reportedUser,reportedTime,reportedReason,commentContent)" +
+            " VALUES (#{commentID},#{reportedType},#{beReportedUser},#{reportedUser},#{reportedTime},#{reportedReason},#{commentContent})")
+    boolean addReportComment(ReportCommentBean reportCommentBean);
+
+    //根据评论ID查询信息
+    @Select("SELECT * FROM comment WHERE commentId = #{commentID}")
+    Comment queryCommentByID(int commentID);
 }

@@ -1,0 +1,71 @@
+<!-- complaint Modal -->
+<div class=" modal fade " id="complaintModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title complaint-modal-title" id="exampleModalLongTitle">稿件<span>av 71006363</span>投诉</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="complaint-modal-body">
+                <span class="modal-body-title">你觉得这个（稿件<span class="modal-body-video-name">av 71006363</span>）有什么问题？</span>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="Radios" id="Radios1" value="违法违禁" >
+                    <label class="form-check-label" for="Radios1">
+                        违法违禁
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="Radios" id="Radios2" value="低俗" >
+                    <label class="form-check-label" for="Radios2">
+                        低俗
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="Radios" id="Radios3" value="血腥暴力" >
+                    <label class="form-check-label" for="Radios3">
+                        血腥暴力
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="Radios" id="Radios4" value="色情" >
+                    <label class="form-check-label" for="Radios4">
+                        色情
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="Radios" id="Radios5" value="赌博诈骗" >
+                    <label class="form-check-label" for="Radios5">
+                        赌博诈骗
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="Radios" id="Radios6" value="不良封面/标题" >
+                    <label class="form-check-label" for="Radios6">
+                        不良封面/标题
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="Radios" id="Radios7" value="青少年不良信息" >
+                    <label class="form-check-label" for="Radios7">
+                        青少年不良信息
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="Radios" id="Radios8" value="其他问题" checked>
+                    <label class="form-check-label" for="Radios8">
+                        其他问题
+                    </label>
+                </div>
+                <label class="description-input" for="description-input">为帮助审核人员更快处理，补充违规内容出现位置</label>
+                <textarea name="description-input" id="description-input" cols="62" rows="5" maxlength="400" onchange="this.value=this.value.substring(0, 400)"
+                          onkeydown="this.value=this.value.substring(0, 400)" onkeyup="this.value=this.value.substring(0, 400)"  placeholder="多行文本框限400字"></textarea>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" onclick="complaintVideo()">提交</button>
+            </div>
+        </div>
+    </div>
+</div>

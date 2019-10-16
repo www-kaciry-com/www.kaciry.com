@@ -2,6 +2,7 @@ package com.xiaoxiaobulletscreen.dao;
 
 import com.xiaoxiaobulletscreen.entity.Comment;
 import com.xiaoxiaobulletscreen.entity.Ops;
+import com.xiaoxiaobulletscreen.entity.ReportVideoBean;
 import com.xiaoxiaobulletscreen.entity.VideoInfo;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
@@ -84,4 +85,11 @@ public interface VideoDao {
 
     @Update("update ops set isShare = #{isShare} where username=#{username} and videoFilename=#{videoFilename}")
     void changeShareData(Ops ops);
+
+    @Insert("insert reportVideo (videoFileName,reportedType,beReportedUser,reportedUser,reportedTime,reportedReason)" +
+            " values (#{videoFileName},#{reportedType},#{beReportedUser},#{reportedUser},#{reportedTime},#{reportedReason})")
+    boolean addReportVideoData(ReportVideoBean reportVideoBean);
+
+    @Select("select * from reportVideo where reportedUser=#{reportedUser} and videoFileName=#{videoFileName}")
+    Integer queryReportData(ReportVideoBean reportVideoBean);
 }

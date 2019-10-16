@@ -6,15 +6,15 @@ import com.xiaoxiaobulletscreen.entity.*;
 import com.xiaoxiaobulletscreen.service.Impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
 import java.io.File;
-import java.util.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+import java.util.Objects;
 
 @Controller
 public class UserInfoController {
@@ -132,6 +132,18 @@ public class UserInfoController {
     public ResultBean followOthers(String username, String hisUsername) {
 
         return userService.followOthers(username, hisUsername);
+    }
+
+    @PostMapping(value = "/reportComment")
+    @ResponseBody
+    public ResultBean reportComments(@RequestBody ReportCommentBean reportCommentBean){
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+        reportCommentBean.setReportedTime(df.format(new Date()));
+        Comment comment = userService.queryCommentByID(reportCommentBean.getCommentID());
+        reportCommentBean.setBeReportedUser(comment.getUsername());
+        reportCommentBean.setCommentContent(comment.getContent());
+
+        return userService.reportComment(reportCommentBean);
     }
 
 }

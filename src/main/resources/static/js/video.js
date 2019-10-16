@@ -5,6 +5,33 @@ let page = $("#page");
 let follow_sate = $(".follow-state");
 let hisUsername;
 
+$(document).ready(function init() {
+    let len = 50;      //默认显示字数
+    let ctn = document.getElementById("info");  //获取div对象
+    let content = ctn.innerHTML;                   //获取div里的内容
+
+    // alert(content);
+    let span = document.createElement("span");     //创建<span>元素
+    let a = document.createElement("a");           //创建<a>元素
+    span.innerHTML = content.substring(0, len);     //span里的内容为content的前len个字符
+
+    a.innerHTML = content.length > len ? "... 展开" : "";  ////判断显示的字数是否大于默认显示的字数    来设置a的显示
+    a.href = "javascript:void(0)";//让a链接点击不跳转
+
+    a.onclick = function () {
+        if (a.innerHTML.indexOf("展开") > 0) {      //如果a中含有"展开"则显示"收起"
+            a.innerHTML = "<<&nbsp;收起";
+            span.innerHTML = content;
+        } else {
+            a.innerHTML = "... 展开";
+            span.innerHTML = content.substring(0, len);
+        }
+    };
+    // 设置div内容为空，span元素 a元素加入到div中
+    ctn.innerHTML = "";
+    ctn.appendChild(span);
+    ctn.appendChild(a);
+});
 
 $(document).ready(function () {
     // let videoid = document.getElementById("videoid").value;
@@ -105,6 +132,7 @@ $(document).ready(function () {
         }
     })
 });
+
 $(document).ready(function () {
 
     $.ajax({
@@ -156,6 +184,7 @@ $(document).ready(function () {
         }
     });
 });
+
 $(document).ready(function () {
 
     $.ajax({
@@ -182,26 +211,6 @@ $(document).ready(function () {
     })
 });
 
-function analysisData(data) {
-    let str = '';
-    $.each(data, function (i, element) {
-        str += "                <div class=\"media\">\n" +
-            "                    <img class=\"align-self-start mr-3\" src=\"" + element.userHeadIcon + "\" alt=\"HeadIcon\">\n" +
-            "                    <div class=\"media-body\">\n" +
-            "                        <h5 class=\"mt-0 media-nickname\">" + element.userNickName + "</h5>\n" +
-            "                        <p>" + element.content + "</p>\n" +
-            "                        <div class=\"media-p\">\n" +
-            "                            <span>" + element.sendDate + "</span>\n" +
-            "                            <a href=\"#\" class=\"reply-child\">回复</a>\n" +
-            "                        </div>\n" +
-            "                        <hr class=\"media-hr\">\n" +
-            "                    </div>\n" +
-            "                    <div class=\"media-bottom\"></div>\n" +
-            "                </div>";
-    });
-    return str;
-}
-
 page.on("pageClicked", function (event, data) {
     $.ajax({
         url: "/selectVideoComment",
@@ -220,6 +229,7 @@ page.on("pageClicked", function (event, data) {
         }
     })
 });
+
 page.on("jumpClicked", function (event, data) {
 
     $.ajax({
@@ -240,6 +250,52 @@ page.on("jumpClicked", function (event, data) {
     });
 });
 
+function analysisData(data) {
+    let str = '';
+    $.each(data, function (i, element) {
+        // str += "                <div class=\"media\">\n" +
+        //     "                            <span  class=\"commentID\" hidden='hidden'>" + element.commentID + "</span>\n" +
+        //     "                    <img class=\"align-self-start mr-3\" src=\"" + element.userHeadIcon + "\" alt=\"HeadIcon\">\n" +
+        //     "                    <div class=\"media-body\">\n" +
+        //     "                        <h5 class=\"mt-0 media-nickname\">" + element.userNickName + "</h5>\n" +
+        //     "                        <p>" + element.content + "</p>\n" +
+        //     "                        <div class=\"media-p\">\n" +
+        //     "                            <span>" + element.sendDate + "</span>\n" +
+        //     "                            <a href=\"#\" class=\"reply-child\">回复</a>\n" +
+        //     "                        </div>\n" +
+        //     "                        <hr class=\"media-hr\">\n" +
+        //     "                    </div>\n" +
+        //     "                    <div class=\"media-bottom\"></div>\n" +
+        //     "                </div>";
+        str += "<div class=\"media\">\n" +
+            "        <span class=\"commentID\" hidden=\"hidden\">" + element.commentID + "</span>\n" +
+            "        <img class=\"align-self-start mr-3\" src=\"" + element.userHeadIcon + "\" alt=\"HeadIcon\">\n" +
+            "        <div class=\"media-body\">\n" +
+            "            <h5 class=\"mt-0 media-nickname\">" + element.userNickName + "</h5>\n" +
+            "            <p>" + element.content + "</p>\n" +
+            "            <div class=\"row media-p justify-content-between\">\n" +
+            "                <div>\n" +
+            "                    <span>" + element.sendDate + "</span>\n" +
+            "                    <a href=\"#\" class=\"reply-child\">回复</a>\n" +
+            "                </div>\n" +
+            "\n" +
+            "                <div class=\"btn-group\">\n" +
+            "                    <a  tabindex=\"0\" data-toggle=\"dropdown\" data-trigger=\"focus\" style=\"border-radius: 15%;margin-right: 15px\">\n" +
+            "                        <i class=\"iconfont\"> &#xe634;</i>\n" +
+            "                    </a>\n" +
+            "                    <span class=\"dropdown-menu\">\n" +
+            "            <a class=\"dropdown-item\" href=\"#\"  data-toggle=\"modal\" onclick=\"reportComment(this)\">举报</a>\n" +
+            "        </span>\n" +
+            "                </div>\n" +
+            "            </div>\n" +
+            "            <hr class=\"media-hr\">\n" +
+            "        </div>\n" +
+            "        <div class=\"media-bottom\"></div>\n" +
+            "    </div>";
+    });
+
+    return str;
+}
 
 function sendComment() {
     let content = document.getElementById("discuss").value;
@@ -269,34 +325,6 @@ function sendComment() {
     }
     return false;
 }
-
-$(document).ready(function init() {
-    let len = 50;      //默认显示字数
-    let ctn = document.getElementById("info");  //获取div对象
-    let content = ctn.innerHTML;                   //获取div里的内容
-
-    // alert(content);
-    let span = document.createElement("span");     //创建<span>元素
-    let a = document.createElement("a");           //创建<a>元素
-    span.innerHTML = content.substring(0, len);     //span里的内容为content的前len个字符
-
-    a.innerHTML = content.length > len ? "... 展开" : "";  ////判断显示的字数是否大于默认显示的字数    来设置a的显示
-    a.href = "javascript:void(0)";//让a链接点击不跳转
-
-    a.onclick = function () {
-        if (a.innerHTML.indexOf("展开") > 0) {      //如果a中含有"展开"则显示"收起"
-            a.innerHTML = "<<&nbsp;收起";
-            span.innerHTML = content;
-        } else {
-            a.innerHTML = "... 展开";
-            span.innerHTML = content.substring(0, len);
-        }
-    };
-    // 设置div内容为空，span元素 a元素加入到div中
-    ctn.innerHTML = "";
-    ctn.appendChild(span);
-    ctn.appendChild(a);
-});
 
 function GetQueryString(name) {
 
@@ -463,13 +491,6 @@ function shareHtml() {
     return false;
 }
 
-$(".dropdown-menu-share a").click(function () {
-    shareHtml();
-    let index = $(".dropdown-menu-share a").index(this) + 1;
-    $(".modal-value").attr("value", index);
-
-});
-
 function jumpTo() {
     let index = $(".modal-value").val();
     console.log(index);
@@ -508,10 +529,97 @@ function clickShare() {
     })
 }
 
-// $('#shareModal').on('hidden.bs.modal', function (e) {
-//     // do something...
-//     window.location.href = "https://weibo.com/";
-// });
+function complaintVideo() {
+    let radioChoice = $("input[name='Radios']:checked").val();
+    let complaintReason = $("#description-input").val();
+    let reportVideoBean = {
+        "videoFileName": videoAddress,
+        "reportedType": radioChoice,
+        "beReportedUser": hisUsername,
+        "reportedUser": username,
+        "reportedTime": "null",
+        "reportedReason": complaintReason,
+    };
+    if (complaintReason.length === 0) {
+        confirm("请输入举报理由！")
+    } else {
+        $.ajax({
+            url: '/reportVideo',//请求的地址
+            type: 'post', //请求的方式
+            dateType: "json", //请求的数据格式
+            contentType: "application/json;charset=UTF-8",
+            data: JSON.stringify(reportVideoBean),//将json对象转化为json字符串
+            error: function () {
+                alert("服务器未响应！");
+            },
+            success: function (result) {
+                $('#complaintModalCenter').modal('hide');
+                confirm(result.data);
+            }
+        })
+    }
+
+
+}
+
+
+function reportComment(btn) {
+    let mediaNode = btn.parentElement.parentElement.parentElement.parentElement.parentElement;
+    //当前评论的ID
+    let curCommentID = mediaNode.children[0].innerHTML;
+    //当前评论的内容
+    let curCommentContent = mediaNode.children[2].children[1].innerHTML;
+    $(".comment-id").text(curCommentID);
+    $(".reported-content").text(curCommentContent);
+
+
+    $('#reportCommentModal').modal('show');
+
+}
+
+function sendReportComment() {
+
+    let type = $("input[name='report-comment-radio']:checked").val();
+    let reason = $("#description-input-comment").val();
+    let commentID = $(".comment-id").text();
+
+    let reportCommentBean = {
+        "commentID": commentID,
+        "reportedType": type,
+        "reportedUser": username,
+        "reportedReason": reason,
+    };
+    $.ajax({
+        url: '/reportComment',//请求的地址
+        type: 'post', //请求的方式
+        dateType: "json", //请求的数据格式
+        contentType: "application/json;charset=UTF-8",
+        data: JSON.stringify(reportCommentBean),//将json对象转化为json字符串
+        error: function () {
+            alert("服务器未响应！");
+            $('#reportCommentModal').modal('hide');
+        },
+        success: function (result) {
+            confirm(result.data);
+            $('#reportCommentModal').modal('hide');
+
+        }
+    })
+}
+
+$(".dropdown-menu-share a").click(function () {
+    shareHtml();
+    let index = $(".dropdown-menu-share a").index(this) + 1;
+    $(".modal-value").attr("value", index);
+
+});
+
+$('#complaintModalCenter').on('shown.bs.modal', function (e) {
+    // do something...
+    $(".complaint-modal-title span").text(videoAddress.slice(0, -4));
+    $(".modal-body-video-name").text(videoAddress.slice(0, -4));
+});
+
 
 // function navTools(pageNum) {
 //

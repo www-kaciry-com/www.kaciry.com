@@ -90,10 +90,10 @@ public class UserServiceImpl implements UserService {
         ResultBean resultBean = new ResultBean();
         if (userDao.queryFansInfo(username, hisUsername) != null) {
             flag = userDao.cancelFollow(username, hisUsername);
-            if (flag){
+            if (flag) {
                 resultBean.setCode(502);
                 resultBean.setMsg("关注");
-            }else {
+            } else {
                 // TODO: 2019/10/11 打印日志
                 System.out.println("数据库操作发生未知错误！");
                 resultBean.setCode(500);
@@ -104,10 +104,10 @@ public class UserServiceImpl implements UserService {
             SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
             FansBean fansBean = new FansBean(username, hisUsername, df.format(new Date()));
             flag = userDao.addFansInfo(fansBean);
-            if (flag){
+            if (flag) {
                 resultBean.setCode(200);
                 resultBean.setMsg("取消关注");
-            }else {
+            } else {
                 // TODO: 2019/10/11 打印日志
                 System.out.println("数据库操作发生未知错误！");
                 resultBean.setCode(500);
@@ -121,7 +121,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public FansBean queryFollowsState(String username, String hisUsername) {
-        return userDao.queryFansInfo(username,hisUsername);
+        return userDao.queryFansInfo(username, hisUsername);
     }
 
     @Override
@@ -131,5 +131,20 @@ public class UserServiceImpl implements UserService {
 
     public List<UnionFansBean> queryFollows1(String username) {
         return userDao.queryMyFollows(username);
+    }
+
+    @Override
+    public ResultBean reportComment(ReportCommentBean reportCommentBean) {
+        if (userDao.queryReportComment(reportCommentBean) == null) {
+            if (userDao.addReportComment(reportCommentBean)) {
+                return new ResultBean<>("举报成功，感谢您的支持！");
+            } else
+                return new ResultBean<>("举报失败，请稍后重试！");
+        } else return new ResultBean<>("您已举报过该评论，请勿重复操作！");
+    }
+
+    @Override
+    public Comment queryCommentByID(int commentID) {
+        return userDao.queryCommentByID(commentID);
     }
 }

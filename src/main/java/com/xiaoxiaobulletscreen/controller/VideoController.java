@@ -8,10 +8,7 @@ import com.xiaoxiaobulletscreen.service.Impl.UserServiceImpl;
 import com.xiaoxiaobulletscreen.service.Impl.VideoServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
@@ -168,6 +165,14 @@ public class VideoController {
             return new VideoFollowPage("null","null","null",user.getUsername(),user.getUserHeadIcon(),user.getUserSignature(),user.getUserNickName());
         }
 
+    }
+
+    @PostMapping(value = "/reportVideo")
+    @ResponseBody
+    public ResultBean reportVideo(@RequestBody ReportVideoBean reportVideoBean){
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+        reportVideoBean.setReportedTime(df.format(new Date()));
+        return videoService.addOneReportVideoData(reportVideoBean);
     }
 
 

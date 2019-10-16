@@ -9,55 +9,70 @@
     <link rel="stylesheet" href="/static/css/pagePlugCSS/mricode.pagination.css">
     <link rel="stylesheet" href="/static/css/style.css">
     <link rel="stylesheet" href="/static/css/video.css">
+    <link rel="stylesheet" href="/static/font/iconfont.css">
     <style>
-        .videoInfo {
-            padding: 0 20px;
+        .complaint-video {
+            margin-right: 10px;
         }
-
-        .user-data {
-            margin-top: 20px;
-
+        .complaint-modal-title {
+            margin-left:auto;
         }
-
-        .video-data h3 {
-            display: block;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
+        .description-input{
+            margin-top: 5px;
         }
-
-        .media-body p {
-            display: block;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
+        #description-input{
+            width: 100%;
         }
-
-        .user-data img {
+        .complaint-modal-body{
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+        input[type="radio"] + label::before {
+            content: "\a0"; /*不换行空格*/
+            display: inline-block;
+            vertical-align: middle;
+            font-size: 18px;
+            width: 1em;
+            height: 1em;
+            margin-right: .4em;
             border-radius: 50%;
+            border: 1px solid #454c54;
+            text-indent: .15em;
+            line-height: 1;
+        }
+        input[type="radio"]:checked + label::before {
+            background-color: #01cd78;
+            background-clip: content-box;
+            padding: .2em;
+        }
+        input[type="radio"] {
+            position: absolute;
+            clip: rect(0, 0, 0, 0);
         }
 
-        .media img {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
+        .type-class {
+            margin-bottom: 20px;
         }
-
-        .media button {
-            width: 140px;
+        .type-row{
+            margin-top: 10px;
         }
-
-        .media-body h5, p {
-            margin-bottom: 0;
+        .type-title{
+            color: #99a2aa;
         }
-
-        .media-body {
-            width: 85%;
+        .type-row label{
+            font-size: small;
         }
+        #description-input-comment{
+            margin-top: 10px;
+            margin-left: 15px;
+        }
+        .media .btn-group a {
+            text-decoration: none;
+            color: #6c757d;
 
-        .dropdown-toggle::after {
-            border-right:0;
-            border-left:0;
+        }
+        .media .btn-group a:hover {
+           cursor: pointer;
         }
     </style>
 </head>
@@ -92,41 +107,48 @@
         </div>
     </div>
 
-    <div class=" row ops">
-        <span class="star">
-            <a href="#" onclick="return clickStar()">
-                <img src="/static/img/videoOps/star_before.png" alt=""/>
-                <em id="starNum">99万</em>
-            </a>
-        </span>
-        <span class="coin">
-            <a href="#">
-                <img src="/static/img/videoOps/coin-before.png" alt=""/>
-                <em id="coinNum">99万</em>
-            </a>
-        </span>
-        <span class="connection">
-            <a href="#" onclick="clickCollect()">
-                <img src="/static/img/videoOps/cn_before.png" alt=""/>
-               <em id="connectionNum">99万</em>
-            </a>
-        </span>
-        <span class="share">
-            <input id="share-text" name="share-text" type="text" hidden="hidden" value="null">
-            <!--            <a class="share-btn" href="#" data-toggle="modal" data-target="#shareModal" onclick="shareHtml()">-->
-            <!--                <img src="/static/img/videoOps/share_before.png" alt=""/>-->
-            <!--                <em id="shareNum">99万</em>-->
-            <!--            </a>-->
-            <a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <img src="/static/img/videoOps/share_before.png" alt=""/>
-                <em id="shareNum">99万</em>
-             </a>
-            <span class="dropdown-menu dropdown-menu-share">
-                <a class="dropdown-item share-btn" href="#" data-toggle="modal" data-target="#shareModal">分享到贴吧</a>
-                <a class="dropdown-item share-btn" href="#" data-toggle="modal" data-target="#shareModal">分享到QQ空间</a>
-                <a class="dropdown-item share-btn" href="#" data-toggle="modal" data-target="#shareModal">分享到新浪微博</a>
-            </span>
-        </span>
+    <div class="row ops justify-content-between">
+        <div class="" style="width: 400px;min-width: 400px">
+            <span class="star">
+                    <a href="#" onclick="return clickStar()">
+                        <img src="/static/img/videoOps/star_before.png" alt=""/>
+                        <em id="starNum">99万</em>
+                    </a>
+                </span>
+            <span class="coin">
+                        <a href="#">
+                            <img src="/static/img/videoOps/coin-before.png" alt=""/>
+                            <em id="coinNum">99万</em>
+                        </a>
+                    </span>
+            <span class="connection">
+                        <a href="#" onclick="clickCollect()">
+                            <img src="/static/img/videoOps/cn_before.png" alt=""/>
+                           <em id="connectionNum">99万</em>
+                        </a>
+                    </span>
+            <span class="share">
+                        <input id="share-text" name="share-text" type="text" hidden="hidden" value="null">
+                <!--            <a class="share-btn" href="#" data-toggle="modal" data-target="#shareModal" onclick="shareHtml()">-->
+                <!--                <img src="/static/img/videoOps/share_before.png" alt=""/>-->
+                <!--                <em id="shareNum">99万</em>-->
+                <!--            </a>-->
+                        <a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <img src="/static/img/videoOps/share_before.png" alt=""/>
+                            <em id="shareNum">99万</em>
+                         </a>
+                        <span class="dropdown-menu dropdown-menu-share">
+                            <a class="dropdown-item share-btn" href="#" data-toggle="modal" data-target="#shareModal">分享到贴吧</a>
+                            <a class="dropdown-item share-btn" href="#" data-toggle="modal"
+                               data-target="#shareModal">分享到QQ空间</a>
+                            <a class="dropdown-item share-btn" href="#" data-toggle="modal"
+                               data-target="#shareModal">分享到新浪微博</a>
+                        </span>
+                    </span>
+        </div>
+        <div class="complaint-video">
+            <button class="btn btn-outline-secondary" type="button" data-toggle="modal" data-target="#complaintModalCenter">稿件投诉</button>
+        </div>
     </div>
     <hr>
     <div class="video-desc">
@@ -159,7 +181,8 @@
                         <label for="username"></label><input hidden="hidden" id="username" name="username"
                                                              th:value="${session.user.getUsername()}">
                         <input class="form-control col-7 offset-1 col-md-8" type="text" placeholder="说点什么吧!"
-                               aria-label="Discuss" aria-describedby="basic-addon1" value="" name="msg" id="discuss">
+                               aria-label="Discuss" aria-describedby="basic-addon1" value="" name="msg"
+                               id="discuss">
                         <button type="submit" class="btn btn-primary col-3 offset-1  col-md-2"
                                 onclick="return  sendComment()">发表
                         </button>
@@ -178,6 +201,8 @@
 <!--模态框-->
 <div th:include="logoutModal"></div>
 <div th:include="shareModal"></div>
+<div th:include="complaintModal"></div>
+<div th:include="reportCommentModal"></div>
 
 <script src="/static/js/Jquery/jquery-3.4.1.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"

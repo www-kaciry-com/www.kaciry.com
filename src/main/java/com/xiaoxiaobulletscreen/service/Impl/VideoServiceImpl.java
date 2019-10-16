@@ -1,10 +1,7 @@
 package com.xiaoxiaobulletscreen.service.Impl;
 
 import com.xiaoxiaobulletscreen.dao.VideoDao;
-import com.xiaoxiaobulletscreen.entity.Comment;
-import com.xiaoxiaobulletscreen.entity.Ops;
-import com.xiaoxiaobulletscreen.entity.VideoInfo;
-import com.xiaoxiaobulletscreen.entity.VideoPage;
+import com.xiaoxiaobulletscreen.entity.*;
 import com.xiaoxiaobulletscreen.service.VideoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -193,4 +190,14 @@ public class VideoServiceImpl implements VideoService {
 //        }
     }
 
+    @Override
+    public ResultBean addOneReportVideoData(ReportVideoBean reportVideoBean) {
+        if (videoDao.queryReportData(reportVideoBean)== null){
+            if (videoDao.addReportVideoData(reportVideoBean)){
+                return new ResultBean<>("举报成功，感谢您的支持！");
+            }else return new ResultBean<>("举报失败，请稍后重试！");
+
+        }else return new ResultBean<>("您已经举报过该视频，请勿重复操作！");
+
+    }
 }
