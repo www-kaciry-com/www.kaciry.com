@@ -11,7 +11,7 @@
     <groupId>com.xiaoxiaobulletscreen</groupId>
     <artifactId>spring-boot-01-quick</artifactId>
     <version>1.0.1-SNAPSHOT</version>
-<!--    <packaging>war</packaging>-->
+    <!--    <packaging>war</packaging>-->
     <description>Demo project for Spring Boot</description>
 
     <properties>
@@ -29,12 +29,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
-        </dependency>
-
-        <!--web 支持-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
         <dependency>
