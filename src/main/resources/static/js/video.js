@@ -5,6 +5,9 @@ let page = $("#page");
 let follow_sate = $(".follow-state");
 let hisUsername;
 
+let dp;
+
+//折叠
 $(document).ready(function init() {
     let len = 50;      //默认显示字数
     let ctn = document.getElementById("info");  //获取div对象
@@ -33,6 +36,7 @@ $(document).ready(function init() {
     ctn.appendChild(a);
 });
 
+//初始化视频信息
 $(document).ready(function () {
     // let videoid = document.getElementById("videoid").value;
 
@@ -121,7 +125,7 @@ $(document).ready(function () {
                 //弹幕功能，不需要可以删除
                 danmaku: {
                     //海量弹幕模式，即使重叠也展示全部弹幕，请注意播放器会记忆用户设置，用户手动设置后即失效
-                    unlimited: true,
+                    // unlimited: true,
                     //弹幕库的ID，每个视频的弹幕库不能一样，可以把url作为id
                     id: videoAddress,
                     //这个是官网写好的弹幕接口，可以直接使用，就是不太稳定
@@ -129,10 +133,12 @@ $(document).ready(function () {
                 }
             });
 
+
         }
     })
 });
 
+//初始化视频评论
 $(document).ready(function () {
 
     $.ajax({
@@ -185,6 +191,7 @@ $(document).ready(function () {
     });
 });
 
+//初始化UP主信息
 $(document).ready(function () {
 
     $.ajax({
@@ -250,6 +257,7 @@ page.on("jumpClicked", function (event, data) {
     });
 });
 
+//解析
 function analysisData(data) {
     let str = '';
     $.each(data, function (i, element) {
@@ -297,6 +305,7 @@ function analysisData(data) {
     return str;
 }
 
+//发送评论
 function sendComment() {
     let content = document.getElementById("discuss").value;
     let username = document.getElementById("username").value;
@@ -326,6 +335,7 @@ function sendComment() {
     return false;
 }
 
+//获取URl栏的某个属性
 function GetQueryString(name) {
 
     let reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
@@ -334,6 +344,7 @@ function GetQueryString(name) {
     return null;
 }
 
+//点赞
 function clickStar() {
     if (typeof (username) == "undefined") {
         window.location.href = "/login";
@@ -388,6 +399,7 @@ function clickStar() {
     return false;
 }
 
+//收藏
 function clickCollect() {
     if (typeof (username) == "undefined") {
         window.location.href = "/login";
@@ -440,6 +452,7 @@ function clickCollect() {
     return false;
 }
 
+//关注UP主
 function clickFollow() {
 
     if (typeof (username) == "undefined") {
@@ -471,6 +484,7 @@ function clickFollow() {
     return false;
 }
 
+//复制URL到粘贴板
 function shareHtml() {
     let url = window.location.href;
     $("#share-text").attr("value", url);
@@ -491,6 +505,7 @@ function shareHtml() {
     return false;
 }
 
+//分享跳转页面
 function jumpTo() {
     let index = $(".modal-value").val();
     console.log(index);
@@ -507,6 +522,7 @@ function jumpTo() {
     return false;
 }
 
+//分享视频
 function clickShare() {
     $.ajax({
         url: '/opsStar',//请求的地址
@@ -529,6 +545,7 @@ function clickShare() {
     })
 }
 
+//举报视频
 function complaintVideo() {
     let radioChoice = $("input[name='Radios']:checked").val();
     let complaintReason = $("#description-input").val();
@@ -562,7 +579,7 @@ function complaintVideo() {
 
 }
 
-
+//举报评论
 function reportComment(btn) {
     let mediaNode = btn.parentElement.parentElement.parentElement.parentElement.parentElement;
     //当前评论的ID
@@ -577,6 +594,7 @@ function reportComment(btn) {
 
 }
 
+//发送举报评论请求
 function sendReportComment() {
 
     let type = $("input[name='report-comment-radio']:checked").val();
@@ -606,6 +624,7 @@ function sendReportComment() {
         }
     })
 }
+
 
 $(".dropdown-menu-share a").click(function () {
     shareHtml();
