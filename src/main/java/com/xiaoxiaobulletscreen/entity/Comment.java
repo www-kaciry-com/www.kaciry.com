@@ -10,6 +10,7 @@ public class Comment {
     private String userNickName;
     private int commentStars;
 
+
     public Comment() {
     }
 
