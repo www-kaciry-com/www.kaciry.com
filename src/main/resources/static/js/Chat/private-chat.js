@@ -9,9 +9,9 @@ function sendMsg() {
         dateType: "json", //请求的数据格式
         data: {
             //发送方ID
-            senderID: senderID,
+            senderIdentityDocument: senderID,
             //接收方ID
-            receiverID: receiverID,
+            receiverIdentityDocument: receiverID,
             //内容
             content: msg,
         },
@@ -36,16 +36,16 @@ function sendMsg() {
 function analysisData(data) {
     let str = "";
     $.each(data, function (i, elem) {
-        if (elem.senderID === senderID) {
+        if (elem.senderIdentityDocument === senderID) {
             str += " <div class=\"bubble me\">\n" +
                 "                    " + elem.content + "\n" +
                 "                </div>";
-        } else if (elem.senderID === receiverID) {
+        } else if (elem.senderIdentityDocument === receiverID) {
             str += " <div class=\"bubble you\">\n" +
                 "                    " + elem.content + "\n" +
                 "                </div>";
         }
-        userChatID = elem.userChatID;
+        userChatID = elem.userChatIdentityDocument;
     });
     return str;
 }
@@ -61,8 +61,8 @@ $(document).ready(function () {
         type: 'post', //请求的方式
         dateType: "json", //请求的数据格式
         data: {
-            senderID: senderID,
-            receiverID: receiverID
+            senderIdentityDocument: senderID,
+            receiverIdentityDocument: receiverID
         },
         error: function () {
             alert("服务器未响应，加载信息失败！");
@@ -81,8 +81,8 @@ function getNewMsg() {
         type: 'post', //请求的方式
         dateType: "json", //请求的数据格式
         data: {
-            senderID: receiverID,
-            userChatID : userChatID
+            senderIdentityDocument: receiverID,
+            userChatIdentityDocument : userChatID
         },
         error: function () {
             alert("服务器未响应，加载视频信息失败！");

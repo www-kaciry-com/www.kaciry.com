@@ -2,6 +2,9 @@ package com.xiaoxiaobulletscreen.entity;
 
 import java.util.List;
 
+/**
+ * @author Kaciry
+ */
 public class FollowsBean {
     private List<FansBean> fansBeans;
     private List<User> users;

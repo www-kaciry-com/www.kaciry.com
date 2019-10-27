@@ -6,7 +6,11 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.Date;
 import java.util.Properties;
-
+/**
+ * @author kaciry
+ * @date 2019/10/26 13:57
+ * @description 发送邮件工具类
+ */
 public class Email {
 
     /**

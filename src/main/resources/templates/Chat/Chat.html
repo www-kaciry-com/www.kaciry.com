@@ -14,7 +14,7 @@
 
 <body>
 <div class="wrapper" th:fragment="chat">
-    <label for="senderID"></label><input hidden="hidden" id="senderID" name="username"
+    <label for="senderIdentityDocument"></label><input hidden="hidden" id="senderIdentityDocument" name="username"
                                          th:value="${session.user.getUsername()}">
     <div class="chat-container">
         <div class="left">
@@ -39,7 +39,7 @@
             </ul>
         </div>
         <div class="right">
-            <div class="top"><span>To: <span class="name receiverID">test</span></span></div>
+            <div class="top"><span>To: <span class="name receiverIdentityDocument">test</span></span></div>
             <div class="chat" data-chat="person1">
                 <div class="conversation-start">
                     <span>Today, 6:48 AM</span>

@@ -8,14 +8,34 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+/**
+ * @author kaciry
+ * @date 2019/10/25 18:08
+ * @description 用户聊天Dao
+ */
 @Component
 public interface UserChatDao {
-    @Insert("insert into user_private_chat (senderID,receiverID,content,date) values (#{senderID},#{receiverID},#{content},#{date})")
+    /**
+     * @param userChatBean 用户聊天实体类
+     * @return void
+     * @author kaciry
+     * @description 添加一条用户间的聊天信息
+     * @date 2019/10/25 18:09
+     **/
+    @Insert("insert into user_private_chat (senderIdentityDocument,receiverIdentityDocument,content,date) values (#{senderIdentityDocument},#{receiverIdentityDocument},#{content},#{date})")
     void addUserChatMsg(UserChatBean userChatBean);
 
-    @Select("select * from user_private_chat where senderID = #{senderID} and receiverID = #{receiverID}")
-    List<UserChatBean> queryChatMsg(@Param("senderID")String senderID, @Param("receiverID")String receiverID);
+    /**
+     * @param senderIdentityDocument   发送方ID
+     * @param receiverIdentityDocument 接收方ID
+     * @return java.util.List<com.xiaoxiaobulletscreen.entity.UserChatBean>
+     * @author kaciry
+     * @description 根据双方用户名查询聊天记录
+     * @date 2019/10/25 18:10
+     **/
+    @Select("select * from user_private_chat where senderIdentityDocument = #{senderIdentityDocument} and receiverIdentityDocument = #{receiverIdentityDocument}")
+    List<UserChatBean> queryChatMsg(@Param("senderIdentityDocument") String senderIdentityDocument, @Param("receiverIdentityDocument") String receiverIdentityDocument);
 
-    @Select("select * from user_private_chat where senderID = #{senderID} and userChatID > #{userChatID}")
-    List<UserChatBean> getNewMsg(@Param("senderID") String senderID , @Param("userChatID")int userChatID);
+    @Select("select * from user_private_chat where senderIdentityDocument = #{senderIdentityDocument} and userChatIdentityDocument > #{userChatIdentityDocument}")
+    List<UserChatBean> getNewMsg(@Param("senderIdentityDocument") String senderIdentityDocument, @Param("userChatIdentityDocument") int userChatIdentityDocument);
 }

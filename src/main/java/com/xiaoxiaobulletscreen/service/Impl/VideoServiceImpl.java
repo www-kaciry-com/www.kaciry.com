@@ -7,7 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+/**
+ * @author kaciry
+ * @date 2019/10/26 13:05
+ * @description 初始化首页数据Service
+ */
 @Service
 public class VideoServiceImpl implements VideoService {
 
@@ -24,7 +28,7 @@ public class VideoServiceImpl implements VideoService {
     }
 
     @Override
-    public List<Comment> selectVideoComment(String videoFileName) {
+    public List<Comment> selectVideoCommentsByVideoFilename(String videoFileName) {
 
         return videoDao.selectVideoComment(videoFileName);
     }
@@ -40,7 +44,7 @@ public class VideoServiceImpl implements VideoService {
         VideoPage videoPage;
         //3.1 若未进行任何操作，videoPage不包含Ops的信息,用于视频播放页面初始化时下方的按钮是否为激活状态
         if (resultOfOps == null) {
-            videoPage = new VideoPage(resultOfVideoInfo.getVideoID(), resultOfVideoInfo.getUsername(), resultOfVideoInfo.getVideoTitle(),
+            videoPage = new VideoPage(resultOfVideoInfo.getVideoIdentityDocument(), resultOfVideoInfo.getUsername(), resultOfVideoInfo.getVideoTitle(),
                     resultOfVideoInfo.getVideoType(), resultOfVideoInfo.getVideoState(), resultOfVideoInfo.getVideoFilename(),
                     resultOfVideoInfo.getVideoDescription(), resultOfVideoInfo.getVideoName(), resultOfVideoInfo.getVideoStars(),
                     resultOfVideoInfo.getVideoCoins(), resultOfVideoInfo.getVideoConnections(), resultOfVideoInfo.getVideoShares(), resultOfVideoInfo.getVideoPlayNum(),
@@ -48,7 +52,7 @@ public class VideoServiceImpl implements VideoService {
         }
         //3.2 若有进行点赞等操作，videoPage包含Ops实体信息,用于视频播放页面初始化时下方的按钮是否为激活状态
         else {
-            videoPage = new VideoPage(resultOfVideoInfo.getVideoID(), resultOfVideoInfo.getUsername(), resultOfVideoInfo.getVideoTitle(),
+            videoPage = new VideoPage(resultOfVideoInfo.getVideoIdentityDocument(), resultOfVideoInfo.getUsername(), resultOfVideoInfo.getVideoTitle(),
                     resultOfVideoInfo.getVideoType(), resultOfVideoInfo.getVideoState(), resultOfVideoInfo.getVideoFilename(),
                     resultOfVideoInfo.getVideoDescription(), resultOfVideoInfo.getVideoName(), resultOfVideoInfo.getVideoStars(),
                     resultOfVideoInfo.getVideoCoins(), resultOfVideoInfo.getVideoConnections(), resultOfVideoInfo.getVideoShares(), resultOfVideoInfo.getVideoPlayNum(),
@@ -64,7 +68,7 @@ public class VideoServiceImpl implements VideoService {
         VideoInfo resultOfVideoInfo = videoDao.initVideoInfo(videoAddress);
         //2.将videoInfo的信息赋给VideoPage（多态，处理方便）
         VideoPage videoPage;
-        videoPage = new VideoPage(resultOfVideoInfo.getVideoID(), resultOfVideoInfo.getUsername(), resultOfVideoInfo.getVideoTitle(),
+        videoPage = new VideoPage(resultOfVideoInfo.getVideoIdentityDocument(), resultOfVideoInfo.getUsername(), resultOfVideoInfo.getVideoTitle(),
                 resultOfVideoInfo.getVideoType(), resultOfVideoInfo.getVideoState(), resultOfVideoInfo.getVideoFilename(),
                 resultOfVideoInfo.getVideoDescription(), resultOfVideoInfo.getVideoName(), resultOfVideoInfo.getVideoStars(),
                 resultOfVideoInfo.getVideoCoins(), resultOfVideoInfo.getVideoConnections(), resultOfVideoInfo.getVideoShares(), resultOfVideoInfo.getVideoPlayNum(),

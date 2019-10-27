@@ -1,27 +1,46 @@
 package com.xiaoxiaobulletscreen.entity;
 
+/**
+ * @author Kaciry
+ */
 public class UnionFansBean {
+    //用户名
     private String username;
+    //密码
     private String userPassword;
+    //头像路径
     private String userHeadIcon;
+    //个性签名
     private String userSignature;
+    //昵称
     private String userNickName;
+    //是否为VIP
     private String isVip;
+    //等级
     private Integer userLevel;
+    //真实姓名
     private String userRealName;
+    //邮箱
     private String userEmail;
+    //电话
     private String userPhoneNumber;
+    //性别
     private String userSex;
+    //币的个数
     private Integer userCoins;
-    private Integer followID;
-    private String userID;
+    //关注表索引
+    private Integer followIdentityDocument;
+    //主用户名
+    private String userIdentityDocument;
+    //被关注的用户名
     private String followedUser;
+    //关注日期
     private String followedDate;
 
     public UnionFansBean() {
     }
 
-    public UnionFansBean(String username, String userPassword, String userHeadIcon, String userSignature, String userNickName, String isVip, Integer userLevel, String userRealName, String userEmail, String userPhoneNumber, String userSex, Integer userCoins, Integer followID, String userID, String followedUser, String followedDate) {
+    public UnionFansBean(String username, String userPassword, String userHeadIcon, String userSignature, String userNickName, String isVip, Integer userLevel, String userRealName, String userEmail, String userPhoneNumber, String userSex, Integer userCoins, Integer followIdentityDocument, String userIdentityDocument, String followedUser, String followedDate) {
         this.username = username;
         this.userPassword = userPassword;
         this.userHeadIcon = userHeadIcon;
@@ -34,8 +53,8 @@ public class UnionFansBean {
         this.userPhoneNumber = userPhoneNumber;
         this.userSex = userSex;
         this.userCoins = userCoins;
-        this.followID = followID;
-        this.userID = userID;
+        this.followIdentityDocument = followIdentityDocument;
+        this.userIdentityDocument = userIdentityDocument;
         this.followedUser = followedUser;
         this.followedDate = followedDate;
     }
@@ -136,20 +155,20 @@ public class UnionFansBean {
         this.userCoins = userCoins;
     }
 
-    public Integer getFollowID() {
-        return followID;
+    public Integer getFollowIdentityDocument() {
+        return followIdentityDocument;
     }
 
-    public void setFollowID(Integer followID) {
-        this.followID = followID;
+    public void setFollowIdentityDocument(Integer followIdentityDocument) {
+        this.followIdentityDocument = followIdentityDocument;
     }
 
-    public String getUserID() {
-        return userID;
+    public String getUserIdentityDocument() {
+        return userIdentityDocument;
     }
 
-    public void setUserID(String userID) {
-        this.userID = userID;
+    public void setUserIdentityDocument(String userIdentityDocument) {
+        this.userIdentityDocument = userIdentityDocument;
     }
 
     public String getFollowedUser() {

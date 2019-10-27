@@ -11,69 +11,7 @@
     <link rel="stylesheet" href="/static/css/video.css">
     <link rel="stylesheet" href="/static/font/iconfont.css">
     <style>
-        .complaint-video {
-            margin-right: 10px;
-        }
-        .complaint-modal-title {
-            margin-left:auto;
-        }
-        .description-input{
-            margin-top: 5px;
-        }
-        #description-input{
-            width: 100%;
-        }
-        .complaint-modal-body{
-            padding-left: 20px;
-            padding-right: 20px;
-        }
-        input[type="radio"] + label::before {
-            content: "\a0"; /*不换行空格*/
-            display: inline-block;
-            vertical-align: middle;
-            font-size: 18px;
-            width: 1em;
-            height: 1em;
-            margin-right: .4em;
-            border-radius: 50%;
-            border: 1px solid #454c54;
-            text-indent: .15em;
-            line-height: 1;
-        }
-        input[type="radio"]:checked + label::before {
-            background-color: #01cd78;
-            background-clip: content-box;
-            padding: .2em;
-        }
-        input[type="radio"] {
-            position: absolute;
-            clip: rect(0, 0, 0, 0);
-        }
 
-        .type-class {
-            margin-bottom: 20px;
-        }
-        .type-row{
-            margin-top: 10px;
-        }
-        .type-title{
-            color: #99a2aa;
-        }
-        .type-row label{
-            font-size: small;
-        }
-        #description-input-comment{
-            margin-top: 10px;
-            margin-left: 15px;
-        }
-        .media .btn-group a {
-            text-decoration: none;
-            color: #6c757d;
-
-        }
-        .media .btn-group a:hover {
-           cursor: pointer;
-        }
     </style>
 </head>
 <body>
@@ -148,6 +86,7 @@
         </div>
         <div class="complaint-video">
             <button class="btn btn-outline-secondary" type="button" data-toggle="modal" data-target="#complaintModalCenter">稿件投诉</button>
+            <button class="btn btn-outline-secondary" type="button" onclick="sendDanmu()">测试按钮</button>
         </div>
     </div>
     <hr>
@@ -205,9 +144,7 @@
 <div th:include="reportCommentModal"></div>
 
 <script src="/static/js/Jquery/jquery-3.4.1.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="/static/bootstrap-4.3.1/dist/js/bootstrap.js"></script>
 <script src="/static/js/DPlayer.min.js"></script>
 <script src="/static/js/pagePulg/mricode.pagination.js"></script>

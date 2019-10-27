@@ -1,17 +1,32 @@
 package com.xiaoxiaobulletscreen.entity;
 
+/**
+ * @author Kaciry
+ */
 public class User {
+    //用户名
     private String username;
+    //密码
     private String userPassword;
+    //头像
     private String userHeadIcon;
+    //个性签名
     private String userSignature;
+    //昵称
     private String userNickName;
+    //是否为会员
     private String isVip;
+    //等级
     private String userLevel;
+    //真实姓名
     private String userRealName;
+    //邮箱
     private String userEmail;
+    //电话
     private String userPhoneNumber;
+    //性别
     private String userSex;
+    //币的个数
     private int userCoins;
 
     public User() {

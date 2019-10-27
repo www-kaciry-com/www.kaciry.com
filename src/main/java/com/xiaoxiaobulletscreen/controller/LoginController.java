@@ -15,10 +15,15 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.Map;
 
+/**
+ * @author kaciry
+ * @date 2019/10/25 17:16
+ * @description 有关用户登陆注册的Controller
+ */
 @Controller
-public class loginController {
+public class LoginController {
     @Autowired
-    private UserServiceImpl UserServiceImpl;
+    private UserServiceImpl userServiceImpl;
 
     @RequestMapping(value = {"/login"}, method = RequestMethod.GET)
     public String login() {
@@ -32,7 +37,7 @@ public class loginController {
 
     @RequestMapping(value = "/loginPage", method = RequestMethod.POST)
     public String login(HttpSession session, @ModelAttribute(value = "user") User user, Map<String, String> map) {
-        User resUser = UserServiceImpl.login(user.getUsername(), user.getUserPassword());
+        User resUser = userServiceImpl.login(user.getUsername(), user.getUserPassword());
         if (resUser.getUsername().equals(user.getUsername()) && resUser.getUserPassword().equals(user.getUserPassword())) {
             session.setAttribute("user", resUser);
             session.setAttribute("username", resUser.getUsername());
@@ -51,6 +56,14 @@ public class loginController {
 
     }
 
+    /**
+     * @param request request请求
+     * @param response response
+     * @return java.lang.String
+     * @author kaciry
+     * @description 用户注销，清除Session
+     * @date 2019/10/25 17:21
+     **/
     @RequestMapping(value = "/logout", method = {RequestMethod.GET, RequestMethod.POST})
     public String logout(HttpServletRequest request, HttpServletResponse response) {
         //消除session
@@ -67,30 +80,30 @@ public class loginController {
 
     }
 
-    //进入注册页面，使用Get请求，REST风格的URL能更有雅的处理问题
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String registerGet() {
         return "signup";
     }
 
+    /**
+     * @param session session
+     * @param user    User实体
+     * @return java.lang.String
+     * @author kaciry
+     * @description 用户注册
+     * @date 2019/10/25 17:19
+     **/
     @RequestMapping(value = "/signup", method = RequestMethod.POST)
-    public String register(HttpSession session,
-                           //这里和模板中的th:object="${user}"对应起来
-                           @ModelAttribute(value = "user") User user) {
+    public String register(HttpSession session, @ModelAttribute(value = "user") User user) {
         user.setUserCoins(0);
         user.setUserNickName(user.getUsername());
         user.setIsVip("未开通");
         user.setUserLevel("1");
         user.setUserHeadIcon("/static/img/null.jpeg");
-//        System.out.println(user);
-        //使用userService处理业务
-        String result = UserServiceImpl.register(user);
-        //将结果放入model中，在模板中可以取到model中的值
-//        model.addAttribute("result", result);
-        User resUser = UserServiceImpl.login(user.getUsername(), user.getUserPassword());
+        String result = userServiceImpl.register(user);
+        User resUser = userServiceImpl.login(user.getUsername(), user.getUserPassword());
         session.setAttribute("user", resUser);
         session.setAttribute("username", resUser.getUsername());
-//        return response.encodeRedirectURL("/index");
         return "redirect:/";
     }
 }

@@ -10,7 +10,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
+/**
+ * @author kaciry
+ * @date 2019/10/26 13:05
+ * @description 搜索数据Service实现类
+ */
 @Service
 public class UserServiceImpl implements UserService {
     @Autowired
@@ -41,7 +45,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User selectInfo(String username) {
+    public User selectUserInfoByUsername(String username) {
         return userDao.selectInfo(username);
     }
 
@@ -52,7 +56,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<VideoInfo> selectMyVideos(String username) {
+    public List<VideoInfo> selectVideosByUsername(String username) {
         return userDao.selectVideos(username);
     }
 
@@ -67,7 +71,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<VideoInfo> queryCollect(String username) {
+    public List<VideoInfo> selectCollectionsByUsername(String username) {
         List<VideoInfo> videoInfoList = new ArrayList();
         List<String> videoName = userDao.queryCollect(username, 1);
         for (String s : videoName) {
@@ -79,7 +83,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public VideoInfo queryVideoInfo(String videoFilename) {
+    public VideoInfo selectVideoInfoByVideoFilename(String videoFilename) {
 
         return userDao.queryVideosByVideoFileName(videoFilename);
     }
@@ -120,7 +124,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public FansBean queryFollowsState(String username, String hisUsername) {
+    public FansBean selectFollowsState(String username, String hisUsername) {
         return userDao.queryFansInfo(username, hisUsername);
     }
 
@@ -144,7 +148,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Comment queryCommentByID(int commentID) {
-        return userDao.queryCommentByID(commentID);
+    public Comment queryCommentByIdentityDocument(int commentIdentityDocument) {
+        return userDao.queryCommentByIdentityDocument(commentIdentityDocument);
     }
 }

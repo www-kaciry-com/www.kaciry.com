@@ -1,11 +1,20 @@
 package com.xiaoxiaobulletscreen.entity;
 
+/**
+ * @author Kaciry
+ */
 public class Ops {
+    //用户名
     private String username;
+    //视频文件名
     private String videoFilename;
+    //是否点过赞
     private int isStar;
+    //是否投币
     private int isCoin;
+    //是否收藏
     private int isCollect;
+    //是否分享
     private int isShare;
 
     public Ops() {

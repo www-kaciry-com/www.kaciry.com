@@ -7,23 +7,35 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * @author kaciry
+ * @date 2019/10/26 13:57
+ * @description 权重排行工具类，用于首页视频
+ */
 public class DataWeightSort {
-    //处理返回的数据
-    public static List<VideoInfo> dataWeightSort(List<VideoInfo> videoInfo,int length) {
-        double Star, Coin, Connection, Share, PlayNum, Barrage;
+    /**
+     * @param videoInfo VideoInfo实体，包含信息见实体类
+     * @param length    需要返回视频的个数
+     * @return java.util.List<com.xiaoxiaobulletscreen.entity.VideoInfo>
+     * @author kaciry
+     * @description 核心算法，处理返回的数据
+     * @date 2019/10/26 14:04
+     **/
+    public static List<VideoInfo> dataWeightSort(List<VideoInfo> videoInfo, int length) {
+        double star, coin, connection, share, playNum, barrage;
         double[] result = new double[videoInfo.size()];
         int[] index = new int[videoInfo.size()];
         for (int i = 0; i < videoInfo.size(); i++) {
             //权重
-            Star = videoInfo.get(i).getVideoStars() * 0.15;
-            Coin = videoInfo.get(i).getVideoCoins() * 0.15;
-            Connection = videoInfo.get(i).getVideoConnections() * 0.10;
-            Share = videoInfo.get(i).getVideoShares() * 0.05;
-            PlayNum = videoInfo.get(i).getVideoPlayNum() * 0.3;
-            Barrage = videoInfo.get(i).getVideoBarrages() * 0.25;
+            star = videoInfo.get(i).getVideoStars() * 0.15;
+            coin = videoInfo.get(i).getVideoCoins() * 0.15;
+            connection = videoInfo.get(i).getVideoConnections() * 0.10;
+            share = videoInfo.get(i).getVideoShares() * 0.05;
+            playNum = videoInfo.get(i).getVideoPlayNum() * 0.3;
+            barrage = videoInfo.get(i).getVideoBarrages() * 0.25;
             //计算当前i的加权平均数,并保存他的videoIndex,索引对应
-            result[i] = Star + Coin + Connection + Share + PlayNum + Barrage;
-            index[i] = videoInfo.get(i).getVideoID();
+            result[i] = star + coin + connection + share + playNum + barrage;
+            index[i] = videoInfo.get(i).getVideoIdentityDocument();
         }
         //希尔排序
         int n = result.length;
@@ -42,22 +54,30 @@ public class DataWeightSort {
                 }
             }
         }
-//        System.out.println("result : " + Arrays.toString(result));
-//        System.out.println("index : " + Arrays.toString(index));
+        //System.out.println("result : " + Arrays.toString(result));
+        //System.out.println("index : " + Arrays.toString(index));
         int[] array = Arrays.copyOfRange(index, index.length - length, index.length);
-//        System.out.println("array" + Arrays.toString(array));
+        //System.out.println("array" + Arrays.toString(array));
         List<VideoInfo> arrayList = new ArrayList<>();
         for (i = 0; i < array.length; i++) {
             arrayList.add(selectInfo(videoInfo, array[i]));
         }
-//        System.out.println("arrayList : " + arrayList);
+        //System.out.println("arrayList : " + arrayList);
         Collections.reverse(arrayList);
         return arrayList;
     }
-    //根据index索引值查找videoInfo对应的数据项并返回
+
+    /**
+     * @param videoInfo VideoInfo实体，包含信息见实体类
+     * @param index     索引
+     * @return com.xiaoxiaobulletscreen.entity.VideoInfo
+     * @author kaciry
+     * @description 根据index索引值查找videoInfo对应的数据项并返回
+     * @date 2019/10/26 14:05
+     **/
     private static VideoInfo selectInfo(List<VideoInfo> videoInfo, int index) {
         for (VideoInfo info : videoInfo) {
-            if (info.getVideoID() == index) {
+            if (info.getVideoIdentityDocument() == index) {
                 return info;
             }
         }

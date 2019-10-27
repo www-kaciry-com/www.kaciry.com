@@ -9,26 +9,42 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
+/**
+ * @author kaciry
+ * @date 2019/10/25 17:05
+ * @description 初始化首页数据Controller
+ */
 @Controller
 public class IndexDataController {
     @Autowired
     private IndexDataServiceImpl indexDataService;
 
+    /**
+     * @param videoType 视频类型
+     * @param length    视频个数
+     * @return java.util.List<com.xiaoxiaobulletscreen.entity.VideoInfo>
+     * @author kaciry
+     * @description 初始化首页视频数据
+     * @date 2019/10/25 17:06
+     **/
     @PostMapping(value = "/indexDataInit")
     @ResponseBody
-    public List<VideoInfo> indexDataInit(String videoType , int length){
-//       int  Length = Integer.parseInt(length);
-        List<VideoInfo> result = indexDataService.SelectIndexDataByType(videoType,length);
-//        System.out.println(result.toString());
-        return result;
+    public List<VideoInfo> indexDataInit(String videoType, int length) {
+        return indexDataService.selectIndexDataByType(videoType, length);
     }
 
-    //首页播放排行榜Controller
+    /**
+     * @param videoType 视频类型
+     * @param length    视频个数
+     * @return java.util.List<com.xiaoxiaobulletscreen.entity.VideoInfo>
+     * @author kaciry
+     * @description 初始化首页视频播放排行榜
+     * @date 2019/10/25 17:12
+     **/
     @PostMapping(value = "/playRank")
     @ResponseBody
-    public List<VideoInfo> indexPlayRankInit(String videoType,int length){
-
-        return indexDataService.SelectIndexDataByType(videoType,length,true);
+    public List<VideoInfo> indexPlayRankInit(String videoType, int length) {
+        return indexDataService.selectIndexDataByType(videoType, length, true);
     }
 
 }

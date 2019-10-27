@@ -1,8 +1,11 @@
 package com.xiaoxiaobulletscreen.entity;
 
+/**
+ * @author Kaciry
+ */
 public class ReportVideoBean {
     //自增ID
-    private int reportVideoID;
+    private int reportVideoIdentityDocument;
     //视频文件名
     private String videoFileName;
     //举报类型

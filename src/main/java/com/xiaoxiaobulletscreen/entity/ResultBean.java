@@ -2,6 +2,9 @@ package com.xiaoxiaobulletscreen.entity;
 
 import java.io.Serializable;
 
+/**
+ * @author Kaciry
+ */
 public class ResultBean<T> implements Serializable {
     private static final int SUCCESS = 200;
     private static final int FAIL = -1;

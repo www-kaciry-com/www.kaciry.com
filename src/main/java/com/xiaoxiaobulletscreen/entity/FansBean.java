@@ -1,41 +1,48 @@
 package com.xiaoxiaobulletscreen.entity;
 
+/**
+ * @author Kaciry
+ */
 public class FansBean {
-    private int followID;
-    private String userID;
+    //表索引
+    private int followIdentityDocument;
+    //主用户名
+    private String userIdentityDocument;
+    //被关注的用户名
     private String followedUser;
+    //关注日期
     private String followedDate;
 
     public FansBean() {
     }
 
-    public FansBean(String userID, String followedUser, String followedDate) {
-        this.userID = userID;
+    public FansBean(String userIdentityDocument, String followedUser, String followedDate) {
+        this.userIdentityDocument = userIdentityDocument;
         this.followedUser = followedUser;
         this.followedDate = followedDate;
     }
 
-    public FansBean(int followID, String userID, String followedUser, String followedDate) {
-        this.followID = followID;
-        this.userID = userID;
+    public FansBean(int followIdentityDocument, String userIdentityDocument, String followedUser, String followedDate) {
+        this.followIdentityDocument = followIdentityDocument;
+        this.userIdentityDocument = userIdentityDocument;
         this.followedUser = followedUser;
         this.followedDate = followedDate;
     }
 
-    public int getFollowID() {
-        return followID;
+    public int getFollowIdentityDocument() {
+        return followIdentityDocument;
     }
 
-    public void setFollowID(int followID) {
-        this.followID = followID;
+    public void setFollowIdentityDocument(int followIdentityDocument) {
+        this.followIdentityDocument = followIdentityDocument;
     }
 
-    public String getUserID() {
-        return userID;
+    public String getUserIdentityDocument() {
+        return userIdentityDocument;
     }
 
-    public void setUserID(String userID) {
-        this.userID = userID;
+    public void setUserIdentityDocument(String userIdentityDocument) {
+        this.userIdentityDocument = userIdentityDocument;
     }
 
     public String getFollowedUser() {
@@ -57,8 +64,8 @@ public class FansBean {
     @Override
     public String toString() {
         return "FansBean{" +
-                "followID=" + followID +
-                ", userID='" + userID + '\'' +
+                "followIdentityDocument=" + followIdentityDocument +
+                ", userIdentityDocument='" + userIdentityDocument + '\'' +
                 ", followedUser='" + followedUser + '\'' +
                 ", followedDate='" + followedDate + '\'' +
                 '}';

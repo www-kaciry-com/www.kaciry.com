@@ -1,13 +1,24 @@
 package com.xiaoxiaobulletscreen.entity;
 
+/**
+ * @author Kaciry
+ */
 public class Comment {
+    //视频文件名
     private String videoFilename;
+    //用户名
     private String username;
-    private String commentID;
+    //评论ID
+    private String commentIdentityDocument;
+    //评论内容
     private String content;
+    //评论时间
     private String sendDate;
+    //用户头像路径
     private String userHeadIcon;
+    //用户昵称
     private String userNickName;
+    //评论点赞数
     private int commentStars;
 
     public Comment() {
@@ -39,12 +50,12 @@ public class Comment {
         this.username = username;
     }
 
-    public String getCommentID() {
-        return commentID;
+    public String getCommentIdentityDocument() {
+        return commentIdentityDocument;
     }
 
-    public void setCommentID(String commentID) {
-        this.commentID = commentID;
+    public void setCommentIdentityDocument(String commentIdentityDocument) {
+        this.commentIdentityDocument = commentIdentityDocument;
     }
 
     public String getContent() {
@@ -92,7 +103,7 @@ public class Comment {
         return "Comment{" +
                 "videoFilename='" + videoFilename + '\'' +
                 ", username='" + username + '\'' +
-                ", commentID='" + commentID + '\'' +
+                ", commentIdentityDocument='" + commentIdentityDocument + '\'' +
                 ", content='" + content + '\'' +
                 ", sendDate='" + sendDate + '\'' +
                 ", userHeadIcon='" + userHeadIcon + '\'' +

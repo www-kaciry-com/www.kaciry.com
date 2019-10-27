@@ -1,8 +1,11 @@
 package com.xiaoxiaobulletscreen.entity;
 
+/**
+ * @author Kaciry
+ */
 public class ReportCommentBean {
     //评论的ID
-    private int commentID;
+    private int commentIdentityDocument;
     //举报类型
     private String reportedType;
     //被举报者ID
@@ -25,8 +28,8 @@ public class ReportCommentBean {
     public ReportCommentBean() {
     }
 
-    public ReportCommentBean(int commentID, String reportedType, String beReportedUser, String reportedUser, String reportedTime, String reportedReason, String commentContent) {
-        this.commentID = commentID;
+    public ReportCommentBean(int commentIdentityDocument, String reportedType, String beReportedUser, String reportedUser, String reportedTime, String reportedReason, String commentContent) {
+        this.commentIdentityDocument = commentIdentityDocument;
         this.reportedType = reportedType;
         this.beReportedUser = beReportedUser;
         this.reportedUser = reportedUser;
@@ -35,8 +38,8 @@ public class ReportCommentBean {
         this.commentContent = commentContent;
     }
 
-    public ReportCommentBean(int commentID, String reportedType, String beReportedUser, String reportedUser, String reportedTime, String reportedReason, String commentContent, String bannedReason, int handleState) {
-        this.commentID = commentID;
+    public ReportCommentBean(int commentIdentityDocument, String reportedType, String beReportedUser, String reportedUser, String reportedTime, String reportedReason, String commentContent, String bannedReason, int handleState) {
+        this.commentIdentityDocument = commentIdentityDocument;
         this.reportedType = reportedType;
         this.beReportedUser = beReportedUser;
         this.reportedUser = reportedUser;
@@ -47,12 +50,12 @@ public class ReportCommentBean {
         this.handleState = handleState;
     }
 
-    public int getCommentID() {
-        return commentID;
+    public int getCommentIdentityDocument() {
+        return commentIdentityDocument;
     }
 
-    public void setCommentID(int commentID) {
-        this.commentID = commentID;
+    public void setCommentIdentityDocument(int commentIdentityDocument) {
+        this.commentIdentityDocument = commentIdentityDocument;
     }
 
     public String getReportedType() {

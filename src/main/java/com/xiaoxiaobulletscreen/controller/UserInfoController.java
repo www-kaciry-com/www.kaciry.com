@@ -16,6 +16,11 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * @author kaciry
+ * @date 2019/10/25 17:37
+ * @description 有关用户信息的Controller
+ */
 @Controller
 public class UserInfoController {
     private final String PREFIX = "User/";
@@ -39,6 +44,14 @@ public class UserInfoController {
         return userService.changeInfo(user);
     }
 
+    /**
+     * @param file    用户上传的文件，头像
+     * @param session session
+     * @return boolean
+     * @author kaciry
+     * @description 用户修改个人头像
+     * @date 2019/10/25 17:44
+     **/
     @PostMapping(value = "modifyHeadIcon")
     @ResponseBody
     public boolean modifyHeadIcon(MultipartFile file, HttpSession session) {
@@ -69,16 +82,24 @@ public class UserInfoController {
     @PostMapping("/postUpdatePwd")
     @ResponseBody
     public boolean updatePassword(String email, String password) {
-
         return userService.updatePassword(email, password);
     }
 
     @RequestMapping(value = "/selectInfo", method = {RequestMethod.POST, RequestMethod.GET})
     @ResponseBody
     public User selectInfo(HttpSession session) {
-        return userService.selectInfo(session.getAttribute("username").toString());
+        return userService.selectUserInfoByUsername(session.getAttribute("username").toString());
     }
 
+    /**
+     * @param session  session
+     * @param pageNum  分页，当前页码
+     * @param pageSize 分页，每一页的大小
+     * @return com.github.pagehelper.PageInfo<com.xiaoxiaobulletscreen.entity.VideoInfo>
+     * @author kaciry
+     * @description 查看我的投稿视频
+     * @date 2019/10/25 17:37
+     **/
     @PostMapping(value = "/selectMyVideo")
     @ResponseBody
     public PageInfo<VideoInfo> selectMyVideo(HttpSession session, Integer pageNum, Integer pageSize) {
@@ -88,11 +109,19 @@ public class UserInfoController {
         } else {
             PageHelper.startPage(pageNum, pageSize);
         }
-
-        videoInfoList = userService.selectMyVideos(session.getAttribute("username").toString());
+        videoInfoList = userService.selectVideosByUsername(session.getAttribute("username").toString());
         return new PageInfo<>(videoInfoList);
     }
 
+    /**
+     * @param session  session
+     * @param pageNum  分页，当前页码
+     * @param pageSize 分页，每一页的大小
+     * @return com.github.pagehelper.PageInfo<com.xiaoxiaobulletscreen.entity.VideoInfo>
+     * @author kaciry
+     * @description 查询我收藏的视频
+     * @date 2019/10/25 17:41
+     **/
     @PostMapping("/postQueryCollect")
     @ResponseBody
     public PageInfo<VideoInfo> queryCollect(HttpSession session, Integer pageNum, Integer pageSize) {
@@ -104,24 +133,22 @@ public class UserInfoController {
             PageHelper.startPage(pageNum, pageSize);
         }
 
-        videoInfoList = userService.queryCollect(session.getAttribute("username").toString());
+        videoInfoList = userService.selectCollectionsByUsername(session.getAttribute("username").toString());
         return new PageInfo<>(videoInfoList);
     }
 
+    /**
+     * @param username 用户名
+     * @param pageNum  分页，当前页码
+     * @param pageSize 分页，每一页的大小
+     * @return com.github.pagehelper.PageInfo<com.xiaoxiaobulletscreen.entity.UnionFansBean>
+     * @author kaciry
+     * @description 查询我的关注
+     * @date 2019/10/25 17:42
+     **/
     @PostMapping(value = "/postQueryFollows")
     @ResponseBody
-    public PageInfo<UnionFansBean>  queryFollows(String username, Integer pageNum, Integer pageSize) {
-
-//        List<FansBean> list = userService.queryFollows(username);
-//        List<User> userList = new ArrayList<>();
-//
-//        for (FansBean fansBean : list) {
-//            userList.add(userService.selectInfo(fansBean.getFollowedUser()));
-//        }
-////        Map<List<FansBean>, List<User>> map = new HashMap<>();
-////        map.put(list,userList);
-//
-//        return new FollowsBean(list,userList);
+    public PageInfo<UnionFansBean> queryFollows(String username, Integer pageNum, Integer pageSize) {
         PageHelper.startPage(pageNum, pageSize);
         List<UnionFansBean> list = userService.queryFollows1(username);
         return new PageInfo<>(list);
@@ -134,12 +161,20 @@ public class UserInfoController {
         return userService.followOthers(username, hisUsername);
     }
 
+    /**
+     * @param reportCommentBean 举报评论的实体，包含信息见实体对象
+     * @return com.xiaoxiaobulletscreen.entity.ResultBean
+     * @author kaciry
+     * @description 举报视频的评论
+     * @date 2019/10/25 17:43
+     **/
     @PostMapping(value = "/reportComment")
     @ResponseBody
-    public ResultBean reportComments(@RequestBody ReportCommentBean reportCommentBean){
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
-        reportCommentBean.setReportedTime(df.format(new Date()));
-        Comment comment = userService.queryCommentByID(reportCommentBean.getCommentID());
+    public ResultBean reportComments(@RequestBody ReportCommentBean reportCommentBean) {
+        //设置日期格式
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        reportCommentBean.setReportedTime(simpleDateFormat.format(new Date()));
+        Comment comment = userService.queryCommentByIdentityDocument(reportCommentBean.getCommentIdentityDocument());
         reportCommentBean.setBeReportedUser(comment.getUsername());
         reportCommentBean.setCommentContent(comment.getContent());
 

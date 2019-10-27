@@ -1,30 +1,57 @@
 package com.xiaoxiaobulletscreen.entity;
 
+/**
+ * @author kaciry
+ */
 public class VideoPage {
-    private int videoID;
+
+    //索引
+    private int videoIdentityDocument;
+    //用户名
     private String username;
+    //昵称
+    private String userNickName;
+    //视频标题
     private String videoTitle;
+    //视频类型
     private String videoType;
+    //视频审核状态
     private int videoState;
+    //视频文件名
     private String videoFilename;
+    //视频描述
     private String videoDescription;
+    //视频名
     private String videoName;
+    //视频封面路径
+    private String videoCover;
+    //上传日期
+    private String videoData;
+    //视频点赞数
     private int videoStars;
+    //视频获得的币的个数
     private int videoCoins;
+    //视频收藏数
     private int videoConnections;
+    //视频分享数
     private int videoShares;
+    //视频播放数
     private int videoPlayNum;
+    //视频弹幕数
     private int videoBarrages;
+    //是否点赞
     private int isStar;
+    //是否收藏
     private int isConnection;
+    //是否投币
     private int isCoin;
 
     public VideoPage() {
     }
 
-    public VideoPage(int videoID, String username, String videoTitle, String videoType, int videoState, String videoFilename, String videoDescription, String videoName,
+    public VideoPage(int videoIdentityDocument, String username, String videoTitle, String videoType, int videoState, String videoFilename, String videoDescription, String videoName,
                      int videoStars, int videoCoins, int videoConnections, int videoShares, int videoPlayNum, int videoBarrages, int isStar, int isConnection, int isCoin) {
-        this.videoID = videoID;
+        this.videoIdentityDocument = videoIdentityDocument;
         this.username = username;
         this.videoTitle = videoTitle;
         this.videoType = videoType;
@@ -43,9 +70,9 @@ public class VideoPage {
         this.isCoin = isCoin;
     }
 
-    public VideoPage(int videoID, String username, String videoTitle, String videoType, int videoState, String videoFilename, String videoDescription, String videoName,
+    public VideoPage(int videoIdentityDocument, String username, String videoTitle, String videoType, int videoState, String videoFilename, String videoDescription, String videoName,
                      int videoStars, int videoCoins, int videoConnections, int videoShares, int videoPlayNum, int videoBarrages) {
-        this.videoID = videoID;
+        this.videoIdentityDocument = videoIdentityDocument;
         this.username = username;
         this.videoTitle = videoTitle;
         this.videoType = videoType;
@@ -61,12 +88,12 @@ public class VideoPage {
         this.videoBarrages = videoBarrages;
     }
 
-    public int getVideoID() {
-        return videoID;
+    public int getVideoIdentityDocument() {
+        return videoIdentityDocument;
     }
 
-    public void setVideoID(int videoID) {
-        this.videoID = videoID;
+    public void setVideoIdentityDocument(int videoIdentityDocument) {
+        this.videoIdentityDocument = videoIdentityDocument;
     }
 
     public String getUsername() {
@@ -200,7 +227,7 @@ public class VideoPage {
     @Override
     public String toString() {
         return "VideoPage{" +
-                "videoID=" + videoID +
+                "videoIdentityDocument=" + videoIdentityDocument +
                 ", username='" + username + '\'' +
                 ", videoTitle='" + videoTitle + '\'' +
                 ", videoType='" + videoType + '\'' +

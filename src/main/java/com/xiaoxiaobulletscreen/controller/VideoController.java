@@ -20,6 +20,11 @@ import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
+/**
+ * @author kaciry
+ * @date 2019/10/25 17:48
+ * @description 有关用户对视频的Controller
+ */
 @Controller
 public class VideoController {
     @Autowired
@@ -37,15 +42,23 @@ public class VideoController {
         return "upload";
     }
 
-    //投稿视频Controller
+    /**
+     * @param file    用户上传的文件，视频封面与视频
+     * @param session session
+     * @param req     request请求
+     * @return java.lang.String
+     * @author kaciry
+     * @description 用户投稿视频
+     * @date 2019/10/25 17:48
+     **/
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
     @ResponseBody
     public String uploadFile(MultipartFile[] file, HttpSession session, HttpServletRequest req) {
         String username = session.getAttribute("username").toString();
-        String video_title = req.getParameter("videoTitle");
-        String video_type = req.getParameter("videoType");
-        String video_name = req.getParameter("videoName");
-        String video_description = req.getParameter("videoDescription");
+        String videoTitle = req.getParameter("videoTitle");
+        String videoType = req.getParameter("videoType");
+        String videoName1 = req.getParameter("videoName");
+        String videoDescription = req.getParameter("videoDescription");
 
         boolean flag;
         try {
@@ -58,7 +71,6 @@ public class VideoController {
             //Windows下上传目录
             String filePathVideo = "F:/upload/video/";
             String filePathCover = "F:/upload/videoCover/";
-            // System.out.println(fileSuffix);
             //转化文件名
             String fileName = FormatVideoName.formatVideoName(UUID.randomUUID().toString());
             //创建文件对象
@@ -68,15 +80,15 @@ public class VideoController {
             file[0].transferTo(filesVideo);
             file[1].transferTo(filesCover);
             //保存用户上传的信息
-//            flag = userService.uploadVideo(username,"AV" + fileName + fileSuffix);
+//          flag = userService.uploadVideo(username,"AV" + fileName + fileSuffix);
             //视频文件名
             String videoName = "av" + fileName + fileSuffixVideo;
             //视频封面
             String videoCover = "av" + fileName + fileSuffixCover;
             //设置日期格式
-            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            VideoInfo videoInfo = new VideoInfo(username, video_title, video_type, 0, videoName,
-                    video_description, video_name, videoCover, df.format(new Date()), 0, 0, 0, 0, 0, 0);
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            VideoInfo videoInfo = new VideoInfo(username, videoTitle, videoType, 0, videoName,
+                    videoDescription, videoName1, videoCover, simpleDateFormat.format(new Date()), 0, 0, 0, 0, 0, 0);
             flag = userService.uploadVideo(videoInfo);
 
         } catch (Exception e) {
@@ -91,38 +103,72 @@ public class VideoController {
 
     }
 
+    /**
+     * @param username     用户名
+     * @param content      评论内容
+     * @param videoAddress 视频文件名
+     * @return com.xiaoxiaobulletscreen.entity.Comment
+     * @author kaciry
+     * @description 用户评论视频
+     * @date 2019/10/25 17:52
+     **/
     @RequestMapping(value = "/comment", method = RequestMethod.POST)
     @ResponseBody
     public Comment setComment(String username, String content, String videoAddress) {
 
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
-        User userInfo = userService.selectInfo(username);
-        Comment comment = new Comment(videoAddress, username, content, df.format(new Date()), userInfo.getUserHeadIcon(), userInfo.getUserNickName(), 0);
-        Comment result = videoService.addComment(comment);
-        return result;
+        //设置日期格式
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        User userInfo = userService.selectUserInfoByUsername(username);
+        Comment comment = new Comment(videoAddress, username, content, simpleDateFormat.format(new Date()), userInfo.getUserHeadIcon(), userInfo.getUserNickName(), 0);
+        return videoService.addComment(comment);
     }
 
+    /**
+     * @param videoAddress 视频文件名
+     * @param pageNum      分页，当前页码
+     * @param pageSize     分页，每一页的大小
+     * @return com.github.pagehelper.PageInfo<com.xiaoxiaobulletscreen.entity.Comment>
+     * @author kaciry
+     * @description 获取视频评论信息
+     * @date 2019/10/25 17:53
+     **/
     @PostMapping(value = "/selectVideoComment")
     @ResponseBody
     public PageInfo<Comment> selectVideoComment(String videoAddress, Integer pageNum, Integer pageSize) {
         //pageNum当前页面,  pageSize页面需要显示的数据条数
         PageHelper.startPage(pageNum, pageSize);
-        List<Comment> commentList = videoService.selectVideoComment(videoAddress);
+        List<Comment> commentList = videoService.selectVideoCommentsByVideoFilename(videoAddress);
         return new PageInfo<>(commentList);
 
     }
 
+    /**
+     * @param username     用户名
+     * @param videoAddress 视频文件名
+     * @return com.xiaoxiaobulletscreen.entity.VideoPage
+     * @author kaciry
+     * @description 初始化视频
+     * @date 2019/10/25 17:54
+     **/
     @PostMapping(value = "/initVideo")
     @ResponseBody
     public VideoPage selectVideoComment(String username, String videoAddress) {
-        if ((username == null) || (username.equals(""))) {
+        if ((username == null) || ("".equals(username))) {
             return videoService.initVideoInfo(videoAddress);
         } else {
             return videoService.initVideoInfo(videoAddress, username);
         }
     }
 
-    //投币点赞收藏Controller
+    /**
+     * @param username      用户名
+     * @param videoFileName 视频文件名
+     * @param option        用户进行的操作
+     * @return boolean
+     * @author kaciry
+     * @description 投币点赞收藏Controller
+     * @date 2019/10/25 17:54
+     **/
     @PostMapping(value = "/opsStar")
     @ResponseBody
     public boolean opsStar(String username, String videoFileName, String option) {
@@ -143,38 +189,53 @@ public class VideoController {
             }
             case "share": {
                 res = videoService.opsShare(ops);
+                break;
             }
+            default:
         }
         videoService.deleteOpsData(ops);
         return res;
 
     }
 
-    //获取视频作者信息
+    /**
+     * @param videoAddress 视频文件名
+     * @param username     用户名
+     * @return com.xiaoxiaobulletscreen.entity.VideoFollowPage
+     * @author kaciry
+     * @description 获取视频作者信息
+     * @date 2019/10/25 17:56
+     **/
     @PostMapping(value = "/getVideoUser")
     @ResponseBody
-    public VideoFollowPage getVideoUser(String videoAddress,String username) {
-        String hisUsername = userService.queryVideoInfo(videoAddress).getUsername();
-        User user =  userService.selectInfo(hisUsername);
-        FansBean fansBean = userService.queryFollowsState(username,hisUsername);
-        if (fansBean != null){
+    public VideoFollowPage getVideoUser(String videoAddress, String username) {
+        String hisUsername = userService.selectVideoInfoByVideoFilename(videoAddress).getUsername();
+        User user = userService.selectUserInfoByUsername(hisUsername);
+        FansBean fansBean = userService.selectFollowsState(username, hisUsername);
+        if (fansBean != null) {
             return new VideoFollowPage(
-                    fansBean.getUserID(),fansBean.getFollowedUser(),fansBean.getFollowedDate(),user.getUsername(),user.getUserHeadIcon(),user.getUserSignature(),user.getUserNickName()
+                    fansBean.getUserIdentityDocument(), fansBean.getFollowedUser(), fansBean.getFollowedDate(), user.getUsername(), user.getUserHeadIcon(), user.getUserSignature(), user.getUserNickName()
             );
-        }else {
-            return new VideoFollowPage("null","null","null",user.getUsername(),user.getUserHeadIcon(),user.getUserSignature(),user.getUserNickName());
+        } else {
+            return new VideoFollowPage("null", "null", "null", user.getUsername(), user.getUserHeadIcon(), user.getUserSignature(), user.getUserNickName());
         }
 
     }
 
+    /**
+     * @param reportVideoBean 举报信息实体，详情见实体类
+     * @return com.xiaoxiaobulletscreen.entity.ResultBean
+     * @author kaciry
+     * @description 用户举报视频
+     * @date 2019/10/25 17:57
+     **/
     @PostMapping(value = "/reportVideo")
     @ResponseBody
-    public ResultBean reportVideo(@RequestBody ReportVideoBean reportVideoBean){
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
-        reportVideoBean.setReportedTime(df.format(new Date()));
+    public ResultBean reportVideo(@RequestBody ReportVideoBean reportVideoBean) {
+        //设置日期格式
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        reportVideoBean.setReportedTime(simpleDateFormat.format(new Date()));
         return videoService.addOneReportVideoData(reportVideoBean);
     }
-
-
 
 }

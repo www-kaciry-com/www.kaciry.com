@@ -1,40 +1,48 @@
 package com.xiaoxiaobulletscreen.entity;
 
+/**
+ * @author Kaciry
+ */
 public class UserChatBean {
-    private int userChatID;
-    private String senderID;
-    private String receiverID;
+    //用户聊天索引
+    private int userChatIdentityDocument;
+    //发送方用户名
+    private String senderIdentityDocument;
+    //接收方用户名
+    private String receiverIdentityDocument;
+    //内容
     private String content;
+    //日期
     private String date;
 
     public UserChatBean() {
     }
 
-    public UserChatBean(String senderID, String receiverID, String content, String date) {
-        this.senderID = senderID;
-        this.receiverID = receiverID;
+    public UserChatBean(String senderIdentityDocument, String receiverIdentityDocument, String content, String date) {
+        this.senderIdentityDocument = senderIdentityDocument;
+        this.receiverIdentityDocument = receiverIdentityDocument;
         this.content = content;
         this.date = date;
     }
 
-    public int getUserChatID() {
-        return userChatID;
+    public int getUserChatIdentityDocument() {
+        return userChatIdentityDocument;
     }
 
-    public String getSenderID() {
-        return senderID;
+    public String getSenderIdentityDocument() {
+        return senderIdentityDocument;
     }
 
-    public void setSenderID(String senderID) {
-        this.senderID = senderID;
+    public void setSenderIdentityDocument(String senderIdentityDocument) {
+        this.senderIdentityDocument = senderIdentityDocument;
     }
 
-    public String getReceiverID() {
-        return receiverID;
+    public String getReceiverIdentityDocument() {
+        return receiverIdentityDocument;
     }
 
-    public void setReceiverID(String receiverID) {
-        this.receiverID = receiverID;
+    public void setReceiverIdentityDocument(String receiverIdentityDocument) {
+        this.receiverIdentityDocument = receiverIdentityDocument;
     }
 
     public String getContent() {
@@ -56,9 +64,9 @@ public class UserChatBean {
     @Override
     public String toString() {
         return "UserChatBean{" +
-                "userChatID=" + userChatID +
-                ", senderID='" + senderID + '\'' +
-                ", receiverID='" + receiverID + '\'' +
+                "userChatIdentityDocument=" + userChatIdentityDocument +
+                ", senderIdentityDocument='" + senderIdentityDocument + '\'' +
+                ", receiverIdentityDocument='" + receiverIdentityDocument + '\'' +
                 ", content='" + content + '\'' +
                 ", date='" + date + '\'' +
                 '}';

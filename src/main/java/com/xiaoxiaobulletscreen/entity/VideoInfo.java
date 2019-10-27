@@ -1,29 +1,50 @@
 package com.xiaoxiaobulletscreen.entity;
 
+/**
+ * @author Kaciry
+ */
 public class VideoInfo {
-    private int videoID;
+    //索引
+    private int videoIdentityDocument;
+    //用户名
     private String username;
+    //昵称
     private String userNickName;
+    //视频标题
     private String videoTitle;
+    //视频类型
     private String videoType;
+    //视频审核状态
     private int videoState;
+    //视频文件名
     private String videoFilename;
+    //视频描述
     private String videoDescription;
+    //视频名
     private String videoName;
+    //视频封面路径
     private String videoCover;
+    //上传日期
     private String videoData;
+    //视频点赞数
     private int videoStars;
+    //视频获得的币的个数
     private int videoCoins;
+    //视频收藏数
     private int videoConnections;
+    //视频分享数
     private int videoShares;
+    //视频播放数
     private int videoPlayNum;
+    //视频弹幕数
     private int videoBarrages;
 
     public VideoInfo() {
     }
 
     public VideoInfo(String username, String videoTitle, String videoType, int videoState, String videoFilename, String videoDescription,
-                     String videoName, String videoCover, String videoData, int videoStars, int videoCoins, int videoConnections, int videoShares, int videoPlayNum, int videoBarrages) {
+                     String videoName, String videoCover, String videoData, int videoStars, int videoCoins, int videoConnections, int videoShares,
+                     int videoPlayNum, int videoBarrages) {
         this.username = username;
         this.videoTitle = videoTitle;
         this.videoType = videoType;
@@ -41,12 +62,12 @@ public class VideoInfo {
         this.videoBarrages = videoBarrages;
     }
 
-    public int getVideoID() {
-        return videoID;
+    public int getVideoIdentityDocument() {
+        return videoIdentityDocument;
     }
 
-    public void setVideoID(int videoID) {
-        this.videoID = videoID;
+    public void setVideoIdentityDocument(int videoIdentityDocument) {
+        this.videoIdentityDocument = videoIdentityDocument;
     }
 
     public String getUsername() {
@@ -180,7 +201,7 @@ public class VideoInfo {
     @Override
     public String toString() {
         return "VideoInfo{" +
-                "videoID=" + videoID +
+                "videoIdentityDocument=" + videoIdentityDocument +
                 ", username='" + username + '\'' +
                 ", userNickName='" + userNickName + '\'' +
                 ", videoTitle='" + videoTitle + '\'' +

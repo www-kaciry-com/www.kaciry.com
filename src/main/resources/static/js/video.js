@@ -210,7 +210,7 @@ $(document).ready(function () {
             $(".video-user-headicon").attr("src", "" + result.userHeadIcon + "");
             $(".video-user-nickname").text(result.userNickName);
             $(".video-user-signature").text(result.userSignature);
-            if (result.userID !== "null") {
+            if (result.userIdentityDocument !== "null") {
                 follow_sate.text("取消关注");
             }
             hisUsername = result.username;
@@ -262,7 +262,7 @@ function analysisData(data) {
     let str = '';
     $.each(data, function (i, element) {
         // str += "                <div class=\"media\">\n" +
-        //     "                            <span  class=\"commentID\" hidden='hidden'>" + element.commentID + "</span>\n" +
+        //     "                            <span  class=\"commentIdentityDocument\" hidden='hidden'>" + element.commentIdentityDocument + "</span>\n" +
         //     "                    <img class=\"align-self-start mr-3\" src=\"" + element.userHeadIcon + "\" alt=\"HeadIcon\">\n" +
         //     "                    <div class=\"media-body\">\n" +
         //     "                        <h5 class=\"mt-0 media-nickname\">" + element.userNickName + "</h5>\n" +
@@ -276,7 +276,7 @@ function analysisData(data) {
         //     "                    <div class=\"media-bottom\"></div>\n" +
         //     "                </div>";
         str += "<div class=\"media\">\n" +
-            "        <span class=\"commentID\" hidden=\"hidden\">" + element.commentID + "</span>\n" +
+            "        <span class=\"commentIdentityDocument\" hidden=\"hidden\">" + element.commentIdentityDocument + "</span>\n" +
             "        <img class=\"align-self-start mr-3\" src=\"" + element.userHeadIcon + "\" alt=\"HeadIcon\">\n" +
             "        <div class=\"media-body\">\n" +
             "            <h5 class=\"mt-0 media-nickname\">" + element.userNickName + "</h5>\n" +
@@ -602,7 +602,7 @@ function sendReportComment() {
     let commentID = $(".comment-id").text();
 
     let reportCommentBean = {
-        "commentID": commentID,
+        "commentIdentityDocument": commentID,
         "reportedType": type,
         "reportedUser": username,
         "reportedReason": reason,
@@ -638,6 +638,63 @@ $('#complaintModalCenter').on('shown.bs.modal', function (e) {
     $(".complaint-modal-title span").text(videoAddress.slice(0, -4));
     $(".modal-body-video-name").text(videoAddress.slice(0, -4));
 });
+
+function sendDanmu() {
+    dp.danmaku.send(
+        {
+            text: 'dplayer is amazing',
+            color: '#b7daff',
+            type: 'right', // should be `top` `bottom` or `right`
+        },
+        function() {
+            console.log('success');
+        }
+    );
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // function navTools(pageNum) {

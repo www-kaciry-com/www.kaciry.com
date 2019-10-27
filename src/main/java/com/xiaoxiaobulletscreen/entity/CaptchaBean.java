@@ -1,6 +1,9 @@
 package com.xiaoxiaobulletscreen.entity;
 
-public class VCode {
+/**
+ * @author Kaciry
+ */
+public class CaptchaBean {
     private String code = Long.toString(System.currentTimeMillis());
     private String res = code.substring(code.length() - 6);
 
