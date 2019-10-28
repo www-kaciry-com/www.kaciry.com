@@ -32,7 +32,7 @@ public interface IndexDataDao {
      * @description 通过视频类型查询视频相关信息
      * @date 2019/10/25 18:02
      **/
-    @Select("select * from user_video where videoType = #{videoType}")
+    @Select("select * from user_video LEFT JOIN user ON user.username = user_video.username WHERE videoType = #{videoType}")
     List<VideoInfo> selectVideoData(String videoType);
 
     /**
@@ -42,7 +42,7 @@ public interface IndexDataDao {
      * @description 通过关键词搜索视频信息
      * @date 2019/10/25 18:03
      **/
-    @Select("select * from user_video where videoName like '%${keyword}%'")
+    @Select("select * from user_video LEFT JOIN user ON user.username = user_video.username WHERE videoName like '%${keyword}%' AND videoState <> 0")
     List<VideoInfo> fuzzySearch(@Param("keyword") String keyword);
 
     @Select("select * from user_video where videoName = #{keyword}")

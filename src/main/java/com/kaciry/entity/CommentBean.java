@@ -22,7 +22,16 @@ public class CommentBean {
     private int commentStars;
 
 
+
     public CommentBean() {
+    }
+
+    public CommentBean(String videoFilename, String username, String content, String sendDate, int commentStars) {
+        this.videoFilename = videoFilename;
+        this.username = username;
+        this.content = content;
+        this.sendDate = sendDate;
+        this.commentStars = commentStars;
     }
 
     public CommentBean(String videoFilename, String username, String content, String sendDate, String userHeadIcon, String userNickName, int commentStars) {

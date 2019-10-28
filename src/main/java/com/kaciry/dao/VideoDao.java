@@ -1,9 +1,6 @@
 package com.kaciry.dao;
 
-import com.kaciry.entity.CommentBean;
-import com.kaciry.entity.Ops;
-import com.kaciry.entity.ReportVideoBean;
-import com.kaciry.entity.VideoInfo;
+import com.kaciry.entity.*;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
@@ -27,7 +24,7 @@ public interface VideoDao {
      * @description 添加新评论
      * @date 2019/10/25 18:46
      **/
-    @Insert("insert into comment (videoFilename,username,content,sendDate,commentStars,userNickName,userHeadIcon) values(#{videoFilename},#{username},#{content},#{sendDate},#{commentStars},#{userNickName},#{userHeadIcon})")
+    @Insert("insert into comment (videoFilename,username,content,sendDate,commentStars) values(#{videoFilename},#{username},#{content},#{sendDate},#{commentStars})")
     boolean addNewComment(CommentBean commentBean);
 
     /**
@@ -37,7 +34,7 @@ public interface VideoDao {
      * @description 查询视频评论信息
      * @date 2019/10/25 18:46
      **/
-    @Select("select * from comment  where videoFilename=#{videoFilename}")
+    @Select("select * from comment LEFT JOIN user on user.username = comment.username WHERE videoFilename=#{videoFilename}")
     List<CommentBean> selectVideoComment(String videoFilename);
 
     /**
@@ -47,7 +44,7 @@ public interface VideoDao {
      * @description 查询视频相关信息
      * @date 2019/10/25 18:47
      **/
-    @Select("select * from user_video where videoFilename = #{videoAddress}")
+    @Select("select * from user_video LEFT JOIN user ON user.username = user_video.username WHERE videoFilename = #{videoAddress} AND videoState <> 0")
     VideoInfo initVideoInfo(String videoAddress);
 
     /**

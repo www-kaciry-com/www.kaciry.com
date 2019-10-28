@@ -6,6 +6,7 @@ let follow_sate = $(".follow-state");
 let hisUsername;
 
 let dp;
+window.onload = initVideoComment;
 
 //折叠
 $(document).ready(function init() {
@@ -139,7 +140,7 @@ $(document).ready(function () {
 });
 
 //初始化视频评论
-$(document).ready(function () {
+function initVideoComment () {
 
     $.ajax({
         url: '/selectVideoComment', //请求的url
@@ -189,7 +190,7 @@ $(document).ready(function () {
             return false;
         }
     });
-});
+}
 
 //初始化UP主信息
 $(document).ready(function () {
@@ -261,20 +262,6 @@ page.on("jumpClicked", function (event, data) {
 function analysisData(data) {
     let str = '';
     $.each(data, function (i, element) {
-        // str += "                <div class=\"media\">\n" +
-        //     "                            <span  class=\"commentIdentityDocument\" hidden='hidden'>" + element.commentIdentityDocument + "</span>\n" +
-        //     "                    <img class=\"align-self-start mr-3\" src=\"" + element.userHeadIcon + "\" alt=\"HeadIcon\">\n" +
-        //     "                    <div class=\"media-body\">\n" +
-        //     "                        <h5 class=\"mt-0 media-nickname\">" + element.userNickName + "</h5>\n" +
-        //     "                        <p>" + element.content + "</p>\n" +
-        //     "                        <div class=\"media-p\">\n" +
-        //     "                            <span>" + element.sendDate + "</span>\n" +
-        //     "                            <a href=\"#\" class=\"reply-child\">回复</a>\n" +
-        //     "                        </div>\n" +
-        //     "                        <hr class=\"media-hr\">\n" +
-        //     "                    </div>\n" +
-        //     "                    <div class=\"media-bottom\"></div>\n" +
-        //     "                </div>";
         str += "<div class=\"media\">\n" +
             "        <span class=\"commentIdentityDocument\" hidden=\"hidden\">" + element.commentIdentityDocument + "</span>\n" +
             "        <img class=\"align-self-start mr-3\" src=\"" + element.userHeadIcon + "\" alt=\"HeadIcon\">\n" +
@@ -282,7 +269,7 @@ function analysisData(data) {
             "            <h5 class=\"mt-0 media-nickname\">" + element.userNickName + "</h5>\n" +
             "            <p>" + element.content + "</p>\n" +
             "            <div class=\"row media-p justify-content-between\">\n" +
-            "                <div>\n" +
+            "                <div style=\"margin-left: 15px\">\n" +
             "                    <span>" + element.sendDate + "</span>\n" +
             "                    <a href=\"#\" class=\"reply-child\">回复</a>\n" +
             "                </div>\n" +
@@ -324,8 +311,10 @@ function sendComment() {
                 alert("服务器开小差了，请稍后重试!");
             },
             success: function (result) {
-                $("#discuss").val("");//清空
+                //清空
+                $("#discuss").val("");
                 alert("发表成功!");
+                initVideoComment();
                 // navTools(1);
             }
         });

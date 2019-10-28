@@ -36,6 +36,14 @@ public interface UserChatDao {
     @Select("select * from user_private_chat where senderIdentityDocument = #{senderIdentityDocument} and receiverIdentityDocument = #{receiverIdentityDocument}")
     List<UserChatBean> queryChatMsg(@Param("senderIdentityDocument") String senderIdentityDocument, @Param("receiverIdentityDocument") String receiverIdentityDocument);
 
+    /**
+     * @param senderIdentityDocument   发送方ID
+     * @param userChatIdentityDocument 接收方ID
+     * @return java.util.List<com.kaciry.entity.UserChatBean>
+     * @author kaciry
+     * @description 根据双方用户名查询新聊天记录
+     * @date 2019/10/28 18:03
+     **/
     @Select("select * from user_private_chat where senderIdentityDocument = #{senderIdentityDocument} and userChatIdentityDocument > #{userChatIdentityDocument}")
     List<UserChatBean> getNewMsg(@Param("senderIdentityDocument") String senderIdentityDocument, @Param("userChatIdentityDocument") int userChatIdentityDocument);
 }

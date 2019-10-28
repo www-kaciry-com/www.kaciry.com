@@ -1,6 +1,6 @@
-let senderID = $("#senderID").val();
-let receiverID = $(".receiverID").text();
-let userChatID = "";
+let senderID = $("#senderIdentityDocument").val();
+let receiverID = $(".receiverIdentityDocument").text();
+let userChatID = 10;
 function sendMsg() {
     let msg = $("#msg-input").val();
     $.ajax({
@@ -19,6 +19,8 @@ function sendMsg() {
             alert("服务器未响应，加载信息失败！");
         },
         success: function (result) {
+            //清空输入框
+            $("#msg-input").val("");
             if (result.code === 200) {
                 $("div[data-chat='person1']").append("<div class=\"bubble me\">\n" +
                     "                    " + result.data.content + "\n" +
@@ -90,12 +92,10 @@ function getNewMsg() {
         success: function (result) {
             let json = eval(result);
             let str = analysisData(json);
-            console.log(str);
+            // console.log(str);
             $("div[data-chat='person1']").append(str);
-
         }
     });
-    console.log("getNewMsg()运行了一次!");
 }
 
 function sendPicture() {

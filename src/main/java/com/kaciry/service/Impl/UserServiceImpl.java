@@ -72,10 +72,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<VideoInfo> selectCollectionsByUsername(String username) {
-        List<VideoInfo> videoInfoList = new ArrayList();
+        List<VideoInfo> videoInfoList = new ArrayList<>();
         List<String> videoName = userDao.queryCollect(username, 1);
         for (String s : videoName) {
-            System.out.println(s);
+            //System.out.println(s);
             VideoInfo videoInfo = userDao.queryVideosByVideoFileName(s);
             videoInfoList.add(videoInfo);
         }

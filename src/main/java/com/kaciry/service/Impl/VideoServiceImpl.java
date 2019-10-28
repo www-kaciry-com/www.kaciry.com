@@ -29,7 +29,6 @@ public class VideoServiceImpl implements VideoService {
 
     @Override
     public List<CommentBean> selectVideoCommentsByVideoFilename(String videoFileName) {
-
         return videoDao.selectVideoComment(videoFileName);
     }
 
@@ -158,7 +157,6 @@ public class VideoServiceImpl implements VideoService {
             return true;
         }
     }
-
 
     //分享视频
     @Override

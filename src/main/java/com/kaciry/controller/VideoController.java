@@ -115,11 +115,9 @@ public class VideoController {
     @RequestMapping(value = "/comment", method = RequestMethod.POST)
     @ResponseBody
     public CommentBean setComment(String username, String content, String videoAddress) {
-
         //设置日期格式
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        User userInfo = userService.selectUserInfoByUsername(username);
-        CommentBean commentBean = new CommentBean(videoAddress, username, content, simpleDateFormat.format(new Date()), userInfo.getUserHeadIcon(), userInfo.getUserNickName(), 0);
+        CommentBean commentBean = new CommentBean(videoAddress, username, content, simpleDateFormat.format(new Date()), 0);
         return videoService.addComment(commentBean);
     }
 
