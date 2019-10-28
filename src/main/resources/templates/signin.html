@@ -55,7 +55,7 @@
 			<div class="container">
 
 				<div class="sign-content" >
-					<!--/*@thymesVar id="user" type="com.xiaoxiaobulletscreen.entity.User"*/-->
+					<!--/*@thymesVar id="user" type="com.kaciry.entity.User"*/-->
 					<form  th:action="@{loginPage}"  th:object="${user}" method="post">
 						<h2>sign in</h2>
 						<p style="color: red;text-align: center" th:text="${msg}" th:if="${not #strings.isEmpty(msg)}"></p>
