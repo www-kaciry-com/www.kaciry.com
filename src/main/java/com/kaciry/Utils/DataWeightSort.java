@@ -2,10 +2,13 @@ package com.kaciry.Utils;
 
 import com.kaciry.entity.VideoInfo;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+
+import static java.math.BigInteger.valueOf;
 
 /**
  * @author kaciry
@@ -24,7 +27,7 @@ public class DataWeightSort {
     public static List<VideoInfo> dataWeightSort(List<VideoInfo> videoInfo, int length) {
         double star, coin, connection, share, playNum, barrage;
         double[] result = new double[videoInfo.size()];
-        int[] index = new int[videoInfo.size()];
+        BigInteger[] index = new BigInteger[videoInfo.size()];
         for (int i = 0; i < videoInfo.size(); i++) {
             //权重
             star = videoInfo.get(i).getVideoStars() * 0.15;
@@ -38,29 +41,29 @@ public class DataWeightSort {
             index[i] = videoInfo.get(i).getVideoIdentityDocument();
         }
         //希尔排序
-        int n = result.length;
-        int i, j, k, gap;
-        for (gap = n / 2; gap > 0; gap /= 2) {
-            for (i = 0; i < gap; i++) {
-                for (j = i + gap; j < n; j += gap) {
-                    double temp = result[j];
-                    int indexTemp = index[j];
-                    for (k = j - gap; k >= 0 && result[k] > temp; k -= gap) {
-                        result[k + gap] = result[k];
-                        index[k + gap] = index[k];
+        BigInteger n = valueOf(result.length);
+        BigInteger i, j, k, gap;
+        for (gap = n.subtract(valueOf(2)); gap.compareTo(valueOf(0)) > 0; gap = gap.divide(valueOf(2))) {
+            for (i = BigInteger.valueOf(0); i.compareTo(gap) < 0; i = i.add(valueOf(1))) {
+                for (j = i.add(gap); j.compareTo(n) < 0; j = j.add(gap)) {
+                    double temp = result[Integer.valueOf(j.toString())];
+                    BigInteger indexTemp = index[Integer.valueOf(j.toString())];
+                    for (k = j.subtract(gap); k.compareTo(valueOf(0)) >= 0 && result[Integer.valueOf(k.toString())] > temp; k = k.subtract(gap)) {
+                        result[Integer.valueOf(k.add(gap).toString())] = result[Integer.valueOf(k.toString())];
+                        index[Integer.valueOf(k.add(gap).toString())] = index[Integer.valueOf(k.toString())];
                     }
-                    result[k + gap] = temp;
-                    index[k + gap] = indexTemp;
+                    result[Integer.valueOf(k.add(gap).toString())] = temp;
+                    index[Integer.valueOf(k.add(gap).toString())] = indexTemp;
                 }
             }
         }
         //System.out.println("result : " + Arrays.toString(result));
         //System.out.println("index : " + Arrays.toString(index));
-        int[] array = Arrays.copyOfRange(index, index.length - length, index.length);
+        BigInteger[] array = Arrays.copyOfRange(index, index.length - length, index.length);
         //System.out.println("array" + Arrays.toString(array));
         List<VideoInfo> arrayList = new ArrayList<>();
-        for (i = 0; i < array.length; i++) {
-            arrayList.add(selectInfo(videoInfo, array[i]));
+        for (i = BigInteger.valueOf(0); i.compareTo(BigInteger.valueOf(array.length)) < 0; i = i.add(valueOf(1))) {
+            arrayList.add(selectInfo(videoInfo, Integer.valueOf(array[Integer.valueOf(i.toString())].toString())));
         }
         //System.out.println("arrayList : " + arrayList);
         Collections.reverse(arrayList);
@@ -77,7 +80,7 @@ public class DataWeightSort {
      **/
     private static VideoInfo selectInfo(List<VideoInfo> videoInfo, int index) {
         for (VideoInfo info : videoInfo) {
-            if (info.getVideoIdentityDocument() == index) {
+            if (info.getVideoIdentityDocument().compareTo(BigInteger.valueOf(index)) == 0) {
                 return info;
             }
         }

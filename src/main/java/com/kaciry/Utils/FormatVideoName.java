@@ -1,4 +1,7 @@
 package com.kaciry.Utils;
+
+import java.sql.Timestamp;
+
 /**
  * @author kaciry
  * @date 2019/10/26 13:57
@@ -7,14 +10,16 @@ package com.kaciry.Utils;
 public class FormatVideoName {
     /**
      * @author kaciry
-     * @description
-     * @date  2019/10/26 14:08
-     * @param str 视频文件名
+     * @description  生成时间戳类型的文件名
+     * @date  2019/11/2 12:50
      * @return java.lang.String
     **/
-    public static String formatVideoName(String str){
-        String res = str.replaceAll("[a-zA-Z]","");
+    public static String getTargetFileName(){
+        String res = new Timestamp(System.currentTimeMillis()).toString();
         res = res.replace("-","");
+        res = res.replace(":","");
+        res = res.replace(".","");
+        res = res.replace(" ","");
         return res;
     }
 }

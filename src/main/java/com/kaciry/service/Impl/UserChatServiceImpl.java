@@ -54,7 +54,7 @@ public class UserChatServiceImpl implements UserChatService {
     }
 
     @Override
-    public List<UserChatBean> getNewMsg(String senderIdentityDocument, int userChatIdentityDocument) {
-        return userChatDao.getNewMsg(senderIdentityDocument, userChatIdentityDocument);
+    public List<UserChatBean> getNewMsg(String senderIdentityDocument, String receiverIdentityDocument, int userChatIdentityDocument) {
+        return userChatDao.getNewMsg(senderIdentityDocument, receiverIdentityDocument, userChatIdentityDocument);
     }
 }

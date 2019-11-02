@@ -15,7 +15,7 @@
 <body>
 <div class="wrapper" th:fragment="chat">
     <label for="senderIdentityDocument"></label><input hidden="hidden" id="senderIdentityDocument" name="username"
-                                         th:value="${session.user.getUsername()}">
+                                                       th:value="${session.user.getUsername()}">
     <div class="chat-container">
         <div class="left">
             <div class="top">
@@ -23,52 +23,36 @@
                 <a href="javascript:;" class="search"></a>
             </div>
             <ul class="people" style="padding: 0">
-                <li class="person" data-chat="person1">
-                    <img src="/static/img/Chat/a.jpg" alt=""/>
-                    <span class="name">Test</span>
-                    <span class="time">2:09 PM</span>
-                    <span class="preview">I was wondering...</span>
-                </li>
-                <li class="person" data-chat="person2">
-                    <img src="/static/img/Chat/a.jpg" alt=""/>
-                    <span class="name">Dog Woofson</span>
-                    <span class="time">1:44 PM</span>
-                    <span class="preview">I've forgotten how it felt before</span>
-                </li>
+                <!--                <li class="person" data-chat="person1">-->
+                <!--                    <img src="/static/img/Chat/a.jpg" alt=""/>-->
+                <!--                    <span class="name">Test</span>-->
+                <!--                    <span class="time">2:09 PM</span>-->
+                <!--                    <span class="preview">I was wondering...</span>-->
+                <!--                </li>-->
+                <!--                <li class="person" data-chat="person2">-->
+                <!--                    <img src="/static/img/Chat/a.jpg" alt=""/>-->
+                <!--                    <span class="name">Dog Woofson</span>-->
+                <!--                    <span class="time">1:44 PM</span>-->
+                <!--                    <span class="preview">I've forgotten how it felt before</span>-->
+                <!--                </li>-->
 
             </ul>
         </div>
         <div class="right">
-            <div class="top"><span>To: <span class="name receiverIdentityDocument">test</span></span></div>
-            <div class="chat" data-chat="person1">
-                <div class="conversation-start">
-                    <span>Today, 6:48 AM</span>
-                </div>
-            </div>
-            <div class="chat" data-chat="person2">
-                <div class="conversation-start">
-                    <span>Today, 5:38 PM</span>
-                </div>
-                <div class="bubble you">
-                    Hello, can you hear me?
-                </div>
-                <div class="bubble you">
-                    I'm in California dreaming
-                </div>
-                <div class="bubble me">
-                    ... about who we used to be.
-                </div>
-                <div class="bubble me">
-                    Are you serious?
-                </div>
-                <div class="bubble you">
-                    When we were younger and free...
-                </div>
-                <div class="bubble you">
-                    I've forgotten how it felt before
-                </div>
-            </div>
+            <div class="top"><span>To: <span class="name "></span></span></div>
+            <div class="detail-chat">
+                <!--                <div class="chat" data-chat="test">-->
+                <!--                    <div class="conversation-start">-->
+                <!--                        <span>Today, 6:48 AM</span>-->
+                <!--                    </div>-->
 
+                <!--                </div>-->
+                <!--                <div class="chat" data-chat="1">-->
+                <!--                    <div class="conversation-start">-->
+                <!--                        <span>Today, 6:48 AM</span>-->
+                <!--                    </div>-->
+                <!--                </div>-->
+            </div>
             <div class="write">
                 <a href="javascript:;" class="write-link attach"></a>
                 <label for="msg-input"></label><input type="text" id="msg-input"/>
@@ -79,11 +63,8 @@
     </div>
 </div>
 
-
-<script src="/static/js/Chat/index.js"></script>
 <script src="/static/js/Chat/private-chat.js"></script>
-
-
+<script src="/static/js/Chat/index.js"></script>
 </body>
 
 </html>

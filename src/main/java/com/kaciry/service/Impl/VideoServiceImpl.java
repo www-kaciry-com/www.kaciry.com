@@ -45,7 +45,7 @@ public class VideoServiceImpl implements VideoService {
         if (resultOfOps == null) {
             videoPage = new VideoPage(resultOfVideoInfo.getVideoIdentityDocument(), resultOfVideoInfo.getUsername(), resultOfVideoInfo.getVideoTitle(),
                     resultOfVideoInfo.getVideoType(), resultOfVideoInfo.getVideoState(), resultOfVideoInfo.getVideoFilename(),
-                    resultOfVideoInfo.getVideoDescription(), resultOfVideoInfo.getVideoName(), resultOfVideoInfo.getVideoStars(),
+                    resultOfVideoInfo.getVideoDescription(), resultOfVideoInfo.getVideoName(),resultOfVideoInfo.getVideoCover(),resultOfVideoInfo.getVideoData(), resultOfVideoInfo.getVideoStars(),
                     resultOfVideoInfo.getVideoCoins(), resultOfVideoInfo.getVideoConnections(), resultOfVideoInfo.getVideoShares(), resultOfVideoInfo.getVideoPlayNum(),
                     resultOfVideoInfo.getVideoBarrages());
         }
@@ -53,7 +53,7 @@ public class VideoServiceImpl implements VideoService {
         else {
             videoPage = new VideoPage(resultOfVideoInfo.getVideoIdentityDocument(), resultOfVideoInfo.getUsername(), resultOfVideoInfo.getVideoTitle(),
                     resultOfVideoInfo.getVideoType(), resultOfVideoInfo.getVideoState(), resultOfVideoInfo.getVideoFilename(),
-                    resultOfVideoInfo.getVideoDescription(), resultOfVideoInfo.getVideoName(), resultOfVideoInfo.getVideoStars(),
+                    resultOfVideoInfo.getVideoDescription(), resultOfVideoInfo.getVideoName(),resultOfVideoInfo.getVideoCover(),resultOfVideoInfo.getVideoData(), resultOfVideoInfo.getVideoStars(),
                     resultOfVideoInfo.getVideoCoins(), resultOfVideoInfo.getVideoConnections(), resultOfVideoInfo.getVideoShares(), resultOfVideoInfo.getVideoPlayNum(),
                     resultOfVideoInfo.getVideoBarrages(), resultOfOps.getIsStar(), resultOfOps.getIsCollect(), resultOfOps.getIsCoin());
         }
@@ -69,7 +69,7 @@ public class VideoServiceImpl implements VideoService {
         VideoPage videoPage;
         videoPage = new VideoPage(resultOfVideoInfo.getVideoIdentityDocument(), resultOfVideoInfo.getUsername(), resultOfVideoInfo.getVideoTitle(),
                 resultOfVideoInfo.getVideoType(), resultOfVideoInfo.getVideoState(), resultOfVideoInfo.getVideoFilename(),
-                resultOfVideoInfo.getVideoDescription(), resultOfVideoInfo.getVideoName(), resultOfVideoInfo.getVideoStars(),
+                resultOfVideoInfo.getVideoDescription(), resultOfVideoInfo.getVideoName(),resultOfVideoInfo.getVideoCover(),resultOfVideoInfo.getVideoData(),  resultOfVideoInfo.getVideoStars(),
                 resultOfVideoInfo.getVideoCoins(), resultOfVideoInfo.getVideoConnections(), resultOfVideoInfo.getVideoShares(), resultOfVideoInfo.getVideoPlayNum(),
                 resultOfVideoInfo.getVideoBarrages());
         return videoPage;

@@ -12,7 +12,7 @@
 
     </style>
 </head>
-<body onload="queryCollections()">
+<body>
 <!--header-->
 <div th:include="nav"></div>
 <!--页面头像特效区-->
@@ -195,7 +195,6 @@
     //图片预览js
     $("#file_input").change(function () {
         let objUrl = getObjectURL(this.files[0]);//获取文件信息
-        console.log("objUrl = " + objUrl);
         if (objUrl) {
             $("#pre").attr("src", objUrl);
         }

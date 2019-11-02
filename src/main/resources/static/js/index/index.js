@@ -1,5 +1,52 @@
 loadlive2d("live2d", "/static/live2d/model/tia/model.json");
 
+//轮播图板块
+$(document).ready(function () {
+    $.ajax({
+        url: '/initPromoteVideos4Carousel',//请求的地址
+        type: 'post', //请求的方式
+        dateType: "json", //请求的数据格式
+        data: {},
+        error: function () {
+            alert("服务器未响应，加载视频信息失败！");
+        },
+        success: function (result) {
+            let json = eval(result);
+            let imgTag = $(".carousel-item img");
+            let linkTag = $(".carousel-item a");
+            $.each(json, function (i, element) {
+                imgTag.eq(i).attr("src", "/files/videoCover/" + element.videoCover);
+                linkTag.eq(i).attr("href", "/video?videoid=" + element.videoFilename)
+            })
+        }
+    })
+});
+
+//推广列表区域
+$(document).ready(function () {
+    $.ajax({
+        url: '/initPromoteVideos4List',//请求的地址
+        type: 'post', //请求的方式
+        dateType: "json", //请求的数据格式
+        data: {},
+        error: function () {
+            alert("服务器未响应，加载视频信息失败！");
+        },
+        success: function (result) {
+            let json = eval(result);
+            let imgTag = $('.Promote-one img');
+            let spanTag = $('.Promote-one span');
+            let linkTag = $('.Promote-one a');
+            $.each(json, function (i, element) {
+                imgTag.eq(i).attr("src", "/files/videoCover/" + element.videoCover);
+                spanTag.eq(i).text(element.videoName);
+                linkTag.eq(i).attr("href", "/video?videoid=" + element.videoFilename);
+            })
+
+        }
+    })
+});
+
 //音乐板块
 $(document).ready(function () {
     let videoType = "音乐";
@@ -32,6 +79,40 @@ $(document).ready(function () {
                 videoTag1.eq(i).attr("href", "/video?videoid=" + element.videoFilename);
             });
             // console.log(videoTag.eq(0).val());
+        }
+    })
+});
+
+//番剧板块
+$(document).ready(function () {
+    let videoType = "番剧";
+    let length = "12";
+    $.ajax({
+        url: '/indexDataInit',//请求的地址
+        type: 'post', //请求的方式
+        dateType: "json", //请求的数据格式
+        data: {
+            videoType: videoType,
+            length: length,
+        },
+        error: function () {
+            alert("服务器未响应，加载视频信息失败！");
+        },
+        success: function (result) {
+            let json = eval(result);
+            let imgTag = $('.Animation-one img');
+            let spanTag = $('.Animation-one span');
+            let videoTag1 = $('.Animation-one a');
+            $.each(json, function (i, element) {
+                //$(…)[0] 返回的是一个dom对象
+                // 而 attr() 方法 只能被JQuery对象所使用
+                // 所以，可以用$(…).eq()
+                imgTag.eq(i).attr("src", "/files/videoCover/" + element.videoCover);
+                //添加文字描述
+                spanTag.eq(i).text(element.videoName);
+                // videoTag.eq(i).attr("value",element.videoFileName);
+                videoTag1.eq(i).attr("href", "/video?videoid=" + element.videoFilename);
+            });
         }
     })
 });

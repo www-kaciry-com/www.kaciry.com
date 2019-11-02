@@ -1,11 +1,13 @@
 package com.kaciry.entity;
 
+import java.math.BigInteger;
+
 /**
  * @author Kaciry
  */
 public class VideoInfo {
     //索引
-    private int videoIdentityDocument;
+    private BigInteger videoIdentityDocument;
     //用户名
     private String username;
     //昵称
@@ -62,11 +64,11 @@ public class VideoInfo {
         this.videoBarrages = videoBarrages;
     }
 
-    public int getVideoIdentityDocument() {
+    public BigInteger getVideoIdentityDocument() {
         return videoIdentityDocument;
     }
 
-    public void setVideoIdentityDocument(int videoIdentityDocument) {
+    public void setVideoIdentityDocument(BigInteger videoIdentityDocument) {
         this.videoIdentityDocument = videoIdentityDocument;
     }
 

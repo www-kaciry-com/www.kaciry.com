@@ -4,10 +4,7 @@ import com.kaciry.entity.User;
 import com.kaciry.service.Impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -38,6 +35,7 @@ public class LoginController {
     @RequestMapping(value = "/loginPage", method = RequestMethod.POST)
     public String login(HttpSession session, @ModelAttribute(value = "user") User user, Map<String, String> map) {
         User resUser = userServiceImpl.login(user.getUsername(), user.getUserPassword());
+        // TODO: 2019/10/31 Bug在此
         if (resUser.getUsername().equals(user.getUsername()) && resUser.getUserPassword().equals(user.getUserPassword())) {
             session.setAttribute("user", resUser);
             session.setAttribute("username", resUser.getUsername());
@@ -57,7 +55,7 @@ public class LoginController {
     }
 
     /**
-     * @param request request请求
+     * @param request  request请求
      * @param response response
      * @return java.lang.String
      * @author kaciry

@@ -18,7 +18,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
-import java.util.UUID;
 
 /**
  * @author kaciry
@@ -41,6 +40,13 @@ public class VideoController {
     public String contribute() {
         return "upload";
     }
+
+
+    @RequestMapping(value = {"/promoteVideo"})
+    public String promoteVideo() {
+        return "promoteVideo";
+    }
+
 
     /**
      * @param file    用户上传的文件，视频封面与视频
@@ -72,7 +78,7 @@ public class VideoController {
             String filePathVideo = "F:/upload/video/";
             String filePathCover = "F:/upload/videoCover/";
             //转化文件名
-            String fileName = FormatVideoName.formatVideoName(UUID.randomUUID().toString());
+            String fileName = FormatVideoName.getTargetFileName();
             //创建文件对象
             File filesVideo = new File(filePathVideo + "av" + fileName + fileSuffixVideo);
             File filesCover = new File(filePathCover + "av" + fileName + fileSuffixCover);

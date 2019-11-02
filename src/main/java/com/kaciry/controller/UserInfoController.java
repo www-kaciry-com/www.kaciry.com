@@ -45,6 +45,19 @@ public class UserInfoController {
     }
 
     /**
+     * @author kaciry
+     * @description  根据用户名查找所有用户投稿
+     * @date  2019/10/31 22:16
+     * @param username 用户名
+     * @return java.util.List<com.kaciry.entity.VideoInfo>
+    **/
+    @PostMapping(value = "/selectUserVideos")
+    @ResponseBody
+    public List<VideoInfo>  selectUserVideos(String username){
+        return userService.selectVideosByUsername(username);
+    }
+
+    /**
      * @param file    用户上传的文件，头像
      * @param session session
      * @return boolean

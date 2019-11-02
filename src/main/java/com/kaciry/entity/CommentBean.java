@@ -21,8 +21,6 @@ public class CommentBean {
     //评论点赞数
     private int commentStars;
 
-
-
     public CommentBean() {
     }
 

@@ -1,9 +1,15 @@
 package com.kaciry.config;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import java.nio.charset.Charset;
+
 /**
  * @author kaciry
  * @date 2019/10/25 18:52
@@ -19,8 +25,10 @@ public class WebConfig implements WebMvcConfigurer {
 //                .excludePathPatterns("/index.html","/","/indexDataInit","/login","/loginPage","/static/**");
 //    }
 
-
-
+    @Bean
+    public HttpMessageConverter responseBodyConverter() {
+        return new StringHttpMessageConverter(Charset.forName("UTF-8"));
+    }
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
 

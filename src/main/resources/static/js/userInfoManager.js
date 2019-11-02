@@ -5,7 +5,6 @@ let username = $(".username").val();
 let followContainer = $(".content");
 
 window.onload = queryCollections;
-window.onload = queryFollows;
 
 function changeInfo() {
     $.ajax({
@@ -169,8 +168,8 @@ function queryCollections() {
     });
 }
 
+//查询关注
 function queryFollows() {
-
     followContainer.children().remove();
 
     $.ajax({
@@ -333,6 +332,7 @@ followPage.on("jumpClicked", function (event, data) {
     });
 });
 
+//取消关注
 function cancelFollow(btn) {
     let res = btn.parentElement.parentElement.children[1].children[0];
     let curNode = btn.parentElement.parentElement.parentElement;
@@ -355,9 +355,5 @@ function cancelFollow(btn) {
 
 function toSendMsg() {
     //TODO 2019年10月11日14:42:04 转到发送消息界面
-
+    window.location.href = "/reply#privateLetters";
 }
-
-// $('#cancelModal').on('shown.bs.modal', function (e) {
-//
-// });

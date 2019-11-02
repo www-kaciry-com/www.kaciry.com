@@ -95,7 +95,7 @@ public interface UserDao {
      * @description 查询用户的投稿, 查询相关视频信息
      * @date 2019/10/25 18:37
      **/
-    @Select("select * from user_video where username = #{username}")
+    @Select("select * from user_video where username = #{username} AND videoState <> 0")
     List<VideoInfo> selectVideos(String username);
 
     /**

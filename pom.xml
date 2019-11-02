@@ -8,9 +8,9 @@
         <version>2.1.6.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.xiaoxiaobulletscreen</groupId>
-    <artifactId>spring-boot-01-quick</artifactId>
-    <version>1.0.1-SNAPSHOT</version>
+    <groupId>com.kaciry</groupId>
+    <artifactId>Kaciry</artifactId>
+    <version>2.0.1-SNAPSHOT</version>
     <!--    <packaging>war</packaging>-->
     <description>Demo project for Spring Boot</description>
 
@@ -29,6 +29,11 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+            <version>2.5</version>
         </dependency>
 
         <dependency>
@@ -99,6 +104,10 @@
             <groupId>commons-codec</groupId>
             <artifactId>commons-codec</artifactId>
             <version>1.11</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-quartz</artifactId>
         </dependency>
     </dependencies>
 

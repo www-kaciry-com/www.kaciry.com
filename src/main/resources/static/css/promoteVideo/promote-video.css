@@ -1,0 +1,26 @@
+.title {
+    text-align: center;
+}
+
+.content {
+    padding: 20px;
+}
+
+.div-height {
+    height: 30px;
+}
+
+.btn-submit {
+    width: 60%;
+    display: block;
+    margin: 50px auto auto;
+}
+.video-cover {
+    width: 300px;
+    height: 200px;
+    border-radius: 3%;
+}
+
+input[type=text]{
+    color: #9ba3ab;
+}

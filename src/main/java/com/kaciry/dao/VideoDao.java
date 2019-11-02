@@ -147,13 +147,6 @@ public interface VideoDao {
     @Update("update ops set isCollect = #{isCollect} where username=#{username} and videoFilename=#{videoFilename}")
     void changeCollectState(Ops ops);
 
-//    //点赞，增加一条数据
-//    @Insert("insert into ops (username,videoFilename,star) values(#{username},#{videoFilename},#{star})")
-//    void insertStarState(Ops ops);
-//
-//    @Select("select * from ops where username=#{username} and videoFilename=#{videoFilename} and star = #{star}")
-//    Integer queryCollectState(Ops ops);
-
     /**
      * @param ops Ops实体
      * @return boolean
@@ -194,4 +187,7 @@ public interface VideoDao {
      **/
     @Select("select * from reportVideo where reportedUser=#{reportedUser} and videoFileName=#{videoFileName}")
     Integer queryReportData(ReportVideoBean reportVideoBean);
+
+    @Select("SELECT * FROM promote_one_video LEFT JOIN user_video ON promote_one_video.videoFilename = user_video.videoFilename WHERE state = 1")
+    List<VideoInfo> queryPromoteOneVideo();
 }

@@ -44,6 +44,6 @@ public interface UserChatDao {
      * @description 根据双方用户名查询新聊天记录
      * @date 2019/10/28 18:03
      **/
-    @Select("select * from user_private_chat where senderIdentityDocument = #{senderIdentityDocument} and userChatIdentityDocument > #{userChatIdentityDocument}")
-    List<UserChatBean> getNewMsg(@Param("senderIdentityDocument") String senderIdentityDocument, @Param("userChatIdentityDocument") int userChatIdentityDocument);
+    @Select("SELECT * FROM user_private_chat WHERE senderIdentityDocument = #{senderIdentityDocument} and receiverIdentityDocument = #{receiverIdentityDocument} and userChatIdentityDocument > #{userChatIdentityDocument}")
+    List<UserChatBean> getNewMsg(@Param("senderIdentityDocument") String senderIdentityDocument,@Param("receiverIdentityDocument") String receiverIdentityDocument, @Param("userChatIdentityDocument") int userChatIdentityDocument);
 }

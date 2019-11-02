@@ -1,12 +1,14 @@
 package com.kaciry.entity;
 
+import java.math.BigInteger;
+
 /**
  * @author kaciry
  */
 public class VideoPage {
 
     //索引
-    private int videoIdentityDocument;
+    private BigInteger videoIdentityDocument;
     //用户名
     private String username;
     //昵称
@@ -49,16 +51,44 @@ public class VideoPage {
     public VideoPage() {
     }
 
-    public VideoPage(int videoIdentityDocument, String username, String videoTitle, String videoType, int videoState, String videoFilename, String videoDescription, String videoName,
-                     int videoStars, int videoCoins, int videoConnections, int videoShares, int videoPlayNum, int videoBarrages, int isStar, int isConnection, int isCoin) {
+
+
+    public VideoPage(BigInteger videoIdentityDocument, String username, String videoTitle, String videoType,
+                     int videoState, String videoFilename, String videoDescription, String videoName, String videoCover, String videoData,
+                     int videoStars, int videoCoins, int videoConnections, int videoShares, int videoPlayNum, int videoBarrages) {
         this.videoIdentityDocument = videoIdentityDocument;
         this.username = username;
+        this.userNickName = userNickName;
         this.videoTitle = videoTitle;
         this.videoType = videoType;
         this.videoState = videoState;
         this.videoFilename = videoFilename;
         this.videoDescription = videoDescription;
         this.videoName = videoName;
+        this.videoCover = videoCover;
+        this.videoData = videoData;
+        this.videoStars = videoStars;
+        this.videoCoins = videoCoins;
+        this.videoConnections = videoConnections;
+        this.videoShares = videoShares;
+        this.videoPlayNum = videoPlayNum;
+        this.videoBarrages = videoBarrages;
+    }
+
+    public VideoPage(BigInteger videoIdentityDocument, String username, String videoTitle, String videoType,
+                     int videoState, String videoFilename, String videoDescription, String videoName, String videoCover, String videoData,
+                     int videoStars, int videoCoins, int videoConnections, int videoShares, int videoPlayNum, int videoBarrages, int isStar, int isConnection, int isCoin) {
+        this.videoIdentityDocument = videoIdentityDocument;
+        this.username = username;
+        this.userNickName = userNickName;
+        this.videoTitle = videoTitle;
+        this.videoType = videoType;
+        this.videoState = videoState;
+        this.videoFilename = videoFilename;
+        this.videoDescription = videoDescription;
+        this.videoName = videoName;
+        this.videoCover = videoCover;
+        this.videoData = videoData;
         this.videoStars = videoStars;
         this.videoCoins = videoCoins;
         this.videoConnections = videoConnections;
@@ -70,30 +100,37 @@ public class VideoPage {
         this.isCoin = isCoin;
     }
 
-    public VideoPage(int videoIdentityDocument, String username, String videoTitle, String videoType, int videoState, String videoFilename, String videoDescription, String videoName,
-                     int videoStars, int videoCoins, int videoConnections, int videoShares, int videoPlayNum, int videoBarrages) {
-        this.videoIdentityDocument = videoIdentityDocument;
-        this.username = username;
-        this.videoTitle = videoTitle;
-        this.videoType = videoType;
-        this.videoState = videoState;
-        this.videoFilename = videoFilename;
-        this.videoDescription = videoDescription;
-        this.videoName = videoName;
-        this.videoStars = videoStars;
-        this.videoCoins = videoCoins;
-        this.videoConnections = videoConnections;
-        this.videoShares = videoShares;
-        this.videoPlayNum = videoPlayNum;
-        this.videoBarrages = videoBarrages;
-    }
 
-    public int getVideoIdentityDocument() {
+    public BigInteger getVideoIdentityDocument() {
         return videoIdentityDocument;
     }
 
-    public void setVideoIdentityDocument(int videoIdentityDocument) {
+    public void setVideoIdentityDocument(BigInteger videoIdentityDocument) {
         this.videoIdentityDocument = videoIdentityDocument;
+    }
+
+    public String getVideoCover() {
+        return videoCover;
+    }
+
+    public void setVideoCover(String videoCover) {
+        this.videoCover = videoCover;
+    }
+
+    public String getUserNickName() {
+        return userNickName;
+    }
+
+    public void setUserNickName(String userNickName) {
+        this.userNickName = userNickName;
+    }
+
+    public String getVideoData() {
+        return videoData;
+    }
+
+    public void setVideoData(String videoData) {
+        this.videoData = videoData;
     }
 
     public String getUsername() {

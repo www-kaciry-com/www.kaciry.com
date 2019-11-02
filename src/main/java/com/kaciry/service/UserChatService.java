@@ -32,12 +32,13 @@ public interface UserChatService {
 
     /**
      * @param senderIdentityDocument   发送方用户名
-     * @param userChatIdentityDocument 接收方用户名
+     * @param receiverIdentityDocument 接收方用户名
+     * @param userChatIdentityDocument 当前聊天索引
      * @return java.util.List<com.kaciry.entity.UserChatBean>
      * @author kaciry
      * @description 获取新私信
      * @date 2019/10/26 13:18
      **/
-    List<UserChatBean> getNewMsg(String senderIdentityDocument, int userChatIdentityDocument);
+    List<UserChatBean> getNewMsg(String senderIdentityDocument, String receiverIdentityDocument, int userChatIdentityDocument);
 
 }

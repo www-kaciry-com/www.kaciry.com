@@ -305,7 +305,6 @@ function sendComment() {
                 username: username,
                 videoAddress: videoAddress,
                 content: content,
-
             },
             error: function () {
                 alert("服务器开小差了，请稍后重试!");
@@ -315,7 +314,6 @@ function sendComment() {
                 $("#discuss").val("");
                 alert("发表成功!");
                 initVideoComment();
-                // navTools(1);
             }
         });
     } else {

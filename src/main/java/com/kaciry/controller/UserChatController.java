@@ -1,15 +1,19 @@
 package com.kaciry.controller;
 
 import com.kaciry.entity.ResultBean;
+import com.kaciry.entity.UnionFansBean;
 import com.kaciry.entity.UserChatBean;
 import com.kaciry.service.Impl.UserChatServiceImpl;
+import com.kaciry.service.Impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author kaciry
@@ -20,7 +24,30 @@ import java.util.*;
 public class UserChatController {
 
     @Autowired
-    UserChatServiceImpl userChatService;
+    private UserChatServiceImpl userChatService;
+
+    @Autowired
+    private UserServiceImpl userService;
+
+    @PostMapping(value = "/jumpToChat")
+    @ResponseBody
+    public String jumpToChat(Map<String, String> map) {
+
+        return null;
+    }
+
+    /**
+     * @param username 用户名
+     * @return java.util.List<com.kaciry.entity.UnionFansBean>
+     * @author kaciry
+     * @description 获取username的所有关注
+     * @date 2019/10/30 13:50
+     **/
+    @PostMapping(value = "/getChatList")
+    @ResponseBody
+    public List<UnionFansBean> getChatList(String username) {
+        return userService.queryFollows1(username);
+    }
 
     /**
      * @param senderIdentityDocument   发送方的ID(用户名)
@@ -64,8 +91,8 @@ public class UserChatController {
      **/
     @PostMapping(value = "/getNewMsg")
     @ResponseBody
-    public List<UserChatBean> getNewMessage(String senderIdentityDocument, int userChatIdentityDocument) {
-        return userChatService.getNewMsg(senderIdentityDocument, userChatIdentityDocument);
+    public List<UserChatBean> getNewMessage(String senderIdentityDocument, String receiverIdentityDocument, int userChatIdentityDocument) {
+        return userChatService.getNewMsg(senderIdentityDocument, receiverIdentityDocument, userChatIdentityDocument);
     }
 
 }

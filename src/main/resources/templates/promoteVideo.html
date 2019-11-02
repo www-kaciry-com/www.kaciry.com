@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>推广视频</title>
+    <link rel="stylesheet" href="/static/bootstrap-4.3.1/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="/static/css/promoteVideo/promote-video.css">
+</head>
+<body>
+<!--header-->
+<div th:include="nav"></div>
+<!--body-->
+<div class="container" style="margin-top: 60px">
+    <label for="username"></label><input hidden="hidden" id="username" name="username"
+                                         th:value="${session.user.getUsername()}">
+    <div class="title"><h2>推广视频</h2></div>
+    <hr>
+    <div class="content">
+        <div class="choice-video">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <label class="input-group-text" for="choice-video-options">选择视频&nbsp&nbsp&nbsp&nbsp</label>
+                </div>
+                <select class="custom-select" id="choice-video-options" onchange="selectorChange()">
+                    <option value="0" selected>请选择...</option>
+                </select>
+            </div>
+        </div>
+        <div class="promote-type">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <label class="input-group-text" for="promote-type-options">推广的类型</label>
+                </div>
+                <select class="custom-select" id="promote-type-options">
+                    <option value="1" selected>轮播图区域</option>
+                    <option value="2">推广区域</option>
+                </select>
+            </div>
+        </div>
+        <div class="div-height"></div>
+        <div class="display-information">
+            <h3>视频信息</h3>
+            <div class="row" style="margin-left: 0">
+                <div class="">
+                    <img src="/static/img/nav_wrapper.jpg" alt="video-cover" class="video-cover">
+                </div>
+                <div class="" style="margin-left: 20px">
+                    <video width="300" height="200" controls class="video-source">
+                        <source src=""  type="video/mp4" >
+                        您的浏览器不支持 HTML5 video 标签。
+                    </video>
+                </div>
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">用户名称</span>
+                </div>
+                <input type="text" class="form-control" readonly id="video-username" aria-describedby="basic-addon3"
+                       value="    选择视频后在此显示用户名称">
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" >视频标题</span>
+                </div>
+                <input type="text" class="form-control" id="video-title" readonly aria-describedby="basic-addon3" value="    选择视频后在此显示视频标题">
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">视频类型</span>
+                </div>
+                <input type="text" class="form-control"  id="video-type" readonly aria-describedby="basic-addon3" value="    选择视频后在此显示视频类型">
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" >视频描述</span>
+                </div>
+                <input type="text" class="form-control" id="video-description" readonly aria-describedby="basic-addon3" value="    选择视频后在此显示视频描述">
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" >投稿时间</span>
+                </div>
+                <input type="text" class="form-control" id="video-date" readonly aria-describedby="basic-addon3"
+                       value="    选择视频后在此显示视频投稿时间">
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" >视频名称</span>
+                </div>
+                <input type="text" class="form-control" id="video-name" readonly aria-describedby="basic-addon3" value="    选择视频后在此显示视频名称">
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" >播放次数</span>
+                </div>
+                <input type="text" class="form-control" id="video-play-num" readonly aria-describedby="basic-addon3" value="    选择视频后在此显示视频播放数量">
+            </div>
+        </div>
+        <div class="submit-info">
+            <button type="button" class="btn btn-primary btn-lg btn-block btn-submit" onclick="queryWaitTime()">确定提交</button>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div th:include="Modal/payModal"></div>
+<div th:include="Modal/noticeModal"></div>
+<div th:include="logoutModal"></div>
+<script src="/static/js/Jquery/jquery-3.4.1.js"></script>
+<script src="/static/bootstrap-4.3.1/dist/js/bootstrap.js"></script>
+<script src="/static/js/promote/promote.js"></script>
+</body>
+</html>
+
+
+
