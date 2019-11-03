@@ -26,6 +26,21 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public ResultBean updateUserPassword(String username, String originPassword, String password) {
+        User user = userDao.login(username,null);
+        if (user.getUserPassword().equals(originPassword)){
+            if (userDao.updateUserPassword(username,password)){
+                return new ResultBean<>("修改成功！");
+            }else {
+                return new ResultBean<>("出现未知错误，稍后重试！");
+            }
+        }else {
+            return new ResultBean<>("原密码错误，请重试！");
+        }
+
+    }
+
+    @Override
     public String register(User user) {
         if (userDao.login(user.getUsername(), user.getUserPassword()) == null) {
             userDao.setOneUser(user);

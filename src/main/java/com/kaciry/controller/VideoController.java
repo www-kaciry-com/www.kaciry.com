@@ -2,7 +2,7 @@ package com.kaciry.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.kaciry.Utils.FormatVideoName;
+import com.kaciry.utils.FormatVideoName;
 import com.kaciry.entity.*;
 import com.kaciry.service.Impl.UserServiceImpl;
 import com.kaciry.service.Impl.VideoServiceImpl;
@@ -30,6 +30,11 @@ public class VideoController {
     private UserServiceImpl userService;
     @Autowired
     private VideoServiceImpl videoService;
+    /**
+     * @description  设置日期格式
+     * @date  2019/11/3 23:15
+    **/
+    private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     @RequestMapping(value = {"/video"})
     public String videoPlay() {
@@ -41,12 +46,10 @@ public class VideoController {
         return "upload";
     }
 
-
     @RequestMapping(value = {"/promoteVideo"})
     public String promoteVideo() {
         return "promoteVideo";
     }
-
 
     /**
      * @param file    用户上传的文件，视频封面与视频
@@ -59,7 +62,7 @@ public class VideoController {
      **/
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
     @ResponseBody
-    public String uploadFile(MultipartFile[] file, HttpSession session, HttpServletRequest req) {
+    public ResultBean uploadFile(MultipartFile[] file, HttpSession session, HttpServletRequest req) {
         String username = session.getAttribute("username").toString();
         String videoTitle = req.getParameter("videoTitle");
         String videoType = req.getParameter("videoType");
@@ -72,8 +75,8 @@ public class VideoController {
             String fileSuffixVideo = Objects.requireNonNull(file[0].getOriginalFilename()).substring(file[0].getOriginalFilename().lastIndexOf("."));
             String fileSuffixCover = Objects.requireNonNull(file[1].getOriginalFilename()).substring(file[1].getOriginalFilename().lastIndexOf("."));
             //Linux下上传目录
-//          String filePathVideo = "/www/wwwroot/www.kaciry.com/upload/video/";
-//          String filePathCover = "/www/wwwroot/www.kaciry.com/upload/videoCover/";
+            //String filePathVideo = "/www/wwwroot/www.kaciry.com/upload/video/";
+            //String filePathCover = "/www/wwwroot/www.kaciry.com/upload/videoCover/";
             //Windows下上传目录
             String filePathVideo = "F:/upload/video/";
             String filePathCover = "F:/upload/videoCover/";
@@ -86,7 +89,7 @@ public class VideoController {
             file[0].transferTo(filesVideo);
             file[1].transferTo(filesCover);
             //保存用户上传的信息
-//          flag = userService.uploadVideo(username,"AV" + fileName + fileSuffix);
+            //flag = userService.uploadVideo(username,"AV" + fileName + fileSuffix);
             //视频文件名
             String videoName = "av" + fileName + fileSuffixVideo;
             //视频封面
@@ -99,12 +102,12 @@ public class VideoController {
 
         } catch (Exception e) {
             e.printStackTrace();
-            return "服务器开小差了！server error!";
+            return new ResultBean<>("服务器开小差了！server error!");
         }
         if (flag) {
-            return "上传成功！success";
+            return new ResultBean<>("上传成功！success");
         } else {
-            return "上传失败，请检查网络！error!";
+            return new ResultBean<>("上传失败，请检查网络！error!");
         }
 
     }
@@ -121,8 +124,6 @@ public class VideoController {
     @RequestMapping(value = "/comment", method = RequestMethod.POST)
     @ResponseBody
     public CommentBean setComment(String username, String content, String videoAddress) {
-        //设置日期格式
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         CommentBean commentBean = new CommentBean(videoAddress, username, content, simpleDateFormat.format(new Date()), 0);
         return videoService.addComment(commentBean);
     }
@@ -182,7 +183,6 @@ public class VideoController {
         switch (option) {
             //点赞
             case "star": {
-
                 res = videoService.opsStar(ops);
                 break;
             }
@@ -236,8 +236,6 @@ public class VideoController {
     @PostMapping(value = "/reportVideo")
     @ResponseBody
     public ResultBean reportVideo(@RequestBody ReportVideoBean reportVideoBean) {
-        //设置日期格式
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         reportVideoBean.setReportedTime(simpleDateFormat.format(new Date()));
         return videoService.addOneReportVideoData(reportVideoBean);
     }

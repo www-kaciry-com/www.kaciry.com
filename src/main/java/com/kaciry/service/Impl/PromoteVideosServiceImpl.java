@@ -1,7 +1,7 @@
 package com.kaciry.service.Impl;
 
-import com.kaciry.Utils.InitPromoteVideos;
-import com.kaciry.Utils.TimeUtils;
+import com.kaciry.utils.InitPromoteVideos;
+import com.kaciry.utils.TimeUtils;
 import com.kaciry.dao.PromoteVideosDao;
 import com.kaciry.dao.UserDao;
 import com.kaciry.entity.PromoteVideosBean;
@@ -28,19 +28,48 @@ public class PromoteVideosServiceImpl implements PromoteVideosService {
     private UserDao userDao;
 
     @Override
-    public String queryWaitTime() {
-        PromoteVideosBean promoteVideosBean = promoteVideosDao.selectPromoteVideo();
-        String res = TimeUtils.getTimeDifference(promoteVideosBean.getSurplusDuration(), new Timestamp(System.currentTimeMillis()));
-        if ("false".equals(res)) {
+    public List<VideoInfo> selectNormalVideos(String username) {
+        return promoteVideosDao.selectNormalVideos(username);
+    }
+
+    @Override
+    public String queryWaitTime(int option) {
+        List<PromoteVideosBean> list;
+        //定义最少推荐视频量
+        int index;
+        //判断目标为哪一类推广
+        if (option == 1) {
+            //轮播图，最小数量为3
+            int CAROUSEL_LIMIT_NUM = 3;
+            index = CAROUSEL_LIMIT_NUM;
+            //查询promoteType为1的最后3条数据
+            list = promoteVideosDao.selectPromoteVideo(option, CAROUSEL_LIMIT_NUM);
+        }else {
+            //列表区域推广，最小数量为6
+            int LIST_LIMIT_NUM = 6;
+            index = LIST_LIMIT_NUM;
+            //查询promoteType为1的最后6条数据
+            list = promoteVideosDao.selectPromoteVideo(option, LIST_LIMIT_NUM);
+        }
+        //如果数量小于3个，直接进行推荐
+        if (list.size() < index) {
             return "您是排队的第一个，确认信息支付后即可推广!";
         } else {
-            return res;
+            //数量大于3个，计算最先失效的视频距离现在所剩余的时间并返回
+            String res = TimeUtils.getTimeDifference(list.get(list.size() - 1).getSurplusDuration(), new Timestamp(System.currentTimeMillis()));
+            if ("false".equals(res)) {
+                return "您是排队的第一个，确认信息支付后即可推广!";
+            } else {
+                return res;
+            }
         }
     }
 
     @Override
     public ResultBean addPromoteVideo(PromoteVideosBean promoteVideosBean) {
+        //查询该类型的推广是否存在，若不存在
         if (promoteVideosDao.selectVideoIsPromoted(promoteVideosBean) == null) {
+            //向promote_videos添加一条信息并更改user_video表中的视频状态(promoteType与videoState相差一，因为videoState的1需要表示正常状态)
             if (promoteVideosDao.addPromoteVideo(promoteVideosBean) &&
                     promoteVideosDao.setUserVideoState(promoteVideosBean.getVideoFilename(), promoteVideosBean.getPromoteType() + 1)) {
                 return new ResultBean<>("预定推广成功！");
@@ -64,7 +93,7 @@ public class PromoteVideosServiceImpl implements PromoteVideosService {
 
     @Override
     public List<VideoInfo> getPromoteVideos4Carousel() {
-        List<PromoteVideosBean> res =  InitPromoteVideos.initPromoteVideos4Carousel(promoteVideosDao.selectPromotedVideos4Carousel());
+        List<PromoteVideosBean> res = InitPromoteVideos.initPromoteVideos4Carousel(promoteVideosDao.selectPromotedVideos4Carousel());
         List<VideoInfo> resultList = new ArrayList<>();
         for (PromoteVideosBean re : res) {
             VideoInfo videoInfo = userDao.queryVideosByVideoFileName(re.getVideoFilename());
@@ -75,7 +104,7 @@ public class PromoteVideosServiceImpl implements PromoteVideosService {
 
     @Override
     public List<VideoInfo> getPromoteVideos4List() {
-        List<PromoteVideosBean> res =  InitPromoteVideos.initPromoteVideos4List(promoteVideosDao.selectPromotedVideos4List());
+        List<PromoteVideosBean> res = InitPromoteVideos.initPromoteVideos4List(promoteVideosDao.selectPromotedVideos4List());
         List<VideoInfo> resultList = new ArrayList<>();
         for (PromoteVideosBean re : res) {
             VideoInfo videoInfo = userDao.queryVideosByVideoFileName(re.getVideoFilename());
@@ -85,7 +114,7 @@ public class PromoteVideosServiceImpl implements PromoteVideosService {
     }
 
     @Override
-    public boolean setPromoteVideoDuration(String videoFilename,Timestamp timestamp) {
-        return promoteVideosDao.setPromoteVideoDuration(videoFilename,timestamp);
+    public boolean setPromoteVideoDuration(String videoFilename, Timestamp timestamp) {
+        return promoteVideosDao.setPromoteVideoDuration(videoFilename, timestamp);
     }
 }

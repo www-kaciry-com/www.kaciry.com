@@ -139,3 +139,7 @@
 }
 
 /*-----------------------------------------*/
+
+.security-content label{
+    text-align: right;
+}

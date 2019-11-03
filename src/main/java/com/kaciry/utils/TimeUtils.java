@@ -1,4 +1,4 @@
-package com.kaciry.Utils;
+package com.kaciry.utils;
 
 import org.apache.commons.lang.time.DateUtils;
 
@@ -31,12 +31,12 @@ public class TimeUtils {
             int second = (int) ((t1 - t2) / 1000 - hours * (60 * 60) - minutes * 60);
             return "" + hours + "小时" + minutes + "分" + second + "秒";
         }
-
     }
 
     public static Timestamp analysisTime(Timestamp timestamp) {
         Date date = new Date(timestamp.getTime());
-        date = DateUtils.addDays(date,3);
-        return new Timestamp(date.getTime());
+        date = DateUtils.addDays(date, 3);
+        //中西方相差8小时
+        return new Timestamp(date.getTime() + 8 * 60 * 60 * 1000);
     }
 }

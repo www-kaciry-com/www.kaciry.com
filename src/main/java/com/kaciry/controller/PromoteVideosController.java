@@ -1,6 +1,6 @@
 package com.kaciry.controller;
 
-import com.kaciry.Utils.TimeUtils;
+import com.kaciry.utils.TimeUtils;
 import com.kaciry.entity.PromoteVideosBean;
 import com.kaciry.entity.ResultBean;
 import com.kaciry.entity.VideoInfo;
@@ -23,6 +23,12 @@ public class PromoteVideosController {
     @Autowired
     private PromoteVideosServiceImpl promoteVideosService;
 
+    @PostMapping(value = "/selectNormalVideo")
+    @ResponseBody
+    public List<VideoInfo> selectNormalVideo(String username) {
+        return promoteVideosService.selectNormalVideos(username);
+    }
+
     /**
      * @return com.kaciry.entity.ResultBean
      * @author kaciry
@@ -32,8 +38,8 @@ public class PromoteVideosController {
     //@PostMapping(value = "/queryWaitTime",consumes = "application/json",produces = "application/json;charset=utf-8")
     @PostMapping(value = "/queryWaitTime")
     @ResponseBody
-    public ResultBean queryWaitTime() {
-        return new ResultBean<>(promoteVideosService.queryWaitTime());
+    public ResultBean queryWaitTime(String options) {
+        return new ResultBean<>(promoteVideosService.queryWaitTime(Integer.parseInt(options)));
     }
 
     /**

@@ -32,7 +32,7 @@ public interface IndexDataDao {
      * @description 通过视频类型查询视频相关信息
      * @date 2019/10/25 18:02
      **/
-    @Select("select * from user_video LEFT JOIN user ON user.username = user_video.username WHERE videoType = #{videoType}")
+    @Select("select * from user_video LEFT JOIN user ON user.username = user_video.username WHERE videoType = #{videoType} AND videoState = 1")
     List<VideoInfo> selectVideoData(String videoType);
 
     /**

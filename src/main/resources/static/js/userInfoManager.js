@@ -3,6 +3,8 @@ let followPage = $("#page2");
 let contributePage = $("#page");
 let username = $(".username").val();
 let followContainer = $(".content");
+// 密码（最少8位，包括至少一位大写字母，一位小写字母，一个数字，一个特殊字符）：
+let passwordPattern = /(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[$@!%*#?&])[A-Za-z\d$@!%*#?&]{8,}$/;
 
 window.onload = queryCollections;
 
@@ -124,6 +126,50 @@ function analysisFollowsData(data) {
     });
 
     return str;
+}
+
+function changePassword() {
+    let originPassword = $("#origin-password").val();
+    let newPasswordOne =  $("#new-password-1").val();
+    let newPasswordTwo = $("#new-password-2").val();
+    if (checkPassword(newPasswordOne,newPasswordTwo)){
+        $.ajax({
+            url: '/changePassword',//请求的地址
+            type: 'post', //请求的方式
+            dateType: "json", //请求的数据格式
+            data: {
+                username: username,
+                originPassword : originPassword,
+                password : newPasswordOne
+            },
+            error: function () {
+                alert("服务器未响应，修改信息失败！");
+            },
+            success: function (result) {
+                $("#noticeModalTitle").text("提示！");
+                $("#notice-modal-body").text(result.data);
+                $('#noticeModal').modal('toggle');
+            }
+        })
+    }
+
+    return false;
+}
+// 检查两次密码的合法性和一致性
+function checkPassword(pwd1,pwd2) {
+    if (pwd1 !== pwd2) {
+        $("#noticeModalTitle").text("错误提示！");
+        $("#notice-modal-body").text("两次输入的密码不一致！");
+        $('#noticeModal').modal('toggle');
+        return false;
+    } else {
+        if (!passwordPattern.test(pwd1)){
+            $("#noticeModalTitle").text("错误提示！");
+            $("#notice-modal-body").text("密码格式错误！（最少8位，包括至少一位大写字母，一位小写字母，一个数字，一个特殊字符：$@!%*#?&）");
+            $('#noticeModal').modal('toggle');
+            return false
+        } else return true
+    }
 }
 
 // 查询数据
@@ -341,7 +387,7 @@ function cancelFollow(btn) {
         type: 'post', //请求的方式
         dateType: "json", //请求的数据格式
         data: {
-            username:username,
+            username: username,
             hisUsername: res.innerHTML
         },
         error: function () {

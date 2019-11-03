@@ -45,15 +45,15 @@ public class UserInfoController {
     }
 
     /**
-     * @author kaciry
-     * @description  根据用户名查找所有用户投稿
-     * @date  2019/10/31 22:16
      * @param username 用户名
      * @return java.util.List<com.kaciry.entity.VideoInfo>
-    **/
+     * @author kaciry
+     * @description 根据用户名查找所有用户投稿
+     * @date 2019/10/31 22:16
+     **/
     @PostMapping(value = "/selectUserVideos")
     @ResponseBody
-    public List<VideoInfo>  selectUserVideos(String username){
+    public List<VideoInfo> selectUserVideos(String username) {
         return userService.selectVideosByUsername(username);
     }
 
@@ -192,6 +192,12 @@ public class UserInfoController {
         reportCommentBean.setCommentContent(commentBean.getContent());
 
         return userService.reportComment(reportCommentBean);
+    }
+
+    @PostMapping(value = "/changePassword")
+    @ResponseBody
+    public ResultBean changePassword(String username, String originPassword, String password) {
+        return userService.updateUserPassword(username,originPassword,password);
     }
 
 }

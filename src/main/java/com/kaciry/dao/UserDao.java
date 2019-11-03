@@ -24,9 +24,11 @@ public interface UserDao {
     @Select("select * from user  where BINARY username=#{username}")
     User login(@Param("username") String username, @Param("userPassword") String userPassword);
 
+    @Update("UPDATE user SET userPassword = #{password} WHERE username = #{username}")
+    boolean updateUserPassword(@Param("username")String username,@Param("password")String password);
+
     /**
      * @param user User实体
-     * @return void
      * @author kaciry
      * @description 添加一个User
      * @date 2019/10/25 18:29

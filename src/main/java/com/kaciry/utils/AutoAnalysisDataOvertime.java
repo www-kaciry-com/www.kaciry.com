@@ -1,4 +1,4 @@
-package com.kaciry.Utils;
+package com.kaciry.utils;
 
 import com.kaciry.entity.PromoteVideosBean;
 import com.kaciry.service.Impl.PromoteVideosServiceImpl;

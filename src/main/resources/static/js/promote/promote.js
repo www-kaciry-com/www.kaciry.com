@@ -11,7 +11,7 @@ $(document).ready(function () {
 $(document).ready(function () {
     let videoSelector = $("#choice-video-options");
     $.ajax({
-        url: '/selectUserVideos',//请求的地址
+        url: '/selectNormalVideo',//请求的地址
         type: 'post', //请求的方式
         dateType: "json", //请求的数据格式
         data: {
@@ -79,11 +79,16 @@ function selectorChange() {
 }
 
 function queryWaitTime() {
+    let options = $("#promote-type-options option:selected").val();
     if ($("#choice-video-options option:selected").val() !== "0") {
+
         $.ajax({
-            url: "queryWaitTime",//请求的地址
+            url: "/queryWaitTime",//请求的地址
             type: 'post', //请求的方式
-            contentType: "json",
+            dateType: "json",
+            data: {
+                options: options
+            },
             error: function () {
                 alert("服务器未响应，加载信息失败！");
             },

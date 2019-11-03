@@ -1,4 +1,4 @@
-package com.kaciry.Utils;
+package com.kaciry.utils;
 
 import javax.mail.Session;
 import javax.mail.Transport;

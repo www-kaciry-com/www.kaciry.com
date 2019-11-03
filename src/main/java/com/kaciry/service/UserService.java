@@ -20,6 +20,8 @@ public interface UserService {
      **/
     User login(String username, String password);
 
+    ResultBean updateUserPassword(String username,String originPassword,String password);
+
     /**
      * @param user User实体，包含信息见实体类
      * @return java.lang.String

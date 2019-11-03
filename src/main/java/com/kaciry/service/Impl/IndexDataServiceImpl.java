@@ -1,6 +1,6 @@
 package com.kaciry.service.Impl;
 
-import com.kaciry.Utils.DataWeightSort;
+import com.kaciry.utils.DataWeightSort;
 import com.kaciry.dao.IndexDataDao;
 import com.kaciry.entity.VideoInfo;
 import com.kaciry.service.IndexDataService;
@@ -21,8 +21,11 @@ public class IndexDataServiceImpl implements IndexDataService {
     @Override
     public List<VideoInfo> selectIndexDataByType(String videoType, int length) {
         List<VideoInfo> videoInfo = indexDataDao.selectVideoData(videoType);
-        return DataWeightSort.dataWeightSort(videoInfo,length);
-
+        if (videoInfo.size()<length){
+            return videoInfo;
+        }else {
+            return DataWeightSort.dataWeightSort(videoInfo,length);
+        }
     }
 
     public List<VideoInfo> selectIndexDataByType(String videoType, int length, boolean rank) {

@@ -35,8 +35,7 @@ public class LoginController {
     @RequestMapping(value = "/loginPage", method = RequestMethod.POST)
     public String login(HttpSession session, @ModelAttribute(value = "user") User user, Map<String, String> map) {
         User resUser = userServiceImpl.login(user.getUsername(), user.getUserPassword());
-        // TODO: 2019/10/31 Bug在此
-        if (resUser.getUsername().equals(user.getUsername()) && resUser.getUserPassword().equals(user.getUserPassword())) {
+        if (resUser!=null && resUser.getUsername().equals(user.getUsername()) && resUser.getUserPassword().equals(user.getUserPassword())) {
             session.setAttribute("user", resUser);
             session.setAttribute("username", resUser.getUsername());
             return "redirect:/";

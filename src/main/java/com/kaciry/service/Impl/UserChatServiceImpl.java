@@ -1,6 +1,6 @@
 package com.kaciry.service.Impl;
 
-import com.kaciry.Utils.SensitiveWordFilter;
+import com.kaciry.utils.SensitiveWordFilter;
 import com.kaciry.dao.UserChatDao;
 import com.kaciry.entity.ResultBean;
 import com.kaciry.entity.UserChatBean;

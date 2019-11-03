@@ -8,13 +8,16 @@ import java.sql.Timestamp;
 import java.util.List;
 
 public interface PromoteVideosService {
+
+    List<VideoInfo> selectNormalVideos(String username);
+
     /**
      * @return java.lang.String
      * @author kaciry
      * @description 查询推广视频需要等待的时间
      * @date 2019/11/1 15:00
      **/
-    String queryWaitTime();
+    String queryWaitTime(int option);
 
     /**
      * @param promoteVideosBean PromoteVideosBean实体，详情见PromoteVideosBean类

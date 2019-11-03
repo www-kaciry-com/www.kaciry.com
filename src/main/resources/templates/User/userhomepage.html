@@ -43,6 +43,8 @@
                aria-controls="v-pills-collect" aria-selected="false" onclick="queryCollections()">我的收藏</a>
             <a class="nav-link" id="v-pills-friends-tab" data-toggle="pill" href="#v-pills-friends" role="tab"
                aria-controls="v-pills-friends-tab" aria-selected="false" onclick="queryFollows()">我的关注</a>
+            <a class="nav-link" id="v-pills-security-tab" data-toggle="pill" href="#v-pills-security" role="tab"
+               aria-controls="v-pills-security-tab" aria-selected="false" onclick="">安全设置</a>
         </div>
         <div class="tab-content col-12 col-sm-12 col-md-12 col-lg-10 col-xl-9" id="v-pills-tabContent">
             <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
@@ -134,7 +136,7 @@
                             <label for="sex" class="col-sm-2 col-form-label"
                             ></label>
                             <div class="col-sm-8">
-                                <button onclick="changeInfo()" class="btn btn-primary btn-lg btn-block ">Submit
+                                <button onclick="changeInfo()" class="btn btn-primary btn-lg btn-block ">更改信息
                                 </button>
                             </div>
                         </div>
@@ -156,7 +158,6 @@
                         <!--                                <span class="time"><i class="icon">2019-08-10 </i></span>-->
                         <!--                            </div>-->
                         <!--                        </li>-->
-
                     </ul>
                 </div>
                 <div id="page" class="m-pagination"></div>
@@ -180,12 +181,61 @@
                 </div>
                 <div id="page2" class="m-pagination"></div>
             </div>
+            <div class="tab-pane fade" id="v-pills-security" role="tabpanel" aria-labelledby="v-pills-security-tab">
+                <div class="allFollows" title="allFollows">更改密码</div>
+                <hr>
+                <div class="security-content">
+                    <div id="security">
+                        <div class="form-group row">
+                            <label for="security-username" class="col-3 col-sm-2 col-form-label">用户名</label>
+                            <div class="col-8 col-sm-8">
+                                <input type="text" class="form-control" id="security-username"
+                                       name="username"
+                                       th:value="${session.user.getUsername()}"
+                                       readonly>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="origin-password" class="col-3 col-sm-2   col-form-label"
+                            >原密码</label>
+                            <div class="col-8 col-sm-8">
+                                <input type="password" class="form-control" id="origin-password" name="originPassword"
+                                >
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="new-password-1" class="col-3 col-sm-2   col-form-label"
+                            >新密码</label>
+                            <div class="col-8 col-sm-8">
+                                <input type="password" class="form-control" id="new-password-1" name="newPassword"
+                                >
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="new-password-2" class="col-3 col-sm-2   col-form-label"
+                            >再次输入</label>
+                            <div class="col-8 col-sm-8">
+                                <input type="password" class="form-control" id="new-password-2"
+                                >
+                            </div>
+                        </div>
+                        <div class="form-group row" style="margin-top: 50px">
+                            <label for="sex" class="col-sm-2 col-form-label"
+                            ></label>
+                            <div class="col-sm-8">
+                                <button onclick="changePassword()" class="btn btn-primary btn-lg btn-block ">更改密码
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-
 </div>
 <!-- Modal -->
 <div th:include="logoutModal"></div>
+<div th:include="Modal/noticeModal"></div>
 <!--<div th:include="cancelModal"></div>-->
 <script src="/static/js/Jquery/jquery-3.4.1.js"></script>
 <script src="/static/bootstrap-4.3.1/dist/js/bootstrap.js"></script>

@@ -1,4 +1,4 @@
-package com.kaciry.Utils;
+package com.kaciry.utils;
 
 import java.io.BufferedReader;
 import java.io.File;

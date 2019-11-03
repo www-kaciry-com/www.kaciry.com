@@ -44,7 +44,7 @@ public interface VideoDao {
      * @description 查询视频相关信息
      * @date 2019/10/25 18:47
      **/
-    @Select("select * from user_video LEFT JOIN user ON user.username = user_video.username WHERE videoFilename = #{videoAddress} AND videoState <> 0")
+    @Select("select * from user_video LEFT JOIN user ON user.username = user_video.username WHERE videoFilename = #{videoAddress}")
     VideoInfo initVideoInfo(String videoAddress);
 
     /**

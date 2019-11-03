@@ -1,6 +1,6 @@
 package com.kaciry.service.Impl;
 
-import com.kaciry.Utils.Email;
+import com.kaciry.utils.Email;
 import com.kaciry.entity.CaptchaBean;
 import com.kaciry.service.CaptchaService;
 import org.springframework.stereotype.Service;

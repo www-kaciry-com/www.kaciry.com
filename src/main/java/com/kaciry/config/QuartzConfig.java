@@ -1,6 +1,6 @@
 package com.kaciry.config;
 
-import com.kaciry.Utils.AutoAnalysisDataOvertime;
+import com.kaciry.utils.AutoAnalysisDataOvertime;
 import org.quartz.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,6 +1,7 @@
 package com.kaciry.dao;
 
 import com.kaciry.entity.PromoteVideosBean;
+import com.kaciry.entity.VideoInfo;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -17,14 +18,18 @@ import java.util.List;
  */
 @Component
 public interface PromoteVideosDao {
+
+    @Select("SELECT * FROM user_video WHERE videoState <> 0 AND videoState <> 4 AND username = #{username}")
+    List<VideoInfo> selectNormalVideos(String username);
     /**
      * @author kaciry
      * @description  查询推广视频需要等待的时间
      * @date  2019/11/1 22:39
      * @return com.kaciry.entity.PromoteVideosBean
     **/
-    @Select("SELECT * from promote_videos WHERE promoteType <> 0 ORDER BY tableIndex DESC  LIMIT 1")
-    PromoteVideosBean selectPromoteVideo();
+    //@Select("SELECT * from promote_videos WHERE promoteType = #{option} ORDER BY tableIndex DESC  LIMIT 1")
+    @Select("SELECT * from promote_videos WHERE promoteType = #{option} ORDER BY tableIndex DESC  LIMIT #{limitNum}")
+    List<PromoteVideosBean>  selectPromoteVideo(@Param("option") int option,@Param("limitNum")int limitNum);
 
     /**
      * @author kaciry
@@ -43,7 +48,7 @@ public interface PromoteVideosDao {
      * @param promoteVideosBean PromoteVideosBean实体，详情见PromoteVideosBean类
      * @return java.lang.Integer
     **/
-    @Select("SELECT * FROM promote_videos WHERE videoFilename = #{videoFilename}")
+    @Select("SELECT * FROM promote_videos WHERE videoFilename = #{videoFilename} AND promoteType = #{promoteType}")
     Integer selectVideoIsPromoted(PromoteVideosBean promoteVideosBean);
 
     /**
