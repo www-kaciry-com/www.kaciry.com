@@ -2,8 +2,8 @@ package com.kaciry.service.Impl;
 
 import com.kaciry.utils.InitPromoteVideos;
 import com.kaciry.utils.TimeUtils;
-import com.kaciry.dao.PromoteVideosDao;
-import com.kaciry.dao.UserDao;
+import com.kaciry.mapper.PromoteVideosDao;
+import com.kaciry.mapper.UserDao;
 import com.kaciry.entity.PromoteVideosBean;
 import com.kaciry.entity.ResultBean;
 import com.kaciry.entity.VideoInfo;

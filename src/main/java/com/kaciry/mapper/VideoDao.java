@@ -1,6 +1,9 @@
-package com.kaciry.dao;
+package com.kaciry.mapper;
 
-import com.kaciry.entity.*;
+import com.kaciry.entity.CommentBean;
+import com.kaciry.entity.Ops;
+import com.kaciry.entity.ReportVideoBean;
+import com.kaciry.entity.VideoInfo;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
@@ -15,7 +18,10 @@ import java.util.List;
  * @description 用户视频操作Dao
  */
 @Component
-public interface VideoDao {
+public interface VideoDao{
+
+    @Update("update user_video set videoPlayNum = videoPlayNum + 1 where videoFilename = #{videoFilename}")
+    int addVideoPlayNumByVideoFilename(String videoFilename);
 
     /**
      * @param commentBean Comment实体

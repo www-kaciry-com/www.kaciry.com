@@ -1,6 +1,6 @@
 package com.kaciry.service.Impl;
 
-import com.kaciry.dao.UserDao;
+import com.kaciry.mapper.UserDao;
 import com.kaciry.entity.*;
 import com.kaciry.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

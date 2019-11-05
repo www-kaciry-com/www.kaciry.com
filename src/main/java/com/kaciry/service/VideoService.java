@@ -10,6 +10,15 @@ import java.util.List;
  * @description 有关视频信息的Service接口
  */
 public interface VideoService {
+
+    /**
+     * @author kaciry
+     * @description  根据视频文件名增加视频的播放量
+     * @date  2019/11/4 14:28
+     * @param videoFilename 视频文件名
+     * @return void
+    **/
+    void addVideoPlayNumByVideoFilename(String videoFilename);
     /**
      * @param commentBean Comment实体，包含信息见实体类
      * @return com.kaciry.entity.Comment

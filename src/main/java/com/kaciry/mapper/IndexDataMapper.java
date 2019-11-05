@@ -1,4 +1,4 @@
-package com.kaciry.dao;
+package com.kaciry.mapper;
 
 import com.kaciry.entity.VideoInfo;
 import org.apache.ibatis.annotations.Param;
@@ -13,7 +13,7 @@ import java.util.List;
  * @description 主页信息的初始化Dao
  */
 @Component
-public interface IndexDataDao {
+public interface IndexDataMapper {
     /**
      * @param videoType 视频的类型
      * @param length    视频的个数

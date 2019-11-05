@@ -8,9 +8,6 @@
     <link rel="stylesheet" href="/static/css/pagePlugCSS/mricode.pagination.css">
     <link rel="stylesheet" href="/static/css/user/user.css">
     <title th:text="${session.user.getUserNickName()} + '的个人主页'">我的主页</title>
-    <style>
-
-    </style>
 </head>
 <body>
 <!--header-->
@@ -62,7 +59,7 @@
                             <img src="" th:src="${session.user.getUserHeadIcon()}" alt="" class="site-master-avatar">
                         </div>
                         <div class="cur-headicon-img col-lg-3 offset-lg-1">
-                            <img src="" alt="预览" id="pre" class="site-master-avatar">
+                            <img src="" alt="预览" id="pre" class="site-master-avatar" style="display: none">
                         </div>
                         <p data-v-15325571="" class="descript">请选择图片上传：大小180 * 180像素支持JPG、PNG等格式，图片需小于2M</p>
                     </div>
@@ -234,16 +231,17 @@
     </div>
 </div>
 <!-- Modal -->
-<div th:include="logoutModal"></div>
+<div th:include="Modal/logoutModal"></div>
 <div th:include="Modal/noticeModal"></div>
 <!--<div th:include="cancelModal"></div>-->
 <script src="/static/js/Jquery/jquery-3.4.1.js"></script>
 <script src="/static/bootstrap-4.3.1/dist/js/bootstrap.js"></script>
-<script src="/static/js/userInfoManager.js"></script>
+<script src="/static/js/homePage.js"></script>
 <script src="/static/js/pagePulg/mricode.pagination.js"></script>
 <script>
     //图片预览js
     $("#file_input").change(function () {
+        $("#pre").attr("style","");
         let objUrl = getObjectURL(this.files[0]);//获取文件信息
         if (objUrl) {
             $("#pre").attr("src", objUrl);
@@ -277,6 +275,9 @@
             $(con[i]).addClass('active show');
         }
     }
+</script>
+<script>
+
 </script>
 </body>
 </html>

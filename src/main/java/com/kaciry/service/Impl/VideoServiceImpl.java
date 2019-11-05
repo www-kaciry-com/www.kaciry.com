@@ -1,6 +1,6 @@
 package com.kaciry.service.Impl;
 
-import com.kaciry.dao.VideoDao;
+import com.kaciry.mapper.VideoDao;
 import com.kaciry.entity.*;
 import com.kaciry.service.VideoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +17,16 @@ public class VideoServiceImpl implements VideoService {
 
     @Autowired
     private VideoDao videoDao;
+
+    @Override
+    public void addVideoPlayNumByVideoFilename(String videoFilename) {
+        int res = videoDao.addVideoPlayNumByVideoFilename(videoFilename);
+        if (res!=1) {
+            System.out.println("addVideoPlayNumByVideoFilename : " + res);
+            // TODO: 2019/11/4 出错打野日志
+        }
+
+    }
 
     @Override
     public CommentBean addComment(CommentBean commentBean) {

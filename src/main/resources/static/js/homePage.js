@@ -128,6 +128,7 @@ function analysisFollowsData(data) {
     return str;
 }
 
+//更改密码
 function changePassword() {
     let originPassword = $("#origin-password").val();
     let newPasswordOne =  $("#new-password-1").val();
@@ -155,6 +156,7 @@ function changePassword() {
 
     return false;
 }
+
 // 检查两次密码的合法性和一致性
 function checkPassword(pwd1,pwd2) {
     if (pwd1 !== pwd2) {
@@ -399,7 +401,20 @@ function cancelFollow(btn) {
     })
 }
 
+//跳转到聊天界面
 function toSendMsg() {
     //TODO 2019年10月11日14:42:04 转到发送消息界面
     window.location.href = "/reply#privateLetters";
 }
+
+
+$(".dplayer-send-icon").on("click",function () {
+    console.log("sendBtn!");
+    dp.danmaku.draw({
+        text: 'DIYgod is amazing',
+        color: '#fff',
+        type: 'top',
+    });
+});
+
+

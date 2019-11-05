@@ -129,18 +129,22 @@ $(document).ready(function () {
                     // unlimited: true,
                     //弹幕库的ID，每个视频的弹幕库不能一样，可以把url作为id
                     id: videoAddress,
-                    //这个是官网写好的弹幕接口，可以直接使用，就是不太稳定
-                    api: 'https://api.prprpr.me/dplayer/'
+                    //弹幕接口
+                    // https://dplayer.alone88.cn/
+                    // api: 'https://dplayer.moerats.com/'
+                    api: 'http://www.kaciry.com:1207/'
                 }
             });
 
-
+            addVideoPlayNum();
         }
     })
 });
 
+dp = DPlayer;
+
 //初始化视频评论
-function initVideoComment () {
+function initVideoComment() {
 
     $.ajax({
         url: '/selectVideoComment', //请求的url
@@ -257,6 +261,23 @@ page.on("jumpClicked", function (event, data) {
         }
     });
 });
+
+function addVideoPlayNum() {
+    $.ajax({
+        url: '/addVideoPlayNum',//请求的地址
+        type: 'post', //请求的方式
+        dateType: "json", //请求的数据格式
+        data: {
+            videoAddress: videoAddress
+        },
+        error: function () {
+            alert("服务器未响应，加载信息失败！");
+        },
+        success: function () {
+            console.log(1);
+        }
+    })
+}
 
 //解析
 function analysisData(data) {
@@ -630,58 +651,15 @@ function sendDanmu() {
     dp.danmaku.send(
         {
             text: 'dplayer is amazing',
-            color: '#b7daff',
-            type: 'right', // should be `top` `bottom` or `right`
+            color: 16777215,
+            type: 0, // should be `top` `bottom` or `right`
         },
-        function() {
+        function () {
             console.log('success');
         }
     );
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 // function navTools(pageNum) {

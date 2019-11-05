@@ -1,4 +1,4 @@
-package com.kaciry.dao;
+package com.kaciry.mapper;
 
 import com.kaciry.entity.*;
 import org.apache.ibatis.annotations.*;

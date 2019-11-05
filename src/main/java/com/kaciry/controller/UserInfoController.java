@@ -28,9 +28,9 @@ public class UserInfoController {
     @Autowired
     private UserServiceImpl userService;
 
-    @RequestMapping(value = {"/userhomepage"})
+    @RequestMapping(value = {"/homePage"})
     public String userInfo() {
-        return PREFIX + "userhomepage";
+        return PREFIX + "homePage";
     }
 
     @RequestMapping(value = {"/reply"})

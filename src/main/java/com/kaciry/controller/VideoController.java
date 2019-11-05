@@ -31,9 +31,9 @@ public class VideoController {
     @Autowired
     private VideoServiceImpl videoService;
     /**
-     * @description  设置日期格式
-     * @date  2019/11/3 23:15
-    **/
+     * @description 设置日期格式
+     * @date 2019/11/3 23:15
+     **/
     private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     @RequestMapping(value = {"/video"})
@@ -49,6 +49,18 @@ public class VideoController {
     @RequestMapping(value = {"/promoteVideo"})
     public String promoteVideo() {
         return "promoteVideo";
+    }
+
+    /**
+     * @author kaciry
+     * @description  访问视频页面时增加播放量
+     * @date  2019/11/4 15:00
+     * @param videoAddress 视频文件名
+    **/
+    @PostMapping(value = "/addVideoPlayNum")
+    @ResponseBody
+    public void addVideoPlayNum(String videoAddress) {
+        videoService.addVideoPlayNumByVideoFilename(videoAddress);
     }
 
     /**
