@@ -41,7 +41,10 @@ public class WebConfig implements WebMvcConfigurer {
         //Windows下目录配置
         registry.addResourceHandler("/files/**").addResourceLocations("file:F://upload/");
 
-
     }
 
+//    @Override
+//    public void addViewControllers(ViewControllerRegistry registry) {
+//        registry.addViewController("/index").setViewName("index");
+//    }
 }

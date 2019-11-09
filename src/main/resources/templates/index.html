@@ -14,8 +14,10 @@
 
 <!--页面头像特效区-->
 <div class="site-master">
-    <a href="" th:href="@{/userhomepage}">
-        <img class="site-master-avatar" src="" th:if="${session.user != null}" th:src="${session.user.getUserHeadIcon()}" alt="headicon">
+    <a href="" th:href="@{/homePage}">
+        <img class="site-master-avatar" src="" th:each="cookie :${#httpServletRequest.getCookies()}"
+             th:if="${cookie.getName().equals('head')}"
+             th:src="${cookie.getValue()}" alt="headicon">
     </a>
     <h2 class="site-master-description">
         <span>欢迎访问，</span>

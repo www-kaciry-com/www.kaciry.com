@@ -36,7 +36,7 @@ public class TimeUtils {
     public static Timestamp analysisTime(Timestamp timestamp) {
         Date date = new Date(timestamp.getTime());
         date = DateUtils.addDays(date, 3);
-        //中西方相差8小时
-        return new Timestamp(date.getTime() + 8 * 60 * 60 * 1000);
+        //中西方相差8小时，配置serverTimezone=GMT%2B8
+        return new Timestamp(date.getTime());
     }
 }

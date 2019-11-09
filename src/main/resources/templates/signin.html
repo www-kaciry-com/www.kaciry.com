@@ -10,66 +10,65 @@
 
         <!--font-family-->
 		<link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900&amp;subset=devanagari,latin-ext" rel="stylesheet">
-        
+
         <!-- title of site -->
         <title>Sign in</title>
 
         <!-- For favicon png -->
 		<link rel="shortcut icon" type="image/icon" href="/static/signin-up/logo/favicon.png"/>
-       
+
         <!--font-awesome.min.css-->
         <link rel="stylesheet" href="/static/signin-up/css/font-awesome.min.css">
-		
+
 		<!--animate.css-->
         <link rel="stylesheet" href="/static/signin-up/css/animate.css">
-		
+
         <!--bootstrap.min.css-->
         <link rel="stylesheet" href="/static/signin-up/css/bootstrap.min.css">
-		
+
 		<!-- bootsnav -->
 		<link rel="stylesheet" href="/static/signin-up/css/bootsnav.css" >
-        
+
         <!--style.css-->
         <link rel="stylesheet" href="/static/signin-up/css/style.css">
-        
+
         <!--responsive.css-->
         <link rel="stylesheet" href="/static/signin-up/css/responsive.css">
-        
+
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-		
+
         <!--[if lt IE 9]>
 			<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 			<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
 
     </head>
-	
+
 	<body>
 		<!--[if lte IE 9]>
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
         <![endif]-->
-		
+
 		<!-- signin end -->
 		<section class="signin">
 			<div class="container">
 
 				<div class="sign-content" >
-					<!--/*@thymesVar id="user" type="com.kaciry.entity.User"*/-->
-					<form  th:action="@{loginPage}"  th:object="${user}" method="post">
-						<h2>sign in</h2>
-						<p style="color: red;text-align: center" th:text="${msg}" th:if="${not #strings.isEmpty(msg)}"></p>
+					<div>
+						<h2>登录</h2>
+						<p class="notice-p" style="color: red;text-align: center"></p>
 						<div class="row">
 							<div class="col-sm-12">
 								<div class="signin-form">
 									<div >
 										<div class="form-group">
-											<label for="username">Username</label>
-											<input id="username" name="username" type="text" class="form-control" placeholder="enter your username here" onkeyup="checkEmptyArgs()">
+											<label for="username">用户名</label>
+											<input id="username" name="username" type="text" class="form-control" value="" placeholder="enter your username here" onkeyup="checkEmptyArgs()">
 										</div><!--/.form-group -->
 										<div class="form-group">
-											<label for="password">Password</label>
-											<input id="password" name="userPassword" type="password" class="form-control" placeholder="Password"  onkeyup="checkEmptyArgs()">
+											<label for="password">密码</label>
+											<input id="password" name="userPassword" type="password" class="form-control" value="" placeholder="Password"  onkeyup="checkEmptyArgs()">
 										</div><!--/.form-group -->
 									</div><!--/form -->
 								</div><!--/.signin-form -->
@@ -84,11 +83,11 @@
 
 											<li>
 												<input class="styled-checkbox" id="styled-checkbox-2" type="checkbox" value="value2">
-												<label for="styled-checkbox-2">remember password</label>
+												<label for="styled-checkbox-2">10天免登陆</label>
 											</li>
 
 											<li>
-												<a href="#" th:href="@{/getResetPwd}" target="_blank">Forgot password ?</a>
+												<a href="#" th:href="@{/getResetPwd}" target="_blank">忘记密码 ?</a>
 											</li>
 
 										</ul>
@@ -100,24 +99,24 @@
 						<div class="row">
 							<div class="col-sm-12">
 								<div class="signin-footer">
-									<button type="submit" class="btn signin_btn" disabled>
-										sign in
+									<button class="btn signin_btn" disabled onclick="trySend()">
+										登录
 									</button>
 									<p>
-										Don’t have an Account ?
-										<a th:href="@{/register}">register</a>
+										还没有账号？
+										<a th:href="@{/register}">注册</a>
 									</p>
 								</div><!--/.signin-footer -->
 							</div><!--/.col-->
 						</div><!--/.row -->
-					</form>
+					</div>
 
 				</div><!--/.sign-content -->
 
 			</div><!--/.container -->
 
 		</section><!--/.signin -->
-		
+
 		<!-- signin end -->
 
 		<!--footer copyright start -->
@@ -133,26 +132,28 @@
 		 <!-- Include all js compiled plugins (below), or include individual files as needed -->
 
 		<script src="/static/signin-up/js/jquery.js"></script>
-        
+
         <!--modernizr.min.js-->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
-		
+
 		<!--bootstrap.min.js-->
         <script src="/static/signin-up/js/bootstrap.min.js"></script>
-		
+
 		<!-- bootsnav js -->
 		<script src="/static/signin-up/js/bootsnav.js"></script>
-		
+
 		<!-- jquery.sticky.js -->
 		<script src="/static/signin-up/js/jquery.sticky.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
-		
-        
+
+
         <!--Custom JS-->
         <script src="/static/signin-up/js/custom.js"></script>
 
+        <script src="/static/js/security.js"></script>
+
 		<!--检查-->
-		<script src="/static/js/login_js/signin.js"></script>
+		<script src="/static/js/login/signin.js"></script>
     </body>
-	
+
 </html>

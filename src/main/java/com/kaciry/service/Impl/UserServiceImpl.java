@@ -24,6 +24,10 @@ public class UserServiceImpl implements UserService {
     public User login(String username, String userPassword) {
         return userDao.login(username, userPassword);
     }
+    public User login(String username) {
+        return userDao.login(username,null);
+    }
+
 
     @Override
     public ResultBean updateUserPassword(String username, String originPassword, String password) {

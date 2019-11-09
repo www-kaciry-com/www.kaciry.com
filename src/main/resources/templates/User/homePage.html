@@ -7,7 +7,9 @@
     <link rel="stylesheet" href="/static/css/index-css.css">
     <link rel="stylesheet" href="/static/css/pagePlugCSS/mricode.pagination.css">
     <link rel="stylesheet" href="/static/css/user/user.css">
-    <title th:text="${session.user.getUserNickName()} + '的个人主页'">我的主页</title>
+    <title th:each="cookie :${#httpServletRequest.getCookies()}"
+           th:if="${cookie.getName().equals('nickname')}"
+           th:text="${cookie.getValue()}  + '的个人主页'">我的主页</title>
 </head>
 <body>
 <!--header-->
@@ -45,7 +47,7 @@
         </div>
         <div class="tab-content col-12 col-sm-12 col-md-12 col-lg-10 col-xl-9" id="v-pills-tabContent">
             <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
-                <form th:action="@{/modifyHeadIcon}" enctype="multipart/form-data" method="post">
+                <form th:action="@{modifyHeadIcon}" enctype="multipart/form-data" method="post">
                     <div class="row justify-content-center text-center">
                         <div class="cg-headicon-img col-lg-3">
                             <label data-v-15325571="" for="file_input" class="first-change-lb text-center">
@@ -56,7 +58,9 @@
                                    accept="image/png,image/jpg,image/jpeg">
                         </div>
                         <div class="cur-headicon-img col-6 col-lg-3">
-                            <img src="" th:src="${session.user.getUserHeadIcon()}" alt="" class="site-master-avatar">
+                            <img src="" th:each="cookie :${#httpServletRequest.getCookies()}"
+                                 th:if="${cookie.getName().equals('head')}"
+                                 th:src="${cookie.getValue()}" alt="" class="site-master-avatar">
                         </div>
                         <div class="cur-headicon-img col-lg-3 offset-lg-1">
                             <img src="" alt="预览" id="pre" class="site-master-avatar" style="display: none">

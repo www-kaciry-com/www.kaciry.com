@@ -4,12 +4,15 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.kaciry.entity.*;
 import com.kaciry.service.Impl.UserServiceImpl;
+import com.kaciry.utils.GetAuthorization;
+import com.kaciry.utils.GetCookiesValueByKey;
+import com.kaciry.utils.TokenUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -27,6 +30,12 @@ public class UserInfoController {
 
     @Autowired
     private UserServiceImpl userService;
+
+    /**
+     * @description 设置日期格式
+     * @date 2019/11/3 23:15
+     **/
+    private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     @RequestMapping(value = {"/homePage"})
     public String userInfo() {
@@ -54,39 +63,47 @@ public class UserInfoController {
     @PostMapping(value = "/selectUserVideos")
     @ResponseBody
     public List<VideoInfo> selectUserVideos(String username) {
-        return userService.selectVideosByUsername(username);
+        if (GetAuthorization.isAuthorization(username)) {
+            username = TokenUtils.checkToken(username);
+            return userService.selectVideosByUsername(username);
+        } else {
+            return null;
+        }
     }
 
     /**
      * @param file    用户上传的文件，头像
-     * @param session session
+     * @param request request
      * @return boolean
      * @author kaciry
      * @description 用户修改个人头像
      * @date 2019/10/25 17:44
      **/
-    @PostMapping(value = "modifyHeadIcon")
+    @PostMapping(value = "/modifyHeadIcon")
     @ResponseBody
-    public boolean modifyHeadIcon(MultipartFile file, HttpSession session) {
-        try {
-            //获取文件名
-            String fileName = session.getAttribute("username").toString();
-            String fileSuffix = Objects.requireNonNull(file.getOriginalFilename()).substring(file.getOriginalFilename().lastIndexOf("."));
-            //Linux下上传目录
-            //String filePathCover = "/www/wwwroot/www.kaciry.com/upload/HeadIcon/";
-            //Windows下上传目录
-            String filePath = "F:/upload/HeadIcon/";
-            //创建文件
-            File files = new File(filePath + fileName + fileSuffix);
-            //上传文件
-            file.transferTo(files);
-            //创建文件路径
-            String userHeadIconPathName = "/files/HeadIcon/" + fileName + fileSuffix;
-            //修改数据库中头像路径
-            return userService.updateUserHeadIcon(userHeadIconPathName, session.getAttribute("username").toString());
-
-        } catch (Exception e) {
-            e.printStackTrace();
+    public boolean modifyHeadIcon(MultipartFile file, HttpServletRequest request) {
+        String username = GetCookiesValueByKey.getValue(request);
+        if (GetAuthorization.isAuthorization(TokenUtils.getToken(username))) {
+            try {
+                //获取文件名
+                String fileSuffix = Objects.requireNonNull(file.getOriginalFilename()).substring(file.getOriginalFilename().lastIndexOf("."));
+                //Linux下上传目录
+                //String filePathCover = "/www/wwwroot/www.kaciry.com/upload/HeadIcon/";
+                //Windows下上传目录
+                String filePath = "F:/upload/HeadIcon/";
+                //创建文件
+                File files = new File(filePath + username + fileSuffix);
+                //上传文件
+                file.transferTo(files);
+                //创建文件路径
+                String userHeadIconPathName = "/files/HeadIcon/" + username + fileSuffix;
+                //修改数据库中头像路径
+                return userService.updateUserHeadIcon(userHeadIconPathName, username);
+            } catch (Exception e) {
+                e.printStackTrace();
+                return false;
+            }
+        } else {
             return false;
         }
 
@@ -94,18 +111,28 @@ public class UserInfoController {
 
     @PostMapping("/postUpdatePwd")
     @ResponseBody
-    public boolean updatePassword(String email, String password) {
-        return userService.updatePassword(email, password);
+    public boolean updatePassword(String email, String password, HttpServletRequest request) {
+        String username = GetCookiesValueByKey.getValue(request);
+        if (GetAuthorization.isAuthorization(TokenUtils.getToken(username))) {
+            return userService.updatePassword(email, password);
+        } else {
+            return false;
+        }
     }
 
-    @RequestMapping(value = "/selectInfo", method = {RequestMethod.POST, RequestMethod.GET})
+    @RequestMapping(value = "/selectInfo", method = {RequestMethod.POST})
     @ResponseBody
-    public User selectInfo(HttpSession session) {
-        return userService.selectUserInfoByUsername(session.getAttribute("username").toString());
+    public User selectInfo(String username) {
+        if (GetAuthorization.isAuthorization(username)) {
+            username = TokenUtils.checkToken(username);
+            return userService.selectUserInfoByUsername(username);
+        } else {
+            return null;
+        }
     }
 
     /**
-     * @param session  session
+     * @param request  HttpServletRequest
      * @param pageNum  分页，当前页码
      * @param pageSize 分页，每一页的大小
      * @return com.github.pagehelper.PageInfo<com.kaciry.entity.VideoInfo>
@@ -115,19 +142,25 @@ public class UserInfoController {
      **/
     @PostMapping(value = "/selectMyVideo")
     @ResponseBody
-    public PageInfo<VideoInfo> selectMyVideo(HttpSession session, Integer pageNum, Integer pageSize) {
-        List<VideoInfo> videoInfoList;
-        if (pageNum == null || pageSize == null) {
-            PageHelper.startPage(1, 20);
+    public PageInfo<VideoInfo> selectMyVideo(HttpServletRequest request, Integer pageNum, Integer pageSize) {
+        String token = GetCookiesValueByKey.getToken(request);
+        if (GetAuthorization.isAuthorization(token)) {
+            List<VideoInfo> videoInfoList;
+            if (pageNum == null || pageSize == null) {
+                PageHelper.startPage(1, 20);
+            } else {
+                PageHelper.startPage(pageNum, pageSize);
+            }
+            String username = TokenUtils.checkToken(token);
+            videoInfoList = userService.selectVideosByUsername(username);
+            return new PageInfo<>(videoInfoList);
         } else {
-            PageHelper.startPage(pageNum, pageSize);
+            return null;
         }
-        videoInfoList = userService.selectVideosByUsername(session.getAttribute("username").toString());
-        return new PageInfo<>(videoInfoList);
     }
 
     /**
-     * @param session  session
+     * @param request  HttpServletRequest
      * @param pageNum  分页，当前页码
      * @param pageSize 分页，每一页的大小
      * @return com.github.pagehelper.PageInfo<com.kaciry.entity.VideoInfo>
@@ -137,17 +170,21 @@ public class UserInfoController {
      **/
     @PostMapping("/postQueryCollect")
     @ResponseBody
-    public PageInfo<VideoInfo> queryCollect(HttpSession session, Integer pageNum, Integer pageSize) {
-
-        List<VideoInfo> videoInfoList;
-        if (pageNum == null || pageSize == null) {
-            PageHelper.startPage(1, 20);
+    public PageInfo<VideoInfo> queryCollect(Integer pageNum, Integer pageSize, HttpServletRequest request) {
+        String username = GetCookiesValueByKey.getValue(request);
+        if (GetAuthorization.isAuthorization(TokenUtils.getToken(username))) {
+            List<VideoInfo> videoInfoList;
+            if (pageNum == null || pageSize == null) {
+                PageHelper.startPage(1, 20);
+            } else {
+                PageHelper.startPage(pageNum, pageSize);
+            }
+            videoInfoList = userService.selectCollectionsByUsername(username);
+            return new PageInfo<>(videoInfoList);
         } else {
-            PageHelper.startPage(pageNum, pageSize);
+            return null;
         }
 
-        videoInfoList = userService.selectCollectionsByUsername(session.getAttribute("username").toString());
-        return new PageInfo<>(videoInfoList);
     }
 
     /**
@@ -162,16 +199,27 @@ public class UserInfoController {
     @PostMapping(value = "/postQueryFollows")
     @ResponseBody
     public PageInfo<UnionFansBean> queryFollows(String username, Integer pageNum, Integer pageSize) {
-        PageHelper.startPage(pageNum, pageSize);
-        List<UnionFansBean> list = userService.queryFollows1(username);
-        return new PageInfo<>(list);
+        if (GetAuthorization.isAuthorization(username)) {
+            username = TokenUtils.checkToken(username);
+            PageHelper.startPage(pageNum, pageSize);
+            List<UnionFansBean> list = userService.queryFollows1(username);
+            return new PageInfo<>(list);
+        } else {
+            return null;
+        }
+
     }
 
     @PostMapping(value = "/followHim")
     @ResponseBody
     public ResultBean followOthers(String username, String hisUsername) {
+        if (GetAuthorization.isAuthorization(username)) {
+            username = TokenUtils.checkToken(username);
+            return userService.followOthers(username, hisUsername);
+        } else {
+            return null;
+        }
 
-        return userService.followOthers(username, hisUsername);
     }
 
     /**
@@ -183,21 +231,28 @@ public class UserInfoController {
      **/
     @PostMapping(value = "/reportComment")
     @ResponseBody
-    public ResultBean reportComments(@RequestBody ReportCommentBean reportCommentBean) {
-        //设置日期格式
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        reportCommentBean.setReportedTime(simpleDateFormat.format(new Date()));
-        CommentBean commentBean = userService.queryCommentByIdentityDocument(reportCommentBean.getCommentIdentityDocument());
-        reportCommentBean.setBeReportedUser(commentBean.getUsername());
-        reportCommentBean.setCommentContent(commentBean.getContent());
+    public ResultBean reportComments(@RequestBody ReportCommentBean reportCommentBean, HttpServletRequest request) {
+        if (GetAuthorization.isAuthorization(TokenUtils.getToken(GetCookiesValueByKey.getValue(request)))) {
+            reportCommentBean.setReportedTime(simpleDateFormat.format(new Date()));
+            CommentBean commentBean = userService.queryCommentByIdentityDocument(reportCommentBean.getCommentIdentityDocument());
+            reportCommentBean.setBeReportedUser(commentBean.getUsername());
+            reportCommentBean.setCommentContent(commentBean.getContent());
+            return userService.reportComment(reportCommentBean);
+        } else {
+            return null;
+        }
 
-        return userService.reportComment(reportCommentBean);
     }
 
     @PostMapping(value = "/changePassword")
     @ResponseBody
     public ResultBean changePassword(String username, String originPassword, String password) {
-        return userService.updateUserPassword(username,originPassword,password);
+        if (GetAuthorization.isAuthorization(username)) {
+            return userService.updateUserPassword(TokenUtils.checkToken(username), originPassword, password);
+        } else {
+            return null;
+        }
+
     }
 
 }

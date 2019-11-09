@@ -90,6 +90,7 @@
                     <div class="signin-form">
 
                         <div >
+                            <p style="color: red;text-align: center" th:text="${msgs}" th:if="${not #strings.isEmpty(msgs)}"></p>
                             <div class="radio row">
                                 <div class="male col-xs-2">
                                     <input type="radio" id="male" name="userSex" value="男" checked/>
@@ -191,7 +192,7 @@
 
 <!--Custom JS-->
 <script src="/static/signin-up/js/custom.js"></script>
-<script src="/static/js/login_js/signup.js"></script>
+<script src="/static/js/login/signup.js"></script>
 
 </body>
 
