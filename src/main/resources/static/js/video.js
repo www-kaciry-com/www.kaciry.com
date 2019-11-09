@@ -1,5 +1,6 @@
 let videoAddress = GetQueryString("videoid");
-let username = $("#username").val();
+let token = getCookie("Token");
+let username = getCookie("username");
 let pageComment = $('#pageComment');
 let page = $("#page");
 let follow_sate = $(".follow-state");
@@ -47,6 +48,7 @@ $(document).ready(function () {
         type: 'post', //请求的方式
         dateType: "json", //请求的数据格式
         data: {
+            token: token,
             username: username,
             videoAddress: videoAddress
         },
@@ -204,8 +206,9 @@ $(document).ready(function () {
         type: 'post', //请求的方式
         dateType: "json", //请求的数据格式
         data: {
-            videoAddress: videoAddress,
+            token: token,
             username: username,
+            videoAddress: videoAddress
         },
         error: function () {
             alert("服务器未响应，加载视频信息失败！");
@@ -316,16 +319,16 @@ function analysisData(data) {
 //发送评论
 function sendComment() {
     let content = document.getElementById("discuss").value;
-    let username = document.getElementById("username").value;
     if (content !== "") {
         $.ajax({
             url: '/comment', //请求的url
             type: 'post', //请求的方式
             dateType: "json",
             data: {
+                token: token,
                 username: username,
-                videoAddress: videoAddress,
                 content: content,
+                videoAddress: videoAddress,
             },
             error: function () {
                 alert("服务器开小差了，请稍后重试!");
@@ -362,6 +365,7 @@ function clickStar() {
             type: 'post', //请求的方式
             dateType: "json",
             data: {
+                token: token,
                 username: username,
                 videoFileName: videoAddress,
                 option: "star",
@@ -417,6 +421,7 @@ function clickCollect() {
             type: 'post', //请求的方式
             dateType: "json",
             data: {
+                token: token,
                 username: username,
                 videoFileName: videoAddress,
                 option: "collect",
@@ -471,6 +476,7 @@ function clickFollow() {
             type: 'post', //请求的方式
             dateType: "json", //请求的数据格式
             data: {
+                token: token,
                 username: username,
                 hisUsername: hisUsername,
             },
@@ -516,7 +522,6 @@ function shareHtml() {
 //分享跳转页面
 function jumpTo() {
     let index = $(".modal-value").val();
-    console.log(index);
     if (index == 1) {
         clickShare();
         window.location.href = "https://tieba.baidu.com/index.html";
@@ -537,6 +542,7 @@ function clickShare() {
         type: 'post', //请求的方式
         dateType: "json", //请求的数据格式
         data: {
+            token: token,
             username: username,
             videoFileName: videoAddress,
             option: "share",
@@ -661,6 +667,24 @@ function sendDanmu() {
 
 }
 
+function getCookie(cookie_name) {
+    if (document.cookie.length > 0) {//判断cookie是否存在
+        //获取cookie名称加=的索引值
+        let c_start = document.cookie.indexOf(cookie_name + "=");
+        if (c_start != -1) { //说明这个cookie存在
+            //获取cookie名称对应值的开始索引值
+            c_start = c_start + cookie_name.length + 1;
+            //从c_start位置开始找第一个分号的索引值，也就是cookie名称对应值的结束索引值
+            c_end = document.cookie.indexOf(";", c_start);
+            //如果找不到，说明是cookie名称对应值的结束索引值就是cookie的长度
+            if (c_end == -1) c_end = document.cookie.length;
+            //unescape() 函数可对通过 escape() 编码的字符串进行解码
+            //获取cookie名称对应的值，并返回
+            return unescape(document.cookie.substring(c_start, c_end))
+        }
+    }
+    return "" //不存在返回空字符串
+}
 
 // function navTools(pageNum) {
 //

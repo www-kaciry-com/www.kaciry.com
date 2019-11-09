@@ -13,7 +13,7 @@ public interface UserService {
     /**
      * @param username 用户名
      * @param password 密码
-     * @return com.kaciry.entity.User
+     * @return com.kaciry.entity.user
      * @author kaciry
      * @description 用户登录
      * @date 2019/10/26 13:22
@@ -33,7 +33,7 @@ public interface UserService {
 
     /**
      * @param user User实体，包含信息见实体类
-     * @return com.kaciry.entity.User
+     * @return com.kaciry.entity.user
      * @author kaciry
      * @description 更改用户信息
      * @date 2019/10/26 13:23
@@ -42,7 +42,7 @@ public interface UserService {
 
     /**
      * @param username 用户名
-     * @return com.kaciry.entity.User
+     * @return com.kaciry.entity.user
      * @author kaciry
      * @description 根据用户名查询用户信息
      * @date 2019/10/26 13:23

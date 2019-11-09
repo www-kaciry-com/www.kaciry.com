@@ -7,16 +7,11 @@ import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.util.AntPathMatcher;
-import org.springframework.web.servlet.HandlerInterceptor;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistration;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.util.UrlPathHelper;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
@@ -117,6 +112,18 @@ public class MyWebAppConfig implements WebMvcConfigurer {
         // 最终的匹配路径是"/prefix/method"
         // 初始化的地方为RequestMappingHandler.getPathPrefix()
 //        configurer.addPathPrefix("/prefix", (aClass) -> true);
+    }
+
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        // 映射 /static 的请求到 classpath 下的 static 目录
+        registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
+        //addResourceHandler是指你想在url请求的路径
+        //addResourceLocations是图片存放的真实路径
+        //Linux 下目录配置
+        //registry.addResourceHandler("/files/**").addResourceLocations("file:/www/wwwroot/www.kaciry.com/upload/");
+        //Windows下目录配置
+        registry.addResourceHandler("/files/**").addResourceLocations("file:F://upload/");
     }
 
 //    @Override
@@ -227,35 +234,35 @@ public class MyWebAppConfig implements WebMvcConfigurer {
 //        });
 //    }
 
-    @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-        InterceptorRegistration registration = registry.addInterceptor(new HandlerInterceptor() {
-            @Override
-            public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-                System.out.println("自定义拦截器");
-                return true;
-            }
-
-            @Override
-            public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-
-            }
-
-            @Override
-            public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
-
-            }
-        });
+//    @Override
+//    public void addInterceptors(InterceptorRegistry registry) {
+//        InterceptorRegistration registration = registry.addInterceptor(new HandlerInterceptor() {
+//            @Override
+//            public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+//                System.out.println("自定义拦截器");
+//                return true;
+//            }
+//
+//            @Override
+//            public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
+//
+//            }
+//
+//            @Override
+//            public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
+//
+//            }
+//        });
         //排除的路径
 //      registration.excludePathPatterns("/login");
 //      registration.excludePathPatterns("/logout");
 
         //拦截全部
-        registration.addPathPatterns("/**");
+//        registration.addPathPatterns("/**");
 
         //将这个controller放行
 //        registration.excludePathPatterns("/pages/errorpage/*");
-    }
+//    }
 
 //    @Override
 //    public void addResourceHandlers(ResourceHandlerRegistry registry) {

@@ -16,7 +16,7 @@ public interface UserDao {
     /**
      * @param username     用户名
      * @param userPassword 密码
-     * @return com.kaciry.entity.User
+     * @return com.kaciry.entity.user
      * @author kaciry
      * @description 查询一个User
      * @date 2019/10/25 18:28
@@ -71,7 +71,7 @@ public interface UserDao {
 
     /**
      * @param username 用户名
-     * @return com.kaciry.entity.User
+     * @return com.kaciry.entity.user
      * @author kaciry
      * @description 查询一个User
      * @date 2019/10/25 18:36

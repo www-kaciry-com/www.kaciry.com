@@ -5,7 +5,9 @@ import com.kaciry.entity.User;
 import com.kaciry.service.Impl.UserServiceImpl;
 import com.kaciry.utils.GetCookiesValueByKey;
 import com.kaciry.utils.RSAUtils;
+import com.kaciry.utils.TokenRS256;
 import com.kaciry.utils.TokenUtils;
+import com.nimbusds.jose.jwk.RSAKey;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
@@ -33,42 +35,6 @@ public class LoginController {
 
     @Autowired
     private RedisTemplate<Object, Object> redisTemplate;
-
-    @RequestMapping(value = {"/login"}, method = RequestMethod.GET)
-    public String login() {
-        return "signin";
-    }
-
-    @RequestMapping(value = {"/index"})
-    public String index(HttpServletRequest request) {
-//        Cookie[] cookies = request.getCookies();
-//        if (cookies != null && cookies.length > 0) {
-//            for (Cookie cookie : cookies) {
-//                if (cookie.getName().equals("Token")) {
-//                    String username = TokenUtils.checkToken(cookie.getValue());
-//
-//                    User user = userServiceImpl.login(username);
-//                    request.getSession().setAttribute("user", user);
-//                    request.getSession().setAttribute("username", user.getUsername());
-//                    break;
-//                }
-//            }
-//        }
-        return "index";
-    }
-
-    @RequestMapping(value = "/loginPage", method = RequestMethod.POST)
-    public String login(HttpSession session, @ModelAttribute(value = "user") User user, Map<String, String> map) {
-        User res = userServiceImpl.login(user.getUsername(), user.getUserPassword());
-        if (res != null && res.getUsername().equals(user.getUsername()) && res.getUserPassword().equals(user.getUserPassword())) {
-            session.setAttribute("user", res);
-            session.setAttribute("username", res.getUsername());
-            return "redirect:/";
-        } else {
-            map.put("msg", "用户名或密码错误！");
-            return "signin";
-        }
-    }
 
     /**
      * @param username 用户名
@@ -101,34 +67,43 @@ public class LoginController {
 
     @PostMapping(value = "/rsaKey2")
     @ResponseBody
-    public ResultBean checkRSAKey(String username, String password, boolean checkbox, HttpServletRequest request, HttpServletResponse response) throws Exception {
+    public ResultBean checkRSAKey(String username, String password, boolean checkbox, HttpServletResponse response) throws Exception {
         Object object = redisTemplate.opsForValue().get(username);
         redisTemplate.delete(username);
         // 解密
-        String decryptByPrivateKey = RSAUtils.decryptByPrivateKey(password,(RSAPrivateKey) object);
+        String decryptByPrivateKey = RSAUtils.decryptByPrivateKey(password, (RSAPrivateKey) object);
 
         User res = userServiceImpl.login(username, decryptByPrivateKey);
         if (res != null && res.getUsername().equals(username) && res.getUserPassword().equals(decryptByPrivateKey)) {
-            request.getSession().setAttribute("user", res);
-//            request.getSession().setAttribute("username", res.getUsername());
+            //获取钥匙
+            RSAKey key = TokenUtils.getKey();
             //生成Token
-            String token = TokenUtils.getToken(username);
+            String token = TokenRS256.TokenTest(username, key, 1000 * 60 * 20);
             //保存Token到redis
-            redisTemplate.opsForValue().set(username + "_token", token);
-            //设置JSESSION和Token放入Cookie
+            redisTemplate.opsForValue().set(username + "_key", key);
+            //将个人不敏感信息和Token放入Cookie
             Cookie cookie1 = new Cookie("Token", token);
             Cookie cookie2 = new Cookie("head", res.getUserHeadIcon());
             Cookie cookie3 = new Cookie("nickname", res.getUserNickName());
+            Cookie cookie4 = new Cookie("username", res.getUsername());
+            Cookie cookie5 = new Cookie("level", res.getUserLevel());
+            Cookie cookie6 = new Cookie("vip", res.getIsVip());
             if (checkbox) {
                 //10天有效期
                 cookie1.setMaxAge(10 * 24 * 3600);
                 cookie2.setMaxAge(10 * 24 * 3600);
                 cookie3.setMaxAge(10 * 24 * 3600);
+                cookie4.setMaxAge(10 * 24 * 3600);
+                cookie5.setMaxAge(10 * 24 * 3600);
+                cookie6.setMaxAge(10 * 24 * 3600);
             }
             //添加cookie
             response.addCookie(cookie1);
             response.addCookie(cookie2);
             response.addCookie(cookie3);
+            response.addCookie(cookie4);
+            response.addCookie(cookie5);
+            response.addCookie(cookie6);
             return new ResultBean<>("success");
         } else {
             return new ResultBean<>("用户名或密码错误！");
@@ -136,12 +111,7 @@ public class LoginController {
 
     }
 
-    @GetMapping(value = "/")
-    public String loginIndex() {
-        //登陆成功，跳转到主页
-        return "redirect:/index";
 
-    }
 
     /**
      * @param request  request请求
@@ -154,8 +124,8 @@ public class LoginController {
     @RequestMapping(value = "/logout", method = {RequestMethod.GET, RequestMethod.POST})
     public String logout(HttpServletRequest request, HttpServletResponse response) {
         //删除redis里的token
-        String value = GetCookiesValueByKey.getValue(request);
-        redisTemplate.delete(TokenUtils.checkToken(value) + "_token");
+        String value = GetCookiesValueByKey.getValue(request, "Token");
+        redisTemplate.delete(value + "_token");
         //消除session
         HttpSession session = request.getSession();
         session.invalidate();
@@ -167,11 +137,6 @@ public class LoginController {
         }
         return "redirect:/";
 
-    }
-
-    @RequestMapping(value = "/register", method = RequestMethod.GET)
-    public String registerGet() {
-        return "signup";
     }
 
     /**
@@ -192,7 +157,7 @@ public class LoginController {
         String result = userServiceImpl.register(user);
         if (result.equals("error")) {
             map.put("msgs", "账号已存在！");
-            return "signup";
+            return "public/signup";
         } else {
             User resUser = userServiceImpl.login(user.getUsername(), user.getUserPassword());
             session.setAttribute("user", resUser);

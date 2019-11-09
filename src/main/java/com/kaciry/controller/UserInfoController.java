@@ -6,10 +6,11 @@ import com.kaciry.entity.*;
 import com.kaciry.service.Impl.UserServiceImpl;
 import com.kaciry.utils.GetAuthorization;
 import com.kaciry.utils.GetCookiesValueByKey;
-import com.kaciry.utils.TokenUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
@@ -26,26 +27,8 @@ import java.util.Objects;
  */
 @Controller
 public class UserInfoController {
-    private final String PREFIX = "User/";
-
     @Autowired
     private UserServiceImpl userService;
-
-    /**
-     * @description 设置日期格式
-     * @date 2019/11/3 23:15
-     **/
-    private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
-    @RequestMapping(value = {"/homePage"})
-    public String userInfo() {
-        return PREFIX + "homePage";
-    }
-
-    @RequestMapping(value = {"/reply"})
-    public String userReply() {
-        return "reply";
-    }
 
     @PostMapping(value = "/changeInfo")
     @ResponseBody
@@ -62,28 +45,29 @@ public class UserInfoController {
      **/
     @PostMapping(value = "/selectUserVideos")
     @ResponseBody
-    public List<VideoInfo> selectUserVideos(String username) {
-        if (GetAuthorization.isAuthorization(username)) {
-            username = TokenUtils.checkToken(username);
+    public List<VideoInfo> selectUserVideos(String token, String username) {
+        if (GetAuthorization.isAuthorization(username, token)) {
             return userService.selectVideosByUsername(username);
         } else {
             return null;
         }
+
     }
 
     /**
      * @param file    用户上传的文件，头像
-     * @param request request
+     * @param request HttpServletRequest,包含token和用户信息
      * @return boolean
      * @author kaciry
      * @description 用户修改个人头像
      * @date 2019/10/25 17:44
      **/
-    @PostMapping(value = "/modifyHeadIcon")
+    @PostMapping(value = "modifyHeadIcon")
     @ResponseBody
     public boolean modifyHeadIcon(MultipartFile file, HttpServletRequest request) {
-        String username = GetCookiesValueByKey.getValue(request);
-        if (GetAuthorization.isAuthorization(TokenUtils.getToken(username))) {
+        String token = GetCookiesValueByKey.getValue(request, "Token");
+        String username = GetCookiesValueByKey.getValue(request, "username");
+        if (GetAuthorization.isAuthorization(username, token)) {
             try {
                 //获取文件名
                 String fileSuffix = Objects.requireNonNull(file.getOriginalFilename()).substring(file.getOriginalFilename().lastIndexOf("."));
@@ -111,20 +95,22 @@ public class UserInfoController {
 
     @PostMapping("/postUpdatePwd")
     @ResponseBody
-    public boolean updatePassword(String email, String password, HttpServletRequest request) {
-        String username = GetCookiesValueByKey.getValue(request);
-        if (GetAuthorization.isAuthorization(TokenUtils.getToken(username))) {
-            return userService.updatePassword(email, password);
-        } else {
-            return false;
-        }
+    public boolean updatePassword(String email, String password) {
+        return userService.updatePassword(email, password);
     }
 
-    @RequestMapping(value = "/selectInfo", method = {RequestMethod.POST})
+    /**
+     * @param token    登陆成功后分发给客户端的一个加密token
+     * @param username 用户名
+     * @return com.kaciry.entity.user
+     * @author kaciry
+     * @description 查询个人信息
+     * @date 2019/11/9 18:29
+     **/
+    @PostMapping(value = "/selectInfo")
     @ResponseBody
-    public User selectInfo(String username) {
-        if (GetAuthorization.isAuthorization(username)) {
-            username = TokenUtils.checkToken(username);
+    public User selectInfo(String token, String username) {
+        if (GetAuthorization.isAuthorization(username, token)) {
             return userService.selectUserInfoByUsername(username);
         } else {
             return null;
@@ -132,35 +118,33 @@ public class UserInfoController {
     }
 
     /**
-     * @param request  HttpServletRequest
+     * @param token    登陆成功后分发给客户端的一个加密token
+     * @param username 用户名
      * @param pageNum  分页，当前页码
      * @param pageSize 分页，每一页的大小
      * @return com.github.pagehelper.PageInfo<com.kaciry.entity.VideoInfo>
      * @author kaciry
      * @description 查看我的投稿视频
-     * @date 2019/10/25 17:37
+     * @date 2019/11/9 18:12
      **/
     @PostMapping(value = "/selectMyVideo")
     @ResponseBody
-    public PageInfo<VideoInfo> selectMyVideo(HttpServletRequest request, Integer pageNum, Integer pageSize) {
-        String token = GetCookiesValueByKey.getToken(request);
-        if (GetAuthorization.isAuthorization(token)) {
-            List<VideoInfo> videoInfoList;
+    public PageInfo<VideoInfo> selectMyVideo(String token, String username, Integer pageNum, Integer pageSize) {
+        if (GetAuthorization.isAuthorization(username, token)) {
             if (pageNum == null || pageSize == null) {
-                PageHelper.startPage(1, 20);
+                PageHelper.startPage(1, 16);
             } else {
                 PageHelper.startPage(pageNum, pageSize);
             }
-            String username = TokenUtils.checkToken(token);
-            videoInfoList = userService.selectVideosByUsername(username);
-            return new PageInfo<>(videoInfoList);
+            return new PageInfo<>(userService.selectVideosByUsername(username));
         } else {
             return null;
         }
     }
 
     /**
-     * @param request  HttpServletRequest
+     * @param token    登陆成功后分发给客户端的一个加密token
+     * @param username 用户名
      * @param pageNum  分页，当前页码
      * @param pageSize 分页，每一页的大小
      * @return com.github.pagehelper.PageInfo<com.kaciry.entity.VideoInfo>
@@ -170,17 +154,14 @@ public class UserInfoController {
      **/
     @PostMapping("/postQueryCollect")
     @ResponseBody
-    public PageInfo<VideoInfo> queryCollect(Integer pageNum, Integer pageSize, HttpServletRequest request) {
-        String username = GetCookiesValueByKey.getValue(request);
-        if (GetAuthorization.isAuthorization(TokenUtils.getToken(username))) {
-            List<VideoInfo> videoInfoList;
+    public PageInfo<VideoInfo> queryCollect(String token, String username, Integer pageNum, Integer pageSize) {
+        if (GetAuthorization.isAuthorization(username, token)) {
             if (pageNum == null || pageSize == null) {
                 PageHelper.startPage(1, 20);
             } else {
                 PageHelper.startPage(pageNum, pageSize);
             }
-            videoInfoList = userService.selectCollectionsByUsername(username);
-            return new PageInfo<>(videoInfoList);
+            return new PageInfo<>(userService.selectCollectionsByUsername(username));
         } else {
             return null;
         }
@@ -188,6 +169,7 @@ public class UserInfoController {
     }
 
     /**
+     * @param token    登陆成功后分发给客户端的一个加密token
      * @param username 用户名
      * @param pageNum  分页，当前页码
      * @param pageSize 分页，每一页的大小
@@ -198,9 +180,8 @@ public class UserInfoController {
      **/
     @PostMapping(value = "/postQueryFollows")
     @ResponseBody
-    public PageInfo<UnionFansBean> queryFollows(String username, Integer pageNum, Integer pageSize) {
-        if (GetAuthorization.isAuthorization(username)) {
-            username = TokenUtils.checkToken(username);
+    public PageInfo<UnionFansBean> queryFollows(String token, String username, Integer pageNum, Integer pageSize) {
+        if (GetAuthorization.isAuthorization(username, token)) {
             PageHelper.startPage(pageNum, pageSize);
             List<UnionFansBean> list = userService.queryFollows1(username);
             return new PageInfo<>(list);
@@ -212,9 +193,8 @@ public class UserInfoController {
 
     @PostMapping(value = "/followHim")
     @ResponseBody
-    public ResultBean followOthers(String username, String hisUsername) {
-        if (GetAuthorization.isAuthorization(username)) {
-            username = TokenUtils.checkToken(username);
+    public ResultBean followOthers(String token, String username, String hisUsername) {
+        if (GetAuthorization.isAuthorization(username, token)) {
             return userService.followOthers(username, hisUsername);
         } else {
             return null;
@@ -231,28 +211,35 @@ public class UserInfoController {
      **/
     @PostMapping(value = "/reportComment")
     @ResponseBody
-    public ResultBean reportComments(@RequestBody ReportCommentBean reportCommentBean, HttpServletRequest request) {
-        if (GetAuthorization.isAuthorization(TokenUtils.getToken(GetCookiesValueByKey.getValue(request)))) {
-            reportCommentBean.setReportedTime(simpleDateFormat.format(new Date()));
-            CommentBean commentBean = userService.queryCommentByIdentityDocument(reportCommentBean.getCommentIdentityDocument());
-            reportCommentBean.setBeReportedUser(commentBean.getUsername());
-            reportCommentBean.setCommentContent(commentBean.getContent());
-            return userService.reportComment(reportCommentBean);
-        } else {
-            return null;
-        }
+    public ResultBean reportComments(@RequestBody ReportCommentBean reportCommentBean) {
+        //设置日期格式
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        reportCommentBean.setReportedTime(simpleDateFormat.format(new Date()));
+        CommentBean commentBean = userService.queryCommentByIdentityDocument(reportCommentBean.getCommentIdentityDocument());
+        reportCommentBean.setBeReportedUser(commentBean.getUsername());
+        reportCommentBean.setCommentContent(commentBean.getContent());
 
+        return userService.reportComment(reportCommentBean);
     }
 
+    /**
+     * @param token          登陆成功后分发给客户端的一个加密token
+     * @param username       用户名
+     * @param originPassword 原始密码
+     * @param password       新密码
+     * @return com.kaciry.entity.ResultBean
+     * @author kaciry
+     * @description 修改密码
+     * @date 2019/11/9 18:28
+     **/
     @PostMapping(value = "/changePassword")
     @ResponseBody
-    public ResultBean changePassword(String username, String originPassword, String password) {
-        if (GetAuthorization.isAuthorization(username)) {
-            return userService.updateUserPassword(TokenUtils.checkToken(username), originPassword, password);
+    public ResultBean changePassword(String token, String username, String originPassword, String password) {
+        if (GetAuthorization.isAuthorization(username, token)) {
+            return userService.updateUserPassword(username, originPassword, password);
         } else {
             return null;
         }
-
     }
 
 }

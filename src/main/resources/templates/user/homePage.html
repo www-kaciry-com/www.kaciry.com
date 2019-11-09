@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <link rel="stylesheet" href="/static/bootstrap-4.3.1/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="/static/css/index-css.css">
     <link rel="stylesheet" href="/static/css/pagePlugCSS/mricode.pagination.css">
     <link rel="stylesheet" href="/static/css/user/user.css">
@@ -13,12 +13,13 @@
 </head>
 <body>
 <!--header-->
-<div th:include="nav"></div>
+<div th:include="fragment/nav"></div>
 <!--页面头像特效区-->
 <div class="site-master">
     <a href="">
-        <img class="site-master-avatar" src="" th:if="${session.user != null}"
-             th:src="${session.user.getUserHeadIcon()}" alt="headicon">
+        <img class="site-master-avatar" src="" th:each="cookie :${#httpServletRequest.getCookies()}"
+             th:if="${cookie.getName().equals('head')}"
+             th:src="${cookie.getValue()}" alt="headicon">
     </a>
     <h2 class="site-master-description">
         <span>欢迎访问，</span>
@@ -26,9 +27,6 @@
     </h2>
 </div>
 <div class="container">
-    <label>
-        <input hidden="hidden" type="text" class="username" th:value="${session.user.getUsername()}">
-    </label>
     <div class="row">
         <div class="nav flex-column nav-pills col-12 col-sm-12 col-md-12 col-lg-2 col-xl-3" id="v-pills-tab"
              role="tablist" aria-orientation="vertical">
@@ -81,7 +79,9 @@
                             <div class="col-8 col-sm-8">
                                 <input type="text" class="form-control" id="username"
                                        name="username"
-                                       th:value="${session.user.getUsername()}"
+                                       th:each="cookie :${#httpServletRequest.getCookies()}"
+                                       th:if="${cookie.getName().equals('username')}"
+                                       th:value="${cookie.getValue()}"
                                        readonly>
                             </div>
                         </div>
@@ -90,7 +90,9 @@
                             >大会员</label>
                             <div class="col-8 col-sm-8">
                                 <input type="text" class="form-control" id="isvip" name="isVip"
-                                       th:value="${session.user.getIsVip()}" readonly>
+                                       th:each="cookie :${#httpServletRequest.getCookies()}"
+                                       th:if="${cookie.getName().equals('vip')}"
+                                       th:value="${cookie.getValue()}" readonly>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -98,7 +100,9 @@
                             >等级</label>
                             <div class="col-8 col-sm-8">
                                 <input type="text" class="form-control" id="level" name="userLevel"
-                                       th:value="${session.user.getUserLevel()}" readonly>
+                                       th:each="cookie :${#httpServletRequest.getCookies()}"
+                                       th:if="${cookie.getName().equals('level')}"
+                                       th:value="${cookie.getValue()}" readonly>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -192,7 +196,9 @@
                             <div class="col-8 col-sm-8">
                                 <input type="text" class="form-control" id="security-username"
                                        name="username"
-                                       th:value="${session.user.getUsername()}"
+                                       th:each="cookie :${#httpServletRequest.getCookies()}"
+                                       th:if="${cookie.getName().equals('username')}"
+                                       th:value="${cookie.getValue()}"
                                        readonly>
                             </div>
                         </div>
@@ -234,12 +240,12 @@
         </div>
     </div>
 </div>
-<!-- Modal -->
-<div th:include="Modal/logoutModal"></div>
-<div th:include="Modal/noticeModal"></div>
+<!-- modal -->
+<div th:include="modal/logoutModal"></div>
+<div th:include="modal/noticeModal"></div>
 <!--<div th:include="cancelModal"></div>-->
-<script src="/static/js/Jquery/jquery-3.4.1.js"></script>
-<script src="/static/bootstrap-4.3.1/dist/js/bootstrap.js"></script>
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <script src="/static/js/homePage.js"></script>
 <script src="/static/js/pagePulg/mricode.pagination.js"></script>
 <script>
@@ -279,9 +285,6 @@
             $(con[i]).addClass('active show');
         }
     }
-</script>
-<script>
-
 </script>
 </body>
 </html>

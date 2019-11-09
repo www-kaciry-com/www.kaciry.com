@@ -4,16 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>推广视频</title>
-    <link rel="stylesheet" href="/static/bootstrap-4.3.1/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="/static/css/promoteVideo/promote-video.css">
 </head>
 <body>
 <!--header-->
-<div th:include="nav"></div>
+<div th:include="fragment/nav"></div>
 <!--body-->
 <div class="container" style="margin-top: 60px">
-    <label for="username"></label><input hidden="hidden" id="username" name="username"
-                                         th:value="${session.user.getUsername()}">
     <div class="title"><h2>推广视频</h2></div>
     <hr>
     <div class="content">
@@ -103,12 +101,12 @@
     </div>
 </div>
 
-<!-- Modal -->
-<div th:include="Modal/payModal"></div>
-<div th:include="Modal/noticeModal"></div>
-<div th:include="Modal/logoutModal"></div>
-<script src="/static/js/Jquery/jquery-3.4.1.js"></script>
-<script src="/static/bootstrap-4.3.1/dist/js/bootstrap.js"></script>
+<!-- modal -->
+<div th:include="modal/payModal"></div>
+<div th:include="modal/noticeModal"></div>
+<div th:include="modal/logoutModal"></div>
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <script src="/static/js/promote/promote.js"></script>
 </body>
 </html>

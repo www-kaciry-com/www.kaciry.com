@@ -1,5 +1,6 @@
 package com.kaciry.utils;
 
+import com.nimbusds.jose.jwk.RSAKey;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
@@ -19,20 +20,11 @@ public class GetAuthorization {
         GetAuthorization.redisTemplate = redisTemplate;
     }
 
-    public static boolean isAuthorization(String token) {
-        String redisUsername;
-        //待验证账户名
-        String username = TokenUtils.checkToken(token);
-        System.out.println("isAuthorization -->" + username);
-        //redis中的账户名
-        Object flag = redisTemplate.opsForValue().get(username + "_token");
-        if (flag != null) {
-            redisUsername = (String) flag;
-            return redisUsername.equals(token);
-        }else {
-            return false;
-        }
-
+    public static boolean isAuthorization(String username, String token) {
+        return TokenRS256.ValidToken(token, (RSAKey) redisTemplate.opsForValue().get(username + "_key")) != null;
     }
 
+    public static String getUsername(String username, String token) {
+        return TokenRS256.ValidToken(token, (RSAKey) redisTemplate.opsForValue().get(username + "_key"));
+    }
 }

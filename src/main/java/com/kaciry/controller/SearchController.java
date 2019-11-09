@@ -6,7 +6,6 @@ import com.kaciry.entity.VideoInfo;
 import com.kaciry.service.Impl.SearchDataServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -22,11 +21,6 @@ public class SearchController {
 
     @Autowired
     private SearchDataServiceImpl searchDataService;
-
-    @GetMapping("/search")
-    public String search() {
-        return "search";
-    }
 
     /**
      * @param pageNum  分页，当前页码

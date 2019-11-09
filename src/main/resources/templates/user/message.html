@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600" rel="stylesheet">
-    <link rel="stylesheet" href="/static/bootstrap-4.3.1/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="/static/css/reply.css">
     <link rel="stylesheet" href="/static/css/Chat/reset.min.css">
     <link rel="stylesheet" href="/static/css/Chat/style.css">
@@ -12,7 +12,7 @@
 
 </head>
 <body>
-<div th:include="nav"></div>
+<div th:include="fragment/nav"></div>
 <div class="container">
     <div class="row main">
         <div class="col-3 col-sm-3 col-md-3 col-lg-2  nav-op">
@@ -67,7 +67,7 @@
                             5555
                         </div>
                         <div class="tab-pane fade" id="privateLetters">
-                            <div th:replace="Chat/Chat :: chat"></div>
+                            <div th:replace="fragment/chat :: chat"></div>
                         </div>
                         <div class="tab-pane fade" id="real-time-chat">
                             777
@@ -81,10 +81,9 @@
         </div>
     </div>
 </div>
-<div th:include="Modal/logoutModal"></div>
-
-<script src="/static/js/Jquery/jquery-3.4.1.js"></script>
-<script src="/static/bootstrap-4.3.1/dist/js/bootstrap.js"></script>
+<div th:include="modal/logoutModal"></div>
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <script src="/static/js/Chat/private-chat.js"></script>
 <script>
     //跳转tab js

@@ -4,13 +4,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>筱筱弹幕网</title>
-    <link rel="stylesheet" href="/static/bootstrap-4.3.1/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="/static/live2d/css/live2d.css"/>
     <link rel="stylesheet" href="/static/css/index-css.css">
 </head>
 <body>
 <!--header-->
-<div th:include="nav"></div>
+<div th:include="fragment/nav"></div>
 
 <!--页面头像特效区-->
 <div class="site-master">
@@ -595,8 +595,8 @@
     <canvas id="live2d" width="290" height="250" class="live2d"></canvas>
     <div class="hide-button">隐藏</div>
 </div>
-<!-- Modal -->
-<div th:include="Modal/logoutModal"></div>
+<!-- modal -->
+<div th:include="modal/logoutModal"></div>
 <!--footer-->
 <footer class="footer" style="text-align: center;margin-top: 50px">
     <div class="container-fluid" style="background-color: rgb(229,229,229)">
@@ -607,8 +607,8 @@
         <p style="margin-bottom: 0">联系方式：kaciry@126.com</p>
     </div>
 </footer>
-<script src="/static/js/Jquery/jquery-3.4.1.js"></script>
-<script src="/static/bootstrap-4.3.1/dist/js/bootstrap.js"></script>
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+<script src="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <script type="text/javascript">
     let message_Path = '/static/live2d/';
     let home_Path = 'http://www.kaciry.com/'; //此处修改为你的域名，必须带斜杠

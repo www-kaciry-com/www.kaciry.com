@@ -2,7 +2,8 @@ let collectPage = $("#page1");
 let followPage = $("#page2");
 let contributePage = $("#page");
 //获取Token
-let username = getCookie("Token");
+let token = getCookie("Token");
+let username = getCookie("username");
 let followContainer = $(".content");
 // 密码（最少8位，包括至少一位大写字母，一位小写字母，一个数字，一个特殊字符）：
 let passwordPattern = /(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[$@!%*#?&])[A-Za-z\d$@!%*#?&]{8,}$/;
@@ -32,8 +33,9 @@ function selectInfo() {
     $.ajax({
         url: '/selectInfo', //请求的url
         type: 'post', //请求的方式
-        data:{
-            username : username
+        data: {
+            token: token,
+            username: username
         },
         error: function () {
             alert('请求失败');
@@ -49,14 +51,13 @@ function selectInfo() {
 }
 
 function selectContribution() {
-
     let contributeTag = $('.My-Contribution-content');
     $.ajax({
         url: '/selectMyVideo', //请求的url
         type: 'post', //请求的方式
         data: {
-            pageNum: 1,
-            pageSize: 16
+            token: token,
+            username: username,
         },
         error: function () {
             alert('请求失败');
@@ -88,8 +89,6 @@ function selectContribution() {
             contributeTag.append(str);
         }
     });
-
-
 }
 
 function analysisData(data) {
@@ -135,17 +134,18 @@ function analysisFollowsData(data) {
 //更改密码
 function changePassword() {
     let originPassword = $("#origin-password").val();
-    let newPasswordOne =  $("#new-password-1").val();
+    let newPasswordOne = $("#new-password-1").val();
     let newPasswordTwo = $("#new-password-2").val();
-    if (checkPassword(newPasswordOne,newPasswordTwo)){
+    if (checkPassword(newPasswordOne, newPasswordTwo)) {
         $.ajax({
             url: '/changePassword',//请求的地址
             type: 'post', //请求的方式
             dateType: "json", //请求的数据格式
             data: {
+                token: token,
                 username: username,
-                originPassword : originPassword,
-                password : newPasswordOne
+                originPassword: originPassword,
+                password: newPasswordOne
             },
             error: function () {
                 alert("服务器未响应，修改信息失败！");
@@ -162,14 +162,14 @@ function changePassword() {
 }
 
 // 检查两次密码的合法性和一致性
-function checkPassword(pwd1,pwd2) {
+function checkPassword(pwd1, pwd2) {
     if (pwd1 !== pwd2) {
         $("#noticeModalTitle").text("错误提示！");
         $("#notice-modal-body").text("两次输入的密码不一致！");
         $('#noticeModal').modal('toggle');
         return false;
     } else {
-        if (!passwordPattern.test(pwd1)){
+        if (!passwordPattern.test(pwd1)) {
             $("#noticeModalTitle").text("错误提示！");
             $("#notice-modal-body").text("密码格式错误！（最少8位，包括至少一位大写字母，一位小写字母，一个数字，一个特殊字符：$@!%*#?&）");
             $('#noticeModal').modal('toggle');
@@ -185,6 +185,8 @@ function queryCollections() {
         url: '/postQueryCollect', //请求的url
         type: 'post', //请求的方式
         data: {
+            token: token,
+            username: username,
             pageNum: 1,
             pageSize: 16
         },
@@ -229,6 +231,7 @@ function queryFollows() {
         type: 'post', //请求的方式
         dateType: "json", //请求的数据格式
         data: {
+            token: token,
             username: username,
             pageNum: 1,
             pageSize: 10
@@ -270,16 +273,14 @@ contributePage.on("pageClicked", function (event, data) {
         type: "POST",
         dataType: "json",
         data: {
+            token: token,
+            username: username,
             pageNum: data.pageIndex + 1,
             pageSize: 16
         },
         success: function (result) {
-            console.log(result);
             contributeTag.children().remove();
-            let json = eval(result.list);
-            let str = analysisData(json);
-            contributeTag.append(str);
-
+            contributeTag.append(analysisData(eval(result.list)));
         }
     })
 });
@@ -291,6 +292,8 @@ contributePage.on("jumpClicked", function (event, data) {
         type: "POST",
         dataType: "json",
         data: {
+            token: token,
+            username: username,
             pageNum: data.pageIndex + 1,
             pageSize: 16
         },
@@ -313,6 +316,8 @@ collectPage.on("pageClicked", function (event, data) {
         type: "POST",
         dataType: "json",
         data: {
+            token: token,
+            username: username,
             pageNum: data.pageIndex + 1,
             pageSize: 16
         },
@@ -333,6 +338,8 @@ collectPage.on("jumpClicked", function (event, data) {
         type: "POST",
         dataType: "json",
         data: {
+            token: token,
+            username: username,
             pageNum: data.pageIndex + 1,
             pageSize: 16
         },
@@ -354,6 +361,7 @@ followPage.on("pageClicked", function (event, data) {
         type: "POST",
         dataType: "json",
         data: {
+            token: token,
             username: username,
             pageNum: data.pageIndex + 1,
             pageSize: 10
@@ -373,6 +381,7 @@ followPage.on("jumpClicked", function (event, data) {
         type: "POST",
         dataType: "json",
         data: {
+            token: token,
             username: username,
             pageNum: data.pageIndex + 1,
             pageSize: 10
@@ -393,6 +402,7 @@ function cancelFollow(btn) {
         type: 'post', //请求的方式
         dateType: "json", //请求的数据格式
         data: {
+            token: token,
             username: username,
             hisUsername: res.innerHTML
         },
@@ -412,7 +422,7 @@ function toSendMsg() {
 }
 
 
-$(".dplayer-send-icon").on("click",function () {
+$(".dplayer-send-icon").on("click", function () {
     console.log("sendBtn!");
     dp.danmaku.draw({
         text: 'DIYgod is amazing',
@@ -421,20 +431,20 @@ $(".dplayer-send-icon").on("click",function () {
     });
 });
 
-function getCookie(cookie_name){
-    if (document.cookie.length>0){//判断cookie是否存在
+function getCookie(cookie_name) {
+    if (document.cookie.length > 0) {//判断cookie是否存在
         //获取cookie名称加=的索引值
         let c_start = document.cookie.indexOf(cookie_name + "=");
-        if (c_start!=-1){ //说明这个cookie存在
+        if (c_start != -1) { //说明这个cookie存在
             //获取cookie名称对应值的开始索引值
-            c_start=c_start + cookie_name.length+1;
+            c_start = c_start + cookie_name.length + 1;
             //从c_start位置开始找第一个分号的索引值，也就是cookie名称对应值的结束索引值
-            c_end=document.cookie.indexOf(";",c_start);
+            c_end = document.cookie.indexOf(";", c_start);
             //如果找不到，说明是cookie名称对应值的结束索引值就是cookie的长度
-            if (c_end==-1) c_end=document.cookie.length;
+            if (c_end == -1) c_end = document.cookie.length;
             //unescape() 函数可对通过 escape() 编码的字符串进行解码
             //获取cookie名称对应的值，并返回
-            return unescape(document.cookie.substring(c_start,c_end))
+            return unescape(document.cookie.substring(c_start, c_end))
         }
     }
     return "" //不存在返回空字符串

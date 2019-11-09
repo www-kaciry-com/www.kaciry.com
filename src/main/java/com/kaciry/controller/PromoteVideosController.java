@@ -1,10 +1,11 @@
 package com.kaciry.controller;
 
-import com.kaciry.utils.TimeUtils;
 import com.kaciry.entity.PromoteVideosBean;
 import com.kaciry.entity.ResultBean;
 import com.kaciry.entity.VideoInfo;
 import com.kaciry.service.Impl.PromoteVideosServiceImpl;
+import com.kaciry.utils.GetAuthorization;
+import com.kaciry.utils.TimeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,8 +26,13 @@ public class PromoteVideosController {
 
     @PostMapping(value = "/selectNormalVideo")
     @ResponseBody
-    public List<VideoInfo> selectNormalVideo(String username) {
-        return promoteVideosService.selectNormalVideos(username);
+    public List<VideoInfo> selectNormalVideo(String token, String username) {
+        if (GetAuthorization.isAuthorization(username, token)) {
+            return promoteVideosService.selectNormalVideos(username);
+        } else {
+            return null;
+        }
+
     }
 
     /**
@@ -35,7 +41,6 @@ public class PromoteVideosController {
      * @description 查询推荐视频需要等待的时间
      * @date 2019/11/1 22:01
      **/
-    //@PostMapping(value = "/queryWaitTime",consumes = "application/json",produces = "application/json;charset=utf-8")
     @PostMapping(value = "/queryWaitTime")
     @ResponseBody
     public ResultBean queryWaitTime(String options) {
@@ -52,9 +57,13 @@ public class PromoteVideosController {
      **/
     @PostMapping(value = "/promoteVideo")
     @ResponseBody
-    public ResultBean promoteVideo(String videoFilename, int promoteType) {
-        PromoteVideosBean promoteVideosBean = new PromoteVideosBean(videoFilename, TimeUtils.analysisTime(new Timestamp(System.currentTimeMillis())), promoteType);
-        return promoteVideosService.addPromoteVideo(promoteVideosBean);
+    public ResultBean promoteVideo(String token, String username, String videoFilename, int promoteType) {
+        if (GetAuthorization.isAuthorization(username, token)) {
+            PromoteVideosBean promoteVideosBean = new PromoteVideosBean(videoFilename, TimeUtils.analysisTime(new Timestamp(System.currentTimeMillis())), promoteType);
+            return promoteVideosService.addPromoteVideo(promoteVideosBean);
+        } else {
+            return null;
+        }
     }
 
     /**

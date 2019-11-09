@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>筱筱弹幕网</title>
-    <link rel="stylesheet" href="/static/bootstrap-4.3.1/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="/static/css/DPlayer.min.css">
     <link rel="stylesheet" href="/static/css/pagePlugCSS/mricode.pagination.css">
     <link rel="stylesheet" href="/static/css/style.css">
@@ -16,7 +16,7 @@
 </head>
 <body>
 <!--导航栏-->
-<div th:include="nav"></div>
+<div th:include="fragment/nav"></div>
 
 <div class="container content">
 
@@ -106,19 +106,22 @@
             <span>评论</span>
             <div style="height: 10px"></div>
         </div>
-        <div class="discuss-input" th:if="${session.user != null}">
+        <div class="discuss-input" th:each="cookie :${#httpServletRequest.getCookies()}"
+             th:if="${cookie.getName().equals('username')}">
             <div class="media col-12">
                 <a class="media-left" href="#">
                     <div>
-                        <img src="/static/img/null.jpeg" alt="" th:src="${session.user.getUserHeadIcon()}">
+                        <img src="/static/img/null.jpeg" alt="" th:each="cookie :${#httpServletRequest.getCookies()}"
+                             th:if="${cookie.getName().equals('head')}"
+                             th:src="${cookie.getValue()}">
                     </div>
                 </a>
                 <div class="media-body col-10">
                     <form class="form row" id="commentBean" method="post" style="margin-top: 10px">
                         <label for="nickname"></label><input hidden="hidden" id="nickname" name="nickname"
-                                                             th:value="${session.user.getUserNickName()}">
-                        <label for="username"></label><input hidden="hidden" id="username" name="username"
-                                                             th:value="${session.user.getUsername()}">
+                                                             th:each="cookie :${#httpServletRequest.getCookies()}"
+                                                             th:if="${cookie.getName().equals('nickname')}"
+                                                             th:value="${cookie.getValue()}">
                         <input class="form-control col-7 offset-1 col-md-8" type="text" placeholder="说点什么吧!"
                                aria-label="Discuss" aria-describedby="basic-addon1" value="" name="msg"
                                id="discuss">
@@ -138,20 +141,17 @@
 
 </div>
 <!--模态框-->
-<div th:include="Modal/logoutModal"></div>
-<div th:include="Modal/shareModal"></div>
-<div th:include="Modal/complaintModal"></div>
-<div th:include="Modal/reportCommentModal"></div>
+<div th:include="modal/logoutModal"></div>
+<div th:include="modal/shareModal"></div>
+<div th:include="modal/complaintModal"></div>
+<div th:include="modal/reportCommentModal"></div>
 
-<script src="/static/js/Jquery/jquery-3.4.1.js"></script>
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-<script src="/static/bootstrap-4.3.1/dist/js/bootstrap.js"></script>
+<script src="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <script src="/static/js/DPlayer.min.js"></script>
 <script src="/static/js/pagePulg/mricode.pagination.js"></script>
 <script src="/static/js/video.js"></script>
 <script src="/static/js/clipboardjs/clipboard.js"></script>
-<script>
-
-</script>
 </body>
 </html>

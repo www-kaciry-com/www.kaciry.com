@@ -9,32 +9,18 @@ import javax.servlet.http.HttpServletRequest;
  * @description 通过Cookie的key获取value
  */
 public class GetCookiesValueByKey {
-    public static String getValue(HttpServletRequest request){
-        String res = "";
-        Cookie[] cookies = request.getCookies();
-        if (cookies != null && cookies.length > 0) {
-            for (Cookie cookie : cookies) {
-                if (cookie.getName().equals("Token")) {
-                    res = TokenUtils.checkToken(cookie.getValue());
-                    break;
-                }
-            }
-        }
-        return res;
-    }
 
-    public static String getToken(HttpServletRequest request){
+    public static String getValue(HttpServletRequest request, String cookieKey) {
         String res = "";
         Cookie[] cookies = request.getCookies();
         if (cookies != null && cookies.length > 0) {
             for (Cookie cookie : cookies) {
-                if (cookie.getName().equals("Token")) {
+                if (cookie.getName().equals(cookieKey)) {
                     res = cookie.getValue();
                     break;
                 }
             }
         }
         return res;
-
     }
 }

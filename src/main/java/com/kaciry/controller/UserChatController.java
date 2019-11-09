@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author kaciry
@@ -28,13 +27,6 @@ public class UserChatController {
 
     @Autowired
     private UserServiceImpl userService;
-
-    @PostMapping(value = "/jumpToChat")
-    @ResponseBody
-    public String jumpToChat(Map<String, String> map) {
-
-        return null;
-    }
 
     /**
      * @param username 用户名
