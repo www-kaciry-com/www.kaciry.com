@@ -31,7 +31,7 @@ public class AutoAnalysisDataOvertime extends QuartzJobBean {
         for (PromoteVideosBean promoteVideosBean : list) {
             if (TimeUtils.getTimeDifference(promoteVideosBean.getSurplusDuration(), new Timestamp(System.currentTimeMillis())).equals("false")) {
                 boolean flag = promoteVideosService.setPromoteVideoTimeOver(promoteVideosBean.getVideoFilename());
-                System.out.println("执行了一次推广视频失效--> " + flag + ": " + promoteVideosBean.toString());
+                System.err.println("执行了一次推广视频失效--> " + flag + ": " + promoteVideosBean.toString());
                 // TODO: 2019/11/2 打印日志
             }
         }
@@ -41,5 +41,7 @@ public class AutoAnalysisDataOvertime extends QuartzJobBean {
 //            boolean flag = promoteVideosService.setPromoteVideoDuration(list.get(i).getVideoFilename(),timestamp);
 //            System.out.println("执行了一次视频时间减少-->" + flag);
 //        }
+
     }
+
 }

@@ -51,8 +51,6 @@ public class VideoPage {
     public VideoPage() {
     }
 
-
-
     public VideoPage(BigInteger videoIdentityDocument, String username, String videoTitle, String videoType,
                      int videoState, String videoFilename, String videoDescription, String videoName, String videoCover, String videoData,
                      int videoStars, int videoCoins, int videoConnections, int videoShares, int videoPlayNum, int videoBarrages) {

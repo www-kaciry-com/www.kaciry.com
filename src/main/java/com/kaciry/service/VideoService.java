@@ -90,4 +90,14 @@ public interface VideoService {
      * @date 2019/10/26 13:57
      **/
     ResultBean addOneReportVideoData(ReportVideoBean reportVideoBean);
+
+    /**
+     * @param videoFilename 视频文件名
+     * @param videoBarrages 弹幕数量
+     * @return void
+     * @author kaciry
+     * @description
+     * @date 2019/11/11 18:03
+     **/
+    void addVideoBarrages(String videoFilename, int videoBarrages);
 }

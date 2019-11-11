@@ -77,8 +77,10 @@ public class LoginController {
         if (res != null && res.getUsername().equals(username) && res.getUserPassword().equals(decryptByPrivateKey)) {
             //获取钥匙
             RSAKey key = TokenUtils.getKey();
+            //设置token过期时间
+            int exp = 1000 * 60 * 60;
             //生成Token
-            String token = TokenRS256.TokenTest(username, key, 1000 * 60 * 20);
+            String token = TokenRS256.TokenTest(username, key, exp);
             //保存Token到redis
             redisTemplate.opsForValue().set(username + "_key", key);
             //将个人不敏感信息和Token放入Cookie
@@ -124,8 +126,8 @@ public class LoginController {
     @RequestMapping(value = "/logout", method = {RequestMethod.GET, RequestMethod.POST})
     public String logout(HttpServletRequest request, HttpServletResponse response) {
         //删除redis里的token
-        String value = GetCookiesValueByKey.getValue(request, "Token");
-        redisTemplate.delete(value + "_token");
+        String value = GetCookiesValueByKey.getValue(request, "username");
+        redisTemplate.delete(value + "_key");
         //消除session
         HttpSession session = request.getSession();
         session.invalidate();

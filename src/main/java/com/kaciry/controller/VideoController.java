@@ -5,20 +5,19 @@ import com.github.pagehelper.PageInfo;
 import com.kaciry.entity.*;
 import com.kaciry.service.Impl.UserServiceImpl;
 import com.kaciry.service.Impl.VideoServiceImpl;
-import com.kaciry.utils.FormatVideoName;
+import com.kaciry.utils.AutoGetBarrages;
 import com.kaciry.utils.GetAuthorization;
 import com.kaciry.utils.GetCookiesValueByKey;
+import com.kaciry.utils.UploadFiles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * @author kaciry
@@ -51,7 +50,7 @@ public class VideoController {
 
     /**
      * @param file    用户上传的文件，视频封面与视频
-     * @param req     request请求
+     * @param request request请求
      * @return java.lang.String
      * @author kaciry
      * @description 用户投稿视频
@@ -59,49 +58,11 @@ public class VideoController {
      **/
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
     @ResponseBody
-    public ResultBean uploadFile(MultipartFile[] file, HttpServletRequest req) {
-        String username = GetCookiesValueByKey.getValue(req, "username");
-        if (GetAuthorization.isAuthorization(username, GetCookiesValueByKey.getValue(req, "Token"))) {
-            String videoTitle = req.getParameter("videoTitle");
-            String videoType = req.getParameter("videoType");
-            String videoName1 = req.getParameter("videoName");
-            String videoDescription = req.getParameter("videoDescription");
-            boolean flag;
-            try {
-                //获取文件后缀，包括点“.”
-                String fileSuffixVideo = Objects.requireNonNull(file[0].getOriginalFilename()).substring(file[0].getOriginalFilename().lastIndexOf("."));
-                String fileSuffixCover = Objects.requireNonNull(file[1].getOriginalFilename()).substring(file[1].getOriginalFilename().lastIndexOf("."));
-                //Linux下上传目录
-                //String filePathVideo = "/www/wwwroot/www.kaciry.com/upload/video/";
-                //String filePathCover = "/www/wwwroot/www.kaciry.com/upload/videoCover/";
-                //Windows下上传目录
-                String filePathVideo = "F:/upload/video/";
-                String filePathCover = "F:/upload/videoCover/";
-                //转化文件名
-                String fileName = FormatVideoName.getTargetFileName();
-                //创建文件对象
-                File filesVideo = new File(filePathVideo + "av" + fileName + fileSuffixVideo);
-                File filesCover = new File(filePathCover + "av" + fileName + fileSuffixCover);
-                //上传文件
-                file[0].transferTo(filesVideo);
-                file[1].transferTo(filesCover);
-                //保存用户上传的信息
-                //flag = userService.uploadVideo(username,"AV" + fileName + fileSuffix);
-                //视频文件名
-                String videoName = "av" + fileName + fileSuffixVideo;
-                //视频封面
-                String videoCover = "av" + fileName + fileSuffixCover;
-                //设置日期格式
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                VideoInfo videoInfo = new VideoInfo(username, videoTitle, videoType, 0, videoName,
-                        videoDescription, videoName1, videoCover, simpleDateFormat.format(new Date()), 0, 0, 0, 0, 0, 0);
-                flag = userService.uploadVideo(videoInfo);
-
-            } catch (Exception e) {
-                e.printStackTrace();
-                return new ResultBean<>("服务器开小差了！server error!");
-            }
-            if (flag) {
+    public ResultBean uploadFile(MultipartFile[] file, HttpServletRequest request) {
+        String username = GetCookiesValueByKey.getValue(request, "username");
+        if (GetAuthorization.isAuthorization(username, GetCookiesValueByKey.getValue(request, "Token"))) {
+            UploadFiles uploadFiles = new UploadFiles();
+            if (userService.uploadVideo((VideoInfo) uploadFiles.uploadFiles(file, request).getData())) {
                 return new ResultBean<>("上传成功！success");
             } else {
                 return new ResultBean<>("上传失败，请检查网络！error!");
@@ -162,13 +123,24 @@ public class VideoController {
     @PostMapping(value = "/initVideo")
     @ResponseBody
     public VideoPage selectVideoComment(String token, String username, String videoAddress) {
+        int barrages = AutoGetBarrages.getBarrages(videoAddress);
+        VideoPage videoPage;
         if ((username == null) || ("".equals(username))) {
-            return videoService.initVideoInfo(videoAddress);
+            videoPage = videoService.initVideoInfo(videoAddress);
+            videoPage.setVideoBarrages(barrages);
+            videoService.addVideoBarrages(videoAddress, barrages);
+            return videoPage;
         } else {
             if (GetAuthorization.isAuthorization(username, token)) {
-                return videoService.initVideoInfo(videoAddress, username);
+                videoPage = videoService.initVideoInfo(videoAddress, username);
+                videoPage.setVideoBarrages(barrages);
+                videoService.addVideoBarrages(videoAddress, barrages);
+                return videoPage;
             } else {
-                return videoService.initVideoInfo(videoAddress);
+                videoPage = videoService.initVideoInfo(videoAddress);
+                videoPage.setVideoBarrages(barrages);
+                videoService.addVideoBarrages(videoAddress, barrages);
+                return videoPage;
             }
         }
     }

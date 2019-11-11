@@ -212,4 +212,9 @@ public class VideoServiceImpl implements VideoService {
         }else return new ResultBean<>("您已经举报过该视频，请勿重复操作！");
 
     }
+
+    @Override
+    public void addVideoBarrages(String videoFilename, int videoBarrages) {
+        videoDao.updateVideoBarragesAdd(videoFilename, videoBarrages);
+    }
 }

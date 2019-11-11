@@ -5,6 +5,7 @@ import com.kaciry.entity.UnionFansBean;
 import com.kaciry.entity.UserChatBean;
 import com.kaciry.service.Impl.UserChatServiceImpl;
 import com.kaciry.service.Impl.UserServiceImpl;
+import com.kaciry.utils.GetAuthorization;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -42,6 +43,7 @@ public class UserChatController {
     }
 
     /**
+     * @param token   登陆成功后分发给客户端的一个加密token
      * @param senderIdentityDocument   发送方的ID(用户名)
      * @param receiverIdentityDocument 接收方的ID(用户名)
      * @param content                  发送的内容
@@ -52,14 +54,20 @@ public class UserChatController {
      **/
     @PostMapping(value = "/privateChat")
     @ResponseBody
-    public ResultBean privateChat(String senderIdentityDocument, String receiverIdentityDocument, String content) {
-        //设置日期格式
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        UserChatBean userChatBean = new UserChatBean(senderIdentityDocument, receiverIdentityDocument, content, simpleDateFormat.format(new Date()));
-        return userChatService.saveUserChatMsg(userChatBean);
+    public ResultBean privateChat(String token, String senderIdentityDocument, String receiverIdentityDocument, String content) {
+        if (GetAuthorization.isAuthorization(senderIdentityDocument, token)) {
+            //设置日期格式
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            UserChatBean userChatBean = new UserChatBean(senderIdentityDocument, receiverIdentityDocument, content, simpleDateFormat.format(new Date()));
+            return userChatService.saveUserChatMsg(userChatBean);
+        } else {
+            return new ResultBean<>("请勿非法操作！");
+        }
+
     }
 
     /**
+     * @param token   登陆成功后分发给客户端的一个加密token
      * @param senderIdentityDocument   发送方的ID(用户名)
      * @param receiverIdentityDocument 接收方的ID(用户名)
      * @return java.util.List<com.kaciry.entity.UserChatBean>
@@ -69,8 +77,13 @@ public class UserChatController {
      **/
     @PostMapping(value = "/getPrivateMsg")
     @ResponseBody
-    public List<UserChatBean> getPrivateMessage(String senderIdentityDocument, String receiverIdentityDocument) {
-        return userChatService.getPrivateMsg(senderIdentityDocument, receiverIdentityDocument);
+    public List<UserChatBean> getPrivateMessage(String token, String senderIdentityDocument, String receiverIdentityDocument) {
+        if (GetAuthorization.isAuthorization(senderIdentityDocument, token)) {
+            return userChatService.getPrivateMsg(senderIdentityDocument, receiverIdentityDocument);
+        } else {
+            return null;
+        }
+
     }
 
     /**

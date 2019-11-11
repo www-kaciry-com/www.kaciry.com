@@ -4,10 +4,7 @@ import com.kaciry.entity.CommentBean;
 import com.kaciry.entity.Ops;
 import com.kaciry.entity.ReportVideoBean;
 import com.kaciry.entity.VideoInfo;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -102,6 +99,17 @@ public interface VideoDao{
      **/
     @Update("update user_video set videoConnections = videoConnections - 1 where videoFilename = #{videoFilename}")
     void updateVideoCollectSub(String videoFilename);
+
+    /**
+     * @param videoFilename 视频文件名
+     * @param videoBarrages 视频弹幕数量
+     * @return void
+     * @author kaciry
+     * @description 根据视频文件名更新弹幕数量
+     * @date 2019/11/11 17:53
+     **/
+    @Update("update user_video set videoBarrages = #{videoBarrages} where videoFilename = #{videoFilename}")
+    void updateVideoBarragesAdd(@Param("videoFilename") String videoFilename, @Param("videoBarrages") int videoBarrages);
 
     /**
      * @param ops Ops实体
