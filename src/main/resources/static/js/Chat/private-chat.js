@@ -14,7 +14,7 @@ $(document).ready(function () {
             username: senderID
         },
         error: function () {
-            alert("服务器未响应，加载信息失败！");
+            showNoticeModal("服务器错误！", "服务器未响应，稍后再试！");
         },
         success: function (result) {
             let json = eval(result);
@@ -59,7 +59,7 @@ $(document).ready(function () {
             receiverIdentityDocument: currentUser
         },
         error: function () {
-            alert("服务器未响应，加载信息失败！");
+            showNoticeModal("服务器错误！", "服务器未响应，稍后再试！");
         },
         success: function (result) {
             let json = eval(result);
@@ -121,7 +121,7 @@ function sendMsg() {
             content: msg,
         },
         error: function () {
-            alert("服务器未响应，加载信息失败！");
+            showNoticeModal("服务器错误！", "服务器未响应，稍后再试！");
         },
         success: function (result) {
             //清空输入框
@@ -181,7 +181,7 @@ function getNewMsg() {
             userChatIdentityDocument: userChatID
         },
         error: function () {
-            alert("服务器未响应，加载视频信息失败！");
+            showNoticeModal("服务器错误！", "服务器未响应，稍后再试！");
         },
         success: function (result) {
             let json = eval(result);
@@ -230,3 +230,15 @@ function getCookie(cookie_name) {
     return "" //不存在返回空字符串
 }
 
+//模态框
+function showNoticeModal(title, body) {
+    $("#noticeModalTitle").text(title);
+    $("#notice-modal-body").text(body);
+    $('#noticeModal').modal('toggle');
+}
+
+//模态框消失时自动清空标题和内容，以便下次调用
+$('#noticeModalTitle').on('hidden.bs.modal', function (e) {
+    $("#noticeModalTitle").text("");
+    $("#notice-modal-body").text("");
+});

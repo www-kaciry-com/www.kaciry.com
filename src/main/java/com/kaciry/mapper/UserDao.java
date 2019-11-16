@@ -24,8 +24,17 @@ public interface UserDao {
     @Select("select * from user  where BINARY username=#{username}")
     User login(@Param("username") String username, @Param("userPassword") String userPassword);
 
+    /**
+     * @param username 用户名
+     * @param password 密码
+     * @return boolean
+     * @author kaciry
+     * @description 重置密码
+     * @date 2019/11/12 14:47
+     **/
     @Update("UPDATE user SET userPassword = #{password} WHERE username = #{username}")
-    boolean updateUserPassword(@Param("username")String username,@Param("password")String password);
+    boolean updateUserPassword(@Param("username") String username, @Param("password") String password);
+
 
     /**
      * @param user User实体
@@ -108,7 +117,7 @@ public interface UserDao {
      * @description 查询用户的收藏
      * @date 2019/10/25 18:37
      **/
-    @Select("select videoFileName from ops where username = #{username} and isCollect = #{state}")
+    @Select("select videoFilename from ops where username = #{username} and isCollect = #{state}")
     List<String> queryCollect(@Param("username") String username, @Param("state") int state);
 
     /**
@@ -118,7 +127,7 @@ public interface UserDao {
      * @description 根据视频文件名查询视频相关信息
      * @date 2019/10/25 18:38
      **/
-    @Select("select * from user_video where videoFilename = #{videoFilename}")
+    @Select("select * from user_video left join user on user.username = user_video.username where videoFilename = #{videoFilename}")
     VideoInfo queryVideosByVideoFileName(@Param("videoFilename") String videoFilename);
 
     /**

@@ -57,6 +57,5 @@ function trySend() {
 
     });
     return false;
-
-
 }
+

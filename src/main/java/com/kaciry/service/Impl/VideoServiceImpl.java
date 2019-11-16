@@ -1,8 +1,10 @@
 package com.kaciry.service.Impl;
 
+import com.kaciry.mapper.PromoteVideosDao;
 import com.kaciry.mapper.VideoDao;
 import com.kaciry.entity.*;
 import com.kaciry.service.VideoService;
+import com.kaciry.utils.ManageFiles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +19,9 @@ public class VideoServiceImpl implements VideoService {
 
     @Autowired
     private VideoDao videoDao;
+
+    @Autowired
+    private PromoteVideosDao promoteVideosDao;
 
     @Override
     public void addVideoPlayNumByVideoFilename(String videoFilename) {
@@ -130,7 +135,7 @@ public class VideoServiceImpl implements VideoService {
     @Override
     public boolean opsCollect(Ops ops) {
         //1.1查询是否存在该用户对视频的操作，不存在时返回值为false
-        if (videoDao.queryOpsData(ops) != null) {
+        if (videoDao.queryOpsState(ops) != null) {
             //1.2 查询该条数据的collect为1还是0
             Ops opsState = videoDao.queryOpsState(ops);
             //1.3 collect为0，表示没收藏过，这次操作为点赞
@@ -216,5 +221,20 @@ public class VideoServiceImpl implements VideoService {
     @Override
     public void addVideoBarrages(String videoFilename, int videoBarrages) {
         videoDao.updateVideoBarragesAdd(videoFilename, videoBarrages);
+    }
+
+    @Override
+    public int removeVideoByVideoFilename(String videoFilename) {
+        //删除数据库相关信息和服务器下的文件
+        if (videoDao.removeVideoByVideoFilename(videoFilename) > 0) {
+            promoteVideosDao.setPromoteVideoTimeOver(videoFilename);
+            ManageFiles manageFiles = new ManageFiles();
+            manageFiles.deleteOriginFile("F:/upload/video/" + videoFilename);
+            manageFiles.deleteOriginFile("F:/upload/videoCover/" + videoFilename.replace("mp4", "jpg"));
+            return 1;
+        } else {
+            return 0;
+        }
+
     }
 }

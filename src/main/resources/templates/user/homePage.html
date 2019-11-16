@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="/static/css/index-css.css">
     <link rel="stylesheet" href="/static/css/pagePlugCSS/mricode.pagination.css">
     <link rel="stylesheet" href="/static/css/user/user.css">
+    <link rel="stylesheet" href="/static/font/iconfont.css">
     <title th:each="cookie :${#httpServletRequest.getCookies()}"
            th:if="${cookie.getName().equals('nickname')}"
            th:text="${cookie.getValue()}  + '的个人主页'">我的主页</title>
@@ -245,6 +246,7 @@
 <div th:include="modal/noticeModal"></div>
 <!--<div th:include="cancelModal"></div>-->
 <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <script src="/static/js/homePage.js"></script>
 <script src="/static/js/pagePulg/mricode.pagination.js"></script>

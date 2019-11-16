@@ -42,9 +42,17 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addResourceHandler("/files/**").addResourceLocations("file:F://upload/");
 
     }
-
-    //    @Override
-//    public void addViewControllers(ViewControllerRegistry registry) {
-//        registry.addViewController("/index").setViewName("index");
+//    @Bean
+//    public MultipartConfigElement multipartConfigElement() {
+//        MultipartConfigFactory factory = new MultipartConfigFactory();
+//        factory.setMaxFileSize(1024000000);
+//        factory.setMaxRequestSize(1024000000);
+//        String location = System.getProperty("user.dir") + "/data/tmp";
+//        File tmpFile = new File(location);
+//        if (!tmpFile.exists()) {
+//            boolean mkdirs = tmpFile.mkdirs();
+//        }
+//        factory.setLocation(location);
+//        return factory.createMultipartConfig();
 //    }
 }

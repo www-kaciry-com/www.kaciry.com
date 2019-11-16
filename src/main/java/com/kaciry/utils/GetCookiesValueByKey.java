@@ -23,4 +23,18 @@ public class GetCookiesValueByKey {
         }
         return res;
     }
+
+    public static String getJSESSIONID(HttpServletRequest request) {
+        String res = "";
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null && cookies.length > 0) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("JSESSIONID")) {
+                    res = cookie.getValue();
+                    break;
+                }
+            }
+        }
+        return res;
+    }
 }

@@ -7,6 +7,25 @@
     <link rel="stylesheet" href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="/static/live2d/css/live2d.css"/>
     <link rel="stylesheet" href="/static/css/index-css.css">
+    <style type="text/css">
+        .my-nav {
+            position: sticky;
+            top: 300px;
+            margin-top: 250px;
+            width: 100px;
+            left: 15%;
+        }
+
+        .my-nav-child {
+            background: #5bdaef47;
+            width: 60px;
+            height: 500px;
+            border-radius: 15px;
+            padding-left: 13px;
+            padding-top: 20px;
+            line-height: 35px;
+        }
+    </style>
 </head>
 <body>
 <!--header-->
@@ -26,10 +45,29 @@
 </div>
 <!--页面内容区-->
 <div class="container-fluid" style="margin-top: -180px">
+    <!--侧边滑动导航-->
+    <div class="my-nav">
+        <div class="nav flex-column my-nav-child">
+            <a href="javascript:void(0)" onclick="locateAt('music')">音乐</a>
+            <a href="javascript:void(0)" onclick="locateAt('dance')">舞蹈</a>
+            <a href="javascript:void(0)" onclick="locateAt('donghua')">动画</a>
+            <a href="javascript:void(0)" onclick="locateAt('fanju')">番剧</a>
+            <a href="javascript:void(0)" onclick="locateAt('game')">游戏</a>
+            <a href="javascript:void(0)" onclick="locateAt('technology')">科技</a>
+            <a href="javascript:void(0)" onclick="locateAt('digital')">数码</a>
+            <a href="javascript:void(0)" onclick="locateAt('life')">生活</a>
+            <a href="javascript:void(0)" onclick="locateAt('kichiku')">鬼畜</a>
+            <a href="javascript:void(0)" onclick="locateAt('fashion')">时尚</a>
+            <a href="javascript:void(0)" onclick="locateAt('ad')">广告</a>
+            <a href="javascript:void(0)" onclick="locateAt('entertainment')">娱乐</a>
+            <a href="javascript:void(0)" onclick="locateAt('movie')">影视</a>
+        </div>
+    </div>
     <!--页面内容区-->
-    <div class="container">
+    <div class="container" style="margin-top: -800px">
         <!--次导航-->
-        <div class="navbar navbar-expand-lg navbar-light" style="background-color:#e7e7e742">
+        <div class="navbar navbar-expand-lg navbar-light"
+             style="background-color:#e7e7e742;border-radius: 20px;padding: 15px 10px;">
 
             <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarColor02"
                     aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
@@ -45,7 +83,7 @@
                     </a>
                 </div>
                 <div class="child">
-                    <a href="#" th:href="@{/search(k='n',information='动画')}">
+                    <a href="javascript:void(0)" onclick="locateAt('donghua')">
                         <div class="num-wrap">
                             <span class="num">999+</span>
                         </div>
@@ -53,7 +91,7 @@
                     </a>
                 </div>
                 <div class="child">
-                    <a href="#" th:href="@{/search(k='n',information='番剧')}">
+                    <a href="javascript:void(0)" onclick="locateAt('fanju')">
                         <div class="num-wrap">
                             <span class="num">999+</span>
                         </div>
@@ -61,7 +99,7 @@
                     </a>
                 </div>
                 <div class="child">
-                    <a href="#" th:href="@{/search(k='n',information='音乐')}">
+                    <a href="javascript:void(0)" onclick="locateAt('music')">
                         <div class="num-wrap">
                             <span class="num">999+</span>
                         </div>
@@ -69,7 +107,7 @@
                     </a>
                 </div>
                 <div class="child">
-                    <a href="#" th:href="@{/search(k='n',information='舞蹈')}">
+                    <a href="javascript:void(0)" onclick="locateAt('dance')">
                         <div class="num-wrap">
                             <span class="num">999+</span>
                         </div>
@@ -77,7 +115,7 @@
                     </a>
                 </div>
                 <div class="child">
-                    <a href="#" th:href="@{/search(k='n',information='游戏')}">
+                    <a href="javascript:void(0)" onclick="locateAt('game')">
                         <div class="num-wrap">
                             <span class="num">999+</span>
                         </div>
@@ -85,7 +123,7 @@
                     </a>
                 </div>
                 <div class="child">
-                    <a href="#" th:href="@{/search(k='n',information='科技')}">
+                    <a href="javascript:void(0)" onclick="locateAt('technology')">
                         <div class="num-wrap">
                             <span class="num">999+</span>
                         </div>
@@ -93,7 +131,7 @@
                     </a>
                 </div>
                 <div class="child">
-                    <a href="#" th:href="@{/search(k='n',information='数码')}">
+                    <a href="javascript:void(0)" onclick="locateAt('digital')">
                         <div class="num-wrap">
                             <span class="num">999+</span>
                         </div>
@@ -101,7 +139,7 @@
                     </a>
                 </div>
                 <div class="child">
-                    <a href="#" th:href="@{/search(k='n',information='生活')}">
+                    <a href="javascript:void(0)" onclick="locateAt('life')">
                         <div class="num-wrap">
                             <span class="num">999+</span>
                         </div>
@@ -109,7 +147,7 @@
                     </a>
                 </div>
                 <div class="child">
-                    <a href="#" th:href="@{/search(k='n',information='鬼畜')}">
+                    <a href="javascript:void(0)" onclick="locateAt('kichuku')">
                         <div class="num-wrap">
                             <span class="num">999+</span>
                         </div>
@@ -117,7 +155,7 @@
                     </a>
                 </div>
                 <div class="child">
-                    <a href="#" th:href="@{/search(k='n',information='时尚')}">
+                    <a href="javascript:void(0)" onclick="locateAt('fashion')">
                         <div class="num-wrap">
                             <span class="num">999+</span>
                         </div>
@@ -125,7 +163,7 @@
                     </a>
                 </div>
                 <div class="child">
-                    <a href="#" th:href="@{/search(k='n',information='广告')}">
+                    <a href="javascript:void(0)" onclick="locateAt('ad')">
                         <div class="num-wrap">
                             <span class="num">999+</span>
                         </div>
@@ -133,7 +171,7 @@
                     </a>
                 </div>
                 <div class="child">
-                    <a href="#" th:href="@{/search(k='n',information='娱乐')}">
+                    <a href="javascript:void(0)" onclick="locateAt('entertainment')">
                         <div class="num-wrap">
                             <span class="num">999+</span>
                         </div>
@@ -141,7 +179,7 @@
                     </a>
                 </div>
                 <div class="child">
-                    <a href="#" th:href="@{/search(k='n',information='影视')}">
+                    <a href="javascript:void(0)" onclick="locateAt('movie')">
                         <div class="num-wrap">
                             <span class="num">999+</span>
                         </div>
@@ -266,7 +304,7 @@
 
         </div>
         <!--    推广板块-->
-        <div class="Promote row" id="promote">
+        <div class="Promote row" id="promote" style="margin-left: 0">
             <div class="row col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 Promote-tag">
                 <div class="Promote-img">
                     <img src="/static/img/indexIcon/Promote.png" alt="Promote">
@@ -331,7 +369,7 @@
             </div>
         </div>
         <!--    直播板块-->
-        <div class="Promote row" id="live">
+        <div class="Promote row" id="live" style="margin-left: 0">
             <div class="row col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 Promote-tag">
                 <div class="Promote-img">
                     <img src="/static/img/indexIcon/live.png" alt="Promote">
@@ -344,7 +382,7 @@
             </div>
         </div>
         <!--音乐板块-->
-        <div class="Promote row" id="music">
+        <div class="Promote row" id="music" style="margin-left: 0">
             <div class="row col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 Promote-tag">
                 <div class="Promote-img">
                     <img src="/static/img/indexIcon/Music.png" alt="Promote">
@@ -467,16 +505,20 @@
                 </div>
             </div>
         </div>
-        <!--番剧板块-->
-        <div class="Promote row">
-            <div class="row col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 Promote-tag">
-                <div class="Promote-img">
-                    <img src="/static/img/indexIcon/Animation.png" alt="Promote">
+        <!--舞蹈板块-->
+        <div class="Promote row" id="dance">
+            <div class="row col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 Promote-tag justify-content-between">
+                <div>
+                    <div class="Promote-img">
+                        <img src="/static/img/indexIcon/fan.png" alt="Promote">
+                    </div>
+                    <div class="Promote-name">舞蹈</div>
                 </div>
-                <div class="Promote-name">番剧</div>
+                <div><a th:href="@{/search(k='n',information='舞蹈')}" type="button" class="btn btn-sm btn-light"
+                        style="color: #999;">更多</a></div>
             </div>
             <div class="row Promote-content Animation">
-                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one">
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one Dance-card">
                     <a href="#">
                         <div class="Promote-one-img">
                             <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
@@ -485,7 +527,7 @@
                     </a>
                     <span>第一个测试推广视频文字描述</span>
                 </div>
-                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one">
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one  Dance-card">
                     <a href="#">
                         <div class="Promote-one-img">
                             <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
@@ -494,7 +536,7 @@
                     </a>
                     <span>第二个测试推广视频文字描述</span>
                 </div>
-                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one">
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one  Dance-card">
                     <a href="#">
                         <div class="Promote-one-img">
                             <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
@@ -503,7 +545,7 @@
                     </a>
                     <span>第三个测试推广视频文字描述</span>
                 </div>
-                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one">
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one  Dance-card">
                     <a href="#">
                         <div class="Promote-one-img">
                             <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
@@ -512,7 +554,7 @@
                     </a>
                     <span>第四个测试推广视频文字描述</span>
                 </div>
-                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one">
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one  Dance-card">
                     <a href="#">
                         <div class="Promote-one-img">
                             <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
@@ -521,7 +563,7 @@
                     </a>
                     <span>第五个测试推广视频文字描述</span>
                 </div>
-                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one">
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one  Dance-card">
                     <a href="#">
                         <div class="Promote-one-img">
                             <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
@@ -530,7 +572,7 @@
                     </a>
                     <span>第六个测试推广视频文字描述</span>
                 </div>
-                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one">
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one Dance-card">
                     <a href="#">
                         <div class="Promote-one-img">
                             <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
@@ -539,7 +581,7 @@
                     </a>
                     <span>第一个测试推广视频文字描述</span>
                 </div>
-                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one">
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one Dance-card">
                     <a href="#">
                         <div class="Promote-one-img">
                             <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
@@ -548,7 +590,7 @@
                     </a>
                     <span>第二个测试推广视频文字描述</span>
                 </div>
-                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one">
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one Dance-card">
                     <a href="#">
                         <div class="Promote-one-img">
                             <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
@@ -557,7 +599,7 @@
                     </a>
                     <span>第三个测试推广视频文字描述</span>
                 </div>
-                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one">
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one Dance-card">
                     <a href="#">
                         <div class="Promote-one-img">
                             <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
@@ -566,7 +608,7 @@
                     </a>
                     <span>第四个测试推广视频文字描述</span>
                 </div>
-                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one">
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one Dance-card">
                     <a href="#">
                         <div class="Promote-one-img">
                             <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
@@ -575,7 +617,1382 @@
                     </a>
                     <span>第五个测试推广视频文字描述</span>
                 </div>
-                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one">
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one Dance-card">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第六个测试推广视频文字描述</span>
+                </div>
+            </div>
+        </div>
+        <!--动画板块-->
+        <div class="Promote row" id="donghua">
+            <div class="row col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 Promote-tag justify-content-between">
+                <div>
+                    <div class="Promote-img">
+                        <img src="/static/img/indexIcon/donghua.png" alt="Promote">
+                    </div>
+                    <div class="Promote-name">动画</div>
+                </div>
+                <div>
+                    <a th:href="@{/search(k='n',information='动画')}" type="button" class="btn btn-sm btn-light"
+                       style="color: #999;">更多</a>
+                </div>
+            </div>
+            <div class="row Promote-content Animation">
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one donghua">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第一个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one donghua">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第二个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one donghua">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第三个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one donghua">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第四个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one donghua">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第五个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one donghua">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第六个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one donghua">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第一个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one donghua">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第二个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one donghua">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第三个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one donghua">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第四个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one donghua">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第五个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one donghua">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第六个测试推广视频文字描述</span>
+                </div>
+            </div>
+        </div>
+        <!--番剧板块-->
+        <div class="Promote row" id="fanju">
+            <div class="row col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 Promote-tag justify-content-between">
+                <div>
+                    <div class="Promote-img">
+                        <img src="/static/img/indexIcon/Animation.png" alt="Promote">
+                    </div>
+                    <div class="Promote-name">番剧</div>
+                </div>
+                <div>
+                    <a th:href="@{/search(k='n',information='番剧')}" type="button" class="btn btn-sm btn-light"
+                       style="color: #999;">更多</a>
+                </div>
+            </div>
+            <div class="row Promote-content Animation">
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one fanju">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第一个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one fanju">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第二个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one fanju">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第三个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one fanju">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第四个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one fanju">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第五个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one fanju">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第六个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one fanju">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第一个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one fanju">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第二个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one fanju">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第三个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one fanju">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第四个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one fanju">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第五个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one fanju">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第六个测试推广视频文字描述</span>
+                </div>
+            </div>
+        </div>
+        <!--游戏板块-->
+        <div class="Promote row" id="game">
+            <div class="row col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 Promote-tag justify-content-between">
+                <div>
+                    <div class="Promote-img">
+                        <img src="/static/img/indexIcon/game.png" alt="Promote">
+                    </div>
+                    <div class="Promote-name">游戏</div>
+                </div>
+                <div>
+                    <a th:href="@{/search(k='n',information='游戏')}" type="button" class="btn btn-sm btn-light"
+                       style="color: #999;">更多</a>
+                </div>
+            </div>
+            <div class="row Promote-content Animation">
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one Game-card">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第一个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one  Game-card">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第二个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one  Game-card">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第三个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one  Game-card">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第四个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one  Game-card">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第五个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one  Game-card">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第六个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one Game-card">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第一个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one Game-card">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第二个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one Game-card">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第三个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one Game-card">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第四个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one Game-card">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第五个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one Game-card">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第六个测试推广视频文字描述</span>
+                </div>
+            </div>
+        </div>
+        <!--科技板块-->
+        <div class="Promote row" id="technology">
+            <div class="row col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 Promote-tag justify-content-between">
+                <div>
+                    <div class="Promote-img">
+                        <img src="/static/img/indexIcon/technology.png" alt="Promote">
+                    </div>
+                    <div class="Promote-name">科技</div>
+                </div>
+                <div>
+                    <a th:href="@{/search(k='n',information='科技')}" type="button" class="btn btn-sm btn-light"
+                       style="color: #999;">更多</a>
+                </div>
+            </div>
+            <div class="row Promote-content Animation">
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one technology">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第一个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one technology">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第二个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one technology">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第三个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one technology">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第四个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one technology">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第五个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one technology">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第六个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one technology">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第一个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one technology">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第二个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one technology">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第三个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one technology">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第四个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one technology">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第五个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one technology">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第六个测试推广视频文字描述</span>
+                </div>
+            </div>
+        </div>
+        <!--数码板块-->
+        <div class="Promote row" id="digital">
+            <div class="row col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 Promote-tag justify-content-between">
+                <div>
+                    <div class="Promote-img">
+                        <img src="/static/img/indexIcon/digital.png" alt="Promote">
+                    </div>
+                    <div class="Promote-name">数码</div>
+                </div>
+                <div>
+                    <a th:href="@{/search(k='n',information='数码')}" type="button" class="btn btn-sm btn-light"
+                       style="color: #999;">更多</a>
+                </div>
+            </div>
+            <div class="row Promote-content Animation">
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one digital">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第一个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one digital">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第二个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one digital">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第三个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one digital">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第四个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one digital">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第五个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one digital">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第六个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one digital">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第一个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one digital">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第二个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one digital">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第三个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one digital">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第四个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one digital">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第五个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one digital">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第六个测试推广视频文字描述</span>
+                </div>
+            </div>
+        </div>
+        <!--生活板块-->
+        <div class="Promote row" id="life">
+            <div class="row col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 Promote-tag justify-content-between">
+                <div>
+                    <div class="Promote-img">
+                        <img src="/static/img/indexIcon/duck.png" alt="Promote">
+                    </div>
+                    <div class="Promote-name">生活</div>
+                </div>
+                <div>
+                    <a th:href="@{/search(k='n',information='生活')}" type="button" class="btn btn-sm btn-light"
+                       style="color: #999;">更多</a>
+                </div>
+            </div>
+            <div class="row Promote-content Animation">
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one Life-card">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第一个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one  Life-card">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第二个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one  Life-card">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第三个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one  Life-card">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第四个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one  Life-card">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第五个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one  Life-card">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第六个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one Life-card">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第一个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one Life-card">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第二个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one Life-card">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第三个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one Life-card">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第四个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one Life-card">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第五个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one Life-card">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第六个测试推广视频文字描述</span>
+                </div>
+            </div>
+        </div>
+        <!--鬼畜板块-->
+        <div class="Promote row" id="kichiku">
+            <div class="row col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 Promote-tag justify-content-between">
+                <div>
+                    <div class="Promote-img">
+                        <img src="/static/img/indexIcon/kichiku.png" alt="Promote">
+                    </div>
+                    <div class="Promote-name">鬼畜</div>
+                </div>
+                <div>
+                    <a th:href="@{/search(k='n',information='鬼畜')}" type="button" class="btn btn-sm btn-light"
+                       style="color: #999;">更多</a>
+                </div>
+            </div>
+            <div class="row Promote-content Animation">
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one kichiku">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第一个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one  kichiku">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第二个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one  kichiku">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第三个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one  kichiku">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第四个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one  kichiku">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第五个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one  kichiku">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第六个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one  kichiku">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第一个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one  kichiku">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第二个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one  kichiku">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第三个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one  kichiku">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第四个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one  kichiku">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第五个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one  kichiku">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第六个测试推广视频文字描述</span>
+                </div>
+            </div>
+        </div>
+        <!--时尚板块-->
+        <div class="Promote row" id="fashion">
+            <div class="row col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 Promote-tag justify-content-between">
+                <div>
+                    <div class="Promote-img">
+                        <img src="/static/img/indexIcon/fashion.png" alt="Promote">
+                    </div>
+                    <div class="Promote-name">时尚</div>
+                </div>
+                <div>
+                    <a th:href="@{/search(k='n',information='时尚')}" type="button" class="btn btn-sm btn-light"
+                       style="color: #999;">更多</a>
+                </div>
+            </div>
+            <div class="row Promote-content Animation">
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one fashion">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第一个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one fashion">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第二个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one fashion">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第三个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one fashion">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第四个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one fashion">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第五个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one fashion">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第六个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one fashion">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第一个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one fashion">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第二个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one fashion">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第三个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one fashion">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第四个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one fashion">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第五个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one fashion">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第六个测试推广视频文字描述</span>
+                </div>
+            </div>
+        </div>
+        <!--广告板块-->
+        <div class="Promote row" id="ad">
+            <div class="row col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 Promote-tag justify-content-between">
+                <div>
+                    <div class="Promote-img">
+                        <img src="/static/img/indexIcon/ad.png" alt="Promote">
+                    </div>
+                    <div class="Promote-name">广告</div>
+                </div>
+                <div>
+                    <a th:href="@{/search(k='n',information='广告')}" type="button" class="btn btn-sm btn-light"
+                       style="color: #999;">更多</a>
+                </div>
+            </div>
+            <div class="row Promote-content Animation">
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one ad">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第一个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one ad">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第二个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one ad">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第三个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one ad">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第四个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one ad">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第五个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one ad">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第六个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one ad">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第一个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one ad">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第二个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one ad">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第三个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one ad">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第四个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one ad">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第五个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one ad">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第六个测试推广视频文字描述</span>
+                </div>
+            </div>
+        </div>
+        <!--娱乐板块-->
+        <div class="Promote row" id="entertainment">
+            <div class="row col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 Promote-tag justify-content-between">
+                <div>
+                    <div class="Promote-img">
+                        <img src="/static/img/indexIcon/entertainment.png" alt="Promote">
+                    </div>
+                    <div class="Promote-name">娱乐</div>
+                </div>
+                <div>
+                    <a th:href="@{/search(k='n',information='娱乐')}" type="button" class="btn btn-sm btn-light"
+                       style="color: #999;">更多</a>
+                </div>
+            </div>
+            <div class="row Promote-content Animation">
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one entertainment">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第一个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one entertainment">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第二个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one entertainment">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第三个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one entertainment">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第四个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one entertainment">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第五个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one entertainment">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第六个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one entertainment">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第一个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one entertainment">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第二个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one entertainment">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第三个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one entertainment">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第四个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one entertainment">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第五个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one entertainment">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第六个测试推广视频文字描述</span>
+                </div>
+            </div>
+        </div>
+        <!--影视板块-->
+        <div class="Promote row" id="movie">
+            <div class="row col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 Promote-tag justify-content-between">
+                <div>
+                    <div class="Promote-img">
+                        <img src="/static/img/indexIcon/movies.png" alt="Promote">
+                    </div>
+                    <div class="Promote-name">影视</div>
+                </div>
+                <div>
+                    <a th:href="@{/search(k='n',information='影视')}" type="button" class="btn btn-sm btn-light"
+                       style="color: #999;">更多</a>
+                </div>
+            </div>
+            <div class="row Promote-content Animation">
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one movies">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第一个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one movies">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第二个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one movies">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第三个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one movies">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第四个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one movies">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第五个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one movies">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第六个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one movies">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第一个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one movies">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第二个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one movies">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第三个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one movies">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第四个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one movies">
+                    <a href="#">
+                        <div class="Promote-one-img">
+                            <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
+                                 alt="Promote-one-img">
+                        </div>
+                    </a>
+                    <span>第五个测试推广视频文字描述</span>
+                </div>
+                <div class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one movies">
                     <a href="#">
                         <div class="Promote-one-img">
                             <img src="https://s1.hdslb.com/bfs/static/jinkela/home/asserts/wh2.png"
@@ -597,6 +2014,7 @@
 </div>
 <!-- modal -->
 <div th:include="modal/logoutModal"></div>
+<div th:include="modal/noticeModal"></div>
 <!--footer-->
 <footer class="footer" style="text-align: center;margin-top: 50px">
     <div class="container-fluid" style="background-color: rgb(229,229,229)">

@@ -14,7 +14,7 @@
 }
 
 .cover {
-    width: 170px;
+    /*width: 170px;*/
     height: 100px;
 }
 
@@ -99,6 +99,10 @@
 .sub {
     display: block;
     margin: auto;
+}
+
+.btn-group a:hover {
+    cursor: pointer;
 }
 
 /*------------------------------------------------------------*/

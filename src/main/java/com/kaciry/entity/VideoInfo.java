@@ -64,6 +64,25 @@ public class VideoInfo {
         this.videoBarrages = videoBarrages;
     }
 
+    public VideoInfo(String username, String userNickName, String videoTitle, String videoType, int videoState, String videoFilename, String videoDescription, String videoName, String videoCover, String videoData, int videoStars, int videoCoins, int videoConnections, int videoShares, int videoPlayNum, int videoBarrages) {
+        this.username = username;
+        this.userNickName = userNickName;
+        this.videoTitle = videoTitle;
+        this.videoType = videoType;
+        this.videoState = videoState;
+        this.videoFilename = videoFilename;
+        this.videoDescription = videoDescription;
+        this.videoName = videoName;
+        this.videoCover = videoCover;
+        this.videoData = videoData;
+        this.videoStars = videoStars;
+        this.videoCoins = videoCoins;
+        this.videoConnections = videoConnections;
+        this.videoShares = videoShares;
+        this.videoPlayNum = videoPlayNum;
+        this.videoBarrages = videoBarrages;
+    }
+
     public BigInteger getVideoIdentityDocument() {
         return videoIdentityDocument;
     }

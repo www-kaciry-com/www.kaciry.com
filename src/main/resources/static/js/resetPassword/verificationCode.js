@@ -51,7 +51,7 @@ function sendCode() {
         },
         //错误响应提示
         error: function () {
-            alert('服务器未响应，请重试！');
+            showNoticeModal("服务器错误！", "服务器未响应，稍后再试！");
         },
         //正确接收返回值
         success: function (result) {
@@ -67,7 +67,7 @@ function sendCode() {
                 stepSetColor(1);
             } else {
                 //失败提示，刷新页面
-                alert('发送验证码失败，请重试！');
+                showNoticeModal("提示", "发送验证码失败，请重试！");
                 window.location.reload();
             }
         }
@@ -92,7 +92,7 @@ function checkCode() {
         stepSetColor(2);
     } else {
         //错误提示
-        alert("验证码错误！");
+        showNoticeModal("提示", "验证码错误!");
     }
     //阻止默认行为
     return false;
@@ -120,7 +120,7 @@ function resetPassword() {
             },
             //请求失败提示
             error: function () {
-                alert("服务器未响应，修改信息失败！");
+                showNoticeModal("服务器错误！", "服务器未响应，稍后再试！");
             },
             //请求成功，返回结果
             success: function (result) {
@@ -148,3 +148,16 @@ function resetPassword() {
     //阻止默认行为
     return false;
 }
+
+//模态框
+function showNoticeModal(title, body) {
+    $("#noticeModalTitle").text(title);
+    $("#notice-modal-body").text(body);
+    $('#noticeModal').modal('toggle');
+}
+
+//模态框消失时自动清空标题和内容，以便下次调用
+$('#noticeModalTitle').on('hidden.bs.modal', function (e) {
+    $("#noticeModalTitle").text("");
+    $("#notice-modal-body").text("");
+});

@@ -3,152 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="/static/css/upload-video.css">
-    <title>xiaoxiao创作中心</title>
-    <style>
-
-    </style>
+    <title>创作中心-筱筱弹幕网</title>
 </head>
 <body>
+<!--header-->
+<div th:include="fragment/nav"></div>
 <div class="container-fluid">
-    <nav class="navbar  navbar-fixed-top navbar-default">
-        <!-- container容器，左右留有余地 -->
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <!--
-                            在浏览器的宽度很小时，button出现。
-                            图案为方框内有三道杠。
-                   data-target="#TaoistsNavBar" 与 div id="TaoistsNavBar" 相对应
-                -->
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                        data-target="#TaoistsNavBar" aria-expanded="false">
-                    <!--                        <span class="sr-only">Toggle navigation</span>-->
-                    <!--
-                        icon-bar有一个，那个图标就有一道杠。这里有三个，那么图标就有三道杠
-                    -->
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-
-            </div>
-
-            <div class="collapse navbar-collapse" role="navigation" id="TaoistsNavBar">
-                <ul class="nav navbar-nav">
-
-                    <li class="active"><a href="#" th:href="@{/index}">主页</a></li>
-                    <li><a href="#">音频</a></li>
-                    <li><a href="http://www.4399.com">游戏中心</a></li>
-                    <li><a href="#">会员购</a></li>
-                    <li><a href="#">漫画</a></li>
-                    <li><a href="#">下载APP</a></li>
-                </ul>
-                <div class="nav-wrapper" th:if="${session.user != null}">
-                    <ul class="nav navbar-nav navbar-right ">
-
-                        <li><a href="#" th:href="@{/userhomepage}">我的</a></li>
-                        <li><a href="#" th:href="@{/reply}">动态</a></li>
-                        <li><a href="#">稍后再看</a></li>
-                        <li><a href="#">收藏</a></li>
-                        <li><a href="#">历史</a></li>
-                        <li><a href="#" th:href="@{/contribute}">投稿</a></li>
-                        <li><a href="#" data-toggle="modal" data-target="#logoutModal">注销</a></li>
-                    </ul>
-                    <form class="navbar-form navbar-right form-inline" th:action="@{/search}">
-                        <div class="input-group">
-                            <div class="form-group">
-                                <input type="search" name="information" class="form-control" placeholder="输入搜索的内容"/>
-                            </div>
-                            <span class="input-group-btn">
-                                   <button class="btn btn-default">
-                                         <span class="glyphicon glyphicon-search"></span>
-                                   </button>
-                                </span>
-                        </div>
-                    </form>
-                </div>
-                <div class="nav-wrapper" th:if="${session.user == null}">
-                    <ul class="nav navbar-nav">
-                        <li><a href="/login" th:href="@{/signin}">登陆</a></li>
-                        <li><a href="/login" th:href="@{/register}">注册</a></li>
-
-                    </ul>
-                </div>
-            </div>
-
+    <div class="row " style="margin: auto 0;height: 100%">
+        <div class="nav flex-column left-nav  col-lg-2" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+            <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home">
+                <img src="/static/img/videoOps/brand.png" alt="xiaoxiao创作中心" style="width: 100%;height: 100%">
+                <span>投稿</span>
+            </a>
+            <a class="nav-link" id="v-pills-index-tab" data-toggle="pill" href="#v-pills-index">首页管理</a>
+            <a class="nav-link" id="v-pills-contain-tab" data-toggle="pill" href="#v-pills-contain">内容管理</a>
+            <a class="nav-link" id="v-pills-data-tab" data-toggle="pill" href="#v-pills-data">数据中心</a>
+            <a class="nav-link" id="v-pills-follows-tab" data-toggle="pill" href="#v-pills-follows">粉丝管理</a>
+            <a class="nav-link" id="v-pills-play-tab" data-toggle="pill" href="#v-pills-play">互动管理</a>
+            <a class="nav-link" id="v-pills-earn-tab" data-toggle="pill" href="#v-pills-earn">收益管理</a>
+            <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings">个人设置</a>
+            <a class="nav-link" id="v-pills-complain-tab" data-toggle="pill" href="#v-pills-complain">申诉管理</a>
+            <a class="nav-link" id="v-pills-prize-tab" data-toggle="pill" href="#v-pills-prize">创作新秀奖</a>
+            <a class="nav-link" id="v-pills-suggest-tab" data-toggle="pill" href="#v-pills-suggest">反馈与建议</a>
+            <a class="nav-link" id="v-pills-help-tab" data-toggle="pill" href="#v-pills-help">帮助中心</a>
+            <a class="nav-link" id="v-pills-authentication-tab" data-toggle="pill" href="#v-pills-authentication">XiaoXiao认证</a>
         </div>
-    </nav>
-    <div class="container-fluid broadside-nav">
-        <div class="col-md-2 col-lg-2 col-xs-3">
+        <div class="right-contain col-lg-10">
             <div>
-                <ul class="nav navbar-default" role="tablist">
-
-                    <li role="presentation" class="active nav-li">
-                        <a href="#tab1" data-toggle="tab"><img src="/static/img/videoOps/brand.png" alt="xiaoxiao创作中心">投稿</a>
+                <ul class="nav nav-tabs justify-content-center" id="myTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#v-pills-home" role="tab"
+                           aria-controls="home" aria-selected="true">视频投稿</a>
                     </li>
-                    <li role="presentation" class="nav-li">
-                        <a href="#tab2" data-toggle="tab">首页管理</a>
+                    <li class="nav-item">
+                        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#v-pills-audio" role="tab"
+                           aria-controls="profile" aria-selected="false">音频投稿</a>
                     </li>
-                    <li role="presentation" class="nav-li">
-                        <a href="#tab3" data-toggle="tab">内容管理</a>
-                    </li>
-                    <li role="presentation" class="nav-li">
-                        <a href="#tab4" data-toggle="tab">数据中心</a>
-                    </li>
-                    <li role="presentation" class="nav-li">
-                        <a href="#tab5" data-toggle="tab">粉丝管理</a>
-                    </li>
-                    <li role="presentation" class="nav-li">
-                        <a href="#tab6" data-toggle="tab">互动管理</a>
-                    </li>
-                    <li role="presentation" class="nav-li">
-                        <a href="#tab7" data-toggle="tab">收益管理</a>
-                    </li>
-                    <li role="presentation" class="nav-li">
-                        <a href="#tab8" data-toggle="tab">个人设置</a>
-                    </li>
-                    <li role="presentation" class="nav-li">
-                        <a href="#tab9" data-toggle="tab">申诉管理</a>
-                    </li>
-                    <li role="presentation" class="nav-li">
-                        <a href="#tab10" data-toggle="tab">创作新秀奖</a>
-                    </li>
-                    <li role="presentation" class="nav-li">
-                        <a href="#tab11" data-toggle="tab">反馈与建议</a>
-                    </li>
-                    <li role="presentation" class="nav-li">
-                        <a href="#tab12" data-toggle="tab">帮助中心</a>
-                    </li>
-                    <li role="presentation" class="nav-li">
-                        <a href="#tab13" data-toggle="tab">XiaoXiao认证</a>
+                    <li class="nav-item">
+                        <a class="nav-link" id="contact-tab" data-toggle="tab" href="#v-pills-photos" role="tab"
+                           aria-controls="contact" aria-selected="false">相簿投稿</a>
                     </li>
                 </ul>
             </div>
-
-        </div>
-        <div class="container col-md-10 col-lg-10 col-xs-9 " style="margin-top: 50px;">
-            <div class="nav navbar col-sm-12 col-xs-12 col-md-12 col-md-offset-4 col-xs-offset-0">
-                <ul class="nav navbar-nav">
-                    <li class="col-md-3 col-xs-6">
-                        <a href="#tab1" data-toggle="tab">视频投稿</a>
-                    </li>
-                    <li class="col-md-3 col-xs-6">
-                        <a href="#tab14" data-toggle="tab">专栏投稿</a>
-                    </li>
-                    <li class="col-md-3 col-xs-6">
-                        <a href="#tab15" data-toggle="tab">音频投稿</a>
-                    </li>
-                    <li class="col-md-3 col-xs-6">
-                        <a href="#tab16" data-toggle="tab">相簿投稿</a>
-                    </li>
-                </ul>
-
-            </div>
-
-            <div class="tab-content vertical-tab-content" style="margin-top: 10px">
-                <div role="tabpanel" class="tab-pane  fade in active" id="tab1">
-                    <form enctype="multipart/form-data" method="post" class="uploadform" th:action="@{upload}">
+            <div class="tab-content" id="v-pills-tabContent" style="margin-top: 50px">
+                <div class="tab-pane fade show active" id="v-pills-home">
+                    <form enctype="multipart/form-data" method="post" class="uploadform" id="upload">
                         <div class="form-group row">
                             <label for="videoTitle" class="col-sm-2 col-form-label">视频标题 ：</label>
                             <div class="col-sm-8">
@@ -157,9 +58,10 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-sm-2 col-form-label">视频类型 ：</label>
+                            <label for="videoType" class="col-sm-2 col-form-label" style="margin-top: 18px">视频类型
+                                ：</label>
                             <div class="col-sm-8">
-                                <select class="form-control" name="videoType">
+                                <select class="form-control" name="videoType" id="videoType">
                                     <option value="动画">动画</option>
                                     <option value="番剧">番剧</option>
                                     <option value="国创">国创</option>
@@ -195,62 +97,69 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="i-check" class="col-sm-2 col-form-label">选择视频文件 ：</label>
+                            <label for="choice-video-file" class="col-sm-2 col-form-label">选择视频文件 ：</label>
                             <div class="col-sm-8">
-                                <div class="input-group file-group">
-                                    <input id='location' class="form-control" onclick="$('#i-file').click();">
-                                    <label class="input-group-btn">
-                                        <input type="button" id="i-check" value="浏览文件" class="btn btn-primary"
-                                               onclick="$('#i-file').click();">
-                                    </label>
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" id="choice-video-file"
+                                           onchange="showFilenameVideo(this.files[0])" accept=".mp4">
+                                    <label class="custom-file-label custom-file-label-video" for="choice-video-file">选择文件</label>
                                 </div>
                             </div>
-                            <input type="file" name="file" id='i-file' accept=".mp4, .flv"
-                                   onchange="$('#location').val($('#i-file').val());" style="display: none">
                         </div>
                         <div class="form-group row">
-                            <label for="i-check" class="col-sm-2 col-form-label">选择视频封面 ：</label>
+                            <label for="choice-video-cover-file" class="col-sm-2 col-form-label">选择视频封面 ：</label>
                             <div class="col-sm-8">
-                                <div class="input-group file-group">
-                                    <input id='location1' class="form-control" onclick="$('#i-file1').click();">
-                                    <label class="input-group-btn">
-                                        <input type="button" id="i-check1" value="浏览图片" class="btn btn-primary"
-                                               onclick="$('#i-file1').click();">
-                                    </label>
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" id="choice-video-cover-file"
+                                           onchange="showFilenameCover(this.files[0])" accept=".png, .jpg,.jpeg">
+                                    <label class="custom-file-label custom-file-label-cover"
+                                           for="choice-video-cover-file">选择文件</label>
                                 </div>
                             </div>
-                            <input type="file" name="file" id='i-file1' accept=".png, .jpg,.jpeg"
-                                   onchange="$('#location1').val($('#i-file1').val());" style="display: none">
                         </div>
-                        <button type="submit" class="btn btn-default" style="width: 20%">提交</button>
+                        <div class="form-group row">
+                            <button class="btn btn-outline-primary" style="width: 20%;margin: auto" onclick="Submit()">
+                                提交
+                            </button>
+                        </div>
+
                     </form>
                 </div>
-                <div role="tabpanel" class="tab-pane fade in" id="tab2">这是..tab2.</div>
-                <div role="tabpanel" class="tab-pane fade in" id="tab3">这是..tab3.</div>
-                <div role="tabpanel" class="tab-pane fade in" id="tab4">这是.tab4..</div>
-                <div role="tabpanel" class="tab-pane fade in" id="tab5">这是..tab5.</div>
-                <div role="tabpanel" class="tab-pane fade in" id="tab6">这是..tab6.</div>
-                <div role="tabpanel" class="tab-pane fade in" id="tab7">这是..tab7.</div>
-                <div role="tabpanel" class="tab-pane fade in" id="tab8">这是..tab8.</div>
-                <div role="tabpanel" class="tab-pane fade in" id="tab9">这是..tab9.</div>
-                <div role="tabpanel" class="tab-pane fade in" id="tab10">这是..tab10.</div>
-                <div role="tabpanel" class="tab-pane fade in" id="tab11">这是..tab11.</div>
-                <div role="tabpanel" class="tab-pane fade in" id="tab12">这是..tab12.</div>
-                <div role="tabpanel" class="tab-pane fade in" id="tab13">这是..tab13.</div>
-                <div role="tabpanel" class="tab-pane fade in" id="tab14">这是..tab14.</div>
-                <div role="tabpanel" class="tab-pane fade in" id="tab15">这是..tab15.</div>
-                <div role="tabpanel" class="tab-pane fade in" id="tab16">这是..tab16.</div>
+                <div class="tab-pane fade" id="v-pills-index">首页管理</div>
+                <div class="tab-pane fade" id="v-pills-contain">contain</div>
+                <div class="tab-pane fade" id="v-pills-data">data</div>
+                <div class="tab-pane fade" id="v-pills-follows">follows</div>
+                <div class="tab-pane fade" id="v-pills-play">play</div>
+                <div class="tab-pane fade" id="v-pills-earn">earn</div>
+                <div class="tab-pane fade" id="v-pills-settings">settings</div>
+                <div class="tab-pane fade" id="v-pills-complain">complain</div>
+                <div class="tab-pane fade" id="v-pills-prize">prize</div>
+                <div class="tab-pane fade" id="v-pills-suggest">suggest</div>
+                <div class="tab-pane fade" id="v-pills-help">help</div>
+                <div class="tab-pane fade" id="v-pills-authentication">authentication</div>
+                <div class="tab-pane fade" id="v-pills-audio">audio</div>
+                <div class="tab-pane fade" id="v-pills-photos">photos</div>
             </div>
-            
         </div>
-
 
     </div>
 
-
 </div>
 <div th:include="modal/logoutModal"></div>
-<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
-<script src="https://cdn.bootcss.com/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<div th:include="modal/uploadFilesModal"></div>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="/static/js/upload/upload.js"></script>
+<!-- 显示文件名 -->
+<script>
+    function showFilenameVideo(file) {
+        $(".custom-file-label-video").html(file.name);
+    }
+
+    function showFilenameCover(file) {
+        $(".custom-file-label-cover").html(file.name);
+    }
+</script>
 </body>
 </html>

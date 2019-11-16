@@ -15,7 +15,7 @@ import java.util.List;
  * @description 用户视频操作Dao
  */
 @Component
-public interface VideoDao{
+public interface VideoDao {
 
     @Update("update user_video set videoPlayNum = videoPlayNum + 1 where videoFilename = #{videoFilename}")
     int addVideoPlayNumByVideoFilename(String videoFilename);
@@ -149,7 +149,7 @@ public interface VideoDao{
      * @date 2019/10/25 18:48
      **/
     @Select("select * from ops where username=#{username} and videoFilename=#{videoFilename}")
-    Integer queryOpsData(Ops ops);
+    Ops queryOpsData(Ops ops);
 
     /**
      * @param ops Ops实体
@@ -204,4 +204,9 @@ public interface VideoDao{
 
     @Select("SELECT * FROM promote_one_video LEFT JOIN user_video ON promote_one_video.videoFilename = user_video.videoFilename WHERE state = 1")
     List<VideoInfo> queryPromoteOneVideo();
+
+    @Delete("DELETE user_video,comment,ops FROM user_video " +
+            "LEFT JOIN (comment LEFT JOIN ops ON comment.videoFilename = ops.videoFilename) ON user_video.videoFilename = comment.videoFilename " +
+            "WHERE user_video.videoFilename = #{videoFilename}")
+    int removeVideoByVideoFilename(String videoFilename);
 }

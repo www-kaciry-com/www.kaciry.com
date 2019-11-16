@@ -53,7 +53,7 @@ $(document).ready(function () {
             videoAddress: videoAddress
         },
         error: function () {
-            alert("服务器未响应，加载视频信息失败！");
+            showNoticeModal("服务器错误！", "服务器未响应，稍后再试！");
         },
         success: function (result) {
             // console.log(result);
@@ -159,7 +159,7 @@ function initVideoComment() {
             pageSize: 10,
         },
         error: function () {
-            alert("error");
+            showNoticeModal("服务器错误！", "服务器未响应，稍后再试！");
         },
         success: function (result) {
             let json = eval(result.list);
@@ -211,7 +211,7 @@ $(document).ready(function () {
             videoAddress: videoAddress
         },
         error: function () {
-            alert("服务器未响应，加载视频信息失败！");
+            showNoticeModal("服务器错误！", "服务器未响应，稍后再试！");
         },
         success: function (result) {
             // console.log(result);
@@ -274,7 +274,7 @@ function addVideoPlayNum() {
             videoAddress: videoAddress
         },
         error: function () {
-            alert("服务器未响应，加载信息失败！");
+            showNoticeModal("服务器错误！", "服务器未响应，稍后再试！");
         },
         success: function () {
             console.log(1);
@@ -331,12 +331,12 @@ function sendComment() {
                 videoAddress: videoAddress,
             },
             error: function () {
-                alert("服务器开小差了，请稍后重试!");
+                showNoticeModal("服务器错误！", "服务器未响应，稍后再试！");
             },
             success: function (result) {
                 //清空
                 $("#discuss").val("");
-                alert("发表成功!");
+                showNoticeModal("提示", "发表成功！");
                 initVideoComment();
             }
         });
@@ -371,7 +371,7 @@ function clickStar() {
                 option: "star",
             },
             error: function () {
-                alert("服务器开小差了，请稍后重试!");
+                showNoticeModal("服务器错误！", "服务器未响应，稍后再试！");
             },
             success: function (result) {
                 // console.log(result);
@@ -427,7 +427,7 @@ function clickCollect() {
                 option: "collect",
             },
             error: function () {
-                alert("服务器开小差了，请稍后重试!");
+                showNoticeModal("服务器错误！", "服务器未响应，稍后再试！");
             },
             success: function (result) {
                 // console.log(result);
@@ -481,7 +481,7 @@ function clickFollow() {
                 hisUsername: hisUsername,
             },
             error: function () {
-                alert("服务器未响应，加载信息失败！");
+                showNoticeModal("服务器错误！", "服务器未响应，稍后再试！");
             },
             success: function (result) {
                 if (result.code === 200) {
@@ -548,7 +548,7 @@ function clickShare() {
             option: "share",
         },
         error: function () {
-            alert("服务器未响应！");
+            showNoticeModal("服务器错误！", "服务器未响应，稍后再试！");
         },
         success: function (result) {
             //let json = eval(result);
@@ -581,7 +581,7 @@ function complaintVideo() {
             contentType: "application/json;charset=UTF-8",
             data: JSON.stringify(reportVideoBean),//将json对象转化为json字符串
             error: function () {
-                alert("服务器未响应！");
+                showNoticeModal("服务器错误！", "服务器未响应，稍后再试！");
             },
             success: function (result) {
                 $('#complaintModalCenter').modal('hide');
@@ -628,7 +628,7 @@ function sendReportComment() {
         contentType: "application/json;charset=UTF-8",
         data: JSON.stringify(reportCommentBean),//将json对象转化为json字符串
         error: function () {
-            alert("服务器未响应！");
+            showNoticeModal("服务器错误！", "服务器未响应，稍后再试！");
             $('#reportCommentModal').modal('hide');
         },
         success: function (result) {
@@ -685,6 +685,20 @@ function getCookie(cookie_name) {
     }
     return "" //不存在返回空字符串
 }
+
+//模态框
+function showNoticeModal(title, body) {
+    $("#noticeModalTitle").text(title);
+    $("#notice-modal-body").text(body);
+    $('#noticeModal').modal('toggle');
+}
+
+//模态框消失时自动清空标题和内容，以便下次调用
+$('#noticeModalTitle').on('hidden.bs.modal', function (e) {
+    $("#noticeModalTitle").text("");
+    $("#notice-modal-body").text("");
+});
+
 
 // function navTools(pageNum) {
 //

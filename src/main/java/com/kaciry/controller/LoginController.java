@@ -78,10 +78,10 @@ public class LoginController {
             //获取钥匙
             RSAKey key = TokenUtils.getKey();
             //设置token过期时间
-            int exp = 1000 * 60 * 60;
+            int exp = checkbox ? (24 * 10) : (2);
             //生成Token
             String token = TokenRS256.TokenTest(username, key, exp);
-            //保存Token到redis
+            //保存钥匙到redis
             redisTemplate.opsForValue().set(username + "_key", key);
             //将个人不敏感信息和Token放入Cookie
             Cookie cookie1 = new Cookie("Token", token);
@@ -113,8 +113,6 @@ public class LoginController {
 
     }
 
-
-
     /**
      * @param request  request请求
      * @param response response
@@ -134,6 +132,7 @@ public class LoginController {
         //清除cookie，并且退出
         Cookie[] cookies = request.getCookies();
         for (Cookie cookie : cookies) {
+            cookie.setPath("/");        //路径
             cookie.setMaxAge(0);
             response.addCookie(cookie);
         }

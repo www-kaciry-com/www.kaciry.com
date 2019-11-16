@@ -17,7 +17,7 @@ public class TokenRS256 {
     public static String TokenTest(String uid, RSAKey rsaJWK, int exp) {
         //获取生成token
         Map<String, Object> map = new HashMap<>();
-
+        exp = exp * (1000 * 60 * 60);
         //建立载荷，这些数据根据业务，自己定义。
         map.put("uid", uid);
         //生成时间

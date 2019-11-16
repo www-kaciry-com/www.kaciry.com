@@ -9,20 +9,20 @@ import java.io.IOException;
 /**
  * @author kaciry
  * @date 2019/11/10 13:04
- * @description 处理图片的属性
+ * @description 处理图片的属性，文件操作
  */
-public class ManagePictures {
+public class ManageFiles {
     /**
      * @param oldFilePath 源文件
      * @param newFilePath 新文件
      * @param width       宽度,int类型
      * @param height      高度，int类型
      * @author kaciry
-     * @description 按尺寸压缩图片大小, 不输入大小则使用重载方法，默认为450*350
+     * @description 按尺寸压缩图片大小并将格式转换为jpg, 不输入大小则使用重载方法，默认为450*350
      * @date 2019/11/10 13:34
      **/
     public void compressWithDimension(String oldFilePath, String newFilePath, int width, int height) throws IOException {
-        Thumbnails.of(oldFilePath).size(width, height).keepAspectRatio(false).toFile(newFilePath);
+        Thumbnails.of(oldFilePath).size(width, height).keepAspectRatio(false).outputFormat("jpg").toFile(newFilePath);
     }
 
     void compressWithDimension(String oldFilePath, String newFilePath) throws IOException {
@@ -76,7 +76,7 @@ public class ManagePictures {
      * @description 删除文件
      * @date 2019/11/10 13:46
      **/
-    boolean deleteOriginFile(String path) {
+    public boolean deleteOriginFile(String path) {
         try {
             FileUtils.forceDelete(new File(path));
             return true;

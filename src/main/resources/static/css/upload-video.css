@@ -1,27 +1,26 @@
-.nav1 {
-    border: 2px solid red;
+.container-fluid {
+    width: 100%;
+    height: 100%;
     padding: 0;
+    margin-top: 57px;
 }
 
-.uploadform {
-    /*border: 1px solid #0003ff;*/
-    margin-top: 50px;
+.left-nav {
+    background-color: #f8f8f8;
 }
 
-.uploadform input {
-    margin: 20px auto;
+.left-nav .nav-link {
+    background-color: #f8f8f8;
+    border-color: #e7e7e7;
+    text-align: center;
+    padding-top: 22px;
+    padding-bottom: 12px;
 }
 
-.uploadform label {
-    margin: 26px auto;
-}
+/*--------------------------------*/
 
 .uploadform select {
     margin: 20px auto;
-}
-
-.col-md-2 {
-    margin-top: 50px;
 }
 
 .navbar {
@@ -29,32 +28,14 @@
     padding-right: 0;
 }
 
-.broadside-nav {
-    margin-left: -45px;
-    text-align: center;
-
-}
 
 .broadside-nav a {
     font-size: 17px;
 }
 
-.nav-li {
-    padding-top: 12px;
-    padding-bottom: 12px;
-}
-
 .nav-li img {
     width: 100%;
     height: 100%;
-}
-
-.tab-content1 {
-    border: 1px solid red;
-}
-
-.tab-pane1 {
-    border: 1px solid #ff0fce;
 }
 
 .uploadform1 input {
@@ -66,9 +47,14 @@
     text-align: right;
 }
 
-.file-group {
-    width: 100%;
-}
 #videoDescription{
     height: 100px;
+}
+
+.custom-file-input:lang(zh) {
+    content: "浏览";
+}
+
+.custom-file-label::after {
+    content: "浏览";
 }

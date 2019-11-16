@@ -1,5 +1,6 @@
 package com.kaciry.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.kaciry.entity.*;
@@ -49,27 +50,33 @@ public class VideoController {
     }
 
     /**
-     * @param file    用户上传的文件，视频封面与视频
-     * @param request request请求
-     * @return java.lang.String
+     * @param videoFile      视频文件
+     * @param videoCoverFile 封面图片文件
+     * @param request        req
+     * @param videoInfo      视频相关信息
+     * @return com.kaciry.entity.ResultBean
      * @author kaciry
-     * @description 用户投稿视频
-     * @date 2019/10/25 17:48
+     * @description 用户投稿视频，上传视频和封面文件至服务器
+     * @date 2019/11/15 17:26
      **/
-    @RequestMapping(value = "/upload", method = RequestMethod.POST)
+    @RequestMapping(value = "/uploadVideo", method = RequestMethod.POST)
     @ResponseBody
-    public ResultBean uploadFile(MultipartFile[] file, HttpServletRequest request) {
+    public ResultBean uploadFile(@RequestParam("videoFile") MultipartFile videoFile, @RequestParam("videoCoverFile") MultipartFile videoCoverFile,
+                                 HttpServletRequest request, @RequestParam("videoInfo") String videoInfo) {
+        //json字符换转化为实体对象
+        VideoInfo videoInfo1 = JSONObject.parseObject(videoInfo, VideoInfo.class);
         String username = GetCookiesValueByKey.getValue(request, "username");
         if (GetAuthorization.isAuthorization(username, GetCookiesValueByKey.getValue(request, "Token"))) {
             UploadFiles uploadFiles = new UploadFiles();
-            if (userService.uploadVideo((VideoInfo) uploadFiles.uploadFiles(file, request).getData())) {
-                return new ResultBean<>("上传成功！success");
+            if (userService.uploadVideo((VideoInfo) uploadFiles.uploadFiles(videoFile, videoCoverFile, videoInfo1).getData())) {
+                return new ResultBean<>("上传成功！");
             } else {
-                return new ResultBean<>("上传失败，请检查网络！error!");
+                return new ResultBean<>("上传失败，请检查网络！!");
             }
         } else {
             return new ResultBean<>("请勿非法操作！");
         }
+
     }
 
     /**
@@ -233,4 +240,26 @@ public class VideoController {
 
     }
 
+    /**
+     * @param token         token
+     * @param username      用户名
+     * @param videoFilename 视频文件名
+     * @return com.kaciry.entity.ResultBean
+     * @author kaciry
+     * @description
+     * @date 2019/11/13 13:00
+     **/
+    @PostMapping(value = "/removeVideo")
+    @ResponseBody
+    public ResultBean removeVideos(String token, String username, String videoFilename) {
+        if (GetAuthorization.isAuthorization(username, token)) {
+            if (videoService.removeVideoByVideoFilename(videoFilename) > 0) {
+                return new ResultBean<>("删除成功！");
+            } else {
+                return new ResultBean<>("删除失败！");
+            }
+        } else {
+            return new ResultBean<>("请勿非法操作！");
+        }
+    }
 }

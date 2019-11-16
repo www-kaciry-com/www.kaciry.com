@@ -12,13 +12,14 @@ import java.util.List;
 public interface VideoService {
 
     /**
-     * @author kaciry
-     * @description  根据视频文件名增加视频的播放量
-     * @date  2019/11/4 14:28
      * @param videoFilename 视频文件名
      * @return void
-    **/
+     * @author kaciry
+     * @description 根据视频文件名增加视频的播放量
+     * @date 2019/11/4 14:28
+     **/
     void addVideoPlayNumByVideoFilename(String videoFilename);
+
     /**
      * @param commentBean Comment实体，包含信息见实体类
      * @return com.kaciry.entity.Comment
@@ -39,7 +40,7 @@ public interface VideoService {
 
     /**
      * @param videoFileName 视频文件名
-     * @param username 用户名
+     * @param username      用户名
      * @return com.kaciry.entity.VideoPage
      * @author kaciry
      * @description 初始化用户视频信息
@@ -100,4 +101,13 @@ public interface VideoService {
      * @date 2019/11/11 18:03
      **/
     void addVideoBarrages(String videoFilename, int videoBarrages);
+
+    /**
+     * @param videoFilename 视频文件名
+     * @return int
+     * @author kaciry
+     * @description 根据用户名和视频文件名删除视频文件
+     * @date 2019/11/13 12:56
+     **/
+    int removeVideoByVideoFilename(String videoFilename);
 }

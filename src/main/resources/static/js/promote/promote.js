@@ -21,7 +21,7 @@ $(document).ready(function () {
             username: username
         },
         error: function () {
-            alert("服务器未响应，加载信息失败！");
+            showNoticeModal("服务器错误！", "服务器未响应，稍后再试！");
         },
         success: function (result) {
             let json = eval(result);
@@ -54,7 +54,7 @@ function selectorChange() {
                 videoAddress: videoAddress
             },
             error: function () {
-                alert("服务器未响应，加载信息失败！");
+                showNoticeModal("服务器错误！", "服务器未响应，稍后再试！");
             },
             success: function (result) {
                 videoCover.attr("src", "/files/videoCover/" + result.videoCover);
@@ -94,7 +94,7 @@ function queryWaitTime() {
                 options: options
             },
             error: function () {
-                alert("服务器未响应，加载信息失败！");
+                showNoticeModal("服务器错误！", "服务器未响应，稍后再试！");
             },
             success: function (result) {
                 waitTime = result.data;
@@ -103,9 +103,7 @@ function queryWaitTime() {
         });
         $('#payModal').modal('toggle');
     } else {
-        $("#noticeModalTitle").text("提示");
-        $("#notice-modal-body").text("请选择一个您想要推广的视频！");
-        $('#noticeModal').modal('toggle');
+        showNoticeModal("提示", "请选择一个您想要推广的视频！");
     }
     return false;
 }
@@ -126,12 +124,10 @@ function promoteVideo() {
             promoteType: promoteOption
         },
         error: function () {
-            alert("服务器未响应，加载信息失败！");
+            showNoticeModal("服务器错误！", "服务器未响应，稍后再试！");
         },
         success: function (result) {
-            $("#noticeModalTitle").text("提示");
-            $("#notice-modal-body").text(result.data);
-            $('#noticeModal').modal('toggle');
+            showNoticeModal("提示", result.data);
         }
     })
 }
@@ -166,3 +162,16 @@ function getCookie(cookie_name) {
     }
     return "" //不存在返回空字符串
 }
+
+//模态框
+function showNoticeModal(title, body) {
+    $("#noticeModalTitle").text(title);
+    $("#notice-modal-body").text(body);
+    $('#noticeModal').modal('toggle');
+}
+
+//模态框消失时自动清空标题和内容，以便下次调用
+$('#noticeModalTitle').on('hidden.bs.modal', function (e) {
+    $("#noticeModalTitle").text("");
+    $("#notice-modal-body").text("");
+});

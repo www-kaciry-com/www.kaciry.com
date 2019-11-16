@@ -7,14 +7,14 @@
 /*}*/
 /*页头，header*/
 .back-img {
-    background-image: url(/static/img/indexIcon/header-leg.jpg);
+    background-image: url(/static/img/indexIcon/yun.jpg);
     background-repeat: no-repeat;
     background-size: cover;
     height: 650px;
-    margin-top: -100px;
-    z-index: -1;
+    /*margin-top: -100px;*/
+    /*z-index: -1;*/
     /*模糊效果*/
-    /*filter: blur(4px);*/
+    filter: blur(1px);
 }
 
 /*用户头像*/
@@ -23,7 +23,7 @@
     text-align: center;
     width: 70%;
     margin: auto;
-    top: -200px;
+    top: -300px;
     padding: 40px 0;
     font-size: 14px;
     opacity: .98;
@@ -133,6 +133,7 @@ a {
 .Promote-img {
     width: 40px;
     height: 40px;
+    display: inline-block;
 }
 
 .Promote-img img {
@@ -153,6 +154,7 @@ a {
 .Promote-name {
     margin-top: 6px;
     margin-left: 10px;
+    display: inline-block;
 }
 
 .Promote-one {

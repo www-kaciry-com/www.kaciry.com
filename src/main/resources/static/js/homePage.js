@@ -10,6 +10,7 @@ let passwordPattern = /(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[$@!%*#?&])[A-Za-z\d$@
 
 window.onload = queryCollections;
 
+//更改个人信息
 function changeInfo() {
     $.ajax({
         url: '/changeInfo', //请求的url
@@ -17,7 +18,7 @@ function changeInfo() {
         dateType: "json",
         data: $('#user-info').serialize(), //form表单里要提交的内容，里面的input等写上name就会提交，这是序列化
         error: function () {
-            alert('请求失败');
+            showNoticeModal("服务器错误！", "服务器未响应，稍后再试！");
         },
         success: function (result) {
             alert("Success !changeInfo");
@@ -29,6 +30,7 @@ function changeInfo() {
     });
 }
 
+//查看个人信息
 function selectInfo() {
     $.ajax({
         url: '/selectInfo', //请求的url
@@ -38,7 +40,7 @@ function selectInfo() {
             username: username
         },
         error: function () {
-            alert('请求失败');
+            showNoticeModal("服务器错误！", "服务器未响应，稍后再试！");
         },
         success: function (result) {
             // alert("Success ! selectInfo");
@@ -50,6 +52,7 @@ function selectInfo() {
     });
 }
 
+//获取我的投稿
 function selectContribution() {
     let contributeTag = $('.My-Contribution-content');
     $.ajax({
@@ -60,7 +63,7 @@ function selectContribution() {
             username: username,
         },
         error: function () {
-            alert('请求失败');
+            showNoticeModal("服务器错误！", "服务器未响应，稍后再试！");
         },
         success: function (result) {
             contributeTag.children().remove();
@@ -85,28 +88,97 @@ function selectContribution() {
                 });
             }
             let json = eval(result.list);
-            let str = analysisData(json);
+            let str = analysisData(json, "Contribution");
             contributeTag.append(str);
         }
     });
 }
 
-function analysisData(data) {
+//分析数据
+function analysisData(data, ops) {
     let str = '';
     $.each(data, function (i, element) {
         str += "<li class=\"col-6 col-md-3 items\" style=\"display: block\">\n" +
+            "                            <span hidden>" + element.videoFilename + "</span>\n" +
+            "                            <span hidden>" + ops + "</span>\n" +
             "                            <a href=\"/video?videoid=" + element.videoFilename + "  \" target=\"_blank\" class=\"cover\">\n" +
             "                                <div class=\"cover\"><img src=\"/files/videoCover/" + element.videoCover + "\" alt=\"cover\" class=\"videoCover\"></div>\n" +
             "                            </a>\n" +
             "                            <a href=\"\" target=\"_blank\" title=\"\" class=\"title\">" + element.videoName + "</a>\n" +
-            "                            <div class=\"meta\">\n" +
+            "                            <div class=\"row meta justify-content-between\" style='margin-left: 0;margin-right: 0'>\n" +
+            "                                <div>\n" +
             "                                <span class=\"play\"><i class=\"icon\">" + element.videoPlayNum + "</i></span>\n" +
             "                                <span class=\"time\"><i class=\"icon\">" + element.videoData.substring(0, 11) + "</i></span>\n" +
+            "                                </div>" +
+            "                                <div class=\"btn-group\">\n" +
+            "                                      <a tabindex=\"0\" data-toggle=\"dropdown\" data-trigger=\"focus\" style=\"border-radius: 15%;margin-left: 15px\">\n" +
+            "                                            <i class=\"iconfont\" style='color: #999999'> </i>\n" +
+            "                                      </a>\n" +
+            "                                                    <span class=\"dropdown-menu\">\n" +
+            "                                            <a class=\"dropdown-item dropdown-delete\" href=\"#\" data-toggle=\"modal\" onclick=\"removeVideo(this)\">移除</a>\n" +
+            "                                        </span>\n" +
+            "                                </div>\n" +
             "                            </div>\n" +
             "                        </li>";
     });
     return str;
 }
+
+
+function removeVideo(btn) {
+    let parentNode = btn.parentElement.parentElement.parentElement.parentElement;
+    let nodeText = parentNode.children[0].innerHTML;
+    let ops = parentNode.children[1].innerHTML;
+    //去掉前后空格！！！！！！！！！！！！！！！！！！巨坑(已修复)
+    let videoFileName = $.trim(nodeText);
+    //判断当前操作
+    if (ops === "Collect") {
+        $.ajax({
+            url: '/opsStar',//请求的地址
+            type: 'post', //请求的方式
+            dateType: "json", //请求的数据格式
+            data: {
+                token: token,
+                username: username,
+                videoFileName: videoFileName,
+                option: "collect",
+            },
+            error: function () {
+                showNoticeModal("服务器错误！", "服务器未响应，稍后再试！");
+            },
+            success: function (result) {
+                if (!result) {
+                    showNoticeModal("提示", "移除成功！")
+                } else {
+                    showNoticeModal("提示", "移除失败，请稍后重试！")
+                }
+            }
+        })
+    } else if (ops === "Contribution") {
+        $.ajax({
+            url: '/removeVideo',//请求的地址
+            type: 'post', //请求的方式
+            dateType: "json", //请求的数据格式
+            data: {
+                token: token,
+                username: username,
+                videoFilename: videoFileName
+            },
+            error: function () {
+                showNoticeModal("服务器错误！", "服务器未响应，稍后再试！");
+            },
+            success: function (result) {
+                //let json = eval(result);
+                //$.each(json, function (i, element) {
+                // })
+                showNoticeModal("成功", result.data);
+                parentNode.remove();
+            }
+        })
+    }
+
+}
+
 
 function analysisFollowsData(data) {
     let str = "";
@@ -148,12 +220,13 @@ function changePassword() {
                 password: newPasswordOne
             },
             error: function () {
-                alert("服务器未响应，修改信息失败！");
+                showNoticeModal("服务器错误！", "服务器未响应，稍后再试！");
             },
             success: function (result) {
-                $("#noticeModalTitle").text("提示！");
-                $("#notice-modal-body").text(result.data);
-                $('#noticeModal').modal('toggle');
+                // $("#noticeModalTitle").text("提示！");
+                // $("#notice-modal-body").text(result.data);
+                // $('#noticeModal').modal('toggle');
+                showNoticeModal("提示！", result.data);
             }
         })
     }
@@ -164,26 +237,23 @@ function changePassword() {
 // 检查两次密码的合法性和一致性
 function checkPassword(pwd1, pwd2) {
     if (pwd1 !== pwd2) {
-        $("#noticeModalTitle").text("错误提示！");
-        $("#notice-modal-body").text("两次输入的密码不一致！");
-        $('#noticeModal').modal('toggle');
+        showNoticeModal("错误提示！", "两次输入的密码不一致！");
         return false;
     } else {
         if (!passwordPattern.test(pwd1)) {
-            $("#noticeModalTitle").text("错误提示！");
-            $("#notice-modal-body").text("密码格式错误！（最少8位，包括至少一位大写字母，一位小写字母，一个数字，一个特殊字符：$@!%*#?&）");
-            $('#noticeModal').modal('toggle');
+            showNoticeModal("错误提示！", "密码格式错误！（最少8位，包括至少一位大写字母，一位小写字母，一个数字，一个特殊字符：$@!%*#?&）");
             return false
         } else return true
     }
 }
 
-// 查询数据
+// 查询我的收藏
 function queryCollections() {
     let collectionsTag = $('.My-Collections');
     $.ajax({
         url: '/postQueryCollect', //请求的url
         type: 'post', //请求的方式
+        async: false,
         data: {
             token: token,
             username: username,
@@ -191,7 +261,7 @@ function queryCollections() {
             pageSize: 16
         },
         error: function () {
-            alert('请求失败');
+            showNoticeModal("服务器错误！", "服务器未响应，稍后再试！");
         },
         success: function (result) {
             collectionsTag.children().remove();
@@ -216,7 +286,7 @@ function queryCollections() {
                 });
             }
             let json = eval(result.list);
-            let str = analysisData(json);
+            let str = analysisData(json, "Collect");
             collectionsTag.append(str);
         }
     });
@@ -237,7 +307,7 @@ function queryFollows() {
             pageSize: 10
         },
         error: function () {
-            alert("服务器未响应，加载信息失败！");
+            showNoticeModal("服务器错误！", "服务器未响应，稍后再试！");
         },
         success: function (result) {
             let isInited = followPage.pagination();
@@ -280,7 +350,7 @@ contributePage.on("pageClicked", function (event, data) {
         },
         success: function (result) {
             contributeTag.children().remove();
-            contributeTag.append(analysisData(eval(result.list)));
+            contributeTag.append(analysisData(eval(result.list), "Contribution"));
         }
     })
 });
@@ -301,7 +371,7 @@ contributePage.on("jumpClicked", function (event, data) {
 
             contributeTag.children().remove();
             let json = eval(result.list);
-            let str = analysisData(json);
+            let str = analysisData(json, "Contribution");
             contributeTag.append(str);
         }
     });
@@ -324,7 +394,7 @@ collectPage.on("pageClicked", function (event, data) {
         success: function (result) {
             collectionsTag.children().remove();
             let json = eval(result.list);
-            let str = analysisData(json);
+            let str = analysisData(json, "Collect");
             collectionsTag.append(str);
 
         }
@@ -346,7 +416,7 @@ collectPage.on("jumpClicked", function (event, data) {
         success: function (result) {
             collectionsTag.children().remove();
             let json = eval(result.list);
-            let str = analysisData(json);
+            let str = analysisData(json, "Collect");
             collectionsTag.append(str);
         }
     });
@@ -407,7 +477,7 @@ function cancelFollow(btn) {
             hisUsername: res.innerHTML
         },
         error: function () {
-            alert("服务器未响应，加载信息失败！");
+            showNoticeModal("服务器错误！", "服务器未响应，稍后再试！");
         },
         success: function () {
             curNode.remove()
@@ -421,16 +491,7 @@ function toSendMsg() {
     window.location.href = "/reply#privateLetters";
 }
 
-
-$(".dplayer-send-icon").on("click", function () {
-    console.log("sendBtn!");
-    dp.danmaku.draw({
-        text: 'DIYgod is amazing',
-        color: '#fff',
-        type: 'top',
-    });
-});
-
+//获取cookie的value
 function getCookie(cookie_name) {
     if (document.cookie.length > 0) {//判断cookie是否存在
         //获取cookie名称加=的索引值
@@ -449,6 +510,19 @@ function getCookie(cookie_name) {
     }
     return "" //不存在返回空字符串
 }
+
+//模态框
+function showNoticeModal(title, body) {
+    $("#noticeModalTitle").text(title);
+    $("#notice-modal-body").text(body);
+    $('#noticeModal').modal('toggle');
+}
+
+//模态框消失时自动清空标题和内容，以便下次调用
+$('#noticeModalTitle').on('hidden.bs.modal', function (e) {
+    $("#noticeModalTitle").text("");
+    $("#notice-modal-body").text("");
+});
 
 
 

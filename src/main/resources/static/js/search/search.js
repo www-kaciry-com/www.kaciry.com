@@ -15,7 +15,7 @@ $(document).ready(function () {
             type:type,
         },
         error: function () {
-            alert("服务器未响应，加载视频信息失败！");
+            showNoticeModal("服务器错误！", "服务器未响应，稍后再试！");
         },
         success: function (result) {
             $('.video-items').children().remove();
@@ -131,3 +131,16 @@ function GetQueryString(name) {
     if (r != null) return decodeURI(r[2]);
     return null;
 }
+
+//模态框
+function showNoticeModal(title, body) {
+    $("#noticeModalTitle").text(title);
+    $("#notice-modal-body").text(body);
+    $('#noticeModal').modal('toggle');
+}
+
+//模态框消失时自动清空标题和内容，以便下次调用
+$('#noticeModalTitle').on('hidden.bs.modal', function (e) {
+    $("#noticeModalTitle").text("");
+    $("#notice-modal-body").text("");
+});
