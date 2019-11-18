@@ -29,7 +29,6 @@ public class LoginHandlerInterceptor implements HandlerInterceptor {
             return false;
         } else {
             //放行
-            System.out.println("放行了一次请求-->");
             return true;
         }
     }

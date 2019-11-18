@@ -24,13 +24,8 @@ public class WebConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new LoginHandlerInterceptor()).addPathPatterns("/**")
                 .excludePathPatterns("/index", "/", "/indexDataInit", "/playRank", "/login",
-                        "/rsaKey1", "/rsaKey2", "/static/**", "/search", "/video", "/initPromoteVideos4Carousel", "/initPromoteVideos4List");
+                        "/rsaKey1", "/rsaKey2", "/static/**", "/search", "/video", "/initPromoteVideos4Carousel", "/initPromoteVideos4List", "/files/**");
     }
-
-//    @Override
-//    public void addViewControllers(ViewControllerRegistry registry) {
-//        registry.addViewController("/login").setViewName("");
-//    }
 
     @Bean
     public HttpMessageConverter responseBodyConverter() {

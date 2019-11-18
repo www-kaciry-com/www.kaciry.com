@@ -40,9 +40,9 @@ public class TokenRS256 {
                 Map<String, Object> validMap = TokenUtils.validRS256(token, rsaJWK);
                 int i = (int) validMap.get("Result");
                 if (i == 0) {
-                    System.out.println("token解析成功");
+//                    System.out.println("token解析成功");
                     JSONObject jsonObject = (JSONObject) validMap.get("data");
-                    System.out.println("uid是：" + jsonObject.get("uid") + " sta是：" + jsonObject.get("sta") + " exp是：" + jsonObject.get("exp"));
+//                    System.out.println("uid是：" + jsonObject.get("uid") + " sta是：" + jsonObject.get("sta") + " exp是：" + jsonObject.get("exp"));
                     return jsonObject.get("uid").toString();
                 } else if (i == 2) {
                     System.out.println("token已经过期");

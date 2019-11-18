@@ -1,5 +1,23 @@
 loadlive2d("live2d", "/static/live2d/model/tia/model.json");
 
+$(document).ready(function () {
+    if ("" === getCookie("Token")) {
+        $("#navbarColor03").append("<div class=\"login-content\">\n" +
+            "            <ul class=\" navbar-nav\">\n" +
+            "                <li class=\"nav-item\">\n" +
+            "                    <form class=\"form-inline nav-search\" th:action=\"@{/search}\" method=\"get\">\n" +
+            "                        <input class=\"form-control mr-sm-2\" name=\"information\" type=\"search\" placeholder=\"输入搜索的内容\"\n" +
+            "                               aria-label=\"输入搜索的内容\">\n" +
+            "                        <button class=\"btn btn-outline-primary my-2 my-sm-0\" type=\"submit\">搜索</button>\n" +
+            "                    </form>\n" +
+            "                </li>\n" +
+            "                <li class=\"nav-item\"><a class=\"nav-link\" href=\"/login\" th:href=\"@{/login}\">登陆</a></li>\n" +
+            "                <li class=\"nav-item\"><a class=\"nav-link\" href=\"/login\" th:href=\"@{/register}\">注册</a></li>\n" +
+            "            </ul>\n" +
+            "        </div>")
+    }
+});
+
 //轮播图板块
 $(document).ready(function () {
     $.ajax({
@@ -568,7 +586,6 @@ $(document).ready(function () {
     return false;
 });
 
-
 //工具 , 导航栏中固定定位对锚点链接影响的解决方法
 function locateAt(e) {
     e = document.getElementById(e);/*以id命名的锚点*/
@@ -592,4 +609,23 @@ $('#noticeModalTitle').on('hidden.bs.modal', function (e) {
     $("#noticeModalTitle").text("");
     $("#notice-modal-body").text("");
 });
+
+function getCookie(cookie_name) {
+    if (document.cookie.length > 0) {//判断cookie是否存在
+        //获取cookie名称加=的索引值
+        let c_start = document.cookie.indexOf(cookie_name + "=");
+        if (c_start != -1) { //说明这个cookie存在
+            //获取cookie名称对应值的开始索引值
+            c_start = c_start + cookie_name.length + 1;
+            //从c_start位置开始找第一个分号的索引值，也就是cookie名称对应值的结束索引值
+            c_end = document.cookie.indexOf(";", c_start);
+            //如果找不到，说明是cookie名称对应值的结束索引值就是cookie的长度
+            if (c_end == -1) c_end = document.cookie.length;
+            //unescape() 函数可对通过 escape() 编码的字符串进行解码
+            //获取cookie名称对应的值，并返回
+            return unescape(document.cookie.substring(c_start, c_end))
+        }
+    }
+    return "" //不存在返回空字符串
+}
 

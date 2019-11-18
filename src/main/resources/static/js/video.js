@@ -277,7 +277,6 @@ function addVideoPlayNum() {
             showNoticeModal("服务器错误！", "服务器未响应，稍后再试！");
         },
         success: function () {
-            console.log(1);
         }
     })
 }

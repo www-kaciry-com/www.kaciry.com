@@ -114,8 +114,7 @@ public class TokenUtils {
         //进行加密
         jwsObject.sign(signer);
 
-        String token = jwsObject.serialize();
-        return token;
+        return jwsObject.serialize();
     }
 
     //验证token

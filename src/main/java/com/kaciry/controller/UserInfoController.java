@@ -110,11 +110,7 @@ public class UserInfoController {
     @PostMapping(value = "/selectInfo")
     @ResponseBody
     public User selectInfo(String token, String username) {
-        if (GetAuthorization.isAuthorization(username, token)) {
-            return userService.selectUserInfoByUsername(username);
-        } else {
-            return null;
-        }
+        return userService.selectUserInfoByUsername(username);
     }
 
     /**
