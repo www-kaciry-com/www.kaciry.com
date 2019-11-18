@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * @author kaciry
  * @date 2019/11/2 13:29
- * @description TestQuartz
+ * @description 定时任务Quartz
  */
 public class AutoAnalysisDataOvertime extends QuartzJobBean {
 
@@ -22,7 +22,7 @@ public class AutoAnalysisDataOvertime extends QuartzJobBean {
     /**
      * @param jobExecutionContext 上下文
      * @author kaciry
-     * @description 每*分钟执行一次推广视频是否失效方法，失效的更改数据项promoteType为0，打印日志
+     * @description 每5分钟执行一次推广视频是否失效方法，失效的更改数据项promoteType为0，打印日志
      * @date 2019/11/2 13:31
      **/
     @Override
@@ -35,7 +35,6 @@ public class AutoAnalysisDataOvertime extends QuartzJobBean {
                 // TODO: 2019/11/2 打印日志
             }
         }
-        // TODO: 2019/11/2 减少时间
 //        for (int i = 0; i <= list.size(); i++) {
 //            Timestamp timestamp = TimeDifference.analysisTime(list.get(i).getSurplusDuration());
 //            boolean flag = promoteVideosService.setPromoteVideoDuration(list.get(i).getVideoFilename(),timestamp);

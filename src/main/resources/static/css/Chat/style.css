@@ -13,17 +13,6 @@
   --blue: #00b0ff;
 }
 
-/*body {*/
-/*  background-color: var(--bg);*/
-/*  -webkit-font-smoothing: antialiased;*/
-/*  -moz-osx-font-smoothing: grayscale;*/
-/*  text-rendering: optimizeLegibility;*/
-/*  font-family: 'Source Sans Pro', sans-serif;*/
-/*  font-weight: 400;*/
-/*  background-image: url("/static/img/Chat/image.jpg");*/
-/*  background-size: cover;*/
-/*}*/
-
 .wrapper {
 
   width: 935px;
@@ -439,4 +428,9 @@
 
 .chat-container li {
     margin: 0 ;
+}
+
+/*网页自定义指针*/
+body {
+    cursor: url("/static/img/cursor.ico"), auto;
 }

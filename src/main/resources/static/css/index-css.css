@@ -1,11 +1,4 @@
-/*辅助线*/
-/*.container-fliud {*/
-/*    border: 1px red solid;*/
-/*}*/
-/*.container {*/
-/*    border: 1px blue solid;*/
-/*}*/
-/*页头，header*/
+
 .back-img {
     background-image: url(/static/img/indexIcon/yun.jpg);
     background-repeat: no-repeat;
@@ -143,7 +136,7 @@ a {
 }
 
 .Promote {
-    margin-top: 20px;
+    margin-top: 50px;
     /*border: 1px red solid;*/
 }
 
@@ -198,10 +191,6 @@ a {
     padding-right: 5px;
     padding-left: 5px;
 }
-
-/*.Music a:link {*/
-/*    color: #222222;*/
-/*}*/
 
 .Music a:hover {
     color: #005cbf;
@@ -266,4 +255,32 @@ a {
 }
 .rank li {
     width: 100%;
+}
+
+.my-nav {
+    position: sticky;
+    top: 300px;
+    margin-top: 250px;
+    width: 100px;
+    left: 15%;
+}
+
+.my-nav-child {
+    background: #70d7e81f;
+    width: 60px;
+    height: 500px;
+    border-radius: 15px;
+    padding-left: 13px;
+    padding-top: 20px;
+    line-height: 35px;
+}
+
+/*网页自定义指针*/
+body {
+    cursor: url("/static/img/cursor.ico"), auto;
+}
+
+/*网页平滑效果*/
+html {
+    scroll-behavior: smooth;
 }

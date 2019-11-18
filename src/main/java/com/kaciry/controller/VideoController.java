@@ -64,11 +64,11 @@ public class VideoController {
     public ResultBean uploadFile(@RequestParam("videoFile") MultipartFile videoFile, @RequestParam("videoCoverFile") MultipartFile videoCoverFile,
                                  HttpServletRequest request, @RequestParam("videoInfo") String videoInfo) {
         //json字符换转化为实体对象
-        VideoInfo videoInfo1 = JSONObject.parseObject(videoInfo, VideoInfo.class);
+        VideoInfo parseObject = JSONObject.parseObject(videoInfo, VideoInfo.class);
         String username = GetCookiesValueByKey.getValue(request, "username");
         if (GetAuthorization.isAuthorization(username, GetCookiesValueByKey.getValue(request, "Token"))) {
             UploadFiles uploadFiles = new UploadFiles();
-            if (userService.uploadVideo((VideoInfo) uploadFiles.uploadFiles(videoFile, videoCoverFile, videoInfo1).getData())) {
+            if (userService.uploadVideo((VideoInfo) uploadFiles.uploadFiles(videoFile, videoCoverFile, parseObject).getData())) {
                 return new ResultBean<>("上传成功！");
             } else {
                 return new ResultBean<>("上传失败，请检查网络！!");

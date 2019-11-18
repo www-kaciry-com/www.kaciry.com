@@ -240,3 +240,8 @@ input[type="radio"] {
 .media .btn-group a:hover {
     cursor: pointer;
 }
+
+/*网页自定义指针*/
+body {
+    cursor: url("/static/img/cursor.ico"), auto;
+}

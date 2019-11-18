@@ -59,7 +59,9 @@ public class PromoteVideosController {
     @ResponseBody
     public ResultBean promoteVideo(String token, String username, String videoFilename, int promoteType) {
         if (GetAuthorization.isAuthorization(username, token)) {
-            PromoteVideosBean promoteVideosBean = new PromoteVideosBean(videoFilename, TimeUtils.analysisTime(new Timestamp(System.currentTimeMillis())), promoteType);
+            //获取最后的时间
+            Timestamp timestamp = promoteVideosService.selectLastTime(promoteType);
+            PromoteVideosBean promoteVideosBean = new PromoteVideosBean(videoFilename, TimeUtils.analysisTime(timestamp), promoteType);
             return promoteVideosService.addPromoteVideo(promoteVideosBean);
         } else {
             return null;

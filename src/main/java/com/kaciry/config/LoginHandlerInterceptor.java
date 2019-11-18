@@ -1,5 +1,6 @@
 package com.kaciry.config;
 
+import com.kaciry.utils.GetAuthorization;
 import com.kaciry.utils.GetCookiesValueByKey;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -19,13 +20,16 @@ public class LoginHandlerInterceptor implements HandlerInterceptor {
     //目标方法执行之前
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        Object user = GetCookiesValueByKey.getValue(request, "Token");
-        if (user == null) {
+        String token = GetCookiesValueByKey.getValue(request, "Token");
+        String username = GetCookiesValueByKey.getValue(request, "username");
+        if (username.equals("") || token.equals("") || !GetAuthorization.isAuthorization(username, token)) {
             //未登录,返回登录页面
-            response.sendRedirect("/login.html");
+            System.out.println("执行了一次拦截-->");
+            request.getRequestDispatcher("/login").forward(request, response);
             return false;
         } else {
             //放行
+            System.out.println("放行了一次请求-->");
             return true;
         }
     }

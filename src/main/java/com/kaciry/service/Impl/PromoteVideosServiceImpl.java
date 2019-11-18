@@ -44,7 +44,7 @@ public class PromoteVideosServiceImpl implements PromoteVideosService {
             index = CAROUSEL_LIMIT_NUM;
             //查询promoteType为1的最后3条数据
             list = promoteVideosDao.selectPromoteVideo(option, CAROUSEL_LIMIT_NUM);
-        }else {
+        } else {
             //列表区域推广，最小数量为6
             int LIST_LIMIT_NUM = 6;
             index = LIST_LIMIT_NUM;
@@ -62,6 +62,27 @@ public class PromoteVideosServiceImpl implements PromoteVideosService {
             } else {
                 return res;
             }
+        }
+    }
+
+    @Override
+    public Timestamp selectLastTime(int option) {
+        List<PromoteVideosBean> list;
+        //定义最少推荐视频量
+        int index;
+        //判断目标为哪一类推广
+        if (option == 1) {
+            index = 3;
+            list = promoteVideosDao.selectPromoteVideo(option, 3);
+        } else {
+            index = 6;
+            list = promoteVideosDao.selectPromoteVideo(option, 6);
+        }
+        //如果数量小于3个，直接进行推荐
+        if (list.size() < index) {
+            return new Timestamp(System.currentTimeMillis());
+        } else {
+            return new Timestamp(list.get(list.size() - 1).getSurplusDuration().getTime());
         }
     }
 

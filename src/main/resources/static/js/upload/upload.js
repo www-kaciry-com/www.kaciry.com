@@ -19,8 +19,10 @@ let xhrOnProgress = function (fun) {
 
 function Submit() {
     $('#uploadFilesModal').modal('toggle');
+
     let videoFile = document.getElementById("choice-video-file").files[0]; // js 获取文件对象
     let videoCoverFile = document.getElementById("choice-video-cover-file").files[0]; // js 获取文件对象
+
     let videoTitle = $("#videoTitle").val();
     let videoType = $("#videoType option:selected").val();
     let videoName = $("#videoName").val();
@@ -33,6 +35,7 @@ function Submit() {
         "videoName": videoName,
         "videoDescription": videoDescription
     };
+
     let formFile = new FormData();
     formFile.append("videoFile", videoFile); //加入文件对象
     formFile.append("videoCoverFile", videoCoverFile); //加入文件对象
@@ -48,7 +51,6 @@ function Submit() {
         contentType: false, //必须
         xhr: xhrOnProgress(function (e) {
             let percent = e.loaded / e.total;
-            console.log(percent);
             $("#progress").width(percent * 100 + "%");
         }),
         success: function (result) {

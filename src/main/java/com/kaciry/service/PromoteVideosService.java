@@ -37,23 +37,25 @@ public interface PromoteVideosService {
     List<PromoteVideosBean> analysisDataIsOvertime();
 
     /**
-     * @author kaciry
-     * @description  失效视频
-     * @date  2019/11/2 14:54
      * @param videoFilename 视频文件名
      * @return boolean
-    **/
-    boolean setPromoteVideoTimeOver(String videoFilename);
-    /**
      * @author kaciry
-     * @description  获取正在生效的推广视频
-     * @date  2019/11/2 14:55
+     * @description 失效视频
+     * @date 2019/11/2 14:54
+     **/
+    boolean setPromoteVideoTimeOver(String videoFilename);
+
+    /**
      * @return java.util.List<com.kaciry.entity.PromoteVideosBean>
-    **/
+     * @author kaciry
+     * @description 获取正在生效的推广视频
+     * @date 2019/11/2 14:55
+     **/
     List<VideoInfo> getPromoteVideos4Carousel();
 
-
     List<VideoInfo> getPromoteVideos4List();
+
+    Timestamp selectLastTime(int option);
 
     boolean setPromoteVideoDuration(String videoFilename, Timestamp timestamp);
 }

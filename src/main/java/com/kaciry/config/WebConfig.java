@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -19,10 +20,16 @@ import java.nio.charset.Charset;
 @EnableWebMvc
 public class WebConfig implements WebMvcConfigurer {
 
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(new LoginHandlerInterceptor()).addPathPatterns("/**")
+                .excludePathPatterns("/index", "/", "/indexDataInit", "/playRank", "/login",
+                        "/rsaKey1", "/rsaKey2", "/static/**", "/search", "/video", "/initPromoteVideos4Carousel", "/initPromoteVideos4List");
+    }
+
 //    @Override
-//    public void addInterceptors(InterceptorRegistry registry) {
-//        registry.addInterceptor(new LoginHandlerInterceptor()).addPathPatterns("/**")
-//                .excludePathPatterns("/index.html","/","/indexDataInit","/playRank","/login","/rsaKey1","/rsaKey2","/static/**");
+//    public void addViewControllers(ViewControllerRegistry registry) {
+//        registry.addViewController("/login").setViewName("");
 //    }
 
     @Bean
@@ -42,17 +49,4 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addResourceHandler("/files/**").addResourceLocations("file:F://upload/");
 
     }
-//    @Bean
-//    public MultipartConfigElement multipartConfigElement() {
-//        MultipartConfigFactory factory = new MultipartConfigFactory();
-//        factory.setMaxFileSize(1024000000);
-//        factory.setMaxRequestSize(1024000000);
-//        String location = System.getProperty("user.dir") + "/data/tmp";
-//        File tmpFile = new File(location);
-//        if (!tmpFile.exists()) {
-//            boolean mkdirs = tmpFile.mkdirs();
-//        }
-//        factory.setLocation(location);
-//        return factory.createMultipartConfig();
-//    }
 }
