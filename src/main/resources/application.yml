@@ -3,7 +3,11 @@ pagehelper:
   reasonable: true
   supportMethodsArguments: true
   params: count=countSql
-
+spring:
+  servlet:
+    multipart:
+      file-size-threshold: 0
+      max-file-size: 3000MB
 #server:
 #  port: 8080
 #  connectionTimeout: 180000

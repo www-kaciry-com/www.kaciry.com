@@ -23,6 +23,8 @@ function Submit() {
     let videoFile = document.getElementById("choice-video-file").files[0]; // js 获取文件对象
     let videoCoverFile = document.getElementById("choice-video-cover-file").files[0]; // js 获取文件对象
 
+    let videoCoins = $("#videoCoins").val();
+
     let videoTitle = $("#videoTitle").val();
     let videoType = $("#videoType option:selected").val();
     let videoName = $("#videoName").val();
@@ -30,6 +32,7 @@ function Submit() {
 
     let videoInfo = {
         "username": username,
+        "videoCoins": videoCoins,
         "videoTitle": videoTitle,
         "videoType": videoType,
         "videoName": videoName,
