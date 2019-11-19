@@ -4,7 +4,6 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.kaciry.entity.*;
 import com.kaciry.service.Impl.UserServiceImpl;
-import com.kaciry.utils.GetAuthorization;
 import com.kaciry.utils.GetCookiesValueByKey;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -46,12 +45,7 @@ public class UserInfoController {
     @PostMapping(value = "/selectUserVideos")
     @ResponseBody
     public List<VideoInfo> selectUserVideos(String token, String username) {
-        if (GetAuthorization.isAuthorization(username, token)) {
-            return userService.selectVideosByUsername(username);
-        } else {
-            return null;
-        }
-
+        return userService.selectVideosByUsername(username);
     }
 
     /**
@@ -65,29 +59,24 @@ public class UserInfoController {
     @PostMapping(value = "modifyHeadIcon")
     @ResponseBody
     public boolean modifyHeadIcon(MultipartFile file, HttpServletRequest request) {
-        String token = GetCookiesValueByKey.getValue(request, "Token");
         String username = GetCookiesValueByKey.getValue(request, "username");
-        if (GetAuthorization.isAuthorization(username, token)) {
-            try {
-                //获取文件名
-                String fileSuffix = Objects.requireNonNull(file.getOriginalFilename()).substring(file.getOriginalFilename().lastIndexOf("."));
-                //Linux下上传目录
-                //String filePathCover = "/www/wwwroot/www.kaciry.com/upload/HeadIcon/";
-                //Windows下上传目录
-                String filePath = "F:/upload/HeadIcon/";
-                //创建文件
-                File files = new File(filePath + username + fileSuffix);
-                //上传文件
-                file.transferTo(files);
-                //创建文件路径
-                String userHeadIconPathName = "/files/HeadIcon/" + username + fileSuffix;
-                //修改数据库中头像路径
-                return userService.updateUserHeadIcon(userHeadIconPathName, username);
-            } catch (Exception e) {
-                e.printStackTrace();
-                return false;
-            }
-        } else {
+        try {
+            //获取文件名
+            String fileSuffix = Objects.requireNonNull(file.getOriginalFilename()).substring(file.getOriginalFilename().lastIndexOf("."));
+            //Linux下上传目录
+            //String filePathCover = "/www/wwwroot/www.kaciry.com/upload/HeadIcon/";
+            //Windows下上传目录
+            String filePath = "F:/upload/HeadIcon/";
+            //创建文件
+            File files = new File(filePath + username + fileSuffix);
+            //上传文件
+            file.transferTo(files);
+            //创建文件路径
+            String userHeadIconPathName = "/files/HeadIcon/" + username + fileSuffix;
+            //修改数据库中头像路径
+            return userService.updateUserHeadIcon(userHeadIconPathName, username);
+        } catch (Exception e) {
+            e.printStackTrace();
             return false;
         }
 
@@ -100,7 +89,6 @@ public class UserInfoController {
     }
 
     /**
-     * @param token    登陆成功后分发给客户端的一个加密token
      * @param username 用户名
      * @return com.kaciry.entity.user
      * @author kaciry
@@ -109,7 +97,7 @@ public class UserInfoController {
      **/
     @PostMapping(value = "/selectInfo")
     @ResponseBody
-    public User selectInfo(String token, String username) {
+    public User selectInfo(String username) {
         return userService.selectUserInfoByUsername(username);
     }
 
@@ -125,21 +113,16 @@ public class UserInfoController {
      **/
     @PostMapping(value = "/selectMyVideo")
     @ResponseBody
-    public PageInfo<VideoInfo> selectMyVideo(String token, String username, Integer pageNum, Integer pageSize) {
-        if (GetAuthorization.isAuthorization(username, token)) {
-            if (pageNum == null || pageSize == null) {
-                PageHelper.startPage(1, 16);
-            } else {
-                PageHelper.startPage(pageNum, pageSize);
-            }
-            return new PageInfo<>(userService.selectVideosByUsername(username));
+    public PageInfo<VideoInfo> selectMyVideo(String username, Integer pageNum, Integer pageSize) {
+        if (pageNum == null || pageSize == null) {
+            PageHelper.startPage(1, 16);
         } else {
-            return null;
+            PageHelper.startPage(pageNum, pageSize);
         }
+        return new PageInfo<>(userService.selectVideosByUsername(username));
     }
 
     /**
-     * @param token    登陆成功后分发给客户端的一个加密token
      * @param username 用户名
      * @param pageNum  分页，当前页码
      * @param pageSize 分页，每一页的大小
@@ -150,22 +133,16 @@ public class UserInfoController {
      **/
     @PostMapping("/postQueryCollect")
     @ResponseBody
-    public PageInfo<VideoInfo> queryCollect(String token, String username, Integer pageNum, Integer pageSize) {
-        if (GetAuthorization.isAuthorization(username, token)) {
-            if (pageNum == null || pageSize == null) {
-                PageHelper.startPage(1, 20);
-            } else {
-                PageHelper.startPage(pageNum, pageSize);
-            }
-            return new PageInfo<>(userService.selectCollectionsByUsername(username));
+    public PageInfo<VideoInfo> queryCollect(String username, Integer pageNum, Integer pageSize) {
+        if (pageNum == null || pageSize == null) {
+            PageHelper.startPage(1, 20);
         } else {
-            return null;
+            PageHelper.startPage(pageNum, pageSize);
         }
-
+        return new PageInfo<>(userService.selectCollectionsByUsername(username));
     }
 
     /**
-     * @param token    登陆成功后分发给客户端的一个加密token
      * @param username 用户名
      * @param pageNum  分页，当前页码
      * @param pageSize 分页，每一页的大小
@@ -176,26 +153,16 @@ public class UserInfoController {
      **/
     @PostMapping(value = "/postQueryFollows")
     @ResponseBody
-    public PageInfo<UnionFansBean> queryFollows(String token, String username, Integer pageNum, Integer pageSize) {
-        if (GetAuthorization.isAuthorization(username, token)) {
-            PageHelper.startPage(pageNum, pageSize);
-            List<UnionFansBean> list = userService.queryFollows1(username);
-            return new PageInfo<>(list);
-        } else {
-            return null;
-        }
-
+    public PageInfo<UnionFansBean> queryFollows(String username, Integer pageNum, Integer pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        List<UnionFansBean> list = userService.queryFollows1(username);
+        return new PageInfo<>(list);
     }
 
     @PostMapping(value = "/followHim")
     @ResponseBody
-    public ResultBean followOthers(String token, String username, String hisUsername) {
-        if (GetAuthorization.isAuthorization(username, token)) {
-            return userService.followOthers(username, hisUsername);
-        } else {
-            return null;
-        }
-
+    public ResultBean followOthers(String username, String hisUsername) {
+        return userService.followOthers(username, hisUsername);
     }
 
     /**
@@ -219,7 +186,6 @@ public class UserInfoController {
     }
 
     /**
-     * @param token          登陆成功后分发给客户端的一个加密token
      * @param username       用户名
      * @param originPassword 原始密码
      * @param password       新密码
@@ -230,12 +196,8 @@ public class UserInfoController {
      **/
     @PostMapping(value = "/changePassword")
     @ResponseBody
-    public ResultBean changePassword(String token, String username, String originPassword, String password) {
-        if (GetAuthorization.isAuthorization(username, token)) {
-            return userService.updateUserPassword(username, originPassword, password);
-        } else {
-            return null;
-        }
+    public ResultBean changePassword(String username, String originPassword, String password) {
+        return userService.updateUserPassword(username, originPassword, password);
     }
 
 }

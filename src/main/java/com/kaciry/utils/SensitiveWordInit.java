@@ -34,8 +34,7 @@ class SensitiveWordInit {
     }
 
     /**
-     * @param keyWordSet
-     * @return void
+     * @param keyWordSet 关键词
      * @author kaciry
      * @description 将得到的敏感词库用一个DFA算法模型放到map中
      * @date 2019/10/26 14:11
@@ -86,6 +85,9 @@ class SensitiveWordInit {
     private Set<String> readSensitiveWordFile() throws Exception {
         Set<String> set;
         //读取文件
+        //Linux环境下文件位置
+//        File file = new File("/www/wwwroot/www.kaciry.com/upload/SensitiveWord.txt");
+        //Windows环境下文件位置
         File file = new File("G:\\SensitiveWord.txt");
         //字符编码
         String ENCODING = "UTF-8";

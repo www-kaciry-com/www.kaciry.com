@@ -18,7 +18,6 @@ public class Email {
      * @Title: main
      * @Description: TODO(这里用一句话描述这个方法的作用)
      * @param args    设定文件
-     * @return void    返回类型
      * @throws
      */
     // 发件人的 邮箱 和 密码（替换为自己的邮箱和密码）

@@ -14,10 +14,9 @@ import java.util.List;
  * @description 用户聊天Dao
  */
 @Component
-public interface UserChatDao {
+public interface UserChatMapper {
     /**
      * @param userChatBean 用户聊天实体类
-     * @return void
      * @author kaciry
      * @description 添加一条用户间的聊天信息
      * @date 2019/10/25 18:09

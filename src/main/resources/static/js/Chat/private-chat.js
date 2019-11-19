@@ -54,7 +54,6 @@ $(document).ready(function () {
         type: 'post', //请求的方式
         dateType: "json", //请求的数据格式
         data: {
-            token: token,
             senderIdentityDocument: senderID,
             receiverIdentityDocument: currentUser
         },
@@ -112,7 +111,6 @@ function sendMsg() {
         type: 'post', //请求的方式
         dateType: "json", //请求的数据格式
         data: {
-            token: token,
             //发送方ID
             senderIdentityDocument: senderID,
             //接收方ID

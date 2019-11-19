@@ -150,5 +150,5 @@ public interface UserService {
      * @description 根据评论ID查询评论
      * @date 2019/10/26 13:23
      **/
-    CommentBean queryCommentByIdentityDocument(int commentIdentityDocument);
+    CommentBean queryCommentByIdentityDocument(long commentIdentityDocument);
 }

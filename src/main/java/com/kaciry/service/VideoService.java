@@ -13,7 +13,6 @@ public interface VideoService {
 
     /**
      * @param videoFilename 视频文件名
-     * @return void
      * @author kaciry
      * @description 根据视频文件名增加视频的播放量
      * @date 2019/11/4 14:28
@@ -95,7 +94,6 @@ public interface VideoService {
     /**
      * @param videoFilename 视频文件名
      * @param videoBarrages 弹幕数量
-     * @return void
      * @author kaciry
      * @description
      * @date 2019/11/11 18:03

@@ -17,7 +17,7 @@ import java.util.List;
  * @description 推广视频Dao
  */
 @Component
-public interface PromoteVideosDao {
+public interface PromoteVideosMapper {
 
     @Select("SELECT * FROM user_video WHERE videoState = 1 AND username = #{username}")
     List<VideoInfo> selectNormalVideos(String username);

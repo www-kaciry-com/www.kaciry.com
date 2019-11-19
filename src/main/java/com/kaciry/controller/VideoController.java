@@ -8,14 +8,12 @@ import com.kaciry.service.Impl.UserServiceImpl;
 import com.kaciry.service.Impl.VideoServiceImpl;
 import com.kaciry.utils.AutoGetBarrages;
 import com.kaciry.utils.GetAuthorization;
-import com.kaciry.utils.GetCookiesValueByKey;
 import com.kaciry.utils.UploadFiles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -52,7 +50,6 @@ public class VideoController {
     /**
      * @param videoFile      视频文件
      * @param videoCoverFile 封面图片文件
-     * @param request        req
      * @param videoInfo      视频相关信息
      * @return com.kaciry.entity.ResultBean
      * @author kaciry
@@ -62,21 +59,15 @@ public class VideoController {
     @RequestMapping(value = "/uploadVideo", method = RequestMethod.POST)
     @ResponseBody
     public ResultBean uploadFile(@RequestParam("videoFile") MultipartFile videoFile, @RequestParam("videoCoverFile") MultipartFile videoCoverFile,
-                                 HttpServletRequest request, @RequestParam("videoInfo") String videoInfo) {
+                                 @RequestParam("videoInfo") String videoInfo) {
         //json字符换转化为实体对象
         VideoInfo parseObject = JSONObject.parseObject(videoInfo, VideoInfo.class);
-        String username = GetCookiesValueByKey.getValue(request, "username");
-        if (GetAuthorization.isAuthorization(username, GetCookiesValueByKey.getValue(request, "Token"))) {
-            UploadFiles uploadFiles = new UploadFiles();
-            if (userService.uploadVideo((VideoInfo) uploadFiles.uploadFiles(videoFile, videoCoverFile, parseObject).getData())) {
-                return new ResultBean<>("上传成功！");
-            } else {
-                return new ResultBean<>("上传失败，请检查网络！!");
-            }
+        UploadFiles uploadFiles = new UploadFiles();
+        if (userService.uploadVideo((VideoInfo) uploadFiles.uploadFiles(videoFile, videoCoverFile, parseObject).getData())) {
+            return new ResultBean<>("上传成功！");
         } else {
-            return new ResultBean<>("请勿非法操作！");
+            return new ResultBean<>("上传失败，请检查网络！!");
         }
-
     }
 
     /**
@@ -90,14 +81,9 @@ public class VideoController {
      **/
     @RequestMapping(value = "/comment", method = RequestMethod.POST)
     @ResponseBody
-    public CommentBean setComment(String token, String username, String content, String videoAddress) {
-        if (GetAuthorization.isAuthorization(username, token)) {
-            CommentBean commentBean = new CommentBean(videoAddress, username, content, simpleDateFormat.format(new Date()), 0);
-            return videoService.addComment(commentBean);
-        } else {
-            return null;
-        }
-
+    public CommentBean setComment(String username, String content, String videoAddress) {
+        CommentBean commentBean = new CommentBean(videoAddress, username, content, simpleDateFormat.format(new Date()), 0);
+        return videoService.addComment(commentBean);
     }
 
     /**
@@ -163,34 +149,29 @@ public class VideoController {
      **/
     @PostMapping(value = "/opsStar")
     @ResponseBody
-    public boolean opsStar(String token, String username, String videoFileName, String option) {
-        if (GetAuthorization.isAuthorization(username, token)) {
-            boolean res = false;
-            Ops ops = new Ops(username, videoFileName);
-            //判断用户点击的是哪一个操作
-            switch (option) {
-                //点赞
-                case "star": {
-                    res = videoService.opsStar(ops);
-                    break;
-                }
-                //收藏
-                case "collect": {
-                    res = videoService.opsCollect(ops);
-                    break;
-                }
-                case "share": {
-                    res = videoService.opsShare(ops);
-                    break;
-                }
-                default:
+    public boolean opsStar(String username, String videoFileName, String option) {
+        boolean res = false;
+        Ops ops = new Ops(username, videoFileName);
+        //判断用户点击的是哪一个操作
+        switch (option) {
+            //点赞
+            case "star": {
+                res = videoService.opsStar(ops);
+                break;
             }
-            videoService.deleteOpsData(ops);
-            return res;
-        } else {
-            return false;
+            //收藏
+            case "collect": {
+                res = videoService.opsCollect(ops);
+                break;
+            }
+            case "share": {
+                res = videoService.opsShare(ops);
+                break;
+            }
+            default:
         }
-
+        videoService.deleteOpsData(ops);
+        return res;
     }
 
     /**
@@ -203,22 +184,17 @@ public class VideoController {
      **/
     @PostMapping(value = "/getVideoUser")
     @ResponseBody
-    public VideoFollowPage getVideoUser(String token, String videoAddress, String username) {
-        if (GetAuthorization.isAuthorization(username, token)) {
-            String hisUsername = userService.selectVideoInfoByVideoFilename(videoAddress).getUsername();
-            User user = userService.selectUserInfoByUsername(hisUsername);
-            FansBean fansBean = userService.selectFollowsState(username, hisUsername);
-            if (fansBean != null) {
-                return new VideoFollowPage(
-                        fansBean.getUserIdentityDocument(), fansBean.getFollowedUser(), fansBean.getFollowedDate(), user.getUsername(), user.getUserHeadIcon(), user.getUserSignature(), user.getUserNickName()
-                );
-            } else {
-                return new VideoFollowPage("null", "null", "null", user.getUsername(), user.getUserHeadIcon(), user.getUserSignature(), user.getUserNickName());
-            }
+    public VideoFollowPage getVideoUser(String videoAddress, String username) {
+        String hisUsername = userService.selectVideoInfoByVideoFilename(videoAddress).getUsername();
+        User user = userService.selectUserInfoByUsername(hisUsername);
+        FansBean fansBean = userService.selectFollowsState(username, hisUsername);
+        if (fansBean != null) {
+            return new VideoFollowPage(
+                    fansBean.getUserIdentityDocument(), fansBean.getFollowedUser(), fansBean.getFollowedDate(), user.getUsername(), user.getUserHeadIcon(), user.getUserSignature(), user.getUserNickName()
+            );
         } else {
-            return null;
+            return new VideoFollowPage("null", "null", "null", user.getUsername(), user.getUserHeadIcon(), user.getUserSignature(), user.getUserNickName());
         }
-
     }
 
     /**
@@ -230,19 +206,12 @@ public class VideoController {
      **/
     @PostMapping(value = "/reportVideo")
     @ResponseBody
-    public ResultBean reportVideo(@RequestBody ReportVideoBean reportVideoBean, HttpServletRequest request) {
-        if (GetAuthorization.isAuthorization(GetCookiesValueByKey.getValue(request, "username"), GetCookiesValueByKey.getValue(request, "Token"))) {
-            reportVideoBean.setReportedTime(simpleDateFormat.format(new Date()));
-            return videoService.addOneReportVideoData(reportVideoBean);
-        } else {
-            return new ResultBean<>("请勿非法操作！");
-        }
-
+    public ResultBean reportVideo(@RequestBody ReportVideoBean reportVideoBean) {
+        reportVideoBean.setReportedTime(simpleDateFormat.format(new Date()));
+        return videoService.addOneReportVideoData(reportVideoBean);
     }
 
     /**
-     * @param token         token
-     * @param username      用户名
      * @param videoFilename 视频文件名
      * @return com.kaciry.entity.ResultBean
      * @author kaciry
@@ -251,15 +220,11 @@ public class VideoController {
      **/
     @PostMapping(value = "/removeVideo")
     @ResponseBody
-    public ResultBean removeVideos(String token, String username, String videoFilename) {
-        if (GetAuthorization.isAuthorization(username, token)) {
-            if (videoService.removeVideoByVideoFilename(videoFilename) > 0) {
-                return new ResultBean<>("删除成功！");
-            } else {
-                return new ResultBean<>("删除失败！");
-            }
+    public ResultBean removeVideos(String videoFilename) {
+        if (videoService.removeVideoByVideoFilename(videoFilename) > 0) {
+            return new ResultBean<>("删除成功！");
         } else {
-            return new ResultBean<>("请勿非法操作！");
+            return new ResultBean<>("删除失败！");
         }
     }
 }

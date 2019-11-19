@@ -5,7 +5,7 @@ package com.kaciry.entity;
  */
 public class UserChatBean {
     //用户聊天索引
-    private int userChatIdentityDocument;
+    private long userChatIdentityDocument;
     //发送方用户名
     private String senderIdentityDocument;
     //接收方用户名
@@ -25,8 +25,12 @@ public class UserChatBean {
         this.date = date;
     }
 
-    public int getUserChatIdentityDocument() {
+    public long getUserChatIdentityDocument() {
         return userChatIdentityDocument;
+    }
+
+    public void setUserChatIdentityDocument(long userChatIdentityDocument) {
+        this.userChatIdentityDocument = userChatIdentityDocument;
     }
 
     public String getSenderIdentityDocument() {

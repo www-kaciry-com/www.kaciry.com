@@ -8,7 +8,7 @@ import java.util.List;
  * @date 2019/11/11 15:36
  * @description
  */
-public class ResultDanmu<T> implements Serializable {
+public class ResultDanmu implements Serializable {
 
     private int code;
     private List<String> data;

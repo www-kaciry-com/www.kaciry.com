@@ -2,8 +2,8 @@ package com.kaciry.service.Impl;
 
 import com.kaciry.utils.InitPromoteVideos;
 import com.kaciry.utils.TimeUtils;
-import com.kaciry.mapper.PromoteVideosDao;
-import com.kaciry.mapper.UserDao;
+import com.kaciry.mapper.PromoteVideosMapper;
+import com.kaciry.mapper.UserMapper;
 import com.kaciry.entity.PromoteVideosBean;
 import com.kaciry.entity.ResultBean;
 import com.kaciry.entity.VideoInfo;
@@ -23,13 +23,13 @@ import java.util.List;
 @Service
 public class PromoteVideosServiceImpl implements PromoteVideosService {
     @Autowired
-    private PromoteVideosDao promoteVideosDao;
+    private PromoteVideosMapper promoteVideosMapper;
     @Autowired
-    private UserDao userDao;
+    private UserMapper userMapper;
 
     @Override
     public List<VideoInfo> selectNormalVideos(String username) {
-        return promoteVideosDao.selectNormalVideos(username);
+        return promoteVideosMapper.selectNormalVideos(username);
     }
 
     @Override
@@ -43,13 +43,13 @@ public class PromoteVideosServiceImpl implements PromoteVideosService {
             int CAROUSEL_LIMIT_NUM = 3;
             index = CAROUSEL_LIMIT_NUM;
             //查询promoteType为1的最后3条数据
-            list = promoteVideosDao.selectPromoteVideo(option, CAROUSEL_LIMIT_NUM);
+            list = promoteVideosMapper.selectPromoteVideo(option, CAROUSEL_LIMIT_NUM);
         } else {
             //列表区域推广，最小数量为6
             int LIST_LIMIT_NUM = 6;
             index = LIST_LIMIT_NUM;
             //查询promoteType为1的最后6条数据
-            list = promoteVideosDao.selectPromoteVideo(option, LIST_LIMIT_NUM);
+            list = promoteVideosMapper.selectPromoteVideo(option, LIST_LIMIT_NUM);
         }
         //如果数量小于3个，直接进行推荐
         if (list.size() < index) {
@@ -73,10 +73,10 @@ public class PromoteVideosServiceImpl implements PromoteVideosService {
         //判断目标为哪一类推广
         if (option == 1) {
             index = 3;
-            list = promoteVideosDao.selectPromoteVideo(option, 3);
+            list = promoteVideosMapper.selectPromoteVideo(option, 3);
         } else {
             index = 6;
-            list = promoteVideosDao.selectPromoteVideo(option, 6);
+            list = promoteVideosMapper.selectPromoteVideo(option, 6);
         }
         //如果数量小于3个，直接进行推荐
         if (list.size() < index) {
@@ -89,10 +89,10 @@ public class PromoteVideosServiceImpl implements PromoteVideosService {
     @Override
     public ResultBean addPromoteVideo(PromoteVideosBean promoteVideosBean) {
         //查询该类型的推广是否存在，若不存在
-        if (promoteVideosDao.selectVideoIsPromoted(promoteVideosBean) == null) {
+        if (promoteVideosMapper.selectVideoIsPromoted(promoteVideosBean) == null) {
             //向promote_videos添加一条信息并更改user_video表中的视频状态(promoteType与videoState相差一，因为videoState的1需要表示正常状态)
-            if (promoteVideosDao.addPromoteVideo(promoteVideosBean) &&
-                    promoteVideosDao.setUserVideoState(promoteVideosBean.getVideoFilename(), promoteVideosBean.getPromoteType() + 1)) {
+            if (promoteVideosMapper.addPromoteVideo(promoteVideosBean) &&
+                    promoteVideosMapper.setUserVideoState(promoteVideosBean.getVideoFilename(), promoteVideosBean.getPromoteType() + 1)) {
                 return new ResultBean<>("预定推广成功！");
             } else return new ResultBean<>("预定推广失败，请重试！");
         } else {
@@ -102,22 +102,22 @@ public class PromoteVideosServiceImpl implements PromoteVideosService {
 
     @Override
     public List<PromoteVideosBean> analysisDataIsOvertime() {
-        return promoteVideosDao.selectPromotedVideos();
+        return promoteVideosMapper.selectPromotedVideos();
     }
 
     @Override
     public boolean setPromoteVideoTimeOver(String videoFilename) {
         //更改user_video表中的视频状态信息
-        promoteVideosDao.setUserVideoState(videoFilename, 1);
-        return promoteVideosDao.setPromoteVideoTimeOver(videoFilename);
+        promoteVideosMapper.setUserVideoState(videoFilename, 1);
+        return promoteVideosMapper.setPromoteVideoTimeOver(videoFilename);
     }
 
     @Override
     public List<VideoInfo> getPromoteVideos4Carousel() {
-        List<PromoteVideosBean> res = InitPromoteVideos.initPromoteVideos4Carousel(promoteVideosDao.selectPromotedVideos4Carousel());
+        List<PromoteVideosBean> res = InitPromoteVideos.initPromoteVideos4Carousel(promoteVideosMapper.selectPromotedVideos4Carousel());
         List<VideoInfo> resultList = new ArrayList<>();
         for (PromoteVideosBean re : res) {
-            VideoInfo videoInfo = userDao.queryVideosByVideoFileName(re.getVideoFilename());
+            VideoInfo videoInfo = userMapper.queryVideosByVideoFileName(re.getVideoFilename());
             resultList.add(videoInfo);
         }
         return resultList;
@@ -125,10 +125,10 @@ public class PromoteVideosServiceImpl implements PromoteVideosService {
 
     @Override
     public List<VideoInfo> getPromoteVideos4List() {
-        List<PromoteVideosBean> res = InitPromoteVideos.initPromoteVideos4List(promoteVideosDao.selectPromotedVideos4List());
+        List<PromoteVideosBean> res = InitPromoteVideos.initPromoteVideos4List(promoteVideosMapper.selectPromotedVideos4List());
         List<VideoInfo> resultList = new ArrayList<>();
         for (PromoteVideosBean re : res) {
-            VideoInfo videoInfo = userDao.queryVideosByVideoFileName(re.getVideoFilename());
+            VideoInfo videoInfo = userMapper.queryVideosByVideoFileName(re.getVideoFilename());
             resultList.add(videoInfo);
         }
         return resultList;
@@ -136,6 +136,6 @@ public class PromoteVideosServiceImpl implements PromoteVideosService {
 
     @Override
     public boolean setPromoteVideoDuration(String videoFilename, Timestamp timestamp) {
-        return promoteVideosDao.setPromoteVideoDuration(videoFilename, timestamp);
+        return promoteVideosMapper.setPromoteVideoDuration(videoFilename, timestamp);
     }
 }

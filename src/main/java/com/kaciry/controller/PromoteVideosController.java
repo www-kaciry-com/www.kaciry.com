@@ -4,7 +4,6 @@ import com.kaciry.entity.PromoteVideosBean;
 import com.kaciry.entity.ResultBean;
 import com.kaciry.entity.VideoInfo;
 import com.kaciry.service.Impl.PromoteVideosServiceImpl;
-import com.kaciry.utils.GetAuthorization;
 import com.kaciry.utils.TimeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,13 +25,8 @@ public class PromoteVideosController {
 
     @PostMapping(value = "/selectNormalVideo")
     @ResponseBody
-    public List<VideoInfo> selectNormalVideo(String token, String username) {
-        if (GetAuthorization.isAuthorization(username, token)) {
-            return promoteVideosService.selectNormalVideos(username);
-        } else {
-            return null;
-        }
-
+    public List<VideoInfo> selectNormalVideo(String username) {
+        return promoteVideosService.selectNormalVideos(username);
     }
 
     /**
@@ -57,15 +51,11 @@ public class PromoteVideosController {
      **/
     @PostMapping(value = "/promoteVideo")
     @ResponseBody
-    public ResultBean promoteVideo(String token, String username, String videoFilename, int promoteType) {
-        if (GetAuthorization.isAuthorization(username, token)) {
-            //获取最后的时间
-            Timestamp timestamp = promoteVideosService.selectLastTime(promoteType);
-            PromoteVideosBean promoteVideosBean = new PromoteVideosBean(videoFilename, TimeUtils.analysisTime(timestamp), promoteType);
-            return promoteVideosService.addPromoteVideo(promoteVideosBean);
-        } else {
-            return null;
-        }
+    public ResultBean promoteVideo(String videoFilename, int promoteType) {
+        //获取最后的时间
+        Timestamp timestamp = promoteVideosService.selectLastTime(promoteType);
+        PromoteVideosBean promoteVideosBean = new PromoteVideosBean(videoFilename, TimeUtils.analysisTime(timestamp), promoteType);
+        return promoteVideosService.addPromoteVideo(promoteVideosBean);
     }
 
     /**

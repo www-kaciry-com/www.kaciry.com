@@ -1,10 +1,10 @@
 package com.kaciry.service.Impl;
 
-import com.kaciry.utils.SensitiveWordFilter;
-import com.kaciry.mapper.UserChatDao;
 import com.kaciry.entity.ResultBean;
 import com.kaciry.entity.UserChatBean;
+import com.kaciry.mapper.UserChatMapper;
 import com.kaciry.service.UserChatService;
+import com.kaciry.utils.SensitiveWordFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +21,7 @@ import java.util.Set;
 public class UserChatServiceImpl implements UserChatService {
 
     @Autowired
-    private UserChatDao userChatDao;
+    private UserChatMapper userChatMapper;
 
     @Override
     public ResultBean saveUserChatMsg(UserChatBean userChatBean) {
@@ -37,7 +37,7 @@ public class UserChatServiceImpl implements UserChatService {
             resultBean.setData(userChatBean);
             return resultBean;
         } else {//不存在敏感词，保存并返回
-            userChatDao.addUserChatMsg(userChatBean);
+            userChatMapper.addUserChatMsg(userChatBean);
             return new ResultBean<>(userChatBean);
         }
 
@@ -45,16 +45,18 @@ public class UserChatServiceImpl implements UserChatService {
 
     @Override
     public List<UserChatBean> getPrivateMsg(String senderIdentityDocument, String receiverIdentityDocument) {
-        List<UserChatBean> list1 = userChatDao.queryChatMsg(receiverIdentityDocument, senderIdentityDocument);
-        List<UserChatBean> list2 = userChatDao.queryChatMsg(senderIdentityDocument, receiverIdentityDocument);
+        List<UserChatBean> list1 = userChatMapper.queryChatMsg(receiverIdentityDocument, senderIdentityDocument);
+        List<UserChatBean> list2 = userChatMapper.queryChatMsg(senderIdentityDocument, receiverIdentityDocument);
         list2.addAll(list1);
         //Java8 按照某个字段进行排序
-        list2.sort(Comparator.comparingInt(UserChatBean::getUserChatIdentityDocument));
+        list2.sort(Comparator.comparingLong(UserChatBean::getUserChatIdentityDocument));
+        // TODO: 2019/11/19 排序
+//        Arrays.sort(new List[]{list2});
         return list2;
     }
 
     @Override
     public List<UserChatBean> getNewMsg(String senderIdentityDocument, String receiverIdentityDocument, int userChatIdentityDocument) {
-        return userChatDao.getNewMsg(senderIdentityDocument, receiverIdentityDocument, userChatIdentityDocument);
+        return userChatMapper.getNewMsg(senderIdentityDocument, receiverIdentityDocument, userChatIdentityDocument);
     }
 }

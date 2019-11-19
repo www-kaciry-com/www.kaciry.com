@@ -15,7 +15,7 @@ import java.util.List;
  * @description 用户视频操作Dao
  */
 @Component
-public interface VideoDao {
+public interface VideoMapper {
 
     @Update("update user_video set videoPlayNum = videoPlayNum + 1 where videoFilename = #{videoFilename}")
     int addVideoPlayNumByVideoFilename(String videoFilename);
@@ -52,7 +52,6 @@ public interface VideoDao {
 
     /**
      * @param videoFilename 视频文件名
-     * @return void
      * @author kaciry
      * @description 使user_video表中videoFilename对应的star数量加一
      * @date 2019/10/25 18:47
@@ -62,7 +61,6 @@ public interface VideoDao {
 
     /**
      * @param videoFilename 视频文件名
-     * @return void
      * @author kaciry
      * @description 使user_video表中videoFilename对应的star数量加一
      * @date 2019/10/25 18:47
@@ -72,7 +70,6 @@ public interface VideoDao {
 
     /**
      * @param videoFilename 视频文件名
-     * @return void
      * @author kaciry
      * @description 使user_video表中videoFilename对应的collection数量加一
      * @date 2019/10/25 18:47
@@ -82,7 +79,6 @@ public interface VideoDao {
 
     /**
      * @param videoFilename 视频文件名
-     * @return void
      * @author kaciry
      * @description 使user_video表中videoFilename对应的star数量减一
      * @date 2019/10/25 18:47
@@ -92,7 +88,6 @@ public interface VideoDao {
 
     /**
      * @param videoFilename 视频文件名
-     * @return void
      * @author kaciry使user_video表中videoFilename对应的star数量减一
      * @description
      * @date 2019/10/25 18:48
@@ -103,7 +98,6 @@ public interface VideoDao {
     /**
      * @param videoFilename 视频文件名
      * @param videoBarrages 视频弹幕数量
-     * @return void
      * @author kaciry
      * @description 根据视频文件名更新弹幕数量
      * @date 2019/11/11 17:53
@@ -123,7 +117,6 @@ public interface VideoDao {
 
     /**
      * @param ops Ops实体
-     * @return void
      * @author kaciry
      * @description 添加一条数据，状态符为参数
      * @date 2019/10/25 18:48
@@ -133,7 +126,6 @@ public interface VideoDao {
 
     /**
      * @param ops Ops实体
-     * @return void
      * @author kaciry
      * @description 更改参数状态
      * @date 2019/10/25 18:48
@@ -153,7 +145,6 @@ public interface VideoDao {
 
     /**
      * @param ops Ops实体
-     * @return void
      * @author kaciry
      * @description 更改参数状态
      * @date 2019/10/25 18:49
@@ -173,7 +164,6 @@ public interface VideoDao {
 
     /**
      * @param ops Ops实体
-     * @return void
      * @author kaciry
      * @description 更改ops表中，分享状态
      * @date 2019/10/25 18:49
@@ -201,9 +191,6 @@ public interface VideoDao {
      **/
     @Select("select * from reportVideo where reportedUser=#{reportedUser} and videoFileName=#{videoFileName}")
     Integer queryReportData(ReportVideoBean reportVideoBean);
-
-    @Select("SELECT * FROM promote_one_video LEFT JOIN user_video ON promote_one_video.videoFilename = user_video.videoFilename WHERE state = 1")
-    List<VideoInfo> queryPromoteOneVideo();
 
     @Delete("DELETE user_video,comment,ops FROM user_video " +
             "LEFT JOIN (comment LEFT JOIN ops ON comment.videoFilename = ops.videoFilename) ON user_video.videoFilename = comment.videoFilename " +

@@ -206,7 +206,6 @@ $(document).ready(function () {
         type: 'post', //请求的方式
         dateType: "json", //请求的数据格式
         data: {
-            token: token,
             username: username,
             videoAddress: videoAddress
         },
@@ -324,7 +323,6 @@ function sendComment() {
             type: 'post', //请求的方式
             dateType: "json",
             data: {
-                token: token,
                 username: username,
                 content: content,
                 videoAddress: videoAddress,
@@ -364,7 +362,6 @@ function clickStar() {
             type: 'post', //请求的方式
             dateType: "json",
             data: {
-                token: token,
                 username: username,
                 videoFileName: videoAddress,
                 option: "star",
@@ -420,7 +417,6 @@ function clickCollect() {
             type: 'post', //请求的方式
             dateType: "json",
             data: {
-                token: token,
                 username: username,
                 videoFileName: videoAddress,
                 option: "collect",
@@ -541,7 +537,6 @@ function clickShare() {
         type: 'post', //请求的方式
         dateType: "json", //请求的数据格式
         data: {
-            token: token,
             username: username,
             videoFileName: videoAddress,
             option: "share",

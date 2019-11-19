@@ -5,7 +5,7 @@ package com.kaciry.entity;
  */
 public class FansBean {
     //表索引
-    private int followIdentityDocument;
+    private long followIdentityDocument;
     //主用户名
     private String userIdentityDocument;
     //被关注的用户名
@@ -22,18 +22,18 @@ public class FansBean {
         this.followedDate = followedDate;
     }
 
-    public FansBean(int followIdentityDocument, String userIdentityDocument, String followedUser, String followedDate) {
+    public FansBean(long followIdentityDocument, String userIdentityDocument, String followedUser, String followedDate) {
         this.followIdentityDocument = followIdentityDocument;
         this.userIdentityDocument = userIdentityDocument;
         this.followedUser = followedUser;
         this.followedDate = followedDate;
     }
 
-    public int getFollowIdentityDocument() {
+    public long getFollowIdentityDocument() {
         return followIdentityDocument;
     }
 
-    public void setFollowIdentityDocument(int followIdentityDocument) {
+    public void setFollowIdentityDocument(long followIdentityDocument) {
         this.followIdentityDocument = followIdentityDocument;
     }
 

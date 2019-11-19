@@ -29,7 +29,7 @@ public class UnionFansBean {
     //币的个数
     private Integer userCoins;
     //关注表索引
-    private Integer followIdentityDocument;
+    private long followIdentityDocument;
     //主用户名
     private String userIdentityDocument;
     //被关注的用户名
@@ -40,7 +40,8 @@ public class UnionFansBean {
     public UnionFansBean() {
     }
 
-    public UnionFansBean(String username, String userPassword, String userHeadIcon, String userSignature, String userNickName, String isVip, Integer userLevel, String userRealName, String userEmail, String userPhoneNumber, String userSex, Integer userCoins, Integer followIdentityDocument, String userIdentityDocument, String followedUser, String followedDate) {
+    public UnionFansBean(String username, String userPassword, String userHeadIcon, String userSignature, String userNickName, String isVip,
+                         Integer userLevel, String userRealName, String userEmail, String userPhoneNumber, String userSex, Integer userCoins, long followIdentityDocument, String userIdentityDocument, String followedUser, String followedDate) {
         this.username = username;
         this.userPassword = userPassword;
         this.userHeadIcon = userHeadIcon;
@@ -155,11 +156,11 @@ public class UnionFansBean {
         this.userCoins = userCoins;
     }
 
-    public Integer getFollowIdentityDocument() {
+    public long getFollowIdentityDocument() {
         return followIdentityDocument;
     }
 
-    public void setFollowIdentityDocument(Integer followIdentityDocument) {
+    public void setFollowIdentityDocument(long followIdentityDocument) {
         this.followIdentityDocument = followIdentityDocument;
     }
 

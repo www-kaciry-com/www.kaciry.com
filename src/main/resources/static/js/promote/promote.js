@@ -2,14 +2,6 @@ let token = getCookie("Token");
 let username = getCookie("username");
 let waitTime = "";
 
-
-$(document).ready(function () {
-
-    if (typeof (username) == "undefined") {
-        window.location.href = "/login";
-    }
-});
-
 $(document).ready(function () {
     let videoSelector = $("#choice-video-options");
     $.ajax({
@@ -17,7 +9,6 @@ $(document).ready(function () {
         type: 'post', //请求的方式
         dateType: "json", //请求的数据格式
         data: {
-            token: token,
             username: username
         },
         error: function () {
@@ -118,8 +109,6 @@ function promoteVideo() {
         dateType: "json", //请求的数据格式
         sync: false,
         data: {
-            token: token,
-            username: username,
             videoFilename: promoteVideo,
             promoteType: promoteOption
         },

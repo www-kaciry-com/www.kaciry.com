@@ -23,7 +23,7 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new LoginHandlerInterceptor()).addPathPatterns("/**")
-                .excludePathPatterns("/index", "/", "/indexDataInit", "/playRank", "/login",
+                .excludePathPatterns("/index", "/", "/indexDataInit", "/playRank", "/login", "/register", "/initVideo", "/selectVideoComment", "/getVideoUser",
                         "/rsaKey1", "/rsaKey2", "/static/**", "/search", "/video", "/initPromoteVideos4Carousel", "/initPromoteVideos4List", "/files/**");
     }
 
@@ -39,7 +39,7 @@ public class WebConfig implements WebMvcConfigurer {
         //addResourceHandler是指你想在url请求的路径
         //addResourceLocations是图片存放的真实路径
         //Linux 下目录配置
-        //registry.addResourceHandler("/files/**").addResourceLocations("file:/www/wwwroot/www.kaciry.com/upload/");
+//        registry.addResourceHandler("/files/**").addResourceLocations("file:/www/wwwroot/www.kaciry.com/upload/");
         //Windows下目录配置
         registry.addResourceHandler("/files/**").addResourceLocations("file:F://upload/");
 

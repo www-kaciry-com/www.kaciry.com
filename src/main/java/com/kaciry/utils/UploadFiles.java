@@ -71,8 +71,8 @@ public class UploadFiles {
             String fileSuffixVideo = Objects.requireNonNull(videoFile.getOriginalFilename()).substring(videoFile.getOriginalFilename().lastIndexOf("."));
             String fileSuffixCover = Objects.requireNonNull(videoCoverFile.getOriginalFilename()).substring(videoCoverFile.getOriginalFilename().lastIndexOf("."));
             //Linux下上传目录
-            //String filePathVideo = "/www/wwwroot/www.kaciry.com/upload/video/";
-            //String filePathCover = "/www/wwwroot/www.kaciry.com/upload/videoCover/";
+//            String filePathVideo = "/www/wwwroot/www.kaciry.com/upload/video/";
+//            String filePathCover = "/www/wwwroot/www.kaciry.com/upload/temp/";
             //Windows下上传目录
             String filePathVideo = "F:/upload/video/";
             String filePathCover = "F:/upload/temp/";
@@ -82,12 +82,16 @@ public class UploadFiles {
             File filesVideo = new File(filePathVideo + "av" + fileName + fileSuffixVideo);
             File filesCover = new File(filePathCover + "av" + fileName + fileSuffixCover);
             //文件全名
+//            String fileFullName = "/www/wwwroot/www.kaciry.com/upload/temp/" + "av" + fileName + fileSuffixCover;
             String fileFullName = "F:\\upload\\temp\\" + "av" + fileName + fileSuffixCover;
             //上传文件
             videoFile.transferTo(filesVideo);
             videoCoverFile.transferTo(filesCover);
             //压缩图片并将图片转移到videoCover目录下
             ManageFiles manageFiles = new ManageFiles();
+            //Linux环境下文件目录
+//            manageFiles.compressWithDimension(fileFullName, "/www/wwwroot/www.kaciry.com/upload/videoCover/" + "av" + fileName + fileSuffixCover);
+            //Windows环境下目录
             manageFiles.compressWithDimension(fileFullName, "F:\\upload\\videoCover\\" + "av" + fileName + fileSuffixCover);
             //删除源文件
             if (!manageFiles.deleteOriginFile(fileFullName)) {

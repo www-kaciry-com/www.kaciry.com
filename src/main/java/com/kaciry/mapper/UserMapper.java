@@ -12,7 +12,7 @@ import java.util.List;
  * @description 用户聊天Dao
  */
 @Component
-public interface UserDao {
+public interface UserMapper {
     /**
      * @param username     用户名
      * @param userPassword 密码
@@ -210,6 +210,6 @@ public interface UserDao {
      * @description 根据评论ID查询信息
      * @date 2019/10/25 18:44
      **/
-    @Select("SELECT * FROM comment WHERE commentId = #{commentIdentityDocument}")
-    CommentBean queryCommentByIdentityDocument(int commentIdentityDocument);
+    @Select("SELECT * FROM comment WHERE commentIdentityDocument = #{commentIdentityDocument}")
+    CommentBean queryCommentByIdentityDocument(long commentIdentityDocument);
 }

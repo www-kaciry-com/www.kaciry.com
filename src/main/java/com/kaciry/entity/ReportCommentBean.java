@@ -5,7 +5,7 @@ package com.kaciry.entity;
  */
 public class ReportCommentBean {
     //评论的ID
-    private int commentIdentityDocument;
+    private long commentIdentityDocument;
     //举报类型
     private String reportedType;
     //被举报者ID
@@ -28,7 +28,7 @@ public class ReportCommentBean {
     public ReportCommentBean() {
     }
 
-    public ReportCommentBean(int commentIdentityDocument, String reportedType, String beReportedUser, String reportedUser, String reportedTime, String reportedReason, String commentContent) {
+    public ReportCommentBean(long commentIdentityDocument, String reportedType, String beReportedUser, String reportedUser, String reportedTime, String reportedReason, String commentContent) {
         this.commentIdentityDocument = commentIdentityDocument;
         this.reportedType = reportedType;
         this.beReportedUser = beReportedUser;
@@ -38,7 +38,7 @@ public class ReportCommentBean {
         this.commentContent = commentContent;
     }
 
-    public ReportCommentBean(int commentIdentityDocument, String reportedType, String beReportedUser, String reportedUser, String reportedTime, String reportedReason, String commentContent, String bannedReason, int handleState) {
+    public ReportCommentBean(long commentIdentityDocument, String reportedType, String beReportedUser, String reportedUser, String reportedTime, String reportedReason, String commentContent, String bannedReason, int handleState) {
         this.commentIdentityDocument = commentIdentityDocument;
         this.reportedType = reportedType;
         this.beReportedUser = beReportedUser;
@@ -50,11 +50,11 @@ public class ReportCommentBean {
         this.handleState = handleState;
     }
 
-    public int getCommentIdentityDocument() {
+    public long getCommentIdentityDocument() {
         return commentIdentityDocument;
     }
 
-    public void setCommentIdentityDocument(int commentIdentityDocument) {
+    public void setCommentIdentityDocument(long commentIdentityDocument) {
         this.commentIdentityDocument = commentIdentityDocument;
     }
 

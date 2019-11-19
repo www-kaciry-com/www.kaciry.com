@@ -36,7 +36,6 @@ function selectInfo() {
         url: '/selectInfo', //请求的url
         type: 'post', //请求的方式
         data: {
-            token: token,
             username: username
         },
         error: function () {
@@ -59,7 +58,6 @@ function selectContribution() {
         url: '/selectMyVideo', //请求的url
         type: 'post', //请求的方式
         data: {
-            token: token,
             username: username,
         },
         error: function () {
@@ -138,7 +136,6 @@ function removeVideo(btn) {
             type: 'post', //请求的方式
             dateType: "json", //请求的数据格式
             data: {
-                token: token,
                 username: username,
                 videoFileName: videoFileName,
                 option: "collect",
@@ -160,8 +157,6 @@ function removeVideo(btn) {
             type: 'post', //请求的方式
             dateType: "json", //请求的数据格式
             data: {
-                token: token,
-                username: username,
                 videoFilename: videoFileName
             },
             error: function () {
@@ -214,7 +209,6 @@ function changePassword() {
             type: 'post', //请求的方式
             dateType: "json", //请求的数据格式
             data: {
-                token: token,
                 username: username,
                 originPassword: originPassword,
                 password: newPasswordOne
@@ -255,7 +249,6 @@ function queryCollections() {
         type: 'post', //请求的方式
         async: false,
         data: {
-            token: token,
             username: username,
             pageNum: 1,
             pageSize: 16
@@ -301,7 +294,6 @@ function queryFollows() {
         type: 'post', //请求的方式
         dateType: "json", //请求的数据格式
         data: {
-            token: token,
             username: username,
             pageNum: 1,
             pageSize: 10
@@ -472,7 +464,6 @@ function cancelFollow(btn) {
         type: 'post', //请求的方式
         dateType: "json", //请求的数据格式
         data: {
-            token: token,
             username: username,
             hisUsername: res.innerHTML
         },
