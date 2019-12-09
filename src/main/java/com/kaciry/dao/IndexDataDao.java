@@ -1,4 +1,4 @@
-package com.kaciry.mapper;
+package com.kaciry.dao;
 
 import com.kaciry.entity.VideoInfo;
 import org.apache.ibatis.annotations.Param;
@@ -13,7 +13,7 @@ import java.util.List;
  * @description 主页信息的初始化Dao
  */
 @Component
-public interface IndexDataMapper {
+public interface IndexDataDao {
     /**
      * @param videoType 视频的类型
      * @param length    视频的个数
@@ -45,7 +45,7 @@ public interface IndexDataMapper {
     @Select("select * from user_video LEFT JOIN user ON user.username = user_video.username WHERE videoName like '%${keyword}%' AND videoState <> 0")
     List<VideoInfo> fuzzySearch(@Param("keyword") String keyword);
 
-    @Select("select * from user_video where videoName = #{keyword}")
-    List<VideoInfo> searchByType(@Param("keyword") String keyword);
+    @Select("Select videoType,COUNT(videoIdentityDocument) As videoCoins FROM user_video group by videoType")
+    List<VideoInfo> selectVideoNum();
 
 }

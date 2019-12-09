@@ -3,7 +3,7 @@ package com.kaciry.entity;
 /**
  * @author Kaciry
  */
-public class Ops {
+public class OpsDO {
     //用户名
     private String username;
     //视频文件名
@@ -17,22 +17,22 @@ public class Ops {
     //是否分享
     private int isShare;
 
-    public Ops() {
+    public OpsDO() {
     }
 
-    public Ops(String username, String videoFilename) {
+    public OpsDO(String username, String videoFilename) {
         this.username = username;
         this.videoFilename = videoFilename;
     }
     //点赞
 
-    public Ops(String username, String videoFilename, int isStar) {
+    public OpsDO(String username, String videoFilename, int isStar) {
         this.username = username;
         this.videoFilename = videoFilename;
         this.isStar = isStar;
     }
 
-    public Ops(String username, String videoFilename, int isStar, int isCoin, int isCollect) {
+    public OpsDO(String username, String videoFilename, int isStar, int isCoin, int isCollect) {
         this.username = username;
         this.videoFilename = videoFilename;
         this.isStar = isStar;
@@ -40,7 +40,7 @@ public class Ops {
         this.isCollect = isCollect;
     }
 
-    public Ops(String username, String videoFilename, int isStar, int isCoin, int isCollect, int isShare) {
+    public OpsDO(String username, String videoFilename, int isStar, int isCoin, int isCollect, int isShare) {
         this.username = username;
         this.videoFilename = videoFilename;
         this.isStar = isStar;

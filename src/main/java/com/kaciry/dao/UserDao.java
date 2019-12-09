@@ -1,4 +1,4 @@
-package com.kaciry.mapper;
+package com.kaciry.dao;
 
 import com.kaciry.entity.*;
 import org.apache.ibatis.annotations.*;
@@ -12,7 +12,7 @@ import java.util.List;
  * @description 用户聊天Dao
  */
 @Component
-public interface UserMapper {
+public interface UserDao {
     /**
      * @param username     用户名
      * @param userPassword 密码

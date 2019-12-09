@@ -1,5 +1,67 @@
 loadlive2d("live2d", "/static/live2d/model/tia/model.json");
 
+//轮播图切换时间间隔
+$('.carousel').carousel({
+    interval: 3000
+});
+
+$(function () {
+    setTimeout(onWidthChange, 1000);
+});
+
+//监控是否显示侧边导航
+function onWidthChange() {
+    let window_width = $(document.body).width();
+    if (window_width < 1900) {
+        $(".my-nav-child").css("visibility", "hidden");
+    } else {
+        $(".my-nav-child").css("visibility", "visible");
+    }
+    setTimeout(onWidthChange, 1000);
+}
+
+//初始化首页视频总量显示
+$(document).ready(function () {
+    $.ajax({
+        url: '/countVideoNum',//请求的地址
+        type: 'post', //请求的方式
+        dateType: "json", //请求的数据格式
+        error: function () {
+            showNoticeModal("服务器错误！", "服务器未响应，稍后再试！");
+        },
+        success: function (result) {
+            let json = eval(result);
+            $.each(json, function (i, element) {
+                let tagName = $(".nav-name").eq(i).text();
+                console.log("tagname-->" + tagName);
+                console.log("i-->" + i);
+                let num = foreachJson(json, tagName);
+                console.log("num-->" + num);
+                if (num > 999) {
+                    $(".num").eq(i).text("999+");
+                } else {
+                    $(".num").eq(i).text(num);
+                }
+                //return false;
+            })
+        }
+    })
+});
+
+function foreachJson(data, tagName) {
+    let num = 0;
+    let aa = "";
+    $.each(data, function (i, ele) {
+        if (ele.videoType === tagName) {
+            num = ele.videoCoins;
+            aa = ele.videoType;
+            return false;
+        }
+    });
+    console.log("foreachJson-->" + aa);
+    return num;
+}
+
 $(document).ready(function () {
     if ("" === getCookie("Token")) {
         $("#navbarColor03").append("<div class=\"login-content\">\n" +

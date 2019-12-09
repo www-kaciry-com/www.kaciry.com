@@ -1,5 +1,4 @@
-console.log = function () {
-};
+
 
 !function (t) {
     function i(r) {

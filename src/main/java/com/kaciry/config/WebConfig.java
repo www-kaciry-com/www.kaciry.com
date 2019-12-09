@@ -23,8 +23,10 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new LoginHandlerInterceptor()).addPathPatterns("/**")
-                .excludePathPatterns("/index", "/", "/indexDataInit", "/playRank", "/login", "/register", "/initVideo", "/selectVideoComment", "/getVideoUser",
-                        "/rsaKey1", "/rsaKey2", "/static/**", "/search", "/video", "/initPromoteVideos4Carousel", "/initPromoteVideos4List", "/files/**");
+                .excludePathPatterns("/index", "/", "/indexDataInit", "/playRank", "/login", "/register", "/initVideo",
+                        "/selectVideoComment", "/getVideoUser", "/rsaKey1", "/rsaKey2", "/static/**", "/search", "/video",
+                        "/initPromoteVideos4Carousel", "/initPromoteVideos4List", "/files/**", "/postResetPwd",
+                        "/resetPassword", "/countVideoNum");
     }
 
     @Bean

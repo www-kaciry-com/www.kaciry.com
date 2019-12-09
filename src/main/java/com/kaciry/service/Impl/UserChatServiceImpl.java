@@ -2,7 +2,7 @@ package com.kaciry.service.Impl;
 
 import com.kaciry.entity.ResultBean;
 import com.kaciry.entity.UserChatBean;
-import com.kaciry.mapper.UserChatMapper;
+import com.kaciry.dao.UserChatDao;
 import com.kaciry.service.UserChatService;
 import com.kaciry.utils.SensitiveWordFilter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +21,7 @@ import java.util.Set;
 public class UserChatServiceImpl implements UserChatService {
 
     @Autowired
-    private UserChatMapper userChatMapper;
+    private UserChatDao userChatDao;
 
     @Override
     public ResultBean saveUserChatMsg(UserChatBean userChatBean) {
@@ -37,7 +37,7 @@ public class UserChatServiceImpl implements UserChatService {
             resultBean.setData(userChatBean);
             return resultBean;
         } else {//不存在敏感词，保存并返回
-            userChatMapper.addUserChatMsg(userChatBean);
+            userChatDao.addUserChatMsg(userChatBean);
             return new ResultBean<>(userChatBean);
         }
 
@@ -45,8 +45,8 @@ public class UserChatServiceImpl implements UserChatService {
 
     @Override
     public List<UserChatBean> getPrivateMsg(String senderIdentityDocument, String receiverIdentityDocument) {
-        List<UserChatBean> list1 = userChatMapper.queryChatMsg(receiverIdentityDocument, senderIdentityDocument);
-        List<UserChatBean> list2 = userChatMapper.queryChatMsg(senderIdentityDocument, receiverIdentityDocument);
+        List<UserChatBean> list1 = userChatDao.queryChatMsg(receiverIdentityDocument, senderIdentityDocument);
+        List<UserChatBean> list2 = userChatDao.queryChatMsg(senderIdentityDocument, receiverIdentityDocument);
         list2.addAll(list1);
         //Java8 按照某个字段进行排序
         list2.sort(Comparator.comparingLong(UserChatBean::getUserChatIdentityDocument));
@@ -57,6 +57,6 @@ public class UserChatServiceImpl implements UserChatService {
 
     @Override
     public List<UserChatBean> getNewMsg(String senderIdentityDocument, String receiverIdentityDocument, int userChatIdentityDocument) {
-        return userChatMapper.getNewMsg(senderIdentityDocument, receiverIdentityDocument, userChatIdentityDocument);
+        return userChatDao.getNewMsg(senderIdentityDocument, receiverIdentityDocument, userChatIdentityDocument);
     }
 }

@@ -1,4 +1,4 @@
-package com.kaciry.mapper;
+package com.kaciry.dao;
 
 import com.kaciry.entity.PromoteVideosBean;
 import com.kaciry.entity.VideoInfo;
@@ -17,7 +17,7 @@ import java.util.List;
  * @description 推广视频Dao
  */
 @Component
-public interface PromoteVideosMapper {
+public interface PromoteVideosDao {
 
     @Select("SELECT * FROM user_video WHERE videoState = 1 AND username = #{username}")
     List<VideoInfo> selectNormalVideos(String username);

@@ -1,4 +1,4 @@
-package com.kaciry.mapper;
+package com.kaciry.dao;
 
 import com.kaciry.entity.UserChatBean;
 import org.apache.ibatis.annotations.Insert;
@@ -14,7 +14,7 @@ import java.util.List;
  * @description 用户聊天Dao
  */
 @Component
-public interface UserChatMapper {
+public interface UserChatDao {
     /**
      * @param userChatBean 用户聊天实体类
      * @author kaciry

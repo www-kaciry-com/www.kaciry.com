@@ -1,7 +1,7 @@
 package com.kaciry.service.Impl;
 
 import com.kaciry.utils.DataWeightSort;
-import com.kaciry.mapper.IndexDataMapper;
+import com.kaciry.dao.IndexDataDao;
 import com.kaciry.entity.VideoInfo;
 import com.kaciry.service.IndexDataService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,11 +16,11 @@ import java.util.List;
 @Service
 public class IndexDataServiceImpl implements IndexDataService {
     @Autowired
-    private IndexDataMapper indexDataMapper;
+    private IndexDataDao indexDataDao;
 
     @Override
     public List<VideoInfo> selectIndexDataByType(String videoType, int length) {
-        List<VideoInfo> videoInfo = indexDataMapper.selectVideoData(videoType);
+        List<VideoInfo> videoInfo = indexDataDao.selectVideoData(videoType);
         if (videoInfo.size()<length){
             return videoInfo;
         }else {
@@ -29,8 +29,11 @@ public class IndexDataServiceImpl implements IndexDataService {
     }
 
     public List<VideoInfo> selectIndexDataByType(String videoType, int length, boolean rank) {
-        return indexDataMapper.selectVideoDataByType(videoType,length);
+        return indexDataDao.selectVideoDataByType(videoType, length);
     }
 
-
+    @Override
+    public List<VideoInfo> countVideoType() {
+        return indexDataDao.selectVideoNum();
+    }
 }

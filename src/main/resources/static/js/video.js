@@ -145,6 +145,24 @@ $(document).ready(function () {
 
 dp = DPlayer;
 
+$(document).ready(function () {
+    if ("" === getCookie("Token")) {
+        $("#navbarColor03").append("<div class=\"login-content\">\n" +
+            "            <ul class=\" navbar-nav\">\n" +
+            "                <li class=\"nav-item\">\n" +
+            "                    <form class=\"form-inline nav-search\" th:action=\"@{/search}\" method=\"get\">\n" +
+            "                        <input class=\"form-control mr-sm-2\" name=\"information\" type=\"search\" placeholder=\"输入搜索的内容\"\n" +
+            "                               aria-label=\"输入搜索的内容\">\n" +
+            "                        <button class=\"btn btn-outline-primary my-2 my-sm-0\" type=\"submit\">搜索</button>\n" +
+            "                    </form>\n" +
+            "                </li>\n" +
+            "                <li class=\"nav-item\"><a class=\"nav-link\" href=\"/login\" th:href=\"@{/login}\">登陆</a></li>\n" +
+            "                <li class=\"nav-item\"><a class=\"nav-link\" href=\"/login\" th:href=\"@{/register}\">注册</a></li>\n" +
+            "            </ul>\n" +
+            "        </div>")
+    }
+});
+
 //初始化视频评论
 function initVideoComment() {
 
@@ -371,7 +389,6 @@ function clickStar() {
             },
             success: function (result) {
                 // console.log(result);
-
                 if (result === true) {
                     $('.ops img').eq(0).attr("src", "/static/img/videoOps/star_after.png");
                     let stars = document.getElementById("starNum");

@@ -1,7 +1,7 @@
 package com.kaciry.service.Impl;
 
 import com.kaciry.entity.*;
-import com.kaciry.mapper.UserMapper;
+import com.kaciry.dao.UserDao;
 import com.kaciry.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,22 +18,22 @@ import java.util.List;
 @Service
 public class UserServiceImpl implements UserService {
     @Autowired
-    public UserMapper userMapper;
+    public UserDao userDao;
 
     @Override
     public User login(String username, String userPassword) {
-        return userMapper.login(username, userPassword);
+        return userDao.login(username, userPassword);
     }
     public User login(String username) {
-        return userMapper.login(username, null);
+        return userDao.login(username, null);
     }
 
 
     @Override
     public ResultBean updateUserPassword(String username, String originPassword, String password) {
-        User user = userMapper.login(username, null);
+        User user = userDao.login(username, null);
         if (user.getUserPassword().equals(originPassword)){
-            if (userMapper.updateUserPassword(username, password)) {
+            if (userDao.updateUserPassword(username, password)) {
                 return new ResultBean<>("修改成功！");
             }else {
                 return new ResultBean<>("出现未知错误，稍后重试！");
@@ -46,8 +46,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String register(User user) {
-        if (userMapper.login(user.getUsername(), user.getUserPassword()) == null) {
-            userMapper.setOneUser(user);
+        if (userDao.login(user.getUsername(), user.getUserPassword()) == null) {
+            userDao.setOneUser(user);
             return "success";
         } else {
             return "error";
@@ -56,8 +56,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User changeInfo(User user) {
-        if (userMapper.updateUserInfo(user)) {
-            return userMapper.login(user.getUsername(), user.getUserPassword());
+        if (userDao.updateUserInfo(user)) {
+            return userDao.login(user.getUsername(), user.getUserPassword());
         } else {
             return null;
         }
@@ -65,37 +65,37 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User selectUserInfoByUsername(String username) {
-        return userMapper.selectInfo(username);
+        return userDao.selectInfo(username);
     }
 
     @Override
     public boolean uploadVideo(VideoInfo videoInfo) {
 
-        return userMapper.insertVideo(videoInfo);
+        return userDao.insertVideo(videoInfo);
     }
 
     @Override
     public List<VideoInfo> selectVideosByUsername(String username) {
-        return userMapper.selectVideos(username);
+        return userDao.selectVideos(username);
     }
 
     @Override
     public boolean updatePassword(String email, String password) {
-        return userMapper.updatePassword(email, password);
+        return userDao.updatePassword(email, password);
     }
 
     @Override
     public boolean updateUserHeadIcon(String userHeadIcon, String username) {
-        return userMapper.updateUserHeadIcon(userHeadIcon, username);
+        return userDao.updateUserHeadIcon(userHeadIcon, username);
     }
 
     @Override
     public List<VideoInfo> selectCollectionsByUsername(String username) {
         List<VideoInfo> videoInfoList = new ArrayList<>();
-        List<String> videoName = userMapper.queryCollect(username, 1);
+        List<String> videoName = userDao.queryCollect(username, 1);
         for (String s : videoName) {
             //System.out.println(s);
-            VideoInfo videoInfo = userMapper.queryVideosByVideoFileName(s);
+            VideoInfo videoInfo = userDao.queryVideosByVideoFileName(s);
             videoInfoList.add(videoInfo);
         }
         return videoInfoList;
@@ -104,15 +104,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public VideoInfo selectVideoInfoByVideoFilename(String videoFilename) {
 
-        return userMapper.queryVideosByVideoFileName(videoFilename);
+        return userDao.queryVideosByVideoFileName(videoFilename);
     }
 
     @Override
     public ResultBean followOthers(String username, String hisUsername) {
         boolean flag;
         ResultBean resultBean = new ResultBean();
-        if (userMapper.queryFansInfo(username, hisUsername) != null) {
-            flag = userMapper.cancelFollow(username, hisUsername);
+        if (userDao.queryFansInfo(username, hisUsername) != null) {
+            flag = userDao.cancelFollow(username, hisUsername);
             if (flag) {
                 resultBean.setCode(502);
                 resultBean.setMsg("关注");
@@ -126,7 +126,7 @@ public class UserServiceImpl implements UserService {
         } else {
             SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
             FansBean fansBean = new FansBean(username, hisUsername, df.format(new Date()));
-            flag = userMapper.addFansInfo(fansBean);
+            flag = userDao.addFansInfo(fansBean);
             if (flag) {
                 resultBean.setCode(200);
                 resultBean.setMsg("取消关注");
@@ -144,22 +144,22 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public FansBean selectFollowsState(String username, String hisUsername) {
-        return userMapper.queryFansInfo(username, hisUsername);
+        return userDao.queryFansInfo(username, hisUsername);
     }
 
     @Override
     public List<FansBean> queryFollows(String username) {
-        return userMapper.queryFollows(username);
+        return userDao.queryFollows(username);
     }
 
     public List<UnionFansBean> queryFollows1(String username) {
-        return userMapper.queryMyFollows(username);
+        return userDao.queryMyFollows(username);
     }
 
     @Override
     public ResultBean reportComment(ReportCommentBean reportCommentBean) {
-        if (userMapper.queryReportComment(reportCommentBean) == null) {
-            if (userMapper.addReportComment(reportCommentBean)) {
+        if (userDao.queryReportComment(reportCommentBean) == null) {
+            if (userDao.addReportComment(reportCommentBean)) {
                 return new ResultBean<>("举报成功，感谢您的支持！");
             } else
                 return new ResultBean<>("举报失败，请稍后重试！");
@@ -168,6 +168,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public CommentBean queryCommentByIdentityDocument(long commentIdentityDocument) {
-        return userMapper.queryCommentByIdentityDocument(commentIdentityDocument);
+        return userDao.queryCommentByIdentityDocument(commentIdentityDocument);
     }
 }

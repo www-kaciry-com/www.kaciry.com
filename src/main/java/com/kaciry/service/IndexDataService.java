@@ -19,8 +19,13 @@ public interface IndexDataService {
     **/
     List<VideoInfo> selectIndexDataByType(String videoType, int length);
 
-
-
+    /**
+     * @return java.util.List<com.kaciry.entity.VideoInfo>
+     * @author kaciry
+     * @description 计算视频各类型的总量
+     * @date 2019/12/8 15:15
+     **/
+    List<VideoInfo> countVideoType();
 
 
 }

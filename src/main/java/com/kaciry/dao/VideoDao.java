@@ -1,7 +1,7 @@
-package com.kaciry.mapper;
+package com.kaciry.dao;
 
 import com.kaciry.entity.CommentBean;
-import com.kaciry.entity.Ops;
+import com.kaciry.entity.OpsDO;
 import com.kaciry.entity.ReportVideoBean;
 import com.kaciry.entity.VideoInfo;
 import org.apache.ibatis.annotations.*;
@@ -15,7 +15,7 @@ import java.util.List;
  * @description 用户视频操作Dao
  */
 @Component
-public interface VideoMapper {
+public interface VideoDao {
 
     @Update("update user_video set videoPlayNum = videoPlayNum + 1 where videoFilename = #{videoFilename}")
     int addVideoPlayNumByVideoFilename(String videoFilename);
@@ -106,70 +106,70 @@ public interface VideoMapper {
     void updateVideoBarragesAdd(@Param("videoFilename") String videoFilename, @Param("videoBarrages") int videoBarrages);
 
     /**
-     * @param ops Ops实体
+     * @param opsDO Ops实体
      * @return com.kaciry.entity.Ops
      * @author kaciry
      * @description 初始化视频页面时，查询用户是否对该视频进行过点赞收藏投币操作
      * @date 2019/10/25 18:48
      **/
     @Select("select * from ops where username=#{username} and videoFilename=#{videoFilename}")
-    Ops queryOpsState(Ops ops);
+    OpsDO queryOpsState(OpsDO opsDO);
 
     /**
-     * @param ops Ops实体
+     * @param opsDO Ops实体
      * @author kaciry
      * @description 添加一条数据，状态符为参数
      * @date 2019/10/25 18:48
      **/
     @Insert("insert into ops (username,videoFilename,isStar,isCoin,isCollect,isShare) values(#{username},#{videoFilename},#{isStar},#{isCoin},#{isCollect},#{isShare})")
-    void addOpsData(Ops ops);
+    void addOpsData(OpsDO opsDO);
 
     /**
-     * @param ops Ops实体
+     * @param opsDO Ops实体
      * @author kaciry
      * @description 更改参数状态
      * @date 2019/10/25 18:48
      **/
     @Update("update ops set isStar = #{isStar} where username=#{username} and videoFilename=#{videoFilename}")
-    void changeStarState(Ops ops);
+    void changeStarState(OpsDO opsDO);
 
     /**
-     * @param ops Ops实体
+     * @param opsDO Ops实体
      * @return java.lang.Integer
      * @author kaciry
      * @description 查询是否存在数据项
      * @date 2019/10/25 18:48
      **/
     @Select("select * from ops where username=#{username} and videoFilename=#{videoFilename}")
-    Ops queryOpsData(Ops ops);
+    OpsDO queryOpsData(OpsDO opsDO);
 
     /**
-     * @param ops Ops实体
+     * @param opsDO Ops实体
      * @author kaciry
      * @description 更改参数状态
      * @date 2019/10/25 18:49
      **/
     @Update("update ops set isCollect = #{isCollect} where username=#{username} and videoFilename=#{videoFilename}")
-    void changeCollectState(Ops ops);
+    void changeCollectState(OpsDO opsDO);
 
     /**
-     * @param ops Ops实体
+     * @param opsDO Ops实体
      * @return boolean
      * @author kaciry
      * @description 数据项都为0时，删除该条数据
      * @date 2019/10/25 18:49
      **/
     @Delete("delete from ops where username=#{username} and videoFilename=#{videoFilename}")
-    boolean deleteOpsData(Ops ops);
+    boolean deleteOpsData(OpsDO opsDO);
 
     /**
-     * @param ops Ops实体
+     * @param opsDO Ops实体
      * @author kaciry
      * @description 更改ops表中，分享状态
      * @date 2019/10/25 18:49
      **/
     @Update("update ops set isShare = #{isShare} where username=#{username} and videoFilename=#{videoFilename}")
-    void changeShareData(Ops ops);
+    void changeShareData(OpsDO opsDO);
 
     /**
      * @param reportVideoBean ReportVideoBean实体

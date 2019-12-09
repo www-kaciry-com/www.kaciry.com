@@ -151,26 +151,26 @@ public class VideoController {
     @ResponseBody
     public boolean opsStar(String username, String videoFileName, String option) {
         boolean res = false;
-        Ops ops = new Ops(username, videoFileName);
+        OpsDO opsDO = new OpsDO(username, videoFileName);
         //判断用户点击的是哪一个操作
         switch (option) {
             //点赞
             case "star": {
-                res = videoService.opsStar(ops);
+                res = videoService.opsStar(opsDO);
                 break;
             }
             //收藏
             case "collect": {
-                res = videoService.opsCollect(ops);
+                res = videoService.opsCollect(opsDO);
                 break;
             }
             case "share": {
-                res = videoService.opsShare(ops);
+                res = videoService.opsShare(opsDO);
                 break;
             }
             default:
         }
-        videoService.deleteOpsData(ops);
+        videoService.deleteOpsData(opsDO);
         return res;
     }
 

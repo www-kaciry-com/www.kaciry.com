@@ -48,39 +48,39 @@ public interface VideoService {
     VideoPage initVideoInfo(String videoFileName, String username);
 
     /**
-     * @param ops Ops实体，包含信息见实体类
+     * @param opsDO Ops实体，包含信息见实体类
      * @return boolean
      * @author kaciry
      * @description 用户点赞
      * @date 2019/10/26 13:57
      **/
-    boolean opsStar(Ops ops);
+    boolean opsStar(OpsDO opsDO);
 
     /**
-     * @param ops Ops实体，包含信息见实体类
+     * @param opsDO Ops实体，包含信息见实体类
      * @return boolean
      * @author kaciry
      * @description 用户收藏
      * @date 2019/10/26 13:57
      **/
-    boolean opsCollect(Ops ops);
+    boolean opsCollect(OpsDO opsDO);
 
     /**
-     * @param ops Ops实体，包含信息见实体类
+     * @param opsDO Ops实体，包含信息见实体类
      * @return boolean
      * @author kaciry
      * @description 用户分享
      * @date 2019/10/26 13:57
      **/
-    boolean opsShare(Ops ops);
+    boolean opsShare(OpsDO opsDO);
 
     /**
-     * @param ops Ops实体，包含信息见实体类
+     * @param opsDO Ops实体，包含信息见实体类
      * @author kaciry
      * @description 删除用户对视频的操作，以节约数据库空间
      * @date 2019/10/26 13:57
      **/
-    void deleteOpsData(Ops ops);
+    void deleteOpsData(OpsDO opsDO);
 
     /**
      * @param reportVideoBean ReportVideoBean实体，包含信息见实体类

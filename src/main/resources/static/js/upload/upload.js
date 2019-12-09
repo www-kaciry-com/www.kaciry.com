@@ -17,7 +17,7 @@ let xhrOnProgress = function (fun) {
     }
 };
 
-function Submit() {
+function submitForm() {
     $('#uploadFilesModal').modal('show');
 
     let videoFile = document.getElementById("choice-video-file").files[0]; // js 获取文件对象

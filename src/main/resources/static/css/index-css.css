@@ -47,7 +47,8 @@
     border-radius: 3px;
     color: #fff;
     padding: 1px 3px;
-
+    display: block;
+    width: 42px;
 }
 
 .child {
@@ -267,8 +268,9 @@ a {
 
 .my-nav-child {
     background: #70d7e81f;
+    display: block;
     width: 60px;
-    height: 500px;
+    height: 520px;
     border-radius: 15px;
     padding-left: 13px;
     padding-top: 20px;
