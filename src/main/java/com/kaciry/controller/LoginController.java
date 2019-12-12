@@ -141,7 +141,6 @@ public class LoginController {
     }
 
     /**
-     * @param session session
      * @param user    User实体
      * @return java.lang.String
      * @author kaciry
@@ -149,21 +148,18 @@ public class LoginController {
      * @date 2019/10/25 17:19
      **/
     @RequestMapping(value = "/signup", method = RequestMethod.POST)
-    public String register(HttpSession session, @ModelAttribute(value = "user") User user, Map<String, String> map) {
+    public String registerAccount(@ModelAttribute(value = "user") User user, Map<String, String> map) {
         user.setUserCoins(0);
         user.setUserNickName(user.getUsername());
         user.setIsVip("未开通");
         user.setUserLevel("1");
         user.setUserHeadIcon("/static/img/null.jpeg");
-        String result = userServiceImpl.register(user);
-        if (result.equals("error")) {
+        if (userServiceImpl.register(user)) {
             map.put("msgs", "账号已存在！");
             return "public/signup";
         } else {
-            User resUser = userServiceImpl.login(user.getUsername(), user.getUserPassword());
-            session.setAttribute("user", resUser);
-            session.setAttribute("username", resUser.getUsername());
-            return "redirect:/";
+//            User resUser = userServiceImpl.login(user.getUsername(), user.getUserPassword());
+            return "public/signin";
         }
 
     }

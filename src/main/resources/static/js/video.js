@@ -351,8 +351,12 @@ function sendComment() {
             success: function (result) {
                 //清空
                 $("#discuss").val("");
-                showNoticeModal("提示", "发表成功！");
-                initVideoComment();
+                if (result) {
+                    showNoticeModal("提示", "发表成功！");
+                    initVideoComment();
+                } else {
+                    showNoticeModal("提示", "发表失败！");
+                }
             }
         });
     } else {

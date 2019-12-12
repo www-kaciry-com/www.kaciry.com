@@ -32,7 +32,7 @@ public class UserInfoController {
     @PostMapping(value = "/changeInfo")
     @ResponseBody
     public User changeInfo(User user) {
-        return userService.changeInfo(user);
+        return userService.changeUserInfo(user);
     }
 
     /**
@@ -82,9 +82,17 @@ public class UserInfoController {
 
     }
 
+    /**
+     * @param email    用户邮箱
+     * @param password 用户新密码
+     * @return boolean
+     * @author kaciry
+     * @description 重置密码
+     * @date 2019/12/9 16:41
+     **/
     @PostMapping("/postUpdatePwd")
     @ResponseBody
-    public boolean updatePassword(String email, String password) {
+    public boolean resetPassword(String email, String password) {
         return userService.updatePassword(email, password);
     }
 
@@ -102,7 +110,6 @@ public class UserInfoController {
     }
 
     /**
-     * @param token    登陆成功后分发给客户端的一个加密token
      * @param username 用户名
      * @param pageNum  分页，当前页码
      * @param pageSize 分页，每一页的大小

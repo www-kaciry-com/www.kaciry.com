@@ -13,5 +13,5 @@ public interface CaptchaService {
      * @description 发送验证码
      * @date 2019/10/26 13:54
      **/
-    String sendCaptcha(String receiver);
+    String sendCaptchaToUser(String receiver);
 }

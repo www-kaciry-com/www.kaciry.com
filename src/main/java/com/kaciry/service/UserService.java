@@ -29,7 +29,7 @@ public interface UserService {
      * @description 用户注册
      * @date 2019/10/26 13:23
      **/
-    String register(User user);
+    boolean register(User user);
 
     /**
      * @param user User实体，包含信息见实体类
@@ -38,7 +38,7 @@ public interface UserService {
      * @description 更改用户信息
      * @date 2019/10/26 13:23
      **/
-    User changeInfo(User user);
+    User changeUserInfo(User user);
 
     /**
      * @param username 用户名

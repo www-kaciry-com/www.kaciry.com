@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class CaptchaServiceImpl implements CaptchaService {
     @Override
-    public String sendCaptcha(String receiver) {
+    public String sendCaptchaToUser(String receiver) {
         //创建时间实体对象
         CaptchaBean captchaBean = new CaptchaBean();
         //创建邮件文字描述

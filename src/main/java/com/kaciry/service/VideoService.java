@@ -20,13 +20,13 @@ public interface VideoService {
     void addVideoPlayNumByVideoFilename(String videoFilename);
 
     /**
-     * @param commentBean Comment实体，包含信息见实体类
-     * @return com.kaciry.entity.Comment
      * @author kaciry
      * @description 添加一条新评论
-     * @date 2019/10/26 13:57
+     * @date 2019/12/9 21:41
+     * @param commentBean Comment实体，包含信息见实体类
+     * @return boolean
      **/
-    CommentBean addComment(CommentBean commentBean);
+    boolean addComment(CommentBean commentBean);
 
     /**
      * @param videoFileName 视频文件名
@@ -89,7 +89,7 @@ public interface VideoService {
      * @description 添加一条视频举报信息
      * @date 2019/10/26 13:57
      **/
-    ResultBean addOneReportVideoData(ReportVideoBean reportVideoBean);
+    ResultBean addReportVideoData(ReportVideoBean reportVideoBean);
 
     /**
      * @param videoFilename 视频文件名

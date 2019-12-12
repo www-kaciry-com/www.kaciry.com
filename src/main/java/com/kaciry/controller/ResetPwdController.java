@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class ResetPwdController {
 
     @Autowired
-    CaptchaServiceImpl verificationCodeService;
+    CaptchaServiceImpl captchaService;
 
     /**
      * @param receiver 发送验证码的用户
@@ -27,7 +27,7 @@ public class ResetPwdController {
     @PostMapping("/postResetPwd")
     @ResponseBody
     public String sendCaptcha(String receiver) {
-        return verificationCodeService.sendCaptcha(receiver);
+        return captchaService.sendCaptchaToUser(receiver);
     }
 
 }

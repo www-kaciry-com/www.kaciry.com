@@ -33,7 +33,7 @@ public class UserServiceImpl implements UserService {
     public ResultBean updateUserPassword(String username, String originPassword, String password) {
         User user = userDao.login(username, null);
         if (user.getUserPassword().equals(originPassword)){
-            if (userDao.updateUserPassword(username, password)) {
+            if (userDao.updatePassword(username, password)) {
                 return new ResultBean<>("修改成功！");
             }else {
                 return new ResultBean<>("出现未知错误，稍后重试！");
@@ -45,17 +45,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String register(User user) {
+    public boolean register(User user) {
         if (userDao.login(user.getUsername(), user.getUserPassword()) == null) {
-            userDao.setOneUser(user);
-            return "success";
+            userDao.insertUserAccount(user);
+            return true;
         } else {
-            return "error";
+            return false;
         }
     }
 
     @Override
-    public User changeInfo(User user) {
+    public User changeUserInfo(User user) {
         if (userDao.updateUserInfo(user)) {
             return userDao.login(user.getUsername(), user.getUserPassword());
         } else {
@@ -81,7 +81,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean updatePassword(String email, String password) {
-        return userDao.updatePassword(email, password);
+        return userDao.updatePasswordByEmail(email, password);
     }
 
     @Override

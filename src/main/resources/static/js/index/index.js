@@ -33,10 +33,7 @@ $(document).ready(function () {
             let json = eval(result);
             $.each(json, function (i, element) {
                 let tagName = $(".nav-name").eq(i).text();
-                console.log("tagname-->" + tagName);
-                console.log("i-->" + i);
                 let num = foreachJson(json, tagName);
-                console.log("num-->" + num);
                 if (num > 999) {
                     $(".num").eq(i).text("999+");
                 } else {
@@ -58,7 +55,6 @@ function foreachJson(data, tagName) {
             return false;
         }
     });
-    console.log("foreachJson-->" + aa);
     return num;
 }
 

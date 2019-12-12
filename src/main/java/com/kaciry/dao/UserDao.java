@@ -33,7 +33,7 @@ public interface UserDao {
      * @date 2019/11/12 14:47
      **/
     @Update("UPDATE user SET userPassword = #{password} WHERE username = #{username}")
-    boolean updateUserPassword(@Param("username") String username, @Param("password") String password);
+    boolean updatePassword(@Param("username") String username, @Param("password") String password);
 
 
     /**
@@ -44,7 +44,7 @@ public interface UserDao {
      **/
     @Insert("insert into user (username,userPassword,userEmail,userPhoneNumber,userSex,userCoins,isVip,userLevel,userNickName,userHeadIcon) " +
             "values(#{username},#{userPassword},#{userEmail},#{userPhoneNumber},#{userSex},#{userCoins},#{isVip},#{userLevel},#{userNickName},#{userHeadIcon})")
-    void setOneUser(User user);
+    void insertUserAccount(User user);
 
     /**
      * @param user User实体
@@ -76,7 +76,7 @@ public interface UserDao {
      * @date 2019/10/25 18:34
      **/
     @Update("update user set userPassword = #{userPassword} where userEmail = #{userEmail}")
-    boolean updatePassword(@Param("userEmail") String userEmail, @Param("userPassword") String userPassword);
+    boolean updatePasswordByEmail(@Param("userEmail") String userEmail, @Param("userPassword") String userPassword);
 
     /**
      * @param username 用户名

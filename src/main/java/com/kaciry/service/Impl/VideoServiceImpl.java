@@ -34,12 +34,8 @@ public class VideoServiceImpl implements VideoService {
     }
 
     @Override
-    public CommentBean addComment(CommentBean commentBean) {
-        if (!videoDao.addNewComment(commentBean)) {
-            return null;
-        } else {
-            return commentBean;
-        }
+    public boolean addComment(CommentBean commentBean) {
+        return videoDao.insertComment(commentBean);
     }
 
     @Override
@@ -208,9 +204,9 @@ public class VideoServiceImpl implements VideoService {
     }
 
     @Override
-    public ResultBean addOneReportVideoData(ReportVideoBean reportVideoBean) {
-        if (videoDao.queryReportData(reportVideoBean) == null) {
-            if (videoDao.addReportVideoData(reportVideoBean)) {
+    public ResultBean addReportVideoData(ReportVideoBean reportVideoBean) {
+        if (videoDao.selectReportData(reportVideoBean) == null) {
+            if (videoDao.insertReportVideoData(reportVideoBean)) {
                 return new ResultBean<>("举报成功，感谢您的支持！");
             }else return new ResultBean<>("举报失败，请稍后重试！");
 

@@ -28,7 +28,7 @@ public interface VideoDao {
      * @date 2019/10/25 18:46
      **/
     @Insert("insert into comment (videoFilename,username,content,sendDate,commentStars) values(#{videoFilename},#{username},#{content},#{sendDate},#{commentStars})")
-    boolean addNewComment(CommentBean commentBean);
+    boolean insertComment(CommentBean commentBean);
 
     /**
      * @param videoFilename 视频文件名
@@ -180,7 +180,7 @@ public interface VideoDao {
      **/
     @Insert("insert reportVideo (videoFileName,reportedType,beReportedUser,reportedUser,reportedTime,reportedReason)" +
             " values (#{videoFileName},#{reportedType},#{beReportedUser},#{reportedUser},#{reportedTime},#{reportedReason})")
-    boolean addReportVideoData(ReportVideoBean reportVideoBean);
+    boolean insertReportVideoData(ReportVideoBean reportVideoBean);
 
     /**
      * @param reportVideoBean ReportVideoBean实体
@@ -190,7 +190,7 @@ public interface VideoDao {
      * @date 2019/10/25 18:50
      **/
     @Select("select * from reportVideo where reportedUser=#{reportedUser} and videoFileName=#{videoFileName}")
-    Integer queryReportData(ReportVideoBean reportVideoBean);
+    Integer selectReportData(ReportVideoBean reportVideoBean);
 
     @Delete("DELETE user_video,comment,ops FROM user_video " +
             "LEFT JOIN (comment LEFT JOIN ops ON comment.videoFilename = ops.videoFilename) ON user_video.videoFilename = comment.videoFilename " +

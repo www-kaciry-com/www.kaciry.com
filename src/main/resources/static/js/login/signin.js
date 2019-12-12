@@ -24,7 +24,6 @@ function trySend() {
             username: username
         },
         success: function (data) {
-            console.log(data);
             let pwdKey = new RSAUtils.getKeyPair(data.exponent, "", data.modulus);
             let reversedPwd = password.split("").reverse().join("");
             let encryptedPwd = RSAUtils.encryptedString(pwdKey, reversedPwd);

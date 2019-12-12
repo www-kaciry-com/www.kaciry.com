@@ -58,8 +58,8 @@ public class VideoController {
      **/
     @RequestMapping(value = "/uploadVideo", method = RequestMethod.POST)
     @ResponseBody
-    public ResultBean uploadFile(@RequestParam("videoFile") MultipartFile videoFile, @RequestParam("videoCoverFile") MultipartFile videoCoverFile,
-                                 @RequestParam("videoInfo") String videoInfo) {
+    public ResultBean uploadVideoFiles(@RequestParam("videoFile") MultipartFile videoFile, @RequestParam("videoCoverFile") MultipartFile videoCoverFile,
+                                       @RequestParam("videoInfo") String videoInfo) {
         //json字符换转化为实体对象
         VideoInfo parseObject = JSONObject.parseObject(videoInfo, VideoInfo.class);
         UploadFiles uploadFiles = new UploadFiles();
@@ -81,7 +81,7 @@ public class VideoController {
      **/
     @RequestMapping(value = "/comment", method = RequestMethod.POST)
     @ResponseBody
-    public CommentBean setComment(String username, String content, String videoAddress) {
+    public boolean setComment(String username, String content, String videoAddress) {
         CommentBean commentBean = new CommentBean(videoAddress, username, content, simpleDateFormat.format(new Date()), 0);
         return videoService.addComment(commentBean);
     }
@@ -208,7 +208,7 @@ public class VideoController {
     @ResponseBody
     public ResultBean reportVideo(@RequestBody ReportVideoBean reportVideoBean) {
         reportVideoBean.setReportedTime(simpleDateFormat.format(new Date()));
-        return videoService.addOneReportVideoData(reportVideoBean);
+        return videoService.addReportVideoData(reportVideoBean);
     }
 
     /**
