@@ -39,13 +39,13 @@ public class UploadFiles {
             videoFile.transferTo(filesVideo);
             videoCoverFile.transferTo(filesCover);
             //压缩图片并将图片转移到videoCover目录下
-            ManageFiles manageFiles = new ManageFiles();
+            ManageFilesUtil manageFilesUtil = new ManageFilesUtil();
             //Linux环境下文件目录
-            manageFiles.compressWithDimension(fileFullName, "/www/wwwroot/www.kaciry.com/upload/videoCover/" + "av" + fileName + fileSuffixCover);
+            manageFilesUtil.compressWithDimension(fileFullName, "/www/wwwroot/www.kaciry.com/upload/videoCover/" + "av" + fileName + fileSuffixCover);
             //Windows环境下目录
 //            manageFiles.compressWithDimension(fileFullName, "F:\\upload\\videoCover\\" + "av" + fileName + fileSuffixCover);
             //删除源文件
-            if (!manageFiles.deleteOriginFile(fileFullName)) {
+            if (!manageFilesUtil.deleteOriginFile(fileFullName)) {
                 return new ResultBean<>("服务器开小差了！");
             }
             //视频文件名

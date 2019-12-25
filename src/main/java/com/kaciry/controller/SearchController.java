@@ -34,9 +34,8 @@ public class SearchController {
      **/
     @PostMapping(value = "/searchMsg")
     @ResponseBody
-    public PageInfo<VideoInfo> searchMsg(Integer pageNum, Integer pageSize, String keyword, String type) {
+    public PageInfo<VideoInfo> searchMessage(Integer pageNum, Integer pageSize, String keyword, String type) {
         List<VideoInfo> videoInfoList = null;
-
         PageHelper.startPage(pageNum, pageSize);
         if ("s".equals(type)) {
             videoInfoList = searchDataService.searchKeyword(keyword);

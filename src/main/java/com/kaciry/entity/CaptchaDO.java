@@ -3,7 +3,7 @@ package com.kaciry.entity;
 /**
  * @author Kaciry
  */
-public class CaptchaBean {
+public class CaptchaDO {
     private String code = Long.toString(System.currentTimeMillis());
     private String res = code.substring(code.length() - 6);
 

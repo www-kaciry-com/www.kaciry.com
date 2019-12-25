@@ -1,7 +1,7 @@
 package com.kaciry.service.Impl;
 
 import com.kaciry.entity.ResultBean;
-import com.kaciry.entity.UserChatBean;
+import com.kaciry.entity.UserChatDO;
 import com.kaciry.dao.UserChatDao;
 import com.kaciry.service.UserChatService;
 import com.kaciry.utils.SensitiveWordFilter;
@@ -24,39 +24,42 @@ public class UserChatServiceImpl implements UserChatService {
     private UserChatDao userChatDao;
 
     @Override
-    public ResultBean saveUserChatMsg(UserChatBean userChatBean) {
+    public ResultBean saveUserChatMsg(UserChatDO userChatDO) {
         // 加载敏感词库
         SensitiveWordFilter filter = new SensitiveWordFilter();
         // 比对敏感词
-        Set<String> set = filter.getSensitiveWord(userChatBean.getContent(), 1);
+        Set<String> set = filter.getSensitiveWord(userChatDO.getContent(), 1);
         //存在敏感词
         if (set.size() > 0) {
-            ResultBean<UserChatBean> resultBean = new ResultBean<>();
+            ResultBean<UserChatDO> resultBean = new ResultBean<>();
             resultBean.setCode(502);
             resultBean.setMsg("【 请勿发送敏感词汇！】");
-            resultBean.setData(userChatBean);
+            resultBean.setData(userChatDO);
             return resultBean;
         } else {//不存在敏感词，保存并返回
-            userChatDao.addUserChatMsg(userChatBean);
-            return new ResultBean<>(userChatBean);
+            if (userChatDao.insertUserChatMsg(userChatDO)) {
+                return new ResultBean<>(userChatDO);
+            } else {
+                return new ResultBean<>("服务器出错！");
+            }
         }
 
     }
 
     @Override
-    public List<UserChatBean> getPrivateMsg(String senderIdentityDocument, String receiverIdentityDocument) {
-        List<UserChatBean> list1 = userChatDao.queryChatMsg(receiverIdentityDocument, senderIdentityDocument);
-        List<UserChatBean> list2 = userChatDao.queryChatMsg(senderIdentityDocument, receiverIdentityDocument);
+    public List<UserChatDO> getPrivateMsg(String senderIdentityDocument, String receiverIdentityDocument) {
+        List<UserChatDO> list1 = userChatDao.queryChatMsg(receiverIdentityDocument, senderIdentityDocument);
+        List<UserChatDO> list2 = userChatDao.queryChatMsg(senderIdentityDocument, receiverIdentityDocument);
         list2.addAll(list1);
         //Java8 按照某个字段进行排序
-        list2.sort(Comparator.comparingLong(UserChatBean::getUserChatIdentityDocument));
+        list2.sort(Comparator.comparingLong(UserChatDO::getUserChatIdentityDocument));
         // TODO: 2019/11/19 排序
 //        Arrays.sort(new List[]{list2});
         return list2;
     }
 
     @Override
-    public List<UserChatBean> getNewMsg(String senderIdentityDocument, String receiverIdentityDocument, int userChatIdentityDocument) {
+    public List<UserChatDO> getNewMsg(String senderIdentityDocument, String receiverIdentityDocument, int userChatIdentityDocument) {
         return userChatDao.getNewMsg(senderIdentityDocument, receiverIdentityDocument, userChatIdentityDocument);
     }
 }

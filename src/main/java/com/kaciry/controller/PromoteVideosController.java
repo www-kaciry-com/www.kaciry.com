@@ -1,6 +1,6 @@
 package com.kaciry.controller;
 
-import com.kaciry.entity.PromoteVideosBean;
+import com.kaciry.entity.PromoteVideosDO;
 import com.kaciry.entity.ResultBean;
 import com.kaciry.entity.VideoInfo;
 import com.kaciry.service.Impl.PromoteVideosServiceImpl;
@@ -53,9 +53,9 @@ public class PromoteVideosController {
     @ResponseBody
     public ResultBean promoteVideo(String videoFilename, int promoteType) {
         //获取最后的时间
-        Timestamp timestamp = promoteVideosService.selectLastTime(promoteType);
-        PromoteVideosBean promoteVideosBean = new PromoteVideosBean(videoFilename, TimeUtils.analysisTime(timestamp), promoteType);
-        return promoteVideosService.addPromoteVideo(promoteVideosBean);
+        Timestamp timestamp = promoteVideosService.queryLastTime(promoteType);
+        PromoteVideosDO promoteVideosDO = new PromoteVideosDO(videoFilename, TimeUtils.analysisTime(timestamp), promoteType);
+        return promoteVideosService.addPromoteVideo(promoteVideosDO);
     }
 
     /**

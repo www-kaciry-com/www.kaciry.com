@@ -1,8 +1,8 @@
 package com.kaciry.dao;
 
-import com.kaciry.entity.CommentBean;
-import com.kaciry.entity.OpsDO;
-import com.kaciry.entity.ReportVideoBean;
+import com.kaciry.entity.CommentDO;
+import com.kaciry.entity.OperationsDO;
+import com.kaciry.entity.ReportVideoDO;
 import com.kaciry.entity.VideoInfo;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Component;
@@ -21,14 +21,14 @@ public interface VideoDao {
     int addVideoPlayNumByVideoFilename(String videoFilename);
 
     /**
-     * @param commentBean Comment实体
+     * @param commentDO Comment实体
      * @return boolean
      * @author kaciry
      * @description 添加新评论
      * @date 2019/10/25 18:46
      **/
     @Insert("insert into comment (videoFilename,username,content,sendDate,commentStars) values(#{videoFilename},#{username},#{content},#{sendDate},#{commentStars})")
-    boolean insertComment(CommentBean commentBean);
+    boolean insertComment(CommentDO commentDO);
 
     /**
      * @param videoFilename 视频文件名
@@ -38,7 +38,7 @@ public interface VideoDao {
      * @date 2019/10/25 18:46
      **/
     @Select("select * from comment LEFT JOIN user on user.username = comment.username WHERE videoFilename=#{videoFilename}")
-    List<CommentBean> selectVideoComment(String videoFilename);
+    List<CommentDO> selectVideoComment(String videoFilename);
 
     /**
      * @param videoAddress 视频文件名
@@ -48,7 +48,7 @@ public interface VideoDao {
      * @date 2019/10/25 18:47
      **/
     @Select("select * from user_video LEFT JOIN user ON user.username = user_video.username WHERE videoFilename = #{videoAddress}")
-    VideoInfo initVideoInfo(String videoAddress);
+    VideoInfo selectVideoInfo(String videoAddress);
 
     /**
      * @param videoFilename 视频文件名
@@ -106,73 +106,73 @@ public interface VideoDao {
     void updateVideoBarragesAdd(@Param("videoFilename") String videoFilename, @Param("videoBarrages") int videoBarrages);
 
     /**
-     * @param opsDO Ops实体
+     * @param operationsDO Ops实体
      * @return com.kaciry.entity.Ops
      * @author kaciry
      * @description 初始化视频页面时，查询用户是否对该视频进行过点赞收藏投币操作
      * @date 2019/10/25 18:48
      **/
     @Select("select * from ops where username=#{username} and videoFilename=#{videoFilename}")
-    OpsDO queryOpsState(OpsDO opsDO);
+    OperationsDO selectOperationsState(OperationsDO operationsDO);
 
     /**
-     * @param opsDO Ops实体
+     * @param operationsDO Ops实体
      * @author kaciry
      * @description 添加一条数据，状态符为参数
      * @date 2019/10/25 18:48
      **/
     @Insert("insert into ops (username,videoFilename,isStar,isCoin,isCollect,isShare) values(#{username},#{videoFilename},#{isStar},#{isCoin},#{isCollect},#{isShare})")
-    void addOpsData(OpsDO opsDO);
+    void insertOperationsData(OperationsDO operationsDO);
 
     /**
-     * @param opsDO Ops实体
+     * @param operationsDO Ops实体
      * @author kaciry
      * @description 更改参数状态
      * @date 2019/10/25 18:48
      **/
     @Update("update ops set isStar = #{isStar} where username=#{username} and videoFilename=#{videoFilename}")
-    void changeStarState(OpsDO opsDO);
+    void updateStarState(OperationsDO operationsDO);
 
     /**
-     * @param opsDO Ops实体
+     * @param operationsDO Ops实体
      * @return java.lang.Integer
      * @author kaciry
      * @description 查询是否存在数据项
      * @date 2019/10/25 18:48
      **/
     @Select("select * from ops where username=#{username} and videoFilename=#{videoFilename}")
-    OpsDO queryOpsData(OpsDO opsDO);
+    OperationsDO selectOperationsData(OperationsDO operationsDO);
 
     /**
-     * @param opsDO Ops实体
+     * @param operationsDO Ops实体
      * @author kaciry
      * @description 更改参数状态
      * @date 2019/10/25 18:49
      **/
     @Update("update ops set isCollect = #{isCollect} where username=#{username} and videoFilename=#{videoFilename}")
-    void changeCollectState(OpsDO opsDO);
+    void changeCollectState(OperationsDO operationsDO);
 
     /**
-     * @param opsDO Ops实体
+     * @param operationsDO Ops实体
      * @return boolean
      * @author kaciry
      * @description 数据项都为0时，删除该条数据
      * @date 2019/10/25 18:49
      **/
     @Delete("delete from ops where username=#{username} and videoFilename=#{videoFilename}")
-    boolean deleteOpsData(OpsDO opsDO);
+    boolean deleteOpsData(OperationsDO operationsDO);
 
     /**
-     * @param opsDO Ops实体
+     * @param operationsDO Ops实体
      * @author kaciry
      * @description 更改ops表中，分享状态
      * @date 2019/10/25 18:49
      **/
     @Update("update ops set isShare = #{isShare} where username=#{username} and videoFilename=#{videoFilename}")
-    void changeShareData(OpsDO opsDO);
+    void updateShareData(OperationsDO operationsDO);
 
     /**
-     * @param reportVideoBean ReportVideoBean实体
+     * @param reportVideoDO ReportVideoBean实体
      * @return boolean
      * @author kaciry
      * @description 添加一条视频举报信息数据
@@ -180,20 +180,20 @@ public interface VideoDao {
      **/
     @Insert("insert reportVideo (videoFileName,reportedType,beReportedUser,reportedUser,reportedTime,reportedReason)" +
             " values (#{videoFileName},#{reportedType},#{beReportedUser},#{reportedUser},#{reportedTime},#{reportedReason})")
-    boolean insertReportVideoData(ReportVideoBean reportVideoBean);
+    boolean insertReportVideoData(ReportVideoDO reportVideoDO);
 
     /**
-     * @param reportVideoBean ReportVideoBean实体
+     * @param reportVideoDO ReportVideoBean实体
      * @return java.lang.Integer
      * @author kaciry
      * @description 查询该用户是否举报过该视频
      * @date 2019/10/25 18:50
      **/
     @Select("select * from reportVideo where reportedUser=#{reportedUser} and videoFileName=#{videoFileName}")
-    Integer selectReportData(ReportVideoBean reportVideoBean);
+    Integer selectReportData(ReportVideoDO reportVideoDO);
 
     @Delete("DELETE user_video,comment,ops FROM user_video " +
             "LEFT JOIN (comment LEFT JOIN ops ON comment.videoFilename = ops.videoFilename) ON user_video.videoFilename = comment.videoFilename " +
             "WHERE user_video.videoFilename = #{videoFilename}")
-    int removeVideoByVideoFilename(String videoFilename);
+    int deleteVideoByVideoFilename(String videoFilename);
 }

@@ -43,7 +43,7 @@ public interface IndexDataDao {
      * @date 2019/10/25 18:03
      **/
     @Select("select * from user_video LEFT JOIN user ON user.username = user_video.username WHERE videoName like '%${keyword}%' AND videoState <> 0")
-    List<VideoInfo> fuzzySearch(@Param("keyword") String keyword);
+    List<VideoInfo> selectFuzzySearch(@Param("keyword") String keyword);
 
     @Select("Select videoType,COUNT(videoIdentityDocument) As videoCoins FROM user_video group by videoType")
     List<VideoInfo> selectVideoNum();

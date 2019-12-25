@@ -23,20 +23,22 @@ $(document).ready(function () {
             res = analysisChatDetailsData(json);
             $(".detail-chat").append(res);
             currentUser = json[0].username;
-            document.querySelector(".chat[data-chat=" + json[0].username + "]").classList.add('active-chat');
-            document.querySelector(".person[data-chat=" + json[0].username + "]").classList.add('active');
+            $(".chat[data-chat=" + json[0].username + "]").addClass('active-chat');
+            $(".person[data-chat=" + json[0].username + "]").addClass('active');
 
             friends = {
-                list: document.querySelector('ul.people'),
-                all: document.querySelectorAll('.left .person'),
+                // list: document.querySelector('ul.people'),
+                // all: document.querySelectorAll('.left .person'),
+                list: document.getElementsByClassName('ul.people')[0],
+                all: $('.left .person'),
                 name: ''
             };
 
             chat = {
-                container: document.querySelector('.container .right'),
+                container: document.getElementsByClassName('.container .right')[0],
                 current: null,
                 person: null,
-                name: document.querySelector('.container .right .top .name')
+                name: document.getElementsByClassName('.container .right .top .name')[0]
             };
 
             friends.all.forEach(function (f) {

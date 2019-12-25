@@ -1,6 +1,6 @@
 package com.kaciry.dao;
 
-import com.kaciry.entity.PromoteVideosBean;
+import com.kaciry.entity.PromoteVideosDO;
 import com.kaciry.entity.VideoInfo;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
@@ -8,7 +8,6 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Component;
 
-import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -29,27 +28,27 @@ public interface PromoteVideosDao {
     **/
     //@Select("SELECT * from promote_videos WHERE promoteType = #{option} ORDER BY tableIndex DESC  LIMIT 1")
     @Select("SELECT * from promote_videos WHERE promoteType = #{option} ORDER BY tableIndex DESC  LIMIT #{limitNum}")
-    List<PromoteVideosBean>  selectPromoteVideo(@Param("option") int option,@Param("limitNum")int limitNum);
+    List<PromoteVideosDO> selectPromoteVideo(@Param("option") int option, @Param("limitNum") int limitNum);
 
     /**
      * @author kaciry
      * @description  添加一条推广视频信息
      * @date  2019/11/2 12:35
-     * @param promoteVideosBean PromoteVideosBean实体，详情见PromoteVideosBean类
+     * @param promoteVideosDO PromoteVideosBean实体，详情见PromoteVideosBean类
      * @return boolean
     **/
     @Insert("INSERT INTO promote_videos (videoFilename,surplusDuration,promoteType) VALUES (#{videoFilename},#{surplusDuration},#{promoteType})")
-    boolean addPromoteVideo(PromoteVideosBean promoteVideosBean);
+    boolean insertPromoteVideo(PromoteVideosDO promoteVideosDO);
 
     /**
      * @author kaciry
      * @description  查询一条推荐视频信息是否存在
      * @date  2019/11/2 14:46
-     * @param promoteVideosBean PromoteVideosBean实体，详情见PromoteVideosBean类
+     * @param promoteVideosDO PromoteVideosBean实体，详情见PromoteVideosBean类
      * @return java.lang.Integer
     **/
     @Select("SELECT * FROM promote_videos WHERE videoFilename = #{videoFilename} AND promoteType = #{promoteType}")
-    Integer selectVideoIsPromoted(PromoteVideosBean promoteVideosBean);
+    Integer selectVideoIsPromoted(PromoteVideosDO promoteVideosDO);
 
     /**
      * @author kaciry
@@ -58,7 +57,7 @@ public interface PromoteVideosDao {
      * @return java.util.List<com.kaciry.entity.PromoteVideosBean>
     **/
     @Select("SELECT * FROM promote_videos WHERE promoteType <> 0")
-    List<PromoteVideosBean> selectPromotedVideos();
+    List<PromoteVideosDO> selectPromotedVideos();
 
     /**
      * @author kaciry
@@ -67,7 +66,7 @@ public interface PromoteVideosDao {
      * @return java.util.List<com.kaciry.entity.PromoteVideosBean>
     **/
     @Select("SELECT * FROM promote_videos WHERE promoteType = 1")
-    List<PromoteVideosBean> selectPromotedVideos4Carousel();
+    List<PromoteVideosDO> selectPromotedVideos4Carousel();
 
     /**
      * @author kaciry
@@ -76,7 +75,7 @@ public interface PromoteVideosDao {
      * @return java.util.List<com.kaciry.entity.PromoteVideosBean>
     **/
     @Select("SELECT * FROM promote_videos WHERE promoteType = 2")
-    List<PromoteVideosBean> selectPromotedVideos4List();
+    List<PromoteVideosDO> selectPromotedVideos4List();
 
     /**
      * @author kaciry
@@ -97,10 +96,6 @@ public interface PromoteVideosDao {
      * @return boolean
     **/
     @Update("UPDATE user_video SET videoState = #{videoState} WHERE videoFilename = #{videoFilename}")
-    boolean setUserVideoState(@Param("videoFilename") String videoFilename, @Param("videoState")int videoState);
-
-
-    @Update("UPDATE promote_videos SET surplusDuration = #{surplusDuration} WHERE videoFilename = #{videoFilename}")
-    boolean setPromoteVideoDuration(@Param("videoFilename") String videoFilename,@Param("surplusDuration") Timestamp surplusDuration);
+    boolean updateUserVideoState(@Param("videoFilename") String videoFilename, @Param("videoState") int videoState);
 
 }

@@ -1,6 +1,6 @@
 package com.kaciry.dao;
 
-import com.kaciry.entity.UserChatBean;
+import com.kaciry.entity.UserChatDO;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -16,13 +16,13 @@ import java.util.List;
 @Component
 public interface UserChatDao {
     /**
-     * @param userChatBean 用户聊天实体类
+     * @param userChatDO 用户聊天实体类
      * @author kaciry
      * @description 添加一条用户间的聊天信息
      * @date 2019/10/25 18:09
      **/
     @Insert("insert into user_private_chat (senderIdentityDocument,receiverIdentityDocument,content,date) values (#{senderIdentityDocument},#{receiverIdentityDocument},#{content},#{date})")
-    void addUserChatMsg(UserChatBean userChatBean);
+    boolean insertUserChatMsg(UserChatDO userChatDO);
 
     /**
      * @param senderIdentityDocument   发送方ID
@@ -33,7 +33,7 @@ public interface UserChatDao {
      * @date 2019/10/25 18:10
      **/
     @Select("select * from user_private_chat where senderIdentityDocument = #{senderIdentityDocument} and receiverIdentityDocument = #{receiverIdentityDocument}")
-    List<UserChatBean> queryChatMsg(@Param("senderIdentityDocument") String senderIdentityDocument, @Param("receiverIdentityDocument") String receiverIdentityDocument);
+    List<UserChatDO> queryChatMsg(@Param("senderIdentityDocument") String senderIdentityDocument, @Param("receiverIdentityDocument") String receiverIdentityDocument);
 
     /**
      * @param senderIdentityDocument   发送方ID
@@ -44,5 +44,5 @@ public interface UserChatDao {
      * @date 2019/10/28 18:03
      **/
     @Select("SELECT * FROM user_private_chat WHERE senderIdentityDocument = #{senderIdentityDocument} and receiverIdentityDocument = #{receiverIdentityDocument} and userChatIdentityDocument > #{userChatIdentityDocument}")
-    List<UserChatBean> getNewMsg(@Param("senderIdentityDocument") String senderIdentityDocument,@Param("receiverIdentityDocument") String receiverIdentityDocument, @Param("userChatIdentityDocument") int userChatIdentityDocument);
+    List<UserChatDO> getNewMsg(@Param("senderIdentityDocument") String senderIdentityDocument, @Param("receiverIdentityDocument") String receiverIdentityDocument, @Param("userChatIdentityDocument") int userChatIdentityDocument);
 }

@@ -43,7 +43,7 @@
         </div>
     </div>
 
-    <div class="row opsDO justify-content-between">
+    <div class="row operationsDO justify-content-between">
         <div class="" style="width: 400px;min-width: 400px">
             <span class="star">
                     <a href="#" onclick="return clickStar()">
@@ -115,7 +115,7 @@
                     </div>
                 </a>
                 <div class="media-body col-10">
-                    <form class="form row" id="commentBean" method="post" style="margin-top: 10px">
+                    <form class="form row" id="commentDO" method="post" style="margin-top: 10px">
                         <label for="nickname"></label><input hidden="hidden" id="nickname" name="nickname"
                                                              th:each="cookie :${#httpServletRequest.getCookies()}"
                                                              th:if="${cookie.getName().equals('nickname')}"

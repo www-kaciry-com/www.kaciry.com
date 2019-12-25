@@ -3,7 +3,7 @@ package com.kaciry.entity;
 /**
  * @author Kaciry
  */
-public class FansBean {
+public class FansDO {
     //表索引
     private long followIdentityDocument;
     //主用户名
@@ -13,16 +13,16 @@ public class FansBean {
     //关注日期
     private String followedDate;
 
-    public FansBean() {
+    public FansDO() {
     }
 
-    public FansBean(String userIdentityDocument, String followedUser, String followedDate) {
+    public FansDO(String userIdentityDocument, String followedUser, String followedDate) {
         this.userIdentityDocument = userIdentityDocument;
         this.followedUser = followedUser;
         this.followedDate = followedDate;
     }
 
-    public FansBean(long followIdentityDocument, String userIdentityDocument, String followedUser, String followedDate) {
+    public FansDO(long followIdentityDocument, String userIdentityDocument, String followedUser, String followedDate) {
         this.followIdentityDocument = followIdentityDocument;
         this.userIdentityDocument = userIdentityDocument;
         this.followedUser = followedUser;

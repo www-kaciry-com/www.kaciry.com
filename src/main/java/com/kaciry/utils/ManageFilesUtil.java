@@ -11,7 +11,7 @@ import java.io.IOException;
  * @date 2019/11/10 13:04
  * @description 处理图片的属性，文件操作
  */
-public class ManageFiles {
+public class ManageFilesUtil {
     /**
      * @param oldFilePath 源文件
      * @param newFilePath 新文件

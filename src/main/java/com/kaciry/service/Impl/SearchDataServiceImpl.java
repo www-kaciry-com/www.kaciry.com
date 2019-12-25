@@ -19,7 +19,7 @@ public class SearchDataServiceImpl implements SearchDataService {
 
     @Override
     public List<VideoInfo> searchKeyword(String keyword) {
-        return indexDataDao.fuzzySearch(keyword);
+        return indexDataDao.selectFuzzySearch(keyword);
     }
 
     @Override

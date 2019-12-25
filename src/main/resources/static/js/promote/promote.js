@@ -40,7 +40,6 @@ function selectorChange() {
             type: 'post', //请求的方式
             dateType: "json", //请求的数据格式
             data: {
-                token: token,
                 username: username,
                 videoAddress: videoAddress
             },
@@ -61,7 +60,7 @@ function selectorChange() {
             }
         })
     } else {
-        videoCover.attr("src", "/static/img/nav_wrapper.jpg");
+        videoCover.attr("src", "/static/img/indexIcon/null.png");
         videoUsername.val("    选择视频后在此显示用户名称");
         videoTitle.val("    选择视频后在此显示视频标题");
         videoType.val("    选择视频后在此显示视频类型");
@@ -76,7 +75,6 @@ function selectorChange() {
 function queryWaitTime() {
     let options = $("#promote-type-options option:selected").val();
     if ($("#choice-video-options option:selected").val() !== "0") {
-
         $.ajax({
             url: "/queryWaitTime",//请求的地址
             type: 'post', //请求的方式

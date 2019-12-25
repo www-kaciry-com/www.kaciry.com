@@ -65,7 +65,7 @@ public interface UserService {
      * @description 根据用户名查询用户上传的视频
      * @date 2019/10/26 13:23
      **/
-    List<VideoInfo> selectVideosByUsername(String username);
+    List<VideoInfo> queryVideosByUsername(String username);
 
     /**
      * @param email 邮箱
@@ -94,7 +94,7 @@ public interface UserService {
      * @description 通过用户名查询投稿
      * @date 2019/10/26 13:23
      **/
-    List<VideoInfo> selectCollectionsByUsername(String username);
+    List<VideoInfo> queryCollectionsByUsername(String username);
 
     /**
      * @param videoFilename 视频文件名
@@ -123,7 +123,7 @@ public interface UserService {
      * @param hisUsername 需要查询的用户名
      * @return com.kaciry.entity.FansBean
     **/
-    FansBean selectFollowsState(String username, String hisUsername);
+    FansDO selectFollowsState(String username, String hisUsername);
 
     /**
      * @param username 用户名
@@ -132,16 +132,16 @@ public interface UserService {
      * @description
      * @date 2019/10/26 13:23
      **/
-    List<FansBean> queryFollows(String username);
+    List<UnionFansDO> queryFollows(String username);
 
     /**
-     * @param reportCommentBean ReportCommentBean实体，包含信息见实体类
+     * @param reportCommentDO ReportCommentBean实体，包含信息见实体类
      * @return com.kaciry.entity.ResultBean
      * @author kaciry
      * @description 举报评论
      * @date 2019/10/26 13:23
      **/
-    ResultBean reportComment(ReportCommentBean reportCommentBean);
+    ResultBean addReportCommentData(ReportCommentDO reportCommentDO);
 
     /**
      * @param commentIdentityDocument 评论ID
@@ -150,5 +150,5 @@ public interface UserService {
      * @description 根据评论ID查询评论
      * @date 2019/10/26 13:23
      **/
-    CommentBean queryCommentByIdentityDocument(long commentIdentityDocument);
+    CommentDO queryCommentByIdentityDocument(long commentIdentityDocument);
 }

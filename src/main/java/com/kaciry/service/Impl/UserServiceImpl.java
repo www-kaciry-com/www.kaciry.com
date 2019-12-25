@@ -10,6 +10,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
 /**
  * @author kaciry
  * @date 2019/10/26 13:05
@@ -22,23 +23,23 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User login(String username, String userPassword) {
-        return userDao.login(username, userPassword);
-    }
-    public User login(String username) {
-        return userDao.login(username, null);
+        return userDao.selectLogin(username, userPassword);
     }
 
+    public User login(String username) {
+        return userDao.selectLogin(username, null);
+    }
 
     @Override
     public ResultBean updateUserPassword(String username, String originPassword, String password) {
-        User user = userDao.login(username, null);
-        if (user.getUserPassword().equals(originPassword)){
+        User user = userDao.selectLogin(username, null);
+        if (user.getUserPassword().equals(originPassword)) {
             if (userDao.updatePassword(username, password)) {
                 return new ResultBean<>("修改成功！");
-            }else {
+            } else {
                 return new ResultBean<>("出现未知错误，稍后重试！");
             }
-        }else {
+        } else {
             return new ResultBean<>("原密码错误，请重试！");
         }
 
@@ -46,7 +47,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean register(User user) {
-        if (userDao.login(user.getUsername(), user.getUserPassword()) == null) {
+        if (userDao.selectLogin(user.getUsername(), user.getUserPassword()) == null) {
             userDao.insertUserAccount(user);
             return true;
         } else {
@@ -57,7 +58,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User changeUserInfo(User user) {
         if (userDao.updateUserInfo(user)) {
-            return userDao.login(user.getUsername(), user.getUserPassword());
+            return userDao.selectLogin(user.getUsername(), user.getUserPassword());
         } else {
             return null;
         }
@@ -75,7 +76,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<VideoInfo> selectVideosByUsername(String username) {
+    public List<VideoInfo> queryVideosByUsername(String username) {
         return userDao.selectVideos(username);
     }
 
@@ -90,12 +91,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<VideoInfo> selectCollectionsByUsername(String username) {
+    public List<VideoInfo> queryCollectionsByUsername(String username) {
         List<VideoInfo> videoInfoList = new ArrayList<>();
-        List<String> videoName = userDao.queryCollect(username, 1);
-        for (String s : videoName) {
-            //System.out.println(s);
-            VideoInfo videoInfo = userDao.queryVideosByVideoFileName(s);
+        List<String> videoName = userDao.selectCollections(username, 1);
+        for (String item : videoName) {
+            VideoInfo videoInfo = userDao.selectVideosByVideoFilename(item);
             videoInfoList.add(videoInfo);
         }
         return videoInfoList;
@@ -104,15 +104,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public VideoInfo selectVideoInfoByVideoFilename(String videoFilename) {
 
-        return userDao.queryVideosByVideoFileName(videoFilename);
+        return userDao.selectVideosByVideoFilename(videoFilename);
     }
 
     @Override
     public ResultBean followOthers(String username, String hisUsername) {
         boolean flag;
         ResultBean resultBean = new ResultBean();
-        if (userDao.queryFansInfo(username, hisUsername) != null) {
-            flag = userDao.cancelFollow(username, hisUsername);
+        if (userDao.selectFansInfo(username, hisUsername) != null) {
+            flag = userDao.deleteFansInfo(username, hisUsername);
             if (flag) {
                 resultBean.setCode(502);
                 resultBean.setMsg("关注");
@@ -122,11 +122,10 @@ public class UserServiceImpl implements UserService {
                 resultBean.setCode(500);
                 resultBean.setMsg("服务器未知错误");
             }
-
         } else {
             SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
-            FansBean fansBean = new FansBean(username, hisUsername, df.format(new Date()));
-            flag = userDao.addFansInfo(fansBean);
+            FansDO fansDO = new FansDO(username, hisUsername, df.format(new Date()));
+            flag = userDao.insertFansInfo(fansDO);
             if (flag) {
                 resultBean.setCode(200);
                 resultBean.setMsg("取消关注");
@@ -136,30 +135,25 @@ public class UserServiceImpl implements UserService {
                 resultBean.setCode(500);
                 resultBean.setMsg("服务器未知错误");
             }
-
         }
 
         return resultBean;
     }
 
     @Override
-    public FansBean selectFollowsState(String username, String hisUsername) {
-        return userDao.queryFansInfo(username, hisUsername);
+    public FansDO selectFollowsState(String username, String hisUsername) {
+        return userDao.selectFansInfo(username, hisUsername);
     }
 
     @Override
-    public List<FansBean> queryFollows(String username) {
-        return userDao.queryFollows(username);
-    }
-
-    public List<UnionFansBean> queryFollows1(String username) {
-        return userDao.queryMyFollows(username);
+    public List<UnionFansDO> queryFollows(String username) {
+        return userDao.selectMyFollows(username);
     }
 
     @Override
-    public ResultBean reportComment(ReportCommentBean reportCommentBean) {
-        if (userDao.queryReportComment(reportCommentBean) == null) {
-            if (userDao.addReportComment(reportCommentBean)) {
+    public ResultBean addReportCommentData(ReportCommentDO reportCommentDO) {
+        if (userDao.selectReportCommentData(reportCommentDO) == null) {
+            if (userDao.insertReportCommentData(reportCommentDO)) {
                 return new ResultBean<>("举报成功，感谢您的支持！");
             } else
                 return new ResultBean<>("举报失败，请稍后重试！");
@@ -167,7 +161,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public CommentBean queryCommentByIdentityDocument(long commentIdentityDocument) {
-        return userDao.queryCommentByIdentityDocument(commentIdentityDocument);
+    public CommentDO queryCommentByIdentityDocument(long commentIdentityDocument) {
+        return userDao.selectCommentByIdentityDocument(commentIdentityDocument);
     }
 }

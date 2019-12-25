@@ -23,10 +23,10 @@ public interface VideoService {
      * @author kaciry
      * @description 添加一条新评论
      * @date 2019/12/9 21:41
-     * @param commentBean Comment实体，包含信息见实体类
+     * @param commentDO Comment实体，包含信息见实体类
      * @return boolean
      **/
-    boolean addComment(CommentBean commentBean);
+    boolean addComment(CommentDO commentDO);
 
     /**
      * @param videoFileName 视频文件名
@@ -35,7 +35,7 @@ public interface VideoService {
      * @description 根据视频文件名查询视频评论
      * @date 2019/10/26 13:57
      **/
-    List<CommentBean> selectVideoCommentsByVideoFilename(String videoFileName);
+    List<CommentDO> selectVideoCommentsByVideoFilename(String videoFileName);
 
     /**
      * @param videoFileName 视频文件名
@@ -48,48 +48,48 @@ public interface VideoService {
     VideoPage initVideoInfo(String videoFileName, String username);
 
     /**
-     * @param opsDO Ops实体，包含信息见实体类
+     * @param operationsDO Ops实体，包含信息见实体类
      * @return boolean
      * @author kaciry
      * @description 用户点赞
      * @date 2019/10/26 13:57
      **/
-    boolean opsStar(OpsDO opsDO);
+    boolean opsStar(OperationsDO operationsDO);
 
     /**
-     * @param opsDO Ops实体，包含信息见实体类
+     * @param operationsDO Ops实体，包含信息见实体类
      * @return boolean
      * @author kaciry
      * @description 用户收藏
      * @date 2019/10/26 13:57
      **/
-    boolean opsCollect(OpsDO opsDO);
+    boolean opsCollect(OperationsDO operationsDO);
 
     /**
-     * @param opsDO Ops实体，包含信息见实体类
+     * @param operationsDO Ops实体，包含信息见实体类
      * @return boolean
      * @author kaciry
      * @description 用户分享
      * @date 2019/10/26 13:57
      **/
-    boolean opsShare(OpsDO opsDO);
+    boolean opsShare(OperationsDO operationsDO);
 
     /**
-     * @param opsDO Ops实体，包含信息见实体类
+     * @param operationsDO Ops实体，包含信息见实体类
      * @author kaciry
      * @description 删除用户对视频的操作，以节约数据库空间
      * @date 2019/10/26 13:57
      **/
-    void deleteOpsData(OpsDO opsDO);
+    void deleteOpsData(OperationsDO operationsDO);
 
     /**
-     * @param reportVideoBean ReportVideoBean实体，包含信息见实体类
+     * @param reportVideoDO ReportVideoBean实体，包含信息见实体类
      * @return com.kaciry.entity.ResultBean
      * @author kaciry
      * @description 添加一条视频举报信息
      * @date 2019/10/26 13:57
      **/
-    ResultBean addReportVideoData(ReportVideoBean reportVideoBean);
+    ResultBean addReportVideoData(ReportVideoDO reportVideoDO);
 
     /**
      * @param videoFilename 视频文件名
@@ -107,5 +107,5 @@ public interface VideoService {
      * @description 根据用户名和视频文件名删除视频文件
      * @date 2019/11/13 12:56
      **/
-    int removeVideoByVideoFilename(String videoFilename);
+    boolean removeVideoByVideoFilename(String videoFilename);
 }

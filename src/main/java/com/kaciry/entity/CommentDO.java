@@ -3,7 +3,7 @@ package com.kaciry.entity;
 /**
  * @author Kaciry
  */
-public class CommentBean {
+public class CommentDO {
     //视频文件名
     private String videoFilename;
     //用户名
@@ -21,10 +21,10 @@ public class CommentBean {
     //评论点赞数
     private int commentStars;
 
-    public CommentBean() {
+    public CommentDO() {
     }
 
-    public CommentBean(String videoFilename, String username, String content, String sendDate, int commentStars) {
+    public CommentDO(String videoFilename, String username, String content, String sendDate, int commentStars) {
         this.videoFilename = videoFilename;
         this.username = username;
         this.content = content;
@@ -32,7 +32,7 @@ public class CommentBean {
         this.commentStars = commentStars;
     }
 
-    public CommentBean(String videoFilename, String username, String content, String sendDate, String userHeadIcon, String userNickName, int commentStars) {
+    public CommentDO(String videoFilename, String username, String content, String sendDate, String userHeadIcon, String userNickName, int commentStars) {
         this.videoFilename = videoFilename;
         this.username = username;
         this.content = content;

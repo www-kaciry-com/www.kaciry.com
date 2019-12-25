@@ -7,7 +7,7 @@ import java.sql.Timestamp;
  * @date 2019/11/1 13:58
  * @description 推广视频表实体
  */
-public class PromoteVideosBean{
+public class PromoteVideosDO {
     //视频文件名
     private String videoFilename;
     //到期时间
@@ -15,10 +15,10 @@ public class PromoteVideosBean{
     //推广类型(0：到期，1：轮播图，2：推广栏目专区)
     private int promoteType;
 
-    public PromoteVideosBean() {
+    public PromoteVideosDO() {
     }
 
-    public PromoteVideosBean(String videoFilename, Timestamp surplusDuration, int promoteType) {
+    public PromoteVideosDO(String videoFilename, Timestamp surplusDuration, int promoteType) {
         this.videoFilename = videoFilename;
         this.surplusDuration = surplusDuration;
         this.promoteType = promoteType;

@@ -1,8 +1,8 @@
 package com.kaciry.controller;
 
 import com.kaciry.entity.ResultBean;
-import com.kaciry.entity.UnionFansBean;
-import com.kaciry.entity.UserChatBean;
+import com.kaciry.entity.UnionFansDO;
+import com.kaciry.entity.UserChatDO;
 import com.kaciry.service.Impl.UserChatServiceImpl;
 import com.kaciry.service.Impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,8 +37,8 @@ public class UserChatController {
      **/
     @PostMapping(value = "/getChatList")
     @ResponseBody
-    public List<UnionFansBean> getChatList(String username) {
-        return userService.queryFollows1(username);
+    public List<UnionFansDO> getChatList(String username) {
+        return userService.queryFollows(username);
     }
 
     /**
@@ -55,8 +55,8 @@ public class UserChatController {
     public ResultBean privateChat(String senderIdentityDocument, String receiverIdentityDocument, String content) {
         //设置日期格式
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        UserChatBean userChatBean = new UserChatBean(senderIdentityDocument, receiverIdentityDocument, content, simpleDateFormat.format(new Date()));
-        return userChatService.saveUserChatMsg(userChatBean);
+        UserChatDO userChatDO = new UserChatDO(senderIdentityDocument, receiverIdentityDocument, content, simpleDateFormat.format(new Date()));
+        return userChatService.saveUserChatMsg(userChatDO);
     }
 
     /**
@@ -69,7 +69,7 @@ public class UserChatController {
      **/
     @PostMapping(value = "/getPrivateMsg")
     @ResponseBody
-    public List<UserChatBean> getPrivateMessage(String senderIdentityDocument, String receiverIdentityDocument) {
+    public List<UserChatDO> getPrivateMessage(String senderIdentityDocument, String receiverIdentityDocument) {
         return userChatService.getPrivateMsg(senderIdentityDocument, receiverIdentityDocument);
 
     }
@@ -84,7 +84,7 @@ public class UserChatController {
      **/
     @PostMapping(value = "/getNewMsg")
     @ResponseBody
-    public List<UserChatBean> getNewMessage(String senderIdentityDocument, String receiverIdentityDocument, int userChatIdentityDocument) {
+    public List<UserChatDO> getNewMessage(String senderIdentityDocument, String receiverIdentityDocument, int userChatIdentityDocument) {
         return userChatService.getNewMsg(senderIdentityDocument, receiverIdentityDocument, userChatIdentityDocument);
     }
 

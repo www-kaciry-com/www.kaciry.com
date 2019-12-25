@@ -1,6 +1,6 @@
 package com.kaciry.service;
 
-import com.kaciry.entity.PromoteVideosBean;
+import com.kaciry.entity.PromoteVideosDO;
 import com.kaciry.entity.ResultBean;
 import com.kaciry.entity.VideoInfo;
 
@@ -20,13 +20,13 @@ public interface PromoteVideosService {
     String queryWaitTime(int option);
 
     /**
-     * @param promoteVideosBean PromoteVideosBean实体，详情见PromoteVideosBean类
+     * @param promoteVideosDO PromoteVideosBean实体，详情见PromoteVideosBean类
      * @return com.kaciry.entity.ResultBean
      * @author kaciry
      * @description 添加一条视频推荐信息
      * @date 2019/11/1 22:45
      **/
-    ResultBean addPromoteVideo(PromoteVideosBean promoteVideosBean);
+    ResultBean addPromoteVideo(PromoteVideosDO promoteVideosDO);
 
     /**
      * @return java.util.List<com.kaciry.entity.PromoteVideosBean>
@@ -34,7 +34,7 @@ public interface PromoteVideosService {
      * @description 查询所有未到期的推广视频
      * @date 2019/11/2 13:45
      **/
-    List<PromoteVideosBean> analysisDataIsOvertime();
+    List<PromoteVideosDO> analysisDataIsOvertime();
 
     /**
      * @param videoFilename 视频文件名
@@ -55,7 +55,6 @@ public interface PromoteVideosService {
 
     List<VideoInfo> getPromoteVideos4List();
 
-    Timestamp selectLastTime(int option);
+    Timestamp queryLastTime(int option);
 
-    boolean setPromoteVideoDuration(String videoFilename, Timestamp timestamp);
 }

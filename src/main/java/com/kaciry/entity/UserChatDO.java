@@ -3,7 +3,7 @@ package com.kaciry.entity;
 /**
  * @author Kaciry
  */
-public class UserChatBean {
+public class UserChatDO {
     //用户聊天索引
     private long userChatIdentityDocument;
     //发送方用户名
@@ -15,10 +15,10 @@ public class UserChatBean {
     //日期
     private String date;
 
-    public UserChatBean() {
+    public UserChatDO() {
     }
 
-    public UserChatBean(String senderIdentityDocument, String receiverIdentityDocument, String content, String date) {
+    public UserChatDO(String senderIdentityDocument, String receiverIdentityDocument, String content, String date) {
         this.senderIdentityDocument = senderIdentityDocument;
         this.receiverIdentityDocument = receiverIdentityDocument;
         this.content = content;

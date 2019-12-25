@@ -22,7 +22,7 @@ public interface UserDao {
      * @date 2019/10/25 18:28
      **/
     @Select("select * from user  where BINARY username=#{username}")
-    User login(@Param("username") String username, @Param("userPassword") String userPassword);
+    User selectLogin(@Param("username") String username, @Param("userPassword") String userPassword);
 
     /**
      * @param username 用户名
@@ -118,7 +118,7 @@ public interface UserDao {
      * @date 2019/10/25 18:37
      **/
     @Select("select videoFilename from ops where username = #{username} and isCollect = #{state}")
-    List<String> queryCollect(@Param("username") String username, @Param("state") int state);
+    List<String> selectCollections(@Param("username") String username, @Param("state") int state);
 
     /**
      * @param videoFilename 视频文件名
@@ -128,7 +128,7 @@ public interface UserDao {
      * @date 2019/10/25 18:38
      **/
     @Select("select * from user_video left join user on user.username = user_video.username where videoFilename = #{videoFilename}")
-    VideoInfo queryVideosByVideoFileName(@Param("videoFilename") String videoFilename);
+    VideoInfo selectVideosByVideoFilename(@Param("videoFilename") String videoFilename);
 
     /**
      * @param username    用户名
@@ -139,7 +139,7 @@ public interface UserDao {
      * @date 2019/10/25 18:40
      **/
     @Select("select * from follow_others where userIdentityDocument = #{username} and followedUser = #{hisUsername}")
-    FansBean queryFansInfo(@Param("username") String username, @Param("hisUsername") String hisUsername);
+    FansDO selectFansInfo(@Param("username") String username, @Param("hisUsername") String hisUsername);
 
     /**
      * @param username 用户名
@@ -149,17 +149,17 @@ public interface UserDao {
      * @date 2019/10/25 18:41
      **/
     @Select("select * from follow_others where userIdentityDocument = #{username}")
-    List<FansBean> queryFollows(@Param("username") String username);
+    List<FansDO> queryFollows(@Param("username") String username);
 
     /**
-     * @param fansBean FansBean实体
+     * @param fansDO FansBean实体
      * @return boolean
      * @author kaciry
      * @description 添加关注信息
      * @date 2019/10/25 18:42
      **/
     @Insert("insert into follow_others(userIdentityDocument,followedUser,followedDate) values(#{userIdentityDocument},#{followedUser},#{followedDate})")
-    boolean addFansInfo(FansBean fansBean);
+    boolean insertFansInfo(FansDO fansDO);
 
     /**
      * @param username    用户名
@@ -170,7 +170,7 @@ public interface UserDao {
      * @date 2019/10/25 18:42
      **/
     @Delete("delete from follow_others where userIdentityDocument=#{username} and followedUser=#{hisUsername}")
-    boolean cancelFollow(@Param("username") String username, @Param("hisUsername") String hisUsername);
+    boolean deleteFansInfo(@Param("username") String username, @Param("hisUsername") String hisUsername);
 
     /**
      * @param username 用户名
@@ -180,28 +180,28 @@ public interface UserDao {
      * @date 2019/10/25 18:43
      **/
     @Select("SELECT * FROM user LEFT JOIN follow_others on user.username = follow_others.followedUser WHERE userIdentityDocument = #{username} and  user.username = follow_others.followedUser")
-    List<UnionFansBean> queryMyFollows(@Param("username") String username);
+    List<UnionFansDO> selectMyFollows(@Param("username") String username);
 
     /**
-     * @param reportCommentBean ReportCommentBean实体
+     * @param reportCommentDO ReportCommentBean实体
      * @return java.lang.Integer
      * @author kaciry
      * @description 查询是否存在该用户对同一评论重复举报
      * @date 2019/10/25 18:43
      **/
-    @Select("SELECT * FROM reportComments WHERE commentIdentityDocument = #{commentIdentityDocument} AND reportedUser = #{reportedUser}")
-    Integer queryReportComment(ReportCommentBean reportCommentBean);
+    @Select("SELECT * FROM reportComment WHERE commentIdentityDocument = #{commentIdentityDocument} AND reportedUser = #{reportedUser}")
+    Integer selectReportCommentData(ReportCommentDO reportCommentDO);
 
     /**
-     * @param reportCommentBean ReportCommentBean实体
+     * @param reportCommentDO ReportCommentBean实体
      * @return boolean
      * @author kaciry
      * @description 添加举报评论信息
      * @date 2019/10/25 18:44
      **/
-    @Insert("INSERT INTO reportComments (commentIdentityDocument,reportedType,beReportedUser,reportedUser,reportedTime,reportedReason,commentContent)" +
+    @Insert("INSERT INTO reportComment (commentIdentityDocument,reportedType,beReportedUser,reportedUser,reportedTime,reportedReason,commentContent)" +
             " VALUES (#{commentIdentityDocument},#{reportedType},#{beReportedUser},#{reportedUser},#{reportedTime},#{reportedReason},#{commentContent})")
-    boolean addReportComment(ReportCommentBean reportCommentBean);
+    boolean insertReportCommentData(ReportCommentDO reportCommentDO);
 
     /**
      * @param commentIdentityDocument 评论ID
@@ -211,5 +211,5 @@ public interface UserDao {
      * @date 2019/10/25 18:44
      **/
     @Select("SELECT * FROM comment WHERE commentIdentityDocument = #{commentIdentityDocument}")
-    CommentBean queryCommentByIdentityDocument(long commentIdentityDocument);
+    CommentDO selectCommentByIdentityDocument(long commentIdentityDocument);
 }

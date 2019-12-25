@@ -24,8 +24,9 @@ public class LoginHandlerInterceptor implements HandlerInterceptor {
         String username = GetCookiesValueByKey.getValue(request, "username");
         if (username.equals("") || token.equals("") || !GetAuthorization.isAuthorization(username, token)) {
             //未登录,返回登录页面
-            System.out.println("执行了一次拦截-->");
+            System.out.println("执行了一次拦截-->" + System.currentTimeMillis());
             request.getRequestDispatcher("/login").forward(request, response);
+//            response.sendRedirect("/login");
             return false;
         } else {
             //放行

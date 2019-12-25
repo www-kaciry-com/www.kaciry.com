@@ -4,11 +4,12 @@ import com.kaciry.dao.PromoteVideosDao;
 import com.kaciry.dao.VideoDao;
 import com.kaciry.entity.*;
 import com.kaciry.service.VideoService;
-import com.kaciry.utils.ManageFiles;
+import com.kaciry.utils.ManageFilesUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 /**
  * @author kaciry
  * @date 2019/10/26 13:05
@@ -26,7 +27,7 @@ public class VideoServiceImpl implements VideoService {
     @Override
     public void addVideoPlayNumByVideoFilename(String videoFilename) {
         int res = videoDao.addVideoPlayNumByVideoFilename(videoFilename);
-        if (res!=1) {
+        if (res != 1) {
             System.out.println("addVideoPlayNumByVideoFilename : " + res);
             // TODO: 2019/11/4 出错打野日志
         }
@@ -34,12 +35,12 @@ public class VideoServiceImpl implements VideoService {
     }
 
     @Override
-    public boolean addComment(CommentBean commentBean) {
-        return videoDao.insertComment(commentBean);
+    public boolean addComment(CommentDO commentDO) {
+        return videoDao.insertComment(commentDO);
     }
 
     @Override
-    public List<CommentBean> selectVideoCommentsByVideoFilename(String videoFileName) {
+    public List<CommentDO> selectVideoCommentsByVideoFilename(String videoFileName) {
         return videoDao.selectVideoComment(videoFileName);
     }
 
@@ -47,16 +48,16 @@ public class VideoServiceImpl implements VideoService {
     @Override
     public VideoPage initVideoInfo(String videoAddress, String username) {
         //1.查询该视频的所有信息
-        VideoInfo resultOfVideoInfo = videoDao.initVideoInfo(videoAddress);
-        OpsDO opsDO = new OpsDO(username, videoAddress);
+        VideoInfo resultOfVideoInfo = videoDao.selectVideoInfo(videoAddress);
+        OperationsDO operationsDO = new OperationsDO(username, videoAddress);
         //2.查询username用户是否对该视频操作过
-        OpsDO resultOfOpsDO = videoDao.queryOpsState(opsDO);
+        OperationsDO resultOfOperationsDO = videoDao.selectOperationsState(operationsDO);
         VideoPage videoPage;
         //3.1 若未进行任何操作，videoPage不包含Ops的信息,用于视频播放页面初始化时下方的按钮是否为激活状态
-        if (resultOfOpsDO == null) {
+        if (resultOfOperationsDO == null) {
             videoPage = new VideoPage(resultOfVideoInfo.getVideoIdentityDocument(), resultOfVideoInfo.getUsername(), resultOfVideoInfo.getVideoTitle(),
                     resultOfVideoInfo.getVideoType(), resultOfVideoInfo.getVideoState(), resultOfVideoInfo.getVideoFilename(),
-                    resultOfVideoInfo.getVideoDescription(), resultOfVideoInfo.getVideoName(),resultOfVideoInfo.getVideoCover(),resultOfVideoInfo.getVideoData(), resultOfVideoInfo.getVideoStars(),
+                    resultOfVideoInfo.getVideoDescription(), resultOfVideoInfo.getVideoName(), resultOfVideoInfo.getVideoCover(), resultOfVideoInfo.getVideoData(), resultOfVideoInfo.getVideoStars(),
                     resultOfVideoInfo.getVideoCoins(), resultOfVideoInfo.getVideoConnections(), resultOfVideoInfo.getVideoShares(), resultOfVideoInfo.getVideoPlayNum(),
                     resultOfVideoInfo.getVideoBarrages());
         }
@@ -64,9 +65,9 @@ public class VideoServiceImpl implements VideoService {
         else {
             videoPage = new VideoPage(resultOfVideoInfo.getVideoIdentityDocument(), resultOfVideoInfo.getUsername(), resultOfVideoInfo.getVideoTitle(),
                     resultOfVideoInfo.getVideoType(), resultOfVideoInfo.getVideoState(), resultOfVideoInfo.getVideoFilename(),
-                    resultOfVideoInfo.getVideoDescription(), resultOfVideoInfo.getVideoName(),resultOfVideoInfo.getVideoCover(),resultOfVideoInfo.getVideoData(), resultOfVideoInfo.getVideoStars(),
+                    resultOfVideoInfo.getVideoDescription(), resultOfVideoInfo.getVideoName(), resultOfVideoInfo.getVideoCover(), resultOfVideoInfo.getVideoData(), resultOfVideoInfo.getVideoStars(),
                     resultOfVideoInfo.getVideoCoins(), resultOfVideoInfo.getVideoConnections(), resultOfVideoInfo.getVideoShares(), resultOfVideoInfo.getVideoPlayNum(),
-                    resultOfVideoInfo.getVideoBarrages(), resultOfOpsDO.getIsStar(), resultOfOpsDO.getIsCollect(), resultOfOpsDO.getIsCoin());
+                    resultOfVideoInfo.getVideoBarrages(), resultOfOperationsDO.getIsStar(), resultOfOperationsDO.getIsCollect(), resultOfOperationsDO.getIsCoin());
         }
 
         return videoPage;
@@ -75,41 +76,41 @@ public class VideoServiceImpl implements VideoService {
     //游客，查询该视频自有的属性
     public VideoPage initVideoInfo(String videoAddress) {
         //1.查询该视频的所有信息
-        VideoInfo resultOfVideoInfo = videoDao.initVideoInfo(videoAddress);
+        VideoInfo resultOfVideoInfo = videoDao.selectVideoInfo(videoAddress);
         //2.将videoInfo的信息赋给VideoPage（多态，处理方便）
         VideoPage videoPage;
         videoPage = new VideoPage(resultOfVideoInfo.getVideoIdentityDocument(), resultOfVideoInfo.getUsername(), resultOfVideoInfo.getVideoTitle(),
                 resultOfVideoInfo.getVideoType(), resultOfVideoInfo.getVideoState(), resultOfVideoInfo.getVideoFilename(),
-                resultOfVideoInfo.getVideoDescription(), resultOfVideoInfo.getVideoName(),resultOfVideoInfo.getVideoCover(),resultOfVideoInfo.getVideoData(),  resultOfVideoInfo.getVideoStars(),
+                resultOfVideoInfo.getVideoDescription(), resultOfVideoInfo.getVideoName(), resultOfVideoInfo.getVideoCover(), resultOfVideoInfo.getVideoData(), resultOfVideoInfo.getVideoStars(),
                 resultOfVideoInfo.getVideoCoins(), resultOfVideoInfo.getVideoConnections(), resultOfVideoInfo.getVideoShares(), resultOfVideoInfo.getVideoPlayNum(),
                 resultOfVideoInfo.getVideoBarrages());
         return videoPage;
     }
 
     @Override
-    public boolean opsStar(OpsDO opsDO) {
+    public boolean opsStar(OperationsDO operationsDO) {
         //1.1查询是否存在该用户对视频的操作，不存在时返回值为false
-        if (videoDao.queryOpsData(opsDO) != null) {
+        if (videoDao.selectOperationsData(operationsDO) != null) {
             //1.2 查询该条数据的star为1还是0
-            OpsDO opsDOState = videoDao.queryOpsState(opsDO);
+            OperationsDO operationsDOState = videoDao.selectOperationsState(operationsDO);
             //1.3 star为0，表示没点过攒，这次操作为点赞
-            if (opsDOState.getIsStar() == 0) {
+            if (operationsDOState.getIsStar() == 0) {
                 //1.3.1 改变star的数值为1
-                opsDO.setIsStar(1);
-                videoDao.changeStarState(opsDO);
+                operationsDO.setIsStar(1);
+                videoDao.updateStarState(operationsDO);
                 //1.3.2 更新视频的自有信息，点赞数量加一，其余不变
-                videoDao.updateVideoStarAdd(opsDO.getVideoFilename());
+                videoDao.updateVideoStarAdd(operationsDO.getVideoFilename());
                 //1.3.3 返回true 表示点赞成功
                 return true;
             }
             //1.4 star为1，表示点过攒，这次操作为取消点赞
             else {
                 //1.4.1 改变star的数值为0
-                opsDO.setIsStar(0);
+                operationsDO.setIsStar(0);
                 //1.4.2 执行更改
-                videoDao.changeStarState(opsDO);
+                videoDao.updateStarState(operationsDO);
                 //1.4.3 更新视频的自有信息，点赞数量减一，其余不变
-                videoDao.updateVideoStarSub(opsDO.getVideoFilename());
+                videoDao.updateVideoStarSub(operationsDO.getVideoFilename());
                 //1.4.4 返回false，表示取消点赞成功
                 return false;
             }
@@ -118,10 +119,10 @@ public class VideoServiceImpl implements VideoService {
         //2.1 为null时 ， 表示表中不存在该条数据
         else {
             //2.2 初始化ops中的star项的数值为1
-            opsDO.setIsStar(1);
+            operationsDO.setIsStar(1);
             //2.3 向ops表中添加一条数据
-            videoDao.addOpsData(opsDO);
-            videoDao.updateVideoStarAdd(opsDO.getVideoFilename());
+            videoDao.insertOperationsData(operationsDO);
+            videoDao.updateVideoStarAdd(operationsDO.getVideoFilename());
             //2.4 返回值为true，表示点赞成功
             return true;
         }
@@ -129,29 +130,29 @@ public class VideoServiceImpl implements VideoService {
     }
 
     @Override
-    public boolean opsCollect(OpsDO opsDO) {
+    public boolean opsCollect(OperationsDO operationsDO) {
         //1.1查询是否存在该用户对视频的操作，不存在时返回值为false
-        if (videoDao.queryOpsState(opsDO) != null) {
+        if (videoDao.selectOperationsState(operationsDO) != null) {
             //1.2 查询该条数据的collect为1还是0
-            OpsDO opsDOState = videoDao.queryOpsState(opsDO);
+            OperationsDO operationsDOState = videoDao.selectOperationsState(operationsDO);
             //1.3 collect为0，表示没收藏过，这次操作为点赞
-            if (opsDOState.getIsCollect() == 0) {
+            if (operationsDOState.getIsCollect() == 0) {
                 //1.3.1 改变collect的数值为1
-                opsDO.setIsCollect(1);
-                videoDao.changeCollectState(opsDO);
+                operationsDO.setIsCollect(1);
+                videoDao.changeCollectState(operationsDO);
                 //1.3.2 更新视频的自有信息，收藏数量加一，其余不变
-                videoDao.updateVideoCollectAdd(opsDO.getVideoFilename());
+                videoDao.updateVideoCollectAdd(operationsDO.getVideoFilename());
                 //1.3.3 返回true 表示收藏成功
                 return true;
             }
             //1.4 collect为1，表示已收藏，这次操作为取消收藏
             else {
                 //1.4.1 改变star的数值为0
-                opsDO.setIsCollect(0);
+                operationsDO.setIsCollect(0);
                 //1.4.2 执行更改
-                videoDao.changeCollectState(opsDO);
+                videoDao.changeCollectState(operationsDO);
                 //1.4.3 更新视频的自有信息，收藏数量减一，其余不变
-                videoDao.updateVideoCollectSub(opsDO.getVideoFilename());
+                videoDao.updateVideoCollectSub(operationsDO.getVideoFilename());
                 //1.4.4 返回false，表示取消收藏成功
                 return false;
             }
@@ -160,10 +161,10 @@ public class VideoServiceImpl implements VideoService {
         //2.1 为null时 ， 表示表中不存在该条数据
         else {
             //2.2 初始化ops中的star项的数值为1
-            opsDO.setIsCollect(1);
+            operationsDO.setIsCollect(1);
             //2.3 向ops表中添加一条数据
-            videoDao.addOpsData(opsDO);
-            videoDao.updateVideoCollectAdd(opsDO.getVideoFilename());
+            videoDao.insertOperationsData(operationsDO);
+            videoDao.updateVideoCollectAdd(operationsDO.getVideoFilename());
             //2.4 返回值为true，表示点赞成功
             return true;
         }
@@ -171,30 +172,30 @@ public class VideoServiceImpl implements VideoService {
 
     //分享视频
     @Override
-    public boolean opsShare(OpsDO opsDO) {
-        if (videoDao.queryOpsData(opsDO) != null) {
-            opsDO.setIsShare(1);
-            videoDao.changeShareData(opsDO);
-        }else {
-            opsDO.setIsShare(1);
-            videoDao.addOpsData(opsDO);
+    public boolean opsShare(OperationsDO operationsDO) {
+        if (videoDao.selectOperationsData(operationsDO) != null) {
+            operationsDO.setIsShare(1);
+            videoDao.updateShareData(operationsDO);
+        } else {
+            operationsDO.setIsShare(1);
+            videoDao.insertOperationsData(operationsDO);
         }
         // TODO: 2019/10/14 未解决恶意分享影响视频热度BUG
-        videoDao.updateVideoShareAdd(opsDO.getVideoFilename());
+        videoDao.updateVideoShareAdd(operationsDO.getVideoFilename());
         return true;
     }
 
     //检查数据项是否为空
     @Override
-    public void deleteOpsData(OpsDO opsDO) {
+    public void deleteOpsData(OperationsDO operationsDO) {
         //定义布尔类型的变量来判断是否删除成功，用于打印日志以便日后调试
         boolean flag = false;
         //1.查询ops中对应的数据，username 和 videoFileName
-        OpsDO opsDOState = videoDao.queryOpsState(opsDO);
+        OperationsDO operationsDOState = videoDao.selectOperationsState(operationsDO);
         //1.1 若全部都为空
-        if ((opsDOState.getIsStar() == 0) && (opsDOState.getIsCoin() == 0) && (opsDOState.getIsCollect() == 0) && (opsDOState.getIsShare() == 0)) {
+        if ((operationsDOState.getIsStar() == 0) && (operationsDOState.getIsCoin() == 0) && (operationsDOState.getIsCollect() == 0) && (operationsDOState.getIsShare() == 0)) {
             //1.1.1 删除该条数据
-            flag = videoDao.deleteOpsData(opsDO);
+            flag = videoDao.deleteOpsData(operationsDO);
         }
 
         // TODO: 2019/9/11 打印日志，记录错误信息
@@ -204,13 +205,13 @@ public class VideoServiceImpl implements VideoService {
     }
 
     @Override
-    public ResultBean addReportVideoData(ReportVideoBean reportVideoBean) {
-        if (videoDao.selectReportData(reportVideoBean) == null) {
-            if (videoDao.insertReportVideoData(reportVideoBean)) {
+    public ResultBean addReportVideoData(ReportVideoDO reportVideoDO) {
+        if (videoDao.selectReportData(reportVideoDO) == null) {
+            if (videoDao.insertReportVideoData(reportVideoDO)) {
                 return new ResultBean<>("举报成功，感谢您的支持！");
-            }else return new ResultBean<>("举报失败，请稍后重试！");
+            } else return new ResultBean<>("举报失败，请稍后重试！");
 
-        }else return new ResultBean<>("您已经举报过该视频，请勿重复操作！");
+        } else return new ResultBean<>("您已经举报过该视频，请勿重复操作！");
 
     }
 
@@ -220,16 +221,19 @@ public class VideoServiceImpl implements VideoService {
     }
 
     @Override
-    public int removeVideoByVideoFilename(String videoFilename) {
+    public boolean removeVideoByVideoFilename(String videoFilename) {
         //删除数据库相关信息和服务器下的文件
-        if (videoDao.removeVideoByVideoFilename(videoFilename) > 0) {
-            promoteVideosDao.setPromoteVideoTimeOver(videoFilename);
-            ManageFiles manageFiles = new ManageFiles();
-            manageFiles.deleteOriginFile("F:/upload/video/" + videoFilename);
-            manageFiles.deleteOriginFile("F:/upload/videoCover/" + videoFilename.replace("mp4", "jpg"));
-            return 1;
+        if (videoDao.deleteVideoByVideoFilename(videoFilename) > 0) {
+            if (promoteVideosDao.setPromoteVideoTimeOver(videoFilename)) {
+                ManageFilesUtil manageFilesUtil = new ManageFilesUtil();
+                manageFilesUtil.deleteOriginFile("F:/upload/video/" + videoFilename);
+                manageFilesUtil.deleteOriginFile("F:/upload/videoCover/" + videoFilename.replace("mp4", "jpg"));
+                return true;
+            } else {
+                return false;
+            }
         } else {
-            return 0;
+            return false;
         }
 
     }

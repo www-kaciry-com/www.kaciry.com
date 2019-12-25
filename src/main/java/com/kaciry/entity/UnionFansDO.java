@@ -3,7 +3,7 @@ package com.kaciry.entity;
 /**
  * @author Kaciry
  */
-public class UnionFansBean {
+public class UnionFansDO {
     //用户名
     private String username;
     //密码
@@ -37,11 +37,11 @@ public class UnionFansBean {
     //关注日期
     private String followedDate;
 
-    public UnionFansBean() {
+    public UnionFansDO() {
     }
 
-    public UnionFansBean(String username, String userPassword, String userHeadIcon, String userSignature, String userNickName, String isVip,
-                         Integer userLevel, String userRealName, String userEmail, String userPhoneNumber, String userSex, Integer userCoins, long followIdentityDocument, String userIdentityDocument, String followedUser, String followedDate) {
+    public UnionFansDO(String username, String userPassword, String userHeadIcon, String userSignature, String userNickName, String isVip,
+                       Integer userLevel, String userRealName, String userEmail, String userPhoneNumber, String userSex, Integer userCoins, long followIdentityDocument, String userIdentityDocument, String followedUser, String followedDate) {
         this.username = username;
         this.userPassword = userPassword;
         this.userHeadIcon = userHeadIcon;

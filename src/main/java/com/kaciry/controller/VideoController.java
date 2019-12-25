@@ -7,7 +7,6 @@ import com.kaciry.entity.*;
 import com.kaciry.service.Impl.UserServiceImpl;
 import com.kaciry.service.Impl.VideoServiceImpl;
 import com.kaciry.utils.AutoGetBarrages;
-import com.kaciry.utils.GetAuthorization;
 import com.kaciry.utils.UploadFiles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -82,8 +81,8 @@ public class VideoController {
     @RequestMapping(value = "/comment", method = RequestMethod.POST)
     @ResponseBody
     public boolean setComment(String username, String content, String videoAddress) {
-        CommentBean commentBean = new CommentBean(videoAddress, username, content, simpleDateFormat.format(new Date()), 0);
-        return videoService.addComment(commentBean);
+        CommentDO commentDO = new CommentDO(videoAddress, username, content, simpleDateFormat.format(new Date()), 0);
+        return videoService.addComment(commentDO);
     }
 
     /**
@@ -97,11 +96,11 @@ public class VideoController {
      **/
     @PostMapping(value = "/selectVideoComment")
     @ResponseBody
-    public PageInfo<CommentBean> selectVideoComment(String videoAddress, Integer pageNum, Integer pageSize) {
+    public PageInfo<CommentDO> selectVideoComment(String videoAddress, Integer pageNum, Integer pageSize) {
         //pageNum当前页面,  pageSize页面需要显示的数据条数
         PageHelper.startPage(pageNum, pageSize);
-        List<CommentBean> commentBeanList = videoService.selectVideoCommentsByVideoFilename(videoAddress);
-        return new PageInfo<>(commentBeanList);
+        List<CommentDO> commentDOList = videoService.selectVideoCommentsByVideoFilename(videoAddress);
+        return new PageInfo<>(commentDOList);
 
     }
 
@@ -115,7 +114,7 @@ public class VideoController {
      **/
     @PostMapping(value = "/initVideo")
     @ResponseBody
-    public VideoPage selectVideoComment(String token, String username, String videoAddress) {
+    public VideoPage initVideoData(String username, String videoAddress) {
         int barrages = AutoGetBarrages.getBarrages(videoAddress);
         VideoPage videoPage;
         if ((username == null) || ("".equals(username))) {
@@ -124,23 +123,16 @@ public class VideoController {
             videoService.addVideoBarrages(videoAddress, barrages);
             return videoPage;
         } else {
-            if (GetAuthorization.isAuthorization(username, token)) {
-                videoPage = videoService.initVideoInfo(videoAddress, username);
-                videoPage.setVideoBarrages(barrages);
-                videoService.addVideoBarrages(videoAddress, barrages);
-                return videoPage;
-            } else {
-                videoPage = videoService.initVideoInfo(videoAddress);
-                videoPage.setVideoBarrages(barrages);
-                videoService.addVideoBarrages(videoAddress, barrages);
-                return videoPage;
-            }
+            videoPage = videoService.initVideoInfo(videoAddress, username);
+            videoPage.setVideoBarrages(barrages);
+            videoService.addVideoBarrages(videoAddress, barrages);
+            return videoPage;
         }
     }
 
     /**
      * @param username      用户名
-     * @param videoFileName 视频文件名
+     * @param videoFilename 视频文件名
      * @param option        用户进行的操作
      * @return boolean
      * @author kaciry
@@ -149,28 +141,28 @@ public class VideoController {
      **/
     @PostMapping(value = "/opsStar")
     @ResponseBody
-    public boolean opsStar(String username, String videoFileName, String option) {
+    public boolean videoOperations(String username, String videoFilename, String option) {
         boolean res = false;
-        OpsDO opsDO = new OpsDO(username, videoFileName);
+        OperationsDO operationsDO = new OperationsDO(username, videoFilename);
         //判断用户点击的是哪一个操作
         switch (option) {
             //点赞
             case "star": {
-                res = videoService.opsStar(opsDO);
+                res = videoService.opsStar(operationsDO);
                 break;
             }
             //收藏
             case "collect": {
-                res = videoService.opsCollect(opsDO);
+                res = videoService.opsCollect(operationsDO);
                 break;
             }
             case "share": {
-                res = videoService.opsShare(opsDO);
+                res = videoService.opsShare(operationsDO);
                 break;
             }
             default:
         }
-        videoService.deleteOpsData(opsDO);
+        videoService.deleteOpsData(operationsDO);
         return res;
     }
 
@@ -187,10 +179,10 @@ public class VideoController {
     public VideoFollowPage getVideoUser(String videoAddress, String username) {
         String hisUsername = userService.selectVideoInfoByVideoFilename(videoAddress).getUsername();
         User user = userService.selectUserInfoByUsername(hisUsername);
-        FansBean fansBean = userService.selectFollowsState(username, hisUsername);
-        if (fansBean != null) {
+        FansDO fansDO = userService.selectFollowsState(username, hisUsername);
+        if (fansDO != null) {
             return new VideoFollowPage(
-                    fansBean.getUserIdentityDocument(), fansBean.getFollowedUser(), fansBean.getFollowedDate(), user.getUsername(), user.getUserHeadIcon(), user.getUserSignature(), user.getUserNickName()
+                    fansDO.getUserIdentityDocument(), fansDO.getFollowedUser(), fansDO.getFollowedDate(), user.getUsername(), user.getUserHeadIcon(), user.getUserSignature(), user.getUserNickName()
             );
         } else {
             return new VideoFollowPage("null", "null", "null", user.getUsername(), user.getUserHeadIcon(), user.getUserSignature(), user.getUserNickName());
@@ -198,7 +190,7 @@ public class VideoController {
     }
 
     /**
-     * @param reportVideoBean 举报信息实体，详情见实体类
+     * @param reportVideoDO 举报信息实体，详情见实体类
      * @return com.kaciry.entity.ResultBean
      * @author kaciry
      * @description 用户举报视频
@@ -206,22 +198,22 @@ public class VideoController {
      **/
     @PostMapping(value = "/reportVideo")
     @ResponseBody
-    public ResultBean reportVideo(@RequestBody ReportVideoBean reportVideoBean) {
-        reportVideoBean.setReportedTime(simpleDateFormat.format(new Date()));
-        return videoService.addReportVideoData(reportVideoBean);
+    public ResultBean reportVideo(@RequestBody ReportVideoDO reportVideoDO) {
+        reportVideoDO.setReportedTime(simpleDateFormat.format(new Date()));
+        return videoService.addReportVideoData(reportVideoDO);
     }
 
     /**
      * @param videoFilename 视频文件名
      * @return com.kaciry.entity.ResultBean
      * @author kaciry
-     * @description
+     * @description 删除我的投稿
      * @date 2019/11/13 13:00
      **/
     @PostMapping(value = "/removeVideo")
     @ResponseBody
-    public ResultBean removeVideos(String videoFilename) {
-        if (videoService.removeVideoByVideoFilename(videoFilename) > 0) {
+    public ResultBean deleteVideo(String videoFilename) {
+        if (videoService.removeVideoByVideoFilename(videoFilename)) {
             return new ResultBean<>("删除成功！");
         } else {
             return new ResultBean<>("删除失败！");

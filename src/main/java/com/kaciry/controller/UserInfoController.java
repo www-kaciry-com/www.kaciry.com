@@ -29,6 +29,13 @@ public class UserInfoController {
     @Autowired
     private UserServiceImpl userService;
 
+    /**
+     * @param user 用户实体
+     * @return com.kaciry.entity.User
+     * @author kaciry
+     * @description 修改个人信息
+     * @date 2019/12/25 20:38
+     **/
     @PostMapping(value = "/changeInfo")
     @ResponseBody
     public User changeInfo(User user) {
@@ -45,7 +52,7 @@ public class UserInfoController {
     @PostMapping(value = "/selectUserVideos")
     @ResponseBody
     public List<VideoInfo> selectUserVideos(String token, String username) {
-        return userService.selectVideosByUsername(username);
+        return userService.queryVideosByUsername(username);
     }
 
     /**
@@ -120,13 +127,13 @@ public class UserInfoController {
      **/
     @PostMapping(value = "/selectMyVideo")
     @ResponseBody
-    public PageInfo<VideoInfo> selectMyVideo(String username, Integer pageNum, Integer pageSize) {
+    public PageInfo<VideoInfo> queryMyVideos(String username, Integer pageNum, Integer pageSize) {
         if (pageNum == null || pageSize == null) {
             PageHelper.startPage(1, 16);
         } else {
             PageHelper.startPage(pageNum, pageSize);
         }
-        return new PageInfo<>(userService.selectVideosByUsername(username));
+        return new PageInfo<>(userService.queryVideosByUsername(username));
     }
 
     /**
@@ -140,13 +147,13 @@ public class UserInfoController {
      **/
     @PostMapping("/postQueryCollect")
     @ResponseBody
-    public PageInfo<VideoInfo> queryCollect(String username, Integer pageNum, Integer pageSize) {
+    public PageInfo<VideoInfo> queryCollections(String username, Integer pageNum, Integer pageSize) {
         if (pageNum == null || pageSize == null) {
             PageHelper.startPage(1, 20);
         } else {
             PageHelper.startPage(pageNum, pageSize);
         }
-        return new PageInfo<>(userService.selectCollectionsByUsername(username));
+        return new PageInfo<>(userService.queryCollectionsByUsername(username));
     }
 
     /**
@@ -160,20 +167,28 @@ public class UserInfoController {
      **/
     @PostMapping(value = "/postQueryFollows")
     @ResponseBody
-    public PageInfo<UnionFansBean> queryFollows(String username, Integer pageNum, Integer pageSize) {
+    public PageInfo<UnionFansDO> queryMyFollows(String username, Integer pageNum, Integer pageSize) {
         PageHelper.startPage(pageNum, pageSize);
-        List<UnionFansBean> list = userService.queryFollows1(username);
+        List<UnionFansDO> list = userService.queryFollows(username);
         return new PageInfo<>(list);
     }
 
+    /**
+     * @param username    用户名
+     * @param hisUsername 目标用户名
+     * @return com.kaciry.entity.ResultBean
+     * @author kaciry
+     * @description 关注他人
+     * @date 2019/12/24 9:59
+     **/
     @PostMapping(value = "/followHim")
     @ResponseBody
-    public ResultBean followOthers(String username, String hisUsername) {
+    public ResultBean followOthersUser(String username, String hisUsername) {
         return userService.followOthers(username, hisUsername);
     }
 
     /**
-     * @param reportCommentBean 举报评论的实体，包含信息见实体对象
+     * @param reportCommentDO 举报评论的实体，包含信息见实体对象
      * @return com.kaciry.entity.ResultBean
      * @author kaciry
      * @description 举报视频的评论
@@ -181,15 +196,20 @@ public class UserInfoController {
      **/
     @PostMapping(value = "/reportComment")
     @ResponseBody
-    public ResultBean reportComments(@RequestBody ReportCommentBean reportCommentBean) {
+    public ResultBean reportComment(@RequestBody ReportCommentDO reportCommentDO) {
         //设置日期格式
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        reportCommentBean.setReportedTime(simpleDateFormat.format(new Date()));
-        CommentBean commentBean = userService.queryCommentByIdentityDocument(reportCommentBean.getCommentIdentityDocument());
-        reportCommentBean.setBeReportedUser(commentBean.getUsername());
-        reportCommentBean.setCommentContent(commentBean.getContent());
+        reportCommentDO.setReportedTime(simpleDateFormat.format(new Date()));
+        //根据评论ID获取用户名和评论内容
+        CommentDO commentDO = userService.queryCommentByIdentityDocument(reportCommentDO.getCommentIdentityDocument());
+        if (commentDO != null) {
+            reportCommentDO.setBeReportedUser(commentDO.getUsername());
+            reportCommentDO.setCommentContent(commentDO.getContent());
+            return userService.addReportCommentData(reportCommentDO);
+        } else {
+            return new ResultBean<>("服务器出错！");
+        }
 
-        return userService.reportComment(reportCommentBean);
     }
 
     /**

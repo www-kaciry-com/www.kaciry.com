@@ -3,9 +3,11 @@ package com.kaciry.entity;
 /**
  * @author Kaciry
  */
-public class ReportCommentBean {
-    //评论的ID
-    private long commentIdentityDocument;
+public class ReportVideoDO {
+    //自增ID
+    private long reportVideoIdentityDocument;
+    //视频文件名
+    private String videoFileName;
     //举报类型
     private String reportedType;
     //被举报者ID
@@ -16,46 +18,40 @@ public class ReportCommentBean {
     private String reportedTime;
     //举报原因
     private String reportedReason;
-    //评论内容
-    private String commentContent;
-
-/*  ----------------------------------  */
     //封禁原因
     private String bannedReason;
     //处理时间
     private int handleState;
 
-    public ReportCommentBean() {
+    public ReportVideoDO() {
     }
 
-    public ReportCommentBean(long commentIdentityDocument, String reportedType, String beReportedUser, String reportedUser, String reportedTime, String reportedReason, String commentContent) {
-        this.commentIdentityDocument = commentIdentityDocument;
+    public ReportVideoDO(String videoFileName, String reportedType, String beReportedUser, String reportedUser, String reportedTime, String reportedReason) {
+        this.videoFileName = videoFileName;
         this.reportedType = reportedType;
         this.beReportedUser = beReportedUser;
         this.reportedUser = reportedUser;
         this.reportedTime = reportedTime;
         this.reportedReason = reportedReason;
-        this.commentContent = commentContent;
     }
 
-    public ReportCommentBean(long commentIdentityDocument, String reportedType, String beReportedUser, String reportedUser, String reportedTime, String reportedReason, String commentContent, String bannedReason, int handleState) {
-        this.commentIdentityDocument = commentIdentityDocument;
+    public ReportVideoDO(String videoFileName, String reportedType, String beReportedUser, String reportedUser, String reportedTime, String reportedReason, String bannedReason, int handleState) {
+        this.videoFileName = videoFileName;
         this.reportedType = reportedType;
         this.beReportedUser = beReportedUser;
         this.reportedUser = reportedUser;
         this.reportedTime = reportedTime;
         this.reportedReason = reportedReason;
-        this.commentContent = commentContent;
         this.bannedReason = bannedReason;
         this.handleState = handleState;
     }
 
-    public long getCommentIdentityDocument() {
-        return commentIdentityDocument;
+    public String getVideoFileName() {
+        return videoFileName;
     }
 
-    public void setCommentIdentityDocument(long commentIdentityDocument) {
-        this.commentIdentityDocument = commentIdentityDocument;
+    public void setVideoFileName(String videoFileName) {
+        this.videoFileName = videoFileName;
     }
 
     public String getReportedType() {
@@ -96,14 +92,6 @@ public class ReportCommentBean {
 
     public void setReportedReason(String reportedReason) {
         this.reportedReason = reportedReason;
-    }
-
-    public String getCommentContent() {
-        return commentContent;
-    }
-
-    public void setCommentContent(String commentContent) {
-        this.commentContent = commentContent;
     }
 
     public String getBannedReason() {

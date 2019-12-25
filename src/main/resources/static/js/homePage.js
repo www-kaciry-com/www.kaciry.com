@@ -137,7 +137,7 @@ function removeVideo(btn) {
             dateType: "json", //请求的数据格式
             data: {
                 username: username,
-                videoFileName: videoFileName,
+                videoFilename: videoFileName,
                 option: "collect",
             },
             error: function () {

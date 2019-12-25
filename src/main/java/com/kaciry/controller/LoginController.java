@@ -45,7 +45,7 @@ public class LoginController {
      **/
     @PostMapping(value = "/rsaKey1")
     @ResponseBody
-    public Map generateRSAKey(String username) {
+    public Map getRSAKey(String username) {
         try {
             // 获取公钥和私钥
             HashMap<String, Object> keys = RSAUtils.getKeys();

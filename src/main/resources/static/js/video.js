@@ -40,15 +40,12 @@ $(document).ready(function init() {
 
 //初始化视频信息
 $(document).ready(function () {
-    // let videoid = document.getElementById("videoid").value;
-
     let videoURL;
     $.ajax({
         url: '/initVideo',//请求的地址
         type: 'post', //请求的方式
         dateType: "json", //请求的数据格式
         data: {
-            token: token,
             username: username,
             videoAddress: videoAddress
         },
@@ -56,7 +53,6 @@ $(document).ready(function () {
             showNoticeModal("服务器错误！", "服务器未响应，稍后再试！");
         },
         success: function (result) {
-            // console.log(result);
             if ((result.videoStars / 10000) > 1) {
                 document.getElementById("starNum").innerText = Math.round(result.videoStars / 10000.0) + "万";
                 if (result.isStar === 1) {
@@ -137,7 +133,6 @@ $(document).ready(function () {
                     api: 'http://www.kaciry.com:1207/'
                 }
             });
-
             addVideoPlayNum();
         }
     })
@@ -376,56 +371,50 @@ function GetQueryString(name) {
 
 //点赞
 function clickStar() {
-    if (typeof (username) == "undefined") {
-        window.location.href = "/login";
-    } else {
-        $.ajax({
-            url: '/opsStar', //请求的url
-            type: 'post', //请求的方式
-            dateType: "json",
-            data: {
-                username: username,
-                videoFileName: videoAddress,
-                option: "star",
-            },
-            error: function () {
-                showNoticeModal("服务器错误！", "服务器未响应，稍后再试！");
-            },
-            success: function (result) {
-                // console.log(result);
-                if (result === true) {
-                    $('.ops img').eq(0).attr("src", "/static/img/videoOps/star_after.png");
-                    let stars = document.getElementById("starNum");
-                    let num;
-                    let a = stars.innerText.indexOf("万");
-                    if (a !== -1) {
-                        num = parseInt(stars.innerText) * 10000 + 1;
-                        stars.innerText = Math.round(num / 10000.0) + "万";
-                    } else {
-                        num = parseInt(stars.innerText) + 1;
-                        stars.innerText = num;
-                    }
-                    // stars.innerHTML = parseInt(stars.innerText) + 1;
+    $.ajax({
+        url: '/opsStar', //请求的url
+        type: 'post', //请求的方式
+        dateType: "json",
+        data: {
+            username: username,
+            videoFilename: videoAddress,
+            option: "star",
+        },
+        error: function () {
+            showNoticeModal("服务器错误！", "服务器未响应，稍后再试！");
+        },
+        success: function (result) {
+            console.log(result);
+            if (result === true) {
+                $('.ops img').eq(0).attr("src", "/static/img/videoOps/star_after.png");
+                let stars = document.getElementById("starNum");
+                let num;
+                let a = stars.innerText.indexOf("万");
+                if (a !== -1) {
+                    num = parseInt(stars.innerText) * 10000 + 1;
+                    stars.innerText = Math.round(num / 10000.0) + "万";
                 } else {
-                    $('.ops img').eq(0).attr("src", "/static/img/videoOps/star_before.png");
-                    let stars = document.getElementById("starNum");
-                    let num;
-                    let a = stars.innerText.indexOf("万");
-                    if (a !== -1) {
-                        num = parseInt(stars.innerText) * 10000 - 1;
-                        stars.innerText = Math.round(num / 10000.0) + "万";
-                    } else {
-                        num = parseInt(stars.innerText) - 1;
-                        stars.innerText = num;
-                    }
-
+                    num = parseInt(stars.innerText) + 1;
+                    stars.innerText = num;
+                }
+                // stars.innerHTML = parseInt(stars.innerText) + 1;
+            } else {
+                $('.ops img').eq(0).attr("src", "/static/img/videoOps/star_before.png");
+                let stars = document.getElementById("starNum");
+                let num;
+                let a = stars.innerText.indexOf("万");
+                if (a !== -1) {
+                    num = parseInt(stars.innerText) * 10000 - 1;
+                    stars.innerText = Math.round(num / 10000.0) + "万";
+                } else {
+                    num = parseInt(stars.innerText) - 1;
+                    stars.innerText = num;
                 }
 
             }
-        });
-    }
 
-    return false;
+        }
+    });
 }
 
 //收藏
@@ -439,7 +428,7 @@ function clickCollect() {
             dateType: "json",
             data: {
                 username: username,
-                videoFileName: videoAddress,
+                videoFilename: videoAddress,
                 option: "collect",
             },
             error: function () {
@@ -559,17 +548,11 @@ function clickShare() {
         dateType: "json", //请求的数据格式
         data: {
             username: username,
-            videoFileName: videoAddress,
+            videoFilename: videoAddress,
             option: "share",
         },
         error: function () {
             showNoticeModal("服务器错误！", "服务器未响应，稍后再试！");
-        },
-        success: function (result) {
-            //let json = eval(result);
-            //$.each(json, function (i, element) {
-            // })
-
         }
     })
 }
@@ -713,91 +696,3 @@ $('#noticeModalTitle').on('hidden.bs.modal', function (e) {
     $("#noticeModalTitle").text("");
     $("#notice-modal-body").text("");
 });
-
-
-// function navTools(pageNum) {
-//
-//     $.ajax({
-//             url: '/selectVideoComment', //请求的url
-//             type: 'post', //请求的方式
-//             dateType: "json", //请求的数据格式
-//             // language=JQuery-CSS
-//             data: {
-//                 videoAddress: videoAddress,
-//                 pageNum: pageNum,
-//                 pageSize: 10,
-//             },
-//             error: function () {
-//                 alert("error");
-//             },
-//             success: function (result) {
-//                 let json = eval(result.list);
-//                 let inner = document.getElementById("pageComment");
-//                 inner.innerHTML = "";
-//                 $.each(json, function (i, element) {
-//                     $("#pageComment").append("<div class=\"media\">\n" +
-//                         "        <a class=\"media-left\">\n" +
-//                         "            <div class=\"headIcon-div\">\n" +
-//                         "                <img src=\"" + element.headicon + "\" alt=\"头像\" class=\"headIcon\">\n" +
-//                         "            </div>\n" +
-//                         "\n" +
-//                         "        </a>\n" +
-//                         "        <div class=\"media-body\">\n" +
-//                         "            <h4 class=\"media-nickname\">" + element.user_nickname + "</h4>\n" +
-//                         "            <p class=\"media-p\">" + element.content + "</p>\n" +
-//                         "            <div class=\"media-p\">\n" +
-//                         "                <span>" + element.date + "</span>\n" +
-//                         "                <a href=\"#\" class=\"reply-child\">回复</a>\n" +
-//                         "            </div>\n" +
-//                         "            <hr class=\"media-hr\"/>\n" +
-//                         "        </div>\n" +
-//                         "        <div class=\"media-bottom\"></div>\n" +
-//                         "    </div>");
-//                 });
-//
-//                 $("#pageComment").append("<div class=\"pageToolNav\">\n" +
-//                     "        <ul class=\"pagination row\" id=\"pagination\">\n" +
-//                     "            <li class=\"page-item\">\n" +
-//                     "                <a class=\"page-link previous\" id=\"previousPage\" href=\"#\">上一页</a>\n" +
-//                     "            </li>\n" +
-//                     "            <li class=\"page-item\"><a class=\"page-link \" id=\"page1\" href=\"#\" >" + result.pageNum + "</a></li>\n" +
-//                     "            <li class=\"page-item\"><a class=\"page-link \" id=\"page2\" href=\"#\">" + result.nextPage + "</a></li>\n" +
-//                     "            <li class=\"page-item\"><a class=\"page-link \" id=\"page3\" href=\"#\" >" + (result.nextPage + 1) + "</a></li>\n" +
-//                     "\n" +
-//                     "            <li class=\"page-item\"><a>...</a></li>\n" +
-//                     "            <li class=\"page-item\"><a class=\"page-link\" id=\"firstPage\" href=\"#\">首页</a></li>\n" +
-//                     "            <li class=\"page-item\"><a class=\"page-link\" id=\"lastPage\" href=\"#\" >尾页</a></li>\n" +
-//                     "            <li class=\"page-item\">\n" +
-//                     "                <a class=\"page-link next\" id=\"nextPage\" href=\"#\" >下一页</a>\n" +
-//                     "            </li>\n" +
-//                     "        </ul>\n" +
-//                     "    </div>");
-//                 console.log("pageNum : " + result.pageNum);
-//                 let ul = document.getElementById('pagination');
-//                 ul.onclick = function (event) {
-//                     event = event || window.event;
-//
-//                     let firstPage = "首页";
-//                     let lastPage = "尾页";
-//                     let nextPage = "下一页";
-//                     let previousPage = "上一页";
-//                     let curOperationString = event.target.innerHTML;
-//                     if (nextPage === curOperationString) {
-//                         navTools(parseInt(result.nextPage));
-//                     } else if (previousPage === curOperationString) {
-//                         navTools(parseInt(result.pageNum) - 1);
-//                     } else if (firstPage === curOperationString) {
-//                         navTools(1);
-//                     } else if (lastPage === curOperationString) {
-//                         navTools(parseInt(result.lastPage));
-//                     } else {
-//                         navTools(parseInt(curOperationString));
-//                     }
-//                     return false;
-//                 }
-//             },
-//         }
-//     );
-//
-//     return false;
-// }
