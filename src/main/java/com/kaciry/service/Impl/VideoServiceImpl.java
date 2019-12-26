@@ -46,49 +46,49 @@ public class VideoServiceImpl implements VideoService {
 
     //登陆的用户查询对该视频是否进行过操作
     @Override
-    public VideoPage initVideoInfo(String videoAddress, String username) {
+    public VideoInfoDTO initVideoInfo(String videoAddress, String username) {
         //1.查询该视频的所有信息
-        VideoInfo resultOfVideoInfo = videoDao.selectVideoInfo(videoAddress);
+        VideoInfoDO resultOfVideoInfoDO = videoDao.selectVideoInfo(videoAddress);
         OperationsDO operationsDO = new OperationsDO(username, videoAddress);
         //2.查询username用户是否对该视频操作过
         OperationsDO resultOfOperationsDO = videoDao.selectOperationsState(operationsDO);
-        VideoPage videoPage;
+        VideoInfoDTO videoInfoDTO;
         //3.1 若未进行任何操作，videoPage不包含Ops的信息,用于视频播放页面初始化时下方的按钮是否为激活状态
         if (resultOfOperationsDO == null) {
-            videoPage = new VideoPage(resultOfVideoInfo.getVideoIdentityDocument(), resultOfVideoInfo.getUsername(), resultOfVideoInfo.getVideoTitle(),
-                    resultOfVideoInfo.getVideoType(), resultOfVideoInfo.getVideoState(), resultOfVideoInfo.getVideoFilename(),
-                    resultOfVideoInfo.getVideoDescription(), resultOfVideoInfo.getVideoName(), resultOfVideoInfo.getVideoCover(), resultOfVideoInfo.getVideoData(), resultOfVideoInfo.getVideoStars(),
-                    resultOfVideoInfo.getVideoCoins(), resultOfVideoInfo.getVideoConnections(), resultOfVideoInfo.getVideoShares(), resultOfVideoInfo.getVideoPlayNum(),
-                    resultOfVideoInfo.getVideoBarrages());
+            videoInfoDTO = new VideoInfoDTO(resultOfVideoInfoDO.getVideoIdentityDocument(), resultOfVideoInfoDO.getUsername(), resultOfVideoInfoDO.getVideoTitle(),
+                    resultOfVideoInfoDO.getVideoType(), resultOfVideoInfoDO.getVideoState(), resultOfVideoInfoDO.getVideoFilename(),
+                    resultOfVideoInfoDO.getVideoDescription(), resultOfVideoInfoDO.getVideoName(), resultOfVideoInfoDO.getVideoCover(), resultOfVideoInfoDO.getVideoData(), resultOfVideoInfoDO.getVideoStars(),
+                    resultOfVideoInfoDO.getVideoCoins(), resultOfVideoInfoDO.getVideoConnections(), resultOfVideoInfoDO.getVideoShares(), resultOfVideoInfoDO.getVideoPlayNum(),
+                    resultOfVideoInfoDO.getVideoBarrages());
         }
         //3.2 若有进行点赞等操作，videoPage包含Ops实体信息,用于视频播放页面初始化时下方的按钮是否为激活状态
         else {
-            videoPage = new VideoPage(resultOfVideoInfo.getVideoIdentityDocument(), resultOfVideoInfo.getUsername(), resultOfVideoInfo.getVideoTitle(),
-                    resultOfVideoInfo.getVideoType(), resultOfVideoInfo.getVideoState(), resultOfVideoInfo.getVideoFilename(),
-                    resultOfVideoInfo.getVideoDescription(), resultOfVideoInfo.getVideoName(), resultOfVideoInfo.getVideoCover(), resultOfVideoInfo.getVideoData(), resultOfVideoInfo.getVideoStars(),
-                    resultOfVideoInfo.getVideoCoins(), resultOfVideoInfo.getVideoConnections(), resultOfVideoInfo.getVideoShares(), resultOfVideoInfo.getVideoPlayNum(),
-                    resultOfVideoInfo.getVideoBarrages(), resultOfOperationsDO.getIsStar(), resultOfOperationsDO.getIsCollect(), resultOfOperationsDO.getIsCoin());
+            videoInfoDTO = new VideoInfoDTO(resultOfVideoInfoDO.getVideoIdentityDocument(), resultOfVideoInfoDO.getUsername(), resultOfVideoInfoDO.getVideoTitle(),
+                    resultOfVideoInfoDO.getVideoType(), resultOfVideoInfoDO.getVideoState(), resultOfVideoInfoDO.getVideoFilename(),
+                    resultOfVideoInfoDO.getVideoDescription(), resultOfVideoInfoDO.getVideoName(), resultOfVideoInfoDO.getVideoCover(), resultOfVideoInfoDO.getVideoData(), resultOfVideoInfoDO.getVideoStars(),
+                    resultOfVideoInfoDO.getVideoCoins(), resultOfVideoInfoDO.getVideoConnections(), resultOfVideoInfoDO.getVideoShares(), resultOfVideoInfoDO.getVideoPlayNum(),
+                    resultOfVideoInfoDO.getVideoBarrages(), resultOfOperationsDO.getIsStar(), resultOfOperationsDO.getIsCollect(), resultOfOperationsDO.getIsCoin());
         }
 
-        return videoPage;
+        return videoInfoDTO;
     }
 
     //游客，查询该视频自有的属性
-    public VideoPage initVideoInfo(String videoAddress) {
+    public VideoInfoDTO initVideoInfo(String videoAddress) {
         //1.查询该视频的所有信息
-        VideoInfo resultOfVideoInfo = videoDao.selectVideoInfo(videoAddress);
+        VideoInfoDO resultOfVideoInfoDO = videoDao.selectVideoInfo(videoAddress);
         //2.将videoInfo的信息赋给VideoPage（多态，处理方便）
-        VideoPage videoPage;
-        videoPage = new VideoPage(resultOfVideoInfo.getVideoIdentityDocument(), resultOfVideoInfo.getUsername(), resultOfVideoInfo.getVideoTitle(),
-                resultOfVideoInfo.getVideoType(), resultOfVideoInfo.getVideoState(), resultOfVideoInfo.getVideoFilename(),
-                resultOfVideoInfo.getVideoDescription(), resultOfVideoInfo.getVideoName(), resultOfVideoInfo.getVideoCover(), resultOfVideoInfo.getVideoData(), resultOfVideoInfo.getVideoStars(),
-                resultOfVideoInfo.getVideoCoins(), resultOfVideoInfo.getVideoConnections(), resultOfVideoInfo.getVideoShares(), resultOfVideoInfo.getVideoPlayNum(),
-                resultOfVideoInfo.getVideoBarrages());
-        return videoPage;
+        VideoInfoDTO videoInfoDTO;
+        videoInfoDTO = new VideoInfoDTO(resultOfVideoInfoDO.getVideoIdentityDocument(), resultOfVideoInfoDO.getUsername(), resultOfVideoInfoDO.getVideoTitle(),
+                resultOfVideoInfoDO.getVideoType(), resultOfVideoInfoDO.getVideoState(), resultOfVideoInfoDO.getVideoFilename(),
+                resultOfVideoInfoDO.getVideoDescription(), resultOfVideoInfoDO.getVideoName(), resultOfVideoInfoDO.getVideoCover(), resultOfVideoInfoDO.getVideoData(), resultOfVideoInfoDO.getVideoStars(),
+                resultOfVideoInfoDO.getVideoCoins(), resultOfVideoInfoDO.getVideoConnections(), resultOfVideoInfoDO.getVideoShares(), resultOfVideoInfoDO.getVideoPlayNum(),
+                resultOfVideoInfoDO.getVideoBarrages());
+        return videoInfoDTO;
     }
 
     @Override
-    public boolean opsStar(OperationsDO operationsDO) {
+    public boolean operationOfStar(OperationsDO operationsDO) {
         //1.1查询是否存在该用户对视频的操作，不存在时返回值为false
         if (videoDao.selectOperationsData(operationsDO) != null) {
             //1.2 查询该条数据的star为1还是0
@@ -130,7 +130,7 @@ public class VideoServiceImpl implements VideoService {
     }
 
     @Override
-    public boolean opsCollect(OperationsDO operationsDO) {
+    public boolean operationOfCollect(OperationsDO operationsDO) {
         //1.1查询是否存在该用户对视频的操作，不存在时返回值为false
         if (videoDao.selectOperationsState(operationsDO) != null) {
             //1.2 查询该条数据的collect为1还是0
@@ -172,7 +172,7 @@ public class VideoServiceImpl implements VideoService {
 
     //分享视频
     @Override
-    public boolean opsShare(OperationsDO operationsDO) {
+    public boolean operationOfShare(OperationsDO operationsDO) {
         if (videoDao.selectOperationsData(operationsDO) != null) {
             operationsDO.setIsShare(1);
             videoDao.updateShareData(operationsDO);

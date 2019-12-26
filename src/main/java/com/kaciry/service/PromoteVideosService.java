@@ -2,14 +2,14 @@ package com.kaciry.service;
 
 import com.kaciry.entity.PromoteVideosDO;
 import com.kaciry.entity.ResultBean;
-import com.kaciry.entity.VideoInfo;
+import com.kaciry.entity.VideoInfoDO;
 
 import java.sql.Timestamp;
 import java.util.List;
 
 public interface PromoteVideosService {
 
-    List<VideoInfo> selectNormalVideos(String username);
+    List<VideoInfoDO> selectNormalVideos(String username);
 
     /**
      * @return java.lang.String
@@ -17,7 +17,7 @@ public interface PromoteVideosService {
      * @description 查询推广视频需要等待的时间
      * @date 2019/11/1 15:00
      **/
-    String queryWaitTime(int option);
+    String queryWaitTime(int promoteType);
 
     /**
      * @param promoteVideosDO PromoteVideosBean实体，详情见PromoteVideosBean类
@@ -51,10 +51,10 @@ public interface PromoteVideosService {
      * @description 获取正在生效的推广视频
      * @date 2019/11/2 14:55
      **/
-    List<VideoInfo> getPromoteVideos4Carousel();
+    List<VideoInfoDO> getPromoteVideos4Carousel();
 
-    List<VideoInfo> getPromoteVideos4List();
+    List<VideoInfoDO> getPromoteVideos4List();
 
-    Timestamp queryLastTime(int option);
+    Timestamp queryLastTime(int promoteType);
 
 }

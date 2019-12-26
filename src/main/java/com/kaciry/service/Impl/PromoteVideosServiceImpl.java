@@ -1,13 +1,13 @@
 package com.kaciry.service.Impl;
 
 import com.kaciry.constant.ConstantClassField;
+import com.kaciry.entity.VideoInfoDO;
 import com.kaciry.utils.InitPromoteVideos;
 import com.kaciry.utils.TimeUtils;
 import com.kaciry.dao.PromoteVideosDao;
 import com.kaciry.dao.UserDao;
 import com.kaciry.entity.PromoteVideosDO;
 import com.kaciry.entity.ResultBean;
-import com.kaciry.entity.VideoInfo;
 import com.kaciry.service.PromoteVideosService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,26 +29,26 @@ public class PromoteVideosServiceImpl implements PromoteVideosService {
     private UserDao userDao;
 
     @Override
-    public List<VideoInfo> selectNormalVideos(String username) {
+    public List<VideoInfoDO> selectNormalVideos(String username) {
         return promoteVideosDao.selectNormalVideos(username);
     }
 
     @Override
-    public String queryWaitTime(int option) {
+    public String queryWaitTime(int promoteType) {
         List<PromoteVideosDO> list;
         //定义最少推荐视频量
         int index;
         //判断目标为哪一类推广
-        if (option == ConstantClassField.PROMOTE_CAROUSEL) {
+        if (promoteType == ConstantClassField.PROMOTE_CAROUSEL) {
             //轮播图，最小数量为3
             index = ConstantClassField.PROMOTE_CAROUSEL;
             //查询promoteType为1的最后3条数据
-            list = promoteVideosDao.selectPromoteVideo(option, ConstantClassField.PROMOTE_CAROUSEL);
+            list = promoteVideosDao.selectPromoteVideo(promoteType, ConstantClassField.PROMOTE_CAROUSEL);
         } else {
             //列表区域推广，最小数量为6
             index = ConstantClassField.PROMOTE_LIST_NUM;
             //查询promoteType为1的最后6条数据
-            list = promoteVideosDao.selectPromoteVideo(option, ConstantClassField.PROMOTE_LIST_NUM);
+            list = promoteVideosDao.selectPromoteVideo(promoteType, ConstantClassField.PROMOTE_LIST_NUM);
         }
         //如果数量小于3个，直接进行推荐
         if (list.size() < index) {
@@ -65,17 +65,17 @@ public class PromoteVideosServiceImpl implements PromoteVideosService {
     }
 
     @Override
-    public Timestamp queryLastTime(int option) {
+    public Timestamp queryLastTime(int promoteType) {
         List<PromoteVideosDO> list;
         //定义最少推荐视频量
         int index;
         //判断目标为哪一类推广
-        if (option == ConstantClassField.PROMOTE_CAROUSEL) {
+        if (promoteType == ConstantClassField.PROMOTE_CAROUSEL) {
             index = ConstantClassField.PROMOTE_CAROUSEL_NUM;
-            list = promoteVideosDao.selectPromoteVideo(option, ConstantClassField.PROMOTE_CAROUSEL_NUM);
+            list = promoteVideosDao.selectPromoteVideo(promoteType, ConstantClassField.PROMOTE_CAROUSEL_NUM);
         } else {
             index = ConstantClassField.PROMOTE_LIST_NUM;
-            list = promoteVideosDao.selectPromoteVideo(option, ConstantClassField.PROMOTE_LIST_NUM);
+            list = promoteVideosDao.selectPromoteVideo(promoteType, ConstantClassField.PROMOTE_LIST_NUM);
         }
         //如果数量小于3个，直接进行推荐
         if (list.size() < index) {
@@ -112,23 +112,23 @@ public class PromoteVideosServiceImpl implements PromoteVideosService {
     }
 
     @Override
-    public List<VideoInfo> getPromoteVideos4Carousel() {
+    public List<VideoInfoDO> getPromoteVideos4Carousel() {
         List<PromoteVideosDO> res = InitPromoteVideos.initPromoteVideos4Carousel(promoteVideosDao.selectPromotedVideos4Carousel());
-        List<VideoInfo> resultList = new ArrayList<>();
+        List<VideoInfoDO> resultList = new ArrayList<>();
         for (PromoteVideosDO re : res) {
-            VideoInfo videoInfo = userDao.selectVideosByVideoFilename(re.getVideoFilename());
-            resultList.add(videoInfo);
+            VideoInfoDO videoInfoDO = userDao.selectVideosByVideoFilename(re.getVideoFilename());
+            resultList.add(videoInfoDO);
         }
         return resultList;
     }
 
     @Override
-    public List<VideoInfo> getPromoteVideos4List() {
+    public List<VideoInfoDO> getPromoteVideos4List() {
         List<PromoteVideosDO> res = InitPromoteVideos.initPromoteVideos4List(promoteVideosDao.selectPromotedVideos4List());
-        List<VideoInfo> resultList = new ArrayList<>();
+        List<VideoInfoDO> resultList = new ArrayList<>();
         for (PromoteVideosDO re : res) {
-            VideoInfo videoInfo = userDao.selectVideosByVideoFilename(re.getVideoFilename());
-            resultList.add(videoInfo);
+            VideoInfoDO videoInfoDO = userDao.selectVideosByVideoFilename(re.getVideoFilename());
+            resultList.add(videoInfoDO);
         }
         return resultList;
     }

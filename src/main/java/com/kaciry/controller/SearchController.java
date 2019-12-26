@@ -2,7 +2,7 @@ package com.kaciry.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.kaciry.entity.VideoInfo;
+import com.kaciry.entity.VideoInfoDO;
 import com.kaciry.service.Impl.SearchDataServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -34,17 +34,17 @@ public class SearchController {
      **/
     @PostMapping(value = "/searchMsg")
     @ResponseBody
-    public PageInfo<VideoInfo> searchMessage(Integer pageNum, Integer pageSize, String keyword, String type) {
-        List<VideoInfo> videoInfoList = null;
+    public PageInfo<VideoInfoDO> searchMessage(Integer pageNum, Integer pageSize, String keyword, String type) {
+        List<VideoInfoDO> videoInfoDOList = null;
         PageHelper.startPage(pageNum, pageSize);
         if ("s".equals(type)) {
-            videoInfoList = searchDataService.searchKeyword(keyword);
+            videoInfoDOList = searchDataService.searchKeyword(keyword);
         } else if ("n".equals(type)) {
-            videoInfoList = searchDataService.searchByType(keyword);
+            videoInfoDOList = searchDataService.searchByType(keyword);
         } else {
             System.out.println("Search error!");
         }
-        return new PageInfo<>(videoInfoList);
+        return new PageInfo<>(videoInfoDOList);
     }
 
 }

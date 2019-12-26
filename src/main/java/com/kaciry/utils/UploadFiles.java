@@ -1,7 +1,7 @@
 package com.kaciry.utils;
 
 import com.kaciry.entity.ResultBean;
-import com.kaciry.entity.VideoInfo;
+import com.kaciry.entity.VideoInfoDO;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -16,7 +16,7 @@ import java.util.Objects;
  */
 public class UploadFiles {
 
-    public ResultBean uploadFiles(MultipartFile videoFile, MultipartFile videoCoverFile, VideoInfo videoInfo) {
+    public ResultBean uploadFiles(MultipartFile videoFile, MultipartFile videoCoverFile, VideoInfoDO videoInfoDO) {
         try {
             //获取文件后缀，包括点“.”
             String fileSuffixVideo = Objects.requireNonNull(videoFile.getOriginalFilename()).substring(videoFile.getOriginalFilename().lastIndexOf("."));
@@ -55,14 +55,14 @@ public class UploadFiles {
             //设置日期格式
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             //生成实体
-            videoInfo.setVideoData(simpleDateFormat.format(new Date()));
-            videoInfo.setVideoCover(videoCover);
-            videoInfo.setVideoFilename(videoFilename);
+            videoInfoDO.setVideoData(simpleDateFormat.format(new Date()));
+            videoInfoDO.setVideoCover(videoCover);
+            videoInfoDO.setVideoFilename(videoFilename);
         } catch (Exception e) {
             e.printStackTrace();
             return new ResultBean<>("服务器开小差了！");
         }
-        return new ResultBean<>(videoInfo);
+        return new ResultBean<>(videoInfoDO);
     }
 
     //    public ResultBean uploadFiles(MultipartFile[] file, HttpServletRequest request) {

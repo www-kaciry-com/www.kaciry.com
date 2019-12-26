@@ -1,8 +1,8 @@
 package com.kaciry.service.Impl;
 
+import com.kaciry.entity.VideoInfoDO;
 import com.kaciry.utils.DataWeightSort;
 import com.kaciry.dao.IndexDataDao;
-import com.kaciry.entity.VideoInfo;
 import com.kaciry.service.IndexDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,21 +19,21 @@ public class IndexDataServiceImpl implements IndexDataService {
     private IndexDataDao indexDataDao;
 
     @Override
-    public List<VideoInfo> selectIndexDataByType(String videoType, int length) {
-        List<VideoInfo> videoInfo = indexDataDao.selectVideoData(videoType);
-        if (videoInfo.size()<length){
-            return videoInfo;
+    public List<VideoInfoDO> selectIndexDataByType(String videoType, int length) {
+        List<VideoInfoDO> videoInfoDO = indexDataDao.selectVideoData(videoType);
+        if (videoInfoDO.size() < length) {
+            return videoInfoDO;
         }else {
-            return DataWeightSort.dataWeightSort(videoInfo,length);
+            return DataWeightSort.dataWeightSort(videoInfoDO, length);
         }
     }
 
-    public List<VideoInfo> selectIndexDataByType(String videoType, int length, boolean rank) {
+    public List<VideoInfoDO> selectIndexDataByType(String videoType, int length, boolean rank) {
         return indexDataDao.selectVideoDataByType(videoType, length);
     }
 
     @Override
-    public List<VideoInfo> countVideoType() {
+    public List<VideoInfoDO> countVideoType() {
         return indexDataDao.selectVideoNum();
     }
 }

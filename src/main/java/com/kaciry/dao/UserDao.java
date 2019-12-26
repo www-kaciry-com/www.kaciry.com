@@ -89,7 +89,7 @@ public interface UserDao {
     User selectInfo(@Param("username") String username);
 
     /**
-     * @param videoInfo VideoInfo实体类
+     * @param videoInfoDO VideoInfo实体类
      * @return boolean
      * @author kaciry
      * @description 将用户上传的文件名保存到数据库
@@ -97,7 +97,7 @@ public interface UserDao {
      **/
     @Insert("insert into user_video (username,videoTitle,videoType,videoState,videoName,videoFilename,videoDescription,videoCover,videoData,videoStars,videoCoins,videoConnections,videoShares,videoPlayNum,videoBarrages)" +
             " values(#{username},#{videoTitle},#{videoType},#{videoState},#{videoName},#{videoFilename},#{videoDescription},#{videoCover},#{videoData},#{videoStars},#{videoCoins},#{videoConnections},#{videoShares},#{videoPlayNum},#{videoBarrages})")
-    boolean insertVideo(VideoInfo videoInfo);
+    boolean insertVideo(VideoInfoDO videoInfoDO);
 
     /**
      * @param username 用户名
@@ -107,7 +107,7 @@ public interface UserDao {
      * @date 2019/10/25 18:37
      **/
     @Select("select * from user_video where username = #{username} AND videoState <> 0")
-    List<VideoInfo> selectVideos(String username);
+    List<VideoInfoDO> selectVideos(String username);
 
     /**
      * @param username 用户名
@@ -128,7 +128,7 @@ public interface UserDao {
      * @date 2019/10/25 18:38
      **/
     @Select("select * from user_video left join user on user.username = user_video.username where videoFilename = #{videoFilename}")
-    VideoInfo selectVideosByVideoFilename(@Param("videoFilename") String videoFilename);
+    VideoInfoDO selectVideosByVideoFilename(@Param("videoFilename") String videoFilename);
 
     /**
      * @param username    用户名

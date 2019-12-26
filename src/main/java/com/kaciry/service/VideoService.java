@@ -45,7 +45,7 @@ public interface VideoService {
      * @description 初始化用户视频信息
      * @date 2019/10/26 13:57
      **/
-    VideoPage initVideoInfo(String videoFileName, String username);
+    VideoInfoDTO initVideoInfo(String videoFileName, String username);
 
     /**
      * @param operationsDO Ops实体，包含信息见实体类
@@ -54,7 +54,7 @@ public interface VideoService {
      * @description 用户点赞
      * @date 2019/10/26 13:57
      **/
-    boolean opsStar(OperationsDO operationsDO);
+    boolean operationOfStar(OperationsDO operationsDO);
 
     /**
      * @param operationsDO Ops实体，包含信息见实体类
@@ -63,7 +63,7 @@ public interface VideoService {
      * @description 用户收藏
      * @date 2019/10/26 13:57
      **/
-    boolean opsCollect(OperationsDO operationsDO);
+    boolean operationOfCollect(OperationsDO operationsDO);
 
     /**
      * @param operationsDO Ops实体，包含信息见实体类
@@ -72,7 +72,7 @@ public interface VideoService {
      * @description 用户分享
      * @date 2019/10/26 13:57
      **/
-    boolean opsShare(OperationsDO operationsDO);
+    boolean operationOfShare(OperationsDO operationsDO);
 
     /**
      * @param operationsDO Ops实体，包含信息见实体类

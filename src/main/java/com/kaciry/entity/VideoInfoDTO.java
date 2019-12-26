@@ -3,9 +3,10 @@ package com.kaciry.entity;
 import java.math.BigInteger;
 
 /**
- * @author Kaciry
+ * @author kaciry
  */
-public class VideoInfo {
+public class VideoInfoDTO {
+
     //索引
     private BigInteger videoIdentityDocument;
     //用户名
@@ -40,31 +41,20 @@ public class VideoInfo {
     private int videoPlayNum;
     //视频弹幕数
     private int videoBarrages;
+    //是否点赞
+    private int isStar;
+    //是否收藏
+    private int isConnection;
+    //是否投币
+    private int isCoin;
 
-    public VideoInfo() {
+    public VideoInfoDTO() {
     }
 
-    public VideoInfo(String username, String videoTitle, String videoType, int videoState, String videoFilename, String videoDescription,
-                     String videoName, String videoCover, String videoData, int videoStars, int videoCoins, int videoConnections, int videoShares,
-                     int videoPlayNum, int videoBarrages) {
-        this.username = username;
-        this.videoTitle = videoTitle;
-        this.videoType = videoType;
-        this.videoState = videoState;
-        this.videoFilename = videoFilename;
-        this.videoDescription = videoDescription;
-        this.videoName = videoName;
-        this.videoCover = videoCover;
-        this.videoData = videoData;
-        this.videoStars = videoStars;
-        this.videoCoins = videoCoins;
-        this.videoConnections = videoConnections;
-        this.videoShares = videoShares;
-        this.videoPlayNum = videoPlayNum;
-        this.videoBarrages = videoBarrages;
-    }
-
-    public VideoInfo(String username, String userNickName, String videoTitle, String videoType, int videoState, String videoFilename, String videoDescription, String videoName, String videoCover, String videoData, int videoStars, int videoCoins, int videoConnections, int videoShares, int videoPlayNum, int videoBarrages) {
+    public VideoInfoDTO(BigInteger videoIdentityDocument, String username, String videoTitle, String videoType,
+                        int videoState, String videoFilename, String videoDescription, String videoName, String videoCover, String videoData,
+                        int videoStars, int videoCoins, int videoConnections, int videoShares, int videoPlayNum, int videoBarrages) {
+        this.videoIdentityDocument = videoIdentityDocument;
         this.username = username;
         this.userNickName = userNickName;
         this.videoTitle = videoTitle;
@@ -82,6 +72,32 @@ public class VideoInfo {
         this.videoPlayNum = videoPlayNum;
         this.videoBarrages = videoBarrages;
     }
+
+    public VideoInfoDTO(BigInteger videoIdentityDocument, String username, String videoTitle, String videoType,
+                        int videoState, String videoFilename, String videoDescription, String videoName, String videoCover, String videoData,
+                        int videoStars, int videoCoins, int videoConnections, int videoShares, int videoPlayNum, int videoBarrages, int isStar, int isConnection, int isCoin) {
+        this.videoIdentityDocument = videoIdentityDocument;
+        this.username = username;
+        this.userNickName = userNickName;
+        this.videoTitle = videoTitle;
+        this.videoType = videoType;
+        this.videoState = videoState;
+        this.videoFilename = videoFilename;
+        this.videoDescription = videoDescription;
+        this.videoName = videoName;
+        this.videoCover = videoCover;
+        this.videoData = videoData;
+        this.videoStars = videoStars;
+        this.videoCoins = videoCoins;
+        this.videoConnections = videoConnections;
+        this.videoShares = videoShares;
+        this.videoPlayNum = videoPlayNum;
+        this.videoBarrages = videoBarrages;
+        this.isStar = isStar;
+        this.isConnection = isConnection;
+        this.isCoin = isCoin;
+    }
+
 
     public BigInteger getVideoIdentityDocument() {
         return videoIdentityDocument;
@@ -91,12 +107,12 @@ public class VideoInfo {
         this.videoIdentityDocument = videoIdentityDocument;
     }
 
-    public String getUsername() {
-        return username;
+    public String getVideoCover() {
+        return videoCover;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setVideoCover(String videoCover) {
+        this.videoCover = videoCover;
     }
 
     public String getUserNickName() {
@@ -105,6 +121,22 @@ public class VideoInfo {
 
     public void setUserNickName(String userNickName) {
         this.userNickName = userNickName;
+    }
+
+    public String getVideoData() {
+        return videoData;
+    }
+
+    public void setVideoData(String videoData) {
+        this.videoData = videoData;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getVideoTitle() {
@@ -155,22 +187,6 @@ public class VideoInfo {
         this.videoName = videoName;
     }
 
-    public String getVideoCover() {
-        return videoCover;
-    }
-
-    public void setVideoCover(String videoCover) {
-        this.videoCover = videoCover;
-    }
-
-    public String getVideoData() {
-        return videoData;
-    }
-
-    public void setVideoData(String videoData) {
-        this.videoData = videoData;
-    }
-
     public int getVideoStars() {
         return videoStars;
     }
@@ -219,26 +235,50 @@ public class VideoInfo {
         this.videoBarrages = videoBarrages;
     }
 
+    public int getIsStar() {
+        return isStar;
+    }
+
+    public void setIsStar(int isStar) {
+        this.isStar = isStar;
+    }
+
+    public int getIsConnection() {
+        return isConnection;
+    }
+
+    public void setIsConnection(int isConnection) {
+        this.isConnection = isConnection;
+    }
+
+    public int getIsCoin() {
+        return isCoin;
+    }
+
+    public void setIsCoin(int isCoin) {
+        this.isCoin = isCoin;
+    }
+
     @Override
     public String toString() {
-        return "VideoInfo{" +
+        return "VideoPage{" +
                 "videoIdentityDocument=" + videoIdentityDocument +
                 ", username='" + username + '\'' +
-                ", userNickName='" + userNickName + '\'' +
                 ", videoTitle='" + videoTitle + '\'' +
                 ", videoType='" + videoType + '\'' +
                 ", videoState=" + videoState +
                 ", videoFilename='" + videoFilename + '\'' +
                 ", videoDescription='" + videoDescription + '\'' +
                 ", videoName='" + videoName + '\'' +
-                ", videoCover='" + videoCover + '\'' +
-                ", videoData='" + videoData + '\'' +
                 ", videoStars=" + videoStars +
                 ", videoCoins=" + videoCoins +
                 ", videoConnections=" + videoConnections +
                 ", videoShares=" + videoShares +
                 ", videoPlayNum=" + videoPlayNum +
                 ", videoBarrages=" + videoBarrages +
+                ", isStar=" + isStar +
+                ", isConnection=" + isConnection +
+                ", isCoin=" + isCoin +
                 '}';
     }
 }

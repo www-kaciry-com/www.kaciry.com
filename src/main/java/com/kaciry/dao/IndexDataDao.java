@@ -1,6 +1,6 @@
 package com.kaciry.dao;
 
-import com.kaciry.entity.VideoInfo;
+import com.kaciry.entity.VideoInfoDO;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Component;
@@ -23,7 +23,7 @@ public interface IndexDataDao {
      * @date 2019/10/25 17:59
      **/
     @Select("select * from user_video where videoType = #{videoType} ORDER BY videoPlayNum DESC limit #{length}")
-    List<VideoInfo> selectVideoDataByType(@Param("videoType") String videoType, @Param("length") int length);
+    List<VideoInfoDO> selectVideoDataByType(@Param("videoType") String videoType, @Param("length") int length);
 
     /**
      * @param videoType 视频类型
@@ -33,7 +33,7 @@ public interface IndexDataDao {
      * @date 2019/10/25 18:02
      **/
     @Select("select * from user_video LEFT JOIN user ON user.username = user_video.username WHERE videoType = #{videoType} AND videoState = 1")
-    List<VideoInfo> selectVideoData(String videoType);
+    List<VideoInfoDO> selectVideoData(String videoType);
 
     /**
      * @param keyword 关键词
@@ -43,9 +43,9 @@ public interface IndexDataDao {
      * @date 2019/10/25 18:03
      **/
     @Select("select * from user_video LEFT JOIN user ON user.username = user_video.username WHERE videoName like '%${keyword}%' AND videoState <> 0")
-    List<VideoInfo> selectFuzzySearch(@Param("keyword") String keyword);
+    List<VideoInfoDO> selectFuzzySearch(@Param("keyword") String keyword);
 
     @Select("Select videoType,COUNT(videoIdentityDocument) As videoCoins FROM user_video group by videoType")
-    List<VideoInfo> selectVideoNum();
+    List<VideoInfoDO> selectVideoNum();
 
 }
