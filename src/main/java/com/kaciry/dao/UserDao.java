@@ -53,7 +53,8 @@ public interface UserDao {
      * @description 修改一个User
      * @date 2019/10/25 18:31
      **/
-    @Update({"update user set userEmail = #{userEmail},userPhoneNumber = #{userPhoneNumber},userNickName = #{userNickName},userSex = #{userSex} where username = #{username}"})
+    @Update({"update user set userEmail = #{userEmail},userPhoneNumber = #{userPhoneNumber},userNickName = #{userNickName}," +
+            "userSex = #{userSex} where username = #{username}"})
     boolean updateUserInfo(User user);
 
     /**
@@ -179,7 +180,8 @@ public interface UserDao {
      * @description 查询我关注的所有用户
      * @date 2019/10/25 18:43
      **/
-    @Select("SELECT * FROM user LEFT JOIN follow_others on user.username = follow_others.followedUser WHERE userIdentityDocument = #{username} and  user.username = follow_others.followedUser")
+    @Select("SELECT * FROM user LEFT JOIN follow_others on user.username = follow_others.followedUser WHERE" +
+            " userIdentityDocument = #{username} and  user.username = follow_others.followedUser")
     List<UnionFansDO> selectMyFollows(@Param("username") String username);
 
     /**

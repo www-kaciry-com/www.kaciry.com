@@ -121,7 +121,8 @@ public interface VideoDao {
      * @description 添加一条数据，状态符为参数
      * @date 2019/10/25 18:48
      **/
-    @Insert("insert into ops (username,videoFilename,isStar,isCoin,isCollect,isShare) values(#{username},#{videoFilename},#{isStar},#{isCoin},#{isCollect},#{isShare})")
+    @Insert("insert into ops (username,videoFilename,isStar,isCoin,isCollect,isShare) " +
+            "values(#{username},#{videoFilename},#{isStar},#{isCoin},#{isCollect},#{isShare})")
     void insertOperationsData(OperationsDO operationsDO);
 
     /**
@@ -192,8 +193,7 @@ public interface VideoDao {
     @Select("select * from reportVideo where reportedUser=#{reportedUser} and videoFileName=#{videoFileName}")
     Integer selectReportData(ReportVideoDO reportVideoDO);
 
-    @Delete("DELETE user_video,comment,ops FROM user_video " +
-            "LEFT JOIN (comment LEFT JOIN ops ON comment.videoFilename = ops.videoFilename) ON user_video.videoFilename = comment.videoFilename " +
-            "WHERE user_video.videoFilename = #{videoFilename}")
+    @Delete("DELETE user_video,comment,ops FROM user_video LEFT JOIN (comment LEFT JOIN ops ON comment.videoFilename = ops.videoFilename) " +
+            "ON user_video.videoFilename = comment.videoFilename WHERE user_video.videoFilename = #{videoFilename}")
     int deleteVideoByVideoFilename(String videoFilename);
 }
