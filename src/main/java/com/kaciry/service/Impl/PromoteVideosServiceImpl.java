@@ -1,13 +1,13 @@
 package com.kaciry.service.Impl;
 
 import com.kaciry.constant.ConstantClassField;
+import com.kaciry.entity.VideoInfoDO;
 import com.kaciry.utils.InitPromoteVideos;
 import com.kaciry.utils.TimeUtils;
 import com.kaciry.dao.PromoteVideosDao;
 import com.kaciry.dao.UserDao;
 import com.kaciry.entity.PromoteVideosDO;
 import com.kaciry.entity.ResultBean;
-import com.kaciry.entity.VideoInfoDO;
 import com.kaciry.service.PromoteVideosService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -26,7 +26,6 @@ public interface PromoteVideosDao {
      * @date  2019/11/1 22:39
      * @return com.kaciry.entity.PromoteVideosBean
     **/
-    //@Select("SELECT * from promote_videos WHERE promoteType = #{option} ORDER BY tableIndex DESC  LIMIT 1")
     @Select("SELECT * from promote_videos WHERE promoteType = #{option} ORDER BY tableIndex DESC  LIMIT #{limitNum}")
     List<PromoteVideosDO> selectPromoteVideo(@Param("option") int option, @Param("limitNum") int limitNum);
 

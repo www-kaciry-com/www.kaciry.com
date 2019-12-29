@@ -21,7 +21,8 @@ public interface UserChatDao {
      * @description 添加一条用户间的聊天信息
      * @date 2019/10/25 18:09
      **/
-    @Insert("insert into user_private_chat (senderIdentityDocument,receiverIdentityDocument,content,date) values (#{senderIdentityDocument},#{receiverIdentityDocument},#{content},#{date})")
+    @Insert("insert into user_private_chat (senderIdentityDocument,receiverIdentityDocument,content,date) " +
+            "values (#{senderIdentityDocument},#{receiverIdentityDocument},#{content},#{date})")
     boolean insertUserChatMsg(UserChatDO userChatDO);
 
     /**

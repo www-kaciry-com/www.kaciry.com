@@ -106,7 +106,7 @@ public class VideoController {
 
     /**
      * @param username     用户名
-     * @param videoAddress 视频文件名
+     * @param videoFilename 视频文件名
      * @return com.kaciry.entity.VideoPage
      * @author kaciry
      * @description 初始化视频
@@ -114,18 +114,18 @@ public class VideoController {
      **/
     @PostMapping(value = "/initVideo")
     @ResponseBody
-    public VideoInfoDTO initVideoData(String username, String videoAddress) {
-        int barrages = AutoGetBarrages.getBarrages(videoAddress);
+    public VideoInfoDTO initVideoData(String username, String videoFilename) {
+        int barrages = AutoGetBarrages.getBarrages(videoFilename);
         VideoInfoDTO videoInfoDTO;
         if ((username == null) || ("".equals(username))) {
-            videoInfoDTO = videoService.initVideoInfo(videoAddress);
+            videoInfoDTO = videoService.initVideoInfo(videoFilename);
             videoInfoDTO.setVideoBarrages(barrages);
-            videoService.addVideoBarrages(videoAddress, barrages);
+            videoService.addVideoBarrages(videoFilename, barrages);
             return videoInfoDTO;
         } else {
-            videoInfoDTO = videoService.initVideoInfo(videoAddress, username);
+            videoInfoDTO = videoService.initVideoInfo(videoFilename, username);
             videoInfoDTO.setVideoBarrages(barrages);
-            videoService.addVideoBarrages(videoAddress, barrages);
+            videoService.addVideoBarrages(videoFilename, barrages);
             return videoInfoDTO;
         }
     }

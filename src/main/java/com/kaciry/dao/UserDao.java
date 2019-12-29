@@ -53,7 +53,8 @@ public interface UserDao {
      * @description 修改一个User
      * @date 2019/10/25 18:31
      **/
-    @Update({"update user set userEmail = #{userEmail},userPhoneNumber = #{userPhoneNumber},userNickName = #{userNickName},userSex = #{userSex} where username = #{username}"})
+    @Update({"update user set userEmail = #{userEmail},userPhoneNumber = #{userPhoneNumber},userNickName = #{userNickName}," +
+            "userSex = #{userSex} where username = #{username}"})
     boolean updateUserInfo(User user);
 
     /**
@@ -179,8 +180,9 @@ public interface UserDao {
      * @description 查询我关注的所有用户
      * @date 2019/10/25 18:43
      **/
-    @Select("SELECT * FROM user LEFT JOIN follow_others on user.username = follow_others.followedUser WHERE userIdentityDocument = #{username} and  user.username = follow_others.followedUser")
-    List<UnionFansDTO> selectMyFollows(@Param("username") String username);
+    @Select("SELECT * FROM user LEFT JOIN follow_others on user.username = follow_others.followedUser WHERE" +
+            " userIdentityDocument = #{username} and  user.username = follow_others.followedUser")
+    List<UnionFansDO> selectMyFollows(@Param("username") String username);
 
     /**
      * @param reportCommentDO ReportCommentBean实体
@@ -212,17 +214,4 @@ public interface UserDao {
      **/
     @Select("SELECT * FROM comment WHERE commentIdentityDocument = #{commentIdentityDocument}")
     CommentDO selectCommentByIdentityDocument(long commentIdentityDocument);
-
-    /**
-     * @author FLLH
-     * @description
-     * @date  2019/11/17 16:13
-     * @date  2019/11/17 16:13
-     * @param musicInfo
-     * @return booleans
-     **/
-    @Insert("insert into user_music (username,musicType,musicTittle,musicName,musicFilename,date,musicCover,musicLrc,musicPlayNum,musicState)" +
-            " values(#{username},#{musicType},#{musicTittle},#{musicName},#{musicFilename}," +
-            "#{date},#{musicCover},#{musicLrc},#{musicPlayNum},#{musicState})")
-    boolean insertMusic(Music musicInfo);
 }

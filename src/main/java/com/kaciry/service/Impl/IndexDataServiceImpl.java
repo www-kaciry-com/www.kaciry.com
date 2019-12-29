@@ -21,10 +21,10 @@ public class IndexDataServiceImpl implements IndexDataService {
     @Override
     public List<VideoInfoDO> selectIndexDataByType(String videoType, int length) {
         List<VideoInfoDO> videoInfoDO = indexDataDao.selectVideoData(videoType);
-        if (videoInfoDO.size()<length){
+        if (videoInfoDO.size() < length) {
             return videoInfoDO;
         }else {
-            return DataWeightSort.dataWeightSort(videoInfoDO,length);
+            return DataWeightSort.dataWeightSort(videoInfoDO, length);
         }
     }
 

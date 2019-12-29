@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class ResetPwdController {
 
     @Autowired
-    CaptchaServiceImpl captchaService;
+    private CaptchaServiceImpl captchaService;
 
     /**
      * @param receiver 发送验证码的用户

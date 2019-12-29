@@ -47,7 +47,7 @@ $(document).ready(function () {
         dateType: "json", //请求的数据格式
         data: {
             username: username,
-            videoAddress: videoAddress
+            videoFilename: videoAddress
         },
         error: function () {
             showNoticeModal("服务器错误！", "服务器未响应，稍后再试！");
