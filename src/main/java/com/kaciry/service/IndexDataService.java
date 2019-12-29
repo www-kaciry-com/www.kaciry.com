@@ -1,6 +1,6 @@
 package com.kaciry.service;
 
-import com.kaciry.entity.VideoInfo;
+import com.kaciry.entity.VideoInfoDO;
 
 import java.util.List;
 /**
@@ -17,7 +17,7 @@ public interface IndexDataService {
      * @param length 返回的个数
      * @return java.util.List<com.kaciry.entity.VideoInfo>
     **/
-    List<VideoInfo> selectIndexDataByType(String videoType, int length);
+    List<VideoInfoDO> selectIndexDataByType(String videoType, int length);
 
     /**
      * @return java.util.List<com.kaciry.entity.VideoInfo>
@@ -25,7 +25,7 @@ public interface IndexDataService {
      * @description 计算视频各类型的总量
      * @date 2019/12/8 15:15
      **/
-    List<VideoInfo> countVideoType();
+    List<VideoInfoDO> countVideoType();
 
 
 }

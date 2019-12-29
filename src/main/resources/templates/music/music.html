@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/css/music-css.css">
+    <link rel="stylesheet" href="/static/css/pagePlugCSS/adminPageHandle.css">
+</head>
+<style>
+    .musicSkip {
+        color: #0f0f0f;
+        font-weight: bolder;
+    }
+</style>
+<body>
+<div id="musicIndex">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">筱筱音乐</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="javascript:void(0)" @click="locateAt('hot')">热门推荐 <span
+                                class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="javascript:void(0)" @click="locateAt('ranking')">榜单排名</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            歌曲分类
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="javascript:void(0)" @click="locateAt('net')">网络歌曲</a>
+                            <a class="dropdown-item" href="javascript:void(0)" @click="locateAt('english')">英文歌曲</a>
+                            <a class="dropdown-item" href="javascript:void(0)" @click="locateAt('old')">经典老歌</a>
+                            <a class="dropdown-item" href="javascript:void(0)" @click="locateAt('ranking')">伤感情歌</a>
+                            <a class="dropdown-item" href="javascript:void(0)" @click="locateAt('ranking')">英文歌曲</a>
+                            <a class="dropdown-item" href="javascript:void(0)" @click="locateAt('ranking')">经典老歌</a>
+                            <a class="dropdown-item" href="javascript:void(0)" @click="locateAt('ranking')">粤语歌曲</a>
+                            <a class="dropdown-item" href="javascript:void(0)" @click="locateAt('ranking')">军队歌曲</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="javascript:void(0)" @click="locateAt('ranking')">其他</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled" href="#">音乐人</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled" href="#">电台</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled" href="#">商城</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled" href="#">下载客户端</a>
+                    </li>
+                </ul>
+                <!--搜索框-->
+                <form class="userInfoQuery navbar-form navbar-right form-inline" name="userInfoQuery">
+                    <div class="input-group">
+                        <div class="form-group">
+                            <input type="search" class="form-control"
+                                   placeholder="音乐名称" v-model="searchMusicValue"/>
+                            <button type="button" class="btn btn-outline-primary"
+                                    @click="searchMusic()">
+                                    <a href="" target="_blank">查询</a>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        <!--轮播图-->
+        <div class="row">
+            <div id="carouselExampleIndicators" class="carousel slide col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"
+                 data-ride="carousel">
+                <ol class="carousel-indicators">
+                    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                </ol>
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <a @click="playMusic('hot',0)" href="" class="musicSkip" target="_blank">
+                            <img class="d-block w-100" :src='"/files/musicCover/"+hotMusicList[0].musicCover'
+                                 alt="Promote-one-img">
+                        </a>
+                    </div>
+                    <div class="carousel-item">
+                        <a @click="playMusic('hot',1)" href="" class="musicSkip" target="_blank">
+                            <img class="d-block w-100" :src='"/files/musicCover/"+hotMusicList[1].musicCover'
+                                 alt="Promote-one-img">
+                        </a>
+                    </div>
+                    <div class="carousel-item">
+                        <a @click="playMusic('hot',2)" href="" class="musicSkip" target="_blank">
+                            <img class="d-block w-100" :src='"/files/musicCover/"+hotMusicList[2].musicCover'
+                                 alt="Promote-one-img">
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!--热门推荐-->
+        <div class="Promote row" id="hot">
+            <div class="row col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 Promote-tag">
+                <div class="Promote-img">
+                    <img src="/static/img/indexIcon/Animation.png" alt="Promote">
+                </div>
+                <div @click="playMoreMusic('流行歌曲')" class="Promote-name">
+                    <a href="" class="musicSkip" target="_blank">热门推荐</a>
+                </div>
+            </div>
+            <div class="row Promote-content Animation">
+                <!--    <div v-for="(item,index) in hotMusicList" class="row Promote-content Animation">
+                      <div @click="playMusic('hot',index)" class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one">
+                           <div class="Promote-one-img">
+                               <img :src='"/files/musicCover/"+item.musicCover' alt="Promote-one-img">
+                           </div>
+                           <span>{{item.musicName}}</span>
+                       </div>-->
+                <!--<router-link :to="{path:'/qwe',query: {userid: 6}}">-->
+
+                <div @click="playMusic('hot',0)" class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one">
+                    <!--<a href="#" th:href="@{/qwe}" target="_blank">-->
+                    <!--<router-link :to="{path:'/playMusic',query: {userid: 6}}">-->
+                    <!--<router-link  :to="{path:'/qwe',query: {userid: 6}}" @click.native="flushCom">-->
+                    <!-- <router-link :to="{path:'/qwe'}">-->
+                    <!--<a href="/playMusic" target="_blank">-->
+                    <a href="" class="musicSkip" target="_blank">
+                        <div class="Promote-one-img">
+                            <img :src='"/files/musicCover/"+hotMusicList[0].musicCover' alt="Promote-one-img">
+                        </div>
+                        <!--</router-link>-->
+                        <!--</a>-->
+                        <span>{{hotMusicList[0].musicName}}</span>
+                    </a>
+                </div>
+                <!--<div @click="playMusic()" class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one">
+
+
+                    <a href="#" th:href="@{/qwe}" target="_blank">
+                        &lt;!&ndash;<a href="javascript:void(0)" th:onclick=" 'javascript:sss('+${item.id}+')'">&ndash;&gt;
+                        <div class="Promote-one-img">
+                            <img :src="imgSrc1" alt="Promote-one-img">
+                        </div>
+                    </a>
+                    &lt;!&ndash;<span style="display: none" ref="box">{{hotMusicList[0].musicIdentityDocument}}</span>&ndash;&gt;
+                    <span>{{hotMusicList[0].musicName}}</span>
+                </div>-->
+                <div @click="playMusic('hot',1)" class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one">
+                    <a href="" class="musicSkip" target="_blank">
+                        <div class="Promote-one-img">
+                            <img :src='"/files/musicCover/"+hotMusicList[1].musicCover' alt="Promote-one-img">
+                        </div>
+                        <span>{{hotMusicList[1].musicName}}</span>
+                    </a>
+                </div>
+                <div @click="playMusic('hot',2)" class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one">
+                    <a href="" class="musicSkip" target="_blank">
+                        <div class="Promote-one-img">
+                            <img :src='"/files/musicCover/"+hotMusicList[2].musicCover' alt="Promote-one-img">
+                            <!--<img ref="hotMusic1" src="" alt="Promote-one-img">-->
+                        </div>
+                        <span>{{hotMusicList[2].musicName}}</span>
+                    </a>
+                </div>
+                <div @click="playMusic('hot',3)" class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one">
+                    <a href="" class="musicSkip" target="_blank">
+                        <div class="Promote-one-img">
+                            <img :src='"/files/musicCover/"+hotMusicList[3].musicCover' alt="Promote-one-img">
+                            <!--<img ref="hotMusic1" src="" alt="Promote-one-img">-->
+                        </div>
+                        <span>{{hotMusicList[3].musicName}}</span>
+                    </a>
+                </div>
+                <div @click="playMusic('hot',4)" class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one">
+                    <a href="" class="musicSkip" target="_blank">
+                        <div class="Promote-one-img">
+                            <img :src='"/files/musicCover/"+hotMusicList[4].musicCover' alt="Promote-one-img">
+                            <!--<img ref="hotMusic1" src="" alt="Promote-one-img">-->
+                        </div>
+                        <span>{{hotMusicList[4].musicName}}</span>
+                    </a>
+                </div>
+                <div @click="playMusic('hot',5)" class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one">
+                    <a href="" class="musicSkip" target="_blank">
+                        <div class="Promote-one-img">
+                            <img :src='"/files/musicCover/"+hotMusicList[5].musicCover' alt="Promote-one-img">
+                            <!--<img ref="hotMusic1" src="" alt="Promote-one-img">-->
+                        </div>
+                        <span>{{hotMusicList[5].musicName}}</span>
+                    </a>
+                </div>
+                <div @click="playMusic('hot',6)" class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one">
+                    <a href="" class="musicSkip" target="_blank">
+                        <div class="Promote-one-img">
+                            <img :src='"/files/musicCover/"+hotMusicList[6].musicCover' alt="Promote-one-img">
+                            <!--<img ref="hotMusic1" src="" alt="Promote-one-img">-->
+                        </div>
+                        <span>{{hotMusicList[6].musicName}}</span>
+                    </a>
+                </div>
+                <div @click="playMusic('hot',7)" class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one">
+                    <a href="" class="musicSkip" target="_blank">
+                        <div class="Promote-one-img">
+                            <img :src='"/files/musicCover/"+hotMusicList[7].musicCover' alt="Promote-one-img">
+                            <!--<img ref="hotMusic1" src="" alt="Promote-one-img">-->
+                        </div>
+                        <span>{{hotMusicList[7].musicName}}</span>
+                    </a>
+                </div>
+                <div @click="playMusic('hot',8)" class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one">
+                    <a href="" class="musicSkip" target="_blank">
+                        <div class="Promote-one-img">
+                            <img :src='"/files/musicCover/"+hotMusicList[8].musicCover' alt="Promote-one-img">
+                            <!--<img ref="hotMusic1" src="" alt="Promote-one-img">-->
+                        </div>
+                        <span>{{hotMusicList[8].musicName}}</span>
+                    </a>
+                </div>
+                <div @click="playMusic('hot',9)" class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one">
+                    <a href="" class="musicSkip" target="_blank">
+                        <div class="Promote-one-img">
+                            <img :src='"/files/musicCover/"+hotMusicList[9].musicCover' alt="Promote-one-img">
+                            <!--<img ref="hotMusic1" src="" alt="Promote-one-img">-->
+                        </div>
+                        <span>{{hotMusicList[9].musicName}}</span>
+                    </a>
+                </div>
+                <div @click="playMusic('hot',10)" class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one">
+                    <a href="" class="musicSkip" target="_blank">
+                        <div class="Promote-one-img">
+                            <img :src='"/files/musicCover/"+hotMusicList[10].musicCover' alt="Promote-one-img">
+                            <!--<img ref="hotMusic1" src="" alt="Promote-one-img">-->
+                        </div>
+                        <span>{{hotMusicList[10].musicName}}</span>
+                    </a>
+                </div>
+                <div @click="playMusic('hot',11)" class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one">
+                    <a href="" class="musicSkip" target="_blank">
+                        <div class="Promote-one-img">
+                            <img :src='"/files/musicCover/"+hotMusicList[11].musicCover' alt="Promote-one-img">
+                            <!--<img ref="hotMusic1" src="" alt="Promote-one-img">-->
+                        </div>
+                        <span>{{hotMusicList[11].musicName}}</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!--网络歌曲-->
+        <div class="Promote row" id="net">
+            <div class="row col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 Promote-tag">
+                <div class="Promote-img">
+                    <img src="/static/img/indexIcon/Animation.png" alt="Promote">
+                </div>
+                <div @click="playMoreMusic('网络歌曲')" class="Promote-name">
+                    <a href="" class="musicSkip" target="_blank">网络歌曲</a>
+                </div>
+            </div>
+            <div class="row Promote-content Animation">
+                <div @click="playMusic('net',0)" class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one">
+                    <a href="" class="musicSkip" target="_blank">
+                        <div class="Promote-one-img">
+                            <img :src='"/files/musicCover/"+netMusicList[0].musicCover' alt="Promote-one-img">
+                        </div>
+                        <span>{{netMusicList[0].musicName}}</span>
+                    </a>
+                </div>
+                <div @click="playMusic('net',1)" class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one">
+                    <a href="" class="musicSkip" target="_blank">
+                        <div class="Promote-one-img">
+                            <img :src='"/files/musicCover/"+netMusicList[1].musicCover' alt="Promote-one-img">
+                            <!--<img ref="hotMusic1" src="" alt="Promote-one-img">-->
+                        </div>
+                        <span>{{netMusicList[1].musicName}}</span>
+                    </a>
+                </div>
+                <div @click="playMusic('net',2)" class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one">
+                    <a href="" class="musicSkip" target="_blank">
+                        <div class="Promote-one-img">
+                            <img :src='"/files/musicCover/"+netMusicList[2].musicCover' alt="Promote-one-img">
+                            <!--<img ref="hotMusic1" src="" alt="Promote-one-img">-->
+                        </div>
+                        <span>{{netMusicList[2].musicName}}</span>
+                    </a>
+                </div>
+                <div @click="playMusic('net',3)" class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one">
+                    <a href="" class="musicSkip" target="_blank">
+                        <div class="Promote-one-img">
+                            <img :src='"/files/musicCover/"+netMusicList[3].musicCover' alt="Promote-one-img">
+                            <!--<img ref="hotMusic1" src="" alt="Promote-one-img">-->
+                        </div>
+                        <span>{{netMusicList[3].musicName}}</span>
+                    </a>
+                </div>
+                <div @click="playMusic('net',4)" class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one">
+                    <a href="" class="musicSkip" target="_blank">
+                        <div class="Promote-one-img">
+                            <img :src='"/files/musicCover/"+netMusicList[4].musicCover' alt="Promote-one-img">
+                            <!--<img ref="hotMusic1" src="" alt="Promote-one-img">-->
+                        </div>
+                        <span>{{netMusicList[4].musicName}}</span>
+                    </a>
+                </div>
+                <div @click="playMusic('net',5)" class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one">
+                    <a href="" class="musicSkip" target="_blank">
+                        <div class="Promote-one-img">
+                            <img :src='"/files/musicCover/"+netMusicList[5].musicCover' alt="Promote-one-img">
+                            <!--<img ref="hotMusic1" src="" alt="Promote-one-img">-->
+                        </div>
+                        <span>{{netMusicList[5].musicName}}</span>
+                    </a>
+                </div>
+                <div @click="playMusic('net',6)" class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one">
+                    <a href="" class="musicSkip" target="_blank">
+                        <div class="Promote-one-img">
+                            <img :src='"/files/musicCover/"+netMusicList[6].musicCover' alt="Promote-one-img">
+                            <!--<img ref="hotMusic1" src="" alt="Promote-one-img">-->
+                        </div>
+                        <span>{{netMusicList[6].musicName}}</span>
+                    </a>
+                </div>
+                <div @click="playMusic('net',7)" class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one">
+                    <a href="" class="musicSkip" target="_blank">
+                        <div class="Promote-one-img">
+                            <img :src='"/files/musicCover/"+netMusicList[7].musicCover' alt="Promote-one-img">
+                            <!--<img ref="hotMusic1" src="" alt="Promote-one-img">-->
+                        </div>
+                        <span>{{netMusicList[7].musicName}}</span>
+                    </a>
+                </div>
+                <div @click="playMusic('net',8)" class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one">
+                    <a href="" class="musicSkip" target="_blank">
+                        <div class="Promote-one-img">
+                            <img :src='"/files/musicCover/"+netMusicList[8].musicCover' alt="Promote-one-img">
+                            <!--<img ref="hotMusic1" src="" alt="Promote-one-img">-->
+                        </div>
+                        <span>{{netMusicList[8].musicName}}</span>
+                    </a>
+                </div>
+                <div @click="playMusic('net',9)" class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one">
+                    <a href="" class="musicSkip" target="_blank">
+                        <div class="Promote-one-img">
+                            <img :src='"/files/musicCover/"+netMusicList[9].musicCover' alt="Promote-one-img">
+                            <!--<img ref="hotMusic1" src="" alt="Promote-one-img">-->
+                        </div>
+                        <span>{{netMusicList[9].musicName}}</span>
+                    </a>
+                </div>
+                <div @click="playMusic('net',10)" class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one">
+                    <a href="" class="musicSkip" target="_blank">
+                        <div class="Promote-one-img">
+                            <img :src='"/files/musicCover/"+netMusicList[10].musicCover' alt="Promote-one-img">
+                            <!--<img ref="hotMusic1" src="" alt="Promote-one-img">-->
+                        </div>
+                        <span>{{netMusicList[10].musicName}}</span>
+                    </a>
+                </div>
+                <div @click="playMusic('net',11)" class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one">
+                    <a href="" class="musicSkip" target="_blank">
+                        <div class="Promote-one-img">
+                            <img :src='"/files/musicCover/"+netMusicList[11].musicCover' alt="Promote-one-img">
+                            <!--<img ref="hotMusic1" src="" alt="Promote-one-img">-->
+                        </div>
+                        <span>{{netMusicList[11].musicName}}</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!--英文歌曲-->
+        <div class="Promote row" id="english">
+            <div class="row col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 Promote-tag">
+                <div class="Promote-img">
+                    <img src="/static/img/indexIcon/Animation.png" alt="Promote">
+                </div>
+                <div @click="playMoreMusic('英文歌曲')" class="Promote-name">
+                    <a href="" class="musicSkip" target="_blank">英文歌曲</a>
+                </div>
+            </div>
+            <div class="row Promote-content Animation">
+                <div @click="playMusic('english',0)" class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one">
+                    <a href="" class="musicSkip" target="_blank">
+                        <div class="Promote-one-img">
+                            <img :src='"/files/musicCover/"+englishMusicList[0].musicCover' alt="Promote-one-img">
+                        </div>
+                        <span>{{englishMusicList[0].musicName}}</span>
+                    </a>
+                </div>
+                <div @click="playMusic('english',1)" class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one">
+                    <a href="" class="musicSkip" target="_blank">
+                        <div class="Promote-one-img">
+                            <img :src='"/files/musicCover/"+englishMusicList[1].musicCover' alt="Promote-one-img">
+                            <!--<img ref="hotMusic1" src="" alt="Promote-one-img">-->
+                        </div>
+                        <span>{{englishMusicList[1].musicName}}</span>
+                    </a>
+                </div>
+                <div @click="playMusic('english',2)" class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one">
+                    <a href="" class="musicSkip" target="_blank">
+                        <div class="Promote-one-img">
+                            <img :src='"/files/musicCover/"+englishMusicList[2].musicCover' alt="Promote-one-img">
+                            <!--<img ref="hotMusic1" src="" alt="Promote-one-img">-->
+                        </div>
+                        <span>{{englishMusicList[2].musicName}}</span>
+                    </a>
+                </div>
+                <div @click="playMusic('english',3)" class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one">
+                    <a href="" class="musicSkip" target="_blank">
+                        <div class="Promote-one-img">
+                            <img :src='"/files/musicCover/"+englishMusicList[3].musicCover' alt="Promote-one-img">
+                            <!--<img ref="hotMusic1" src="" alt="Promote-one-img">-->
+                        </div>
+                        <span>{{englishMusicList[3].musicName}}</span>
+                    </a>
+                </div>
+                <div @click="playMusic('english',4)" class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one">
+                    <a href="" class="musicSkip" target="_blank">
+                        <div class="Promote-one-img">
+                            <img :src='"/files/musicCover/"+englishMusicList[4].musicCover' alt="Promote-one-img">
+                            <!--<img ref="hotMusic1" src="" alt="Promote-one-img">-->
+                        </div>
+                        <span>{{englishMusicList[4].musicName}}</span>
+                    </a>
+                </div>
+                <div @click="playMusic('english',5)" class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one">
+                    <a href="" class="musicSkip" target="_blank">
+                        <div class="Promote-one-img">
+                            <img :src='"/files/musicCover/"+englishMusicList[5].musicCover' alt="Promote-one-img">
+                            <!--<img ref="hotMusic1" src="" alt="Promote-one-img">-->
+                        </div>
+                        <span>{{englishMusicList[5].musicName}}</span>
+                    </a>
+                </div>
+                <div @click="playMusic('english',6)" class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one">
+                    <a href="" class="musicSkip" target="_blank">
+                        <div class="Promote-one-img">
+                            <img :src='"/files/musicCover/"+englishMusicList[6].musicCover' alt="Promote-one-img">
+                            <!--<img ref="hotMusic1" src="" alt="Promote-one-img">-->
+                        </div>
+                        <span>{{englishMusicList[6].musicName}}</span>
+                    </a>
+                </div>
+                <div @click="playMusic('english',7)" class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one">
+                    <a href="" class="musicSkip" target="_blank">
+                        <div class="Promote-one-img">
+                            <img :src='"/files/musicCover/"+englishMusicList[7].musicCover' alt="Promote-one-img">
+                            <!--<img ref="hotMusic1" src="" alt="Promote-one-img">-->
+                        </div>
+                        <span>{{englishMusicList[7].musicName}}</span>
+                    </a>
+                </div>
+                <div @click="playMusic('english',8)" class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one">
+                    <a href="" class="musicSkip" target="_blank">
+                        <div class="Promote-one-img">
+                            <img :src='"/files/musicCover/"+englishMusicList[8].musicCover' alt="Promote-one-img">
+                            <!--<img ref="hotMusic1" src="" alt="Promote-one-img">-->
+                        </div>
+                        <span>{{englishMusicList[8].musicName}}</span>
+                    </a>
+                </div>
+                <div @click="playMusic('english',9)" class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one">
+                    <a href="" class="musicSkip" target="_blank">
+                        <div class="Promote-one-img">
+                            <img :src='"/files/musicCover/"+englishMusicList[9].musicCover' alt="Promote-one-img">
+                            <!--<img ref="hotMusic1" src="" alt="Promote-one-img">-->
+                        </div>
+                        <span>{{englishMusicList[9].musicName}}</span>
+                    </a>
+                </div>
+                <div @click="playMusic('english',10)" class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one">
+                    <a href="" class="musicSkip" target="_blank">
+                        <div class="Promote-one-img">
+                            <img :src='"/files/musicCover/"+englishMusicList[10].musicCover' alt="Promote-one-img">
+                            <!--<img ref="hotMusic1" src="" alt="Promote-one-img">-->
+                        </div>
+                        <span>{{englishMusicList[10].musicName}}</span>
+                    </a>
+                </div>
+                <div @click="playMusic('english',11)" class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one">
+                    <a href="" class="musicSkip" target="_blank">
+                        <div class="Promote-one-img">
+                            <img :src='"/files/musicCover/"+englishMusicList[11].musicCover' alt="Promote-one-img">
+                            <!--<img ref="hotMusic1" src="" alt="Promote-one-img">-->
+                        </div>
+                        <span>{{englishMusicList[11].musicName}}</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!--经典老歌-->
+        <div class="Promote row" id="old">
+            <div class="row col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 Promote-tag">
+                <div class="Promote-img">
+                    <img src="/static/img/indexIcon/Animation.png" alt="Promote">
+                </div>
+                <div @click="playMoreMusic('经典老歌')" class="Promote-name">
+                    <a href="" class="musicSkip" target="_blank">经典老歌</a>
+                </div>
+            </div>
+            <div class="row Promote-content Animation">
+                <div @click="playMusic('old',0)" class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one">
+                    <a href="" class="musicSkip" target="_blank">
+                        <div class="Promote-one-img">
+                            <img :src='"/files/musicCover/"+oldMusicList[0].musicCover' alt="Promote-one-img">
+                        </div>
+                        <span>{{oldMusicList[0].musicName}}</span>
+                    </a>
+                </div>
+                <div @click="playMusic('old',1)" class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one">
+                    <a href="" class="musicSkip" target="_blank">
+                        <div class="Promote-one-img">
+                            <img :src='"/files/musicCover/"+oldMusicList[1].musicCover' alt="Promote-one-img">
+                            <!--<img ref="hotMusic1" src="" alt="Promote-one-img">-->
+                        </div>
+                        <span>{{oldMusicList[1].musicName}}</span>
+                    </a>
+                </div>
+                <div @click="playMusic('old',2)" class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one">
+                    <a href="" class="musicSkip" target="_blank">
+                        <div class="Promote-one-img">
+                            <img :src='"/files/musicCover/"+oldMusicList[2].musicCover' alt="Promote-one-img">
+                            <!--<img ref="hotMusic1" src="" alt="Promote-one-img">-->
+                        </div>
+                        <span>{{oldMusicList[2].musicName}}</span>
+                    </a>
+                </div>
+                <div @click="playMusic('old',3)" class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one">
+                    <a href="" class="musicSkip" target="_blank">
+                        <div class="Promote-one-img">
+                            <img :src='"/files/musicCover/"+oldMusicList[3].musicCover' alt="Promote-one-img">
+                            <!--<img ref="hotMusic1" src="" alt="Promote-one-img">-->
+                        </div>
+                        <span>{{oldMusicList[3].musicName}}</span>
+                    </a>
+                </div>
+                <div @click="playMusic('old',4)" class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one">
+                    <a href="" class="musicSkip" target="_blank">
+                        <div class="Promote-one-img">
+                            <img :src='"/files/musicCover/"+oldMusicList[4].musicCover' alt="Promote-one-img">
+                            <!--<img ref="hotMusic1" src="" alt="Promote-one-img">-->
+                        </div>
+                        <span>{{oldMusicList[4].musicName}}</span>
+                    </a>
+                </div>
+                <div @click="playMusic('old',5)" class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one">
+                    <a href="" class="musicSkip" target="_blank">
+                        <div class="Promote-one-img">
+                            <img :src='"/files/musicCover/"+oldMusicList[5].musicCover' alt="Promote-one-img">
+                            <!--<img ref="hotMusic1" src="" alt="Promote-one-img">-->
+                        </div>
+                        <span>{{oldMusicList[5].musicName}}</span>
+                    </a>
+                </div>
+                <div @click="playMusic('old',6)" class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one">
+                    <a href="" class="musicSkip" target="_blank">
+                        <div class="Promote-one-img">
+                            <img :src='"/files/musicCover/"+oldMusicList[6].musicCover' alt="Promote-one-img">
+                            <!--<img ref="hotMusic1" src="" alt="Promote-one-img">-->
+                        </div>
+                        <span>{{oldMusicList[6].musicName}}</span>
+                    </a>
+                </div>
+                <div @click="playMusic('old',7)" class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one">
+                    <a href="" class="musicSkip" target="_blank">
+                        <div class="Promote-one-img">
+                            <img :src='"/files/musicCover/"+oldMusicList[7].musicCover' alt="Promote-one-img">
+                            <!--<img ref="hotMusic1" src="" alt="Promote-one-img">-->
+                        </div>
+                        <span>{{oldMusicList[7].musicName}}</span>
+                    </a>
+                </div>
+                <div @click="playMusic('old',8)" class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one">
+                    <a href="" class="musicSkip" target="_blank">
+                        <div class="Promote-one-img">
+                            <img :src='"/files/musicCover/"+oldMusicList[8].musicCover' alt="Promote-one-img">
+                            <!--<img ref="hotMusic1" src="" alt="Promote-one-img">-->
+                        </div>
+                        <span>{{oldMusicList[8].musicName}}</span>
+                    </a>
+                </div>
+                <div @click="playMusic('old',9)" class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one">
+                    <a href="" class="musicSkip" target="_blank">
+                        <div class="Promote-one-img">
+                            <img :src='"/files/musicCover/"+oldMusicList[9].musicCover' alt="Promote-one-img">
+                            <!--<img ref="hotMusic1" src="" alt="Promote-one-img">-->
+                        </div>
+                        <span>{{oldMusicList[9].musicName}}</span>
+                    </a>
+                </div>
+                <div @click="playMusic('old',10)" class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one">
+                    <a href="" class="musicSkip" target="_blank">
+                        <div class="Promote-one-img">
+                            <img :src='"/files/musicCover/"+oldMusicList[10].musicCover' alt="Promote-one-img">
+                            <!--<img ref="hotMusic1" src="" alt="Promote-one-img">-->
+                        </div>
+                        <span>{{oldMusicList[10].musicName}}</span>
+                    </a>
+                </div>
+                <div @click="playMusic('old',11)" class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one">
+                    <a href="" class="musicSkip" target="_blank">
+                        <div class="Promote-one-img">
+                            <img :src='"/files/musicCover/"+oldMusicList[11].musicCover' alt="Promote-one-img">
+                            <!--<img ref="hotMusic1" src="" alt="Promote-one-img">-->
+                        </div>
+                        <span>{{oldMusicList[11].musicName}}</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+
+        <!--榜单排名-->
+        <div class="Promote row" id="ranking">
+            <div class="row col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 Promote-tag">
+                <div class="Promote-img">
+                    <img src="/static/img/indexIcon/Music.png" alt="Promote">
+                </div>
+                <div class="Promote-name">榜单排名</div>
+            </div>
+            <div class="row Promote-content-music Music justify-content-between">
+                <div class="rank col-12 col-sm-12 col-md-3 col-lg-3 col-xl-4">
+                    <span class="rankingTittle">筱筱流行歌曲榜</span>
+                    <ul class="nav list-group">
+                        <li @click="playMusic('pop',0)" role="presentation" class="nav-li rank-li">
+                            <a href="#" target="_blank">
+                                <span class="first">1.</span>
+                                <span class="first">{{popMusicList[0].musicName}}</span>
+                            </a>
+                        </li>
+                        <li @click="playMusic('pop',1)" role="presentation" class="nav-li rank-li">
+
+                            <a href="#" target="_blank">
+                                <span class="second">2.</span>
+                                <span class="second">{{popMusicList[1].musicName}}</span>
+                            </a>
+                        </li>
+                        <li @click="playMusic('pop',2)" role="presentation" class="nav-li rank-li">
+                            <a href="#" target="_blank">
+                                <span class="third">3.</span>
+                                <span class="third">{{popMusicList[2].musicName}}</span>
+                            </a>
+                        </li>
+                        <li @click="playMusic('pop',3)" role="presentation" class="nav-li rank-li">
+                            <a href="#" target="_blank">
+                                <span class="rankingNum">4.</span>
+                                <span class="">{{popMusicList[3].musicName}}</span>
+                            </a>
+                        </li>
+                        <li @click="playMusic('pop',4)" role="presentation" class="nav-li rank-li">
+                            <a href="#" target="_blank">
+                                <span class="rankingNum">5.</span>
+                                <span class="">{{popMusicList[4].musicName}}</span>
+                            </a>
+                        </li>
+                        <li @click="playMusic('pop',5)" role="presentation" class="nav-li rank-li">
+                            <a href="#" target="_blank">
+                                <span class="rankingNum">6.</span>
+                                <span class="">{{popMusicList[5].musicName}}</span>
+                            </a>
+                        </li>
+                        <li @click="playMusic('pop',6)" role="presentation" class="nav-li rank-li">
+                            <a href="#" target="_blank">
+                                <span class="rankingNum">7.</span>
+                                <span class="">{{popMusicList[6].musicName}}</span>
+                            </a>
+                        </li>
+                        <li @click="playMusic('pop',7)" role="presentation" class="nav-li rank-li">
+                            <a href="#" target="_blank">
+                                <span class="rankingNum">8.</span>
+                                <span class="">{{popMusicList[7].musicName}}</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="rank col-12 col-sm-12 col-md-3 col-lg-3 col-xl-4">
+                    <span class="rankingTittle">筱筱原创歌曲榜</span>
+                    <ul class="nav ">
+                        <li @click="playMusic('pop',0)" role="presentation" class="nav-li rank-li">
+                            <a href="#" target="_blank">
+                                <span class="first">1.</span>
+                                <span class="first">{{popMusicList[0].musicName}}</span>
+                            </a>
+                        </li>
+                        <li @click="playMusic('pop',1)" role="presentation" class="nav-li rank-li">
+
+                            <a href="#" target="_blank">
+                                <span class="second">2.</span>
+                                <span class="second">{{popMusicList[1].musicName}}</span>
+                            </a>
+                        </li>
+                        <li @click="playMusic('pop',2)" role="presentation" class="nav-li rank-li">
+                            <a href="#" target="_blank">
+                                <span class="third">3.</span>
+                                <span class="third">{{popMusicList[2].musicName}}</span>
+                            </a>
+                        </li>
+                        <li @click="playMusic('pop',3)" role="presentation" class="nav-li rank-li">
+                            <a href="#" target="_blank">
+                                <span class="rankingNum">4.</span>
+                                <span class="">{{popMusicList[3].musicName}}</span>
+                            </a>
+                        </li>
+                        <li @click="playMusic('pop',4)" role="presentation" class="nav-li rank-li">
+                            <a href="#" target="_blank">
+                                <span class="rankingNum">5.</span>
+                                <span class="">{{popMusicList[4].musicName}}</span>
+                            </a>
+                        </li>
+                        <li @click="playMusic('pop',5)" role="presentation" class="nav-li rank-li">
+                            <a href="#" target="_blank">
+                                <span class="rankingNum">6.</span>
+                                <span class="">{{popMusicList[5].musicName}}</span>
+                            </a>
+                        </li>
+                        <li @click="playMusic('pop',6)" role="presentation" class="nav-li rank-li">
+                            <a href="#" target="_blank">
+                                <span class="rankingNum">7.</span>
+                                <span class="">{{popMusicList[6].musicName}}</span>
+                            </a>
+                        </li>
+                        <li @click="playMusic('pop',7)" role="presentation" class="nav-li rank-li">
+                            <a href="#" target="_blank">
+                                <span class="rankingNum">8.</span>
+                                <span class="">{{popMusicList[7].musicName}}</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="rank col-12 col-sm-12 col-md-3 col-lg-3 col-xl-4">
+                    <span class="rankingTittle">筱筱影视金曲榜</span>
+                    <ul class="nav">
+                        <li @click="playMusic('pop',0)" role="presentation" class="nav-li rank-li">
+                            <a href="#" target="_blank">
+                                <span class="first">1.</span>
+                                <span class="first">{{popMusicList[0].musicName}}</span>
+                            </a>
+                        </li>
+                        <li @click="playMusic('pop',1)" role="presentation" class="nav-li rank-li">
+
+                            <a href="#" target="_blank">
+                                <span class="second">2.</span>
+                                <span class="second">{{popMusicList[1].musicName}}</span>
+                            </a>
+                        </li>
+                        <li @click="playMusic('pop',2)" role="presentation" class="nav-li rank-li">
+                            <a href="#" target="_blank">
+                                <span class="third">3.</span>
+                                <span class="third">{{popMusicList[2].musicName}}</span>
+                            </a>
+                        </li>
+                        <li @click="playMusic('pop',3)" role="presentation" class="nav-li rank-li">
+                            <a href="#" target="_blank">
+                                <span class="rankingNum">4.</span>
+                                <span class="">{{popMusicList[3].musicName}}</span>
+                            </a>
+                        </li>
+                        <li @click="playMusic('pop',4)" role="presentation" class="nav-li rank-li">
+                            <a href="#" target="_blank">
+                                <span class="rankingNum">5.</span>
+                                <span class="">{{popMusicList[4].musicName}}</span>
+                            </a>
+                        </li>
+                        <li @click="playMusic('pop',5)" role="presentation" class="nav-li rank-li">
+                            <a href="#" target="_blank">
+                                <span class="rankingNum">6.</span>
+                                <span class="">{{popMusicList[5].musicName}}</span>
+                            </a>
+                        </li>
+                        <li @click="playMusic('pop',6)" role="presentation" class="nav-li rank-li">
+                            <a href="#" target="_blank">
+                                <span class="rankingNum">7.</span>
+                                <span class="">{{popMusicList[6].musicName}}</span>
+                            </a>
+                        </li>
+                        <li @click="playMusic('pop',7)" role="presentation" class="nav-li rank-li">
+                            <a href="#" target="_blank">
+                                <span class="rankingNum">8.</span>
+                                <span class="">{{popMusicList[7].musicName}}</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.bootcss.com/vue-resource/1.5.1/vue-resource.min.js"></script>
+<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="https://cdn.bootcss.com/aplayer/1.10.1/APlayer.min.js"></script>
+<script src="/static/js/music/music.js"></script>
+<script>
+    $('.carousel').carousel({
+        interval: 3000
+    })
+</script>
+</body>
+</html>
+

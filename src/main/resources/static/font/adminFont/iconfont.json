@@ -1,0 +1,72 @@
+{
+  "id": "1494542",
+  "name": "xiaoxiaoAdmin",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "11637650",
+      "name": "搜索",
+      "font_class": "sousuo",
+      "unicode": "e60e",
+      "unicode_decimal": 58894
+    },
+    {
+      "icon_id": "11637793",
+      "name": "提示",
+      "font_class": "tishi",
+      "unicode": "e60f",
+      "unicode_decimal": 58895
+    },
+    {
+      "icon_id": "11637856",
+      "name": "退出",
+      "font_class": "tuichu",
+      "unicode": "e610",
+      "unicode_decimal": 58896
+    },
+    {
+      "icon_id": "11637858",
+      "name": "信息",
+      "font_class": "xinxi",
+      "unicode": "e611",
+      "unicode_decimal": 58897
+    },
+    {
+      "icon_id": "11637911",
+      "name": "禁止",
+      "font_class": "jinzhi",
+      "unicode": "e612",
+      "unicode_decimal": 58898
+    },
+    {
+      "icon_id": "11637912",
+      "name": "举报",
+      "font_class": "jubao",
+      "unicode": "e613",
+      "unicode_decimal": 58899
+    },
+    {
+      "icon_id": "11637985",
+      "name": "用户信息",
+      "font_class": "yonghuxinxi",
+      "unicode": "e614",
+      "unicode_decimal": 58900
+    },
+    {
+      "icon_id": "11637986",
+      "name": "数据",
+      "font_class": "shuju",
+      "unicode": "e615",
+      "unicode_decimal": 58901
+    },
+    {
+      "icon_id": "11637987",
+      "name": "申请解除",
+      "font_class": "shenqingjiechu",
+      "unicode": "e616",
+      "unicode_decimal": 58902
+    }
+  ]
+}

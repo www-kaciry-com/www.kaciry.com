@@ -6,6 +6,10 @@
     <link rel="icon" type="image/x-icon" href="/static/ico/favicon.ico">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="/static/css/upload-video.css">
+    <!--富文本框-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
     <title>创作中心-筱筱弹幕网</title>
 </head>
 <body>
@@ -39,7 +43,7 @@
                            aria-controls="home" aria-selected="true">视频投稿</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#v-pills-audio" role="tab"
+                        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#v-pills-music" role="tab"
                            aria-controls="profile" aria-selected="false">音频投稿</a>
                     </li>
                     <li class="nav-item">
@@ -126,8 +130,7 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <button class="btn btn-outline-primary" style="width: 20%;margin: auto"
-                                    onclick="submitForm()">
+                            <button class="btn btn-outline-primary" style="width: 20%;margin: auto" onclick="Submit()">
                                 提交
                             </button>
                         </div>
@@ -194,16 +197,114 @@
                         <img src="/static/img/nodata.png" alt="nodata">
                     </div>
                 </div>
-                <div class="tab-pane fade" id="v-pills-audio">
-                    <div style="text-align: center">
-                        <img src="/static/img/nodata.png" alt="nodata">
-                    </div>
-                </div>
                 <div class="tab-pane fade" id="v-pills-photos">
                     <div style="text-align: center">
-                        <img src="/static/img/nodata.png" alt="nodata">
+                        <form>
+                            <div id="summernote"></div>
+                            <button class="btn btn-outline-primary" style="width: 20%;margin: auto"
+                                    onclick="submitColumn()">
+                                提交
+                            </button>
+                            <!--<div>
+                                <p><img src="/files/columnImgShortTime/20191222221151262.jpg" style="width: 300px;"><img
+                                        src="/files/columnImgShortTime/20191222221156097.jpg" style="width: 25%;"></p>
+                                <p>十大法萨芬</p>
+                                <h1>撒的撒的</h1>
+                                <p><span style="background-color: rgb(255, 0, 0);">撒旦法撒旦反反复复反反复复发股份</span></p>
+                                <p>撒地方大师傅</p>
+                            </div>-->
+                        </form>
                     </div>
                 </div>
+                <div class="tab-pane fade" id="v-pills-music">
+                    <form enctype="multipart/form-data" method="post" class="uploadform" id="uploadMusic">
+                        <div class="form-group row" style="display: none">
+                            <label for="musicAuthor" class="col-sm-2 col-form-label">隐藏label ：</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" id="musicAuthor" name="musicAuthor"
+                                       required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="videoTitle" class="col-sm-2 col-form-label">音乐标题 ：</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" id="musicTitle" name="videoTitle"
+                                       placeholder="Music Title" required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="videoType" class="col-sm-2 col-form-label" style="margin-top: 18px">音乐类型
+                                ：</label>
+                            <div class="col-sm-8">
+                                <select class="form-control" name="videoType" id="musicType">
+                                    <option value="网络歌曲">网络歌曲</option>
+                                    <option value="流行歌曲">流行歌曲</option>
+                                    <option value="原创歌曲">原创歌曲</option>
+                                    <option value="伤感情歌">伤感情歌</option>
+                                    <option value="英文歌曲">英文歌曲</option>
+                                    <option value="经典老歌">经典老歌</option>
+                                    <option value="粤语歌曲">粤语歌曲</option>
+                                    <option value="劲爆歌曲">劲爆歌曲</option>
+                                    <option value="手机铃声">手机铃声</option>
+                                    <option value="军队歌曲">军队歌曲</option>
+                                    <option value="KTV歌曲">KTV歌曲</option>
+                                    <option value="韩文歌曲">韩文歌曲</option>
+                                    <option value="欧美歌曲">欧美歌曲</option>
+                                    <option value="时尚歌曲">时尚歌曲</option>
+                                    <option value="影视歌曲">影视歌曲</option>
+                                    <option value="其他" selected>其他</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="musicName" class="col-sm-2 col-form-label">音乐名称 ：</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" id="musicName" name="musicName"
+                                       placeholder="Music Name" required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="choice-music-file" class="col-sm-2 col-form-label">选择音乐文件 ：</label>
+                            <div class="col-sm-8">
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" id="choice-music-file"
+                                           onchange="showFilenameVideo(this.files[0])" accept=".mp3">
+                                    <label class="custom-file-label custom-file-label-video" for="choice-music-file">选择文件</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="choice-music-cover-file" class="col-sm-2 col-form-label">选择音乐封面 ：</label>
+                            <div class="col-sm-8">
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" id="choice-music-cover-file"
+                                           onchange="showFilenameCover(this.files[0])" accept=".png, .jpg,.jpeg">
+                                    <label class="custom-file-label custom-file-label-cover"
+                                           for="choice-music-cover-file">选择文件</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="choice-music-lrc-file" class="col-sm-2 col-form-label">选择音乐歌词 ：</label>
+                            <div class="col-sm-8">
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" id="choice-music-lrc-file"
+                                           onchange="showFilenameLrc(this.files[0])" accept=".lrc">
+                                    <label class="custom-file-label custom-file-label-lrc"
+                                           for="choice-music-lrc-file">选择文件</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <button class="btn btn-outline-primary" style="width: 20%;margin: auto"
+                                    onclick="submitMusic()">
+                                提交
+                            </button>
+                        </div>
+
+                    </form>
+                </div>
+
             </div>
         </div>
 
@@ -217,6 +318,10 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <script src="/static/js/upload/upload.js"></script>
 <script type="text/javascript" src="/static/js/effects/mouse-effects.js"></script>
+<!--富文本框-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.js"></script>
 <!-- 显示文件名 -->
 <script>
     function showFilenameVideo(file) {
@@ -226,6 +331,11 @@
     function showFilenameCover(file) {
         $(".custom-file-label-cover").html(file.name);
     }
+
+    function showFilenameLrc(file) {
+        $(".custom-file-label-lrc").html(file.name);
+    }
 </script>
+
 </body>
 </html>

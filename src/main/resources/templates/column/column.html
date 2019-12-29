@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/css/music-css.css">
+    <link rel="stylesheet" href="/static/css/pagePlugCSS/adminPageHandle.css">
+</head>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        background: url("static/img/bg.jpg");
+    }
+
+    .columnContent {
+        background: #eaf2ff;
+    }
+</style>
+<body>
+<div id="column">
+
+    <div class="container">
+        <nav aria-label="breadcrumb" role="navigation">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item"><a href="#">Library</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Data</li>
+            </ol>
+        </nav>
+        <div class="columnContent" style="border: #0f0f0f solid 1px;">
+            <!--     <p><img src="/files/columnImgShortTime/20191223134649476.jpg" style="width: 58.984px;"></p>
+                 <p>是的撒的</p>
+                 <p><br></p>
+     -->
+            <div v-for="item in columnList">
+                <div class="" style="border-bottom: #0f0f0f solid 1px;">
+                    <div style="margin-top: 5px">
+                        <div>
+                            <img :src='"/files/HeadIcon/"+item.userHeadIcon'
+                                 style="height: 50px;width: 50px;border-radius: 50%" class="col">
+                            <span>昵称:{{item.userNickName}}</span>
+                            <span>用户名:{{item.username}}</span>
+                            <span>会员等级:{{item.isVip}}</span>
+                            <span style="float: right;padding: 10px">发布时间:{{item.uploadTime}}</span>
+                        </div>
+                        <div>
+                            <span style="padding: 10px">个性签名:{{item.userSignature}}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div v-html="item.columnContent" style="border-bottom: #0f0f0f solid 2px">{{item.columnContent}}</div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.bootcss.com/vue-resource/1.5.1/vue-resource.min.js"></script>
+<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="/static/js/column/column.js"></script>
+
+</body>
+</html>
+

@@ -60,9 +60,9 @@ public class VideoController {
     public ResultBean uploadVideoFiles(@RequestParam("videoFile") MultipartFile videoFile, @RequestParam("videoCoverFile") MultipartFile videoCoverFile,
                                        @RequestParam("videoInfo") String videoInfo) {
         //json字符换转化为实体对象
-        VideoInfo parseObject = JSONObject.parseObject(videoInfo, VideoInfo.class);
+        VideoInfoDO parseObject = JSONObject.parseObject(videoInfo, VideoInfoDO.class);
         UploadFiles uploadFiles = new UploadFiles();
-        if (userService.uploadVideo((VideoInfo) uploadFiles.uploadFiles(videoFile, videoCoverFile, parseObject).getData())) {
+        if (userService.uploadVideo((VideoInfoDO) uploadFiles.uploadFiles(videoFile, videoCoverFile, parseObject).getData())) {
             return new ResultBean<>("上传成功！");
         } else {
             return new ResultBean<>("上传失败，请检查网络！!");
@@ -114,19 +114,19 @@ public class VideoController {
      **/
     @PostMapping(value = "/initVideo")
     @ResponseBody
-    public VideoPage initVideoData(String username, String videoAddress) {
+    public VideoInfoDTO initVideoData(String username, String videoAddress) {
         int barrages = AutoGetBarrages.getBarrages(videoAddress);
-        VideoPage videoPage;
+        VideoInfoDTO videoInfoDTO;
         if ((username == null) || ("".equals(username))) {
-            videoPage = videoService.initVideoInfo(videoAddress);
-            videoPage.setVideoBarrages(barrages);
+            videoInfoDTO = videoService.initVideoInfo(videoAddress);
+            videoInfoDTO.setVideoBarrages(barrages);
             videoService.addVideoBarrages(videoAddress, barrages);
-            return videoPage;
+            return videoInfoDTO;
         } else {
-            videoPage = videoService.initVideoInfo(videoAddress, username);
-            videoPage.setVideoBarrages(barrages);
+            videoInfoDTO = videoService.initVideoInfo(videoAddress, username);
+            videoInfoDTO.setVideoBarrages(barrages);
             videoService.addVideoBarrages(videoAddress, barrages);
-            return videoPage;
+            return videoInfoDTO;
         }
     }
 
@@ -148,16 +148,16 @@ public class VideoController {
         switch (option) {
             //点赞
             case "star": {
-                res = videoService.opsStar(operationsDO);
+                res = videoService.operationOfStar(operationsDO);
                 break;
             }
             //收藏
             case "collect": {
-                res = videoService.opsCollect(operationsDO);
+                res = videoService.operationOfCollect(operationsDO);
                 break;
             }
             case "share": {
-                res = videoService.opsShare(operationsDO);
+                res = videoService.operationOfShare(operationsDO);
                 break;
             }
             default:

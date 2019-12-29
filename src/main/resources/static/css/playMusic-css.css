@@ -1,0 +1,12 @@
+body {
+    height: 100%;
+    width: 100%;
+}
+
+.player1 {
+    position: absolute;
+    top: 35%;
+    left: 35%;
+    width: 500px;
+    z-index: 100;
+}

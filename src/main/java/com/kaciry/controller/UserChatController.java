@@ -1,7 +1,7 @@
 package com.kaciry.controller;
 
 import com.kaciry.entity.ResultBean;
-import com.kaciry.entity.UnionFansDO;
+import com.kaciry.entity.UnionFansDTO;
 import com.kaciry.entity.UserChatDO;
 import com.kaciry.service.Impl.UserChatServiceImpl;
 import com.kaciry.service.Impl.UserServiceImpl;
@@ -37,7 +37,7 @@ public class UserChatController {
      **/
     @PostMapping(value = "/getChatList")
     @ResponseBody
-    public List<UnionFansDO> getChatList(String username) {
+    public List<UnionFansDTO> getChatList(String username) {
         return userService.queryFollows(username);
     }
 

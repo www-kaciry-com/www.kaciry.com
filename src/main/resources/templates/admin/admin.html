@@ -1,0 +1,1210 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml" xmlns:v-bind="http://www.w3.org/1999/xhtml"
+      xmlns:v-model="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Title</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="robots" content="all,follow">
+    <link rel="stylesheet" href="/static/css/adminCSS/bootstrap.css">
+    <link rel="stylesheet" href="/static/css/adminCSS/bootstrap-grid.css">
+    <link rel="stylesheet" href="/static/css/pagePlugCSS/mricode.pagination.css">
+    <link rel="stylesheet" href="/static/css/pagePlugCSS/adminPageHandle.css">
+
+    <!--aplayer-->
+    <link href="https://cdn.bootcss.com/aplayer/1.10.1/APlayer.min.css" rel="stylesheet">
+
+    <!-- Font Awesome CSS-->
+    <link rel="stylesheet" href="/static/css/adminCSS/font-awesome.css">
+    <!-- Fontastic Custom icon font-->
+    <link rel="stylesheet" href="/static/font/adminFont/demo.css">
+    <link rel="stylesheet" href="/static/font/adminFont/iconfont.css">
+    <!-- Google fonts - Poppins -->
+    <!--    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,700">-->
+    <!-- theme stylesheet-->
+    <link rel="stylesheet" href="/static/css/adminCSS/style.default.css" id="theme-stylesheet">
+    <!-- Custom stylesheet - for your changes-->
+
+    <!-- Favicon-->
+
+    <link rel="stylesheet" href="/static/js/vendor/bootstrap/css/bootstrap.min.css">
+    <!-- Tweaks for older IEs-->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <link rel="stylesheet" href="/static/css/adminCSS/admin.css">
+
+</head>
+<body>
+<div class="page" id="admin">
+    <!-- 顶部导航兰-->
+    <header class="header">
+        <nav class="navbar">
+            <!-- 搜索框 （默认隐藏）-->
+            <div class="search-box">
+                <button class="dismiss">
+                    <i class="icon-close"></i>
+                </button>
+                <form id="searchForm" action="#" role="search">
+                    <input type="search" placeholder="What are you looking for..." class="form-control">
+                </form>
+            </div>
+            <div class="container-fluid">
+                <!--div 子元素分到父元素两侧显示-->
+                <div class="navbar-holder d-flex align-items-center justify-content-between">
+                    <!-- 顶部导航兰 左侧内容-->
+                    <div class="navbar-header">
+                        <!-- 顶部导航兰 左侧文字 -->
+                        <a href="" class="navbar-brand d-none d-sm-inline-block">
+                            <div class="brand-text d-none d-lg-inline-block">
+                                <span>筱筱弹幕网</span>
+                                <strong>超级管理员</strong>
+                            </div>
+                            <div class="brand-text d-none d-sm-inline-block d-lg-none">
+                                <strong>BD</strong>
+                            </div>
+                        </a>
+                        <!-- 顶部导航兰 左侧切换下面左侧状态-->
+                        <a id="toggle-btn" href="#" class="menu-btn active">
+                            <span></span><span></span><span></span>
+                        </a>
+                    </div>
+                    <!-- 顶部导航兰 左侧内容 -->
+                    <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
+                        <!-- 搜索图标-->
+                        <li class="nav-item d-flex align-items-center">
+                            <a id="search" href="#">
+                                <i class="iconfont">&#xe60e;</i>
+                            </a>
+                        </li>
+                        <!-- 铃铛图标-->
+                        <li class="nav-item dropdown">
+                            <a id="notifications" rel="nofollow" data-target="#" href="#"
+                               data-toggle="dropdown" aria-haspopup="true"
+                               aria-expanded="false" class="nav-link">
+                                <i class="iconfont">&#xe60f;</i>
+                                <span class="badge bg-red badge-corner">12</span>
+                            </a>
+                            <ul aria-labelledby="notifications" class="dropdown-menu">
+                                <li>
+                                    <a rel="nofollow" href="#" class="dropdown-item">
+                                        <div class="notification">
+                                            <div class="notification-content">
+                                                <i class="fa fa-envelope bg-green"></i>
+                                                You have 6 new messages
+                                            </div>
+                                            <div class="notification-time">
+                                                <small>4 minutes ago</small>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a rel="nofollow" href="#" class="dropdown-item">
+                                        <div class="notification">
+                                            <div class="notification-content">
+                                                <i class="fa fa-twitter bg-blue"></i>
+                                                You have 2 followers
+                                            </div>
+                                            <div class="notification-time">
+                                                <small>4 minutes ago</small>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a rel="nofollow" href="#" class="dropdown-item">
+                                        <div class="notification">
+                                            <div class="notification-content"><i class="fa fa-upload bg-orange"></i>
+                                                Server Rebooted
+                                            </div>
+                                            <div class="notification-time">
+                                                <small>4 minutes ago</small>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a rel="nofollow" href="#" class="dropdown-item">
+                                        <div class="notification">
+                                            <div class="notification-content">
+                                                <i class="fa fa-twitter bg-blue"></i>
+                                                You have 2 followers
+                                            </div>
+                                            <div class="notification-time">
+                                                <small>10 minutes ago</small>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a rel="nofollow" href="#" class="dropdown-item all-notifications text-center">
+                                        <strong>view all notifications </strong>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <!-- 信息图标 -->
+                        <li class="nav-item dropdown">
+                            <a id="messages" rel="nofollow" data-target="#" href="#"
+                               data-toggle="dropdown" aria-haspopup="true"
+                               aria-expanded="false" class="nav-link">
+                                <i class="iconfont">&#xe611;</i>
+                                <span class="badge bg-orange badge-corner">10</span>
+                            </a>
+                            <ul aria-labelledby="notifications" class="dropdown-menu">
+                                <li><a rel="nofollow" href="#" class="dropdown-item d-flex">
+                                    <div class="msg-profile"><img src="img/avatar-1.jpg" alt="..."
+                                                                  class="img-fluid rounded-circle"></div>
+                                    <div class="msg-body">
+                                        <h3 class="h5">Jason Doe</h3><span>Sent You Message</span>
+                                    </div>
+                                </a></li>
+                                <li><a rel="nofollow" href="#" class="dropdown-item d-flex">
+                                    <div class="msg-profile"><img src="img/avatar-2.jpg" alt="..."
+                                                                  class="img-fluid rounded-circle"></div>
+                                    <div class="msg-body">
+                                        <h3 class="h5">Frank Williams</h3><span>Sent You Message</span>
+                                    </div>
+                                </a></li>
+                                <li><a rel="nofollow" href="#" class="dropdown-item d-flex">
+                                    <div class="msg-profile"><img src="img/avatar-3.jpg" alt="..."
+                                                                  class="img-fluid rounded-circle"></div>
+                                    <div class="msg-body">
+                                        <h3 class="h5">Ashley Wood</h3><span>Sent You Message</span>
+                                    </div>
+                                </a></li>
+                                <li><a rel="nofollow" href="#" class="dropdown-item all-notifications text-center">
+                                    <strong>Read all messages </strong></a></li>
+                            </ul>
+                        </li>
+                        <!-- Logout    -->
+                        <li class="nav-item">
+                            <a href="login.html" class="nav-link logout">
+                                <span class="d-none d-sm-inline">Logout</span>
+                                <i class="iconfont">&#xe610;</i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <!--底部页面主体-->
+    <div class="page-content d-flex align-items-stretch">
+        <!-- 底部 左侧导航栏 -->
+        <nav class="side-navbar">
+            <!-- 底部 左侧导航栏 Header-->
+            <div class="sidebar-header d-flex align-items-center">
+                <div class="">
+                    <span class="adminHead">
+                        <img src="/static/img/admin/adminHeadIcon.jpg" alt="..." class="img-fluid rounded-circle">
+                    </span>
+                    <span class="h4">FLLH</span>
+                    <p>Super Administrator</p>
+                </div>
+
+            </div>
+
+            <div class="nav flex-column align-items-center" id="v-pills-tab" role="tablist"
+                 aria-orientation="vertical">
+                <!--左侧导航栏-->
+                <a class="nav-link active" @click="selectVideoReport()" data-toggle="pill" href="#queryReport"
+                   role="tab" aria-controls="v-pills-home" aria-selected="false">
+                    <i class="iconfont">&#xe613;</i>查看举报</a>
+                <a class="nav-link" @click="selectVideoInfo()" data-toggle="pill" href="#queryVideoInfo" role="tab"
+                   aria-controls="v-pills-profile" aria-selected="false">
+                    <i class="iconfont">&#xe612;</i>视频信息</a>
+                <a class="nav-link" @click="selectMusicInfo()" data-toggle="pill" href="#queryMusicInfo" role="tab"
+                   aria-controls="v-pills-messages" aria-selected="false">
+                    <i class="iconfont">&#xe612;</i>音乐信息</a>
+                <a class="nav-link" @click="selectUncheckVideoInfo()" data-toggle="pill" href="#checkVideos" role="tab"
+                   aria-controls="v-pills-settings" aria-selected="false">
+                    <i class="iconfont">&#xe616;</i>审核视频</a>
+                <a class="nav-link" @click="selectUserInfo()" data-toggle="pill" href="#queryUserInfo" role="tab"
+                   aria-controls="v-pills-messages" aria-selected="false">
+                    <i class="iconfont">&#xe614;</i>查看用户信息</a>
+                <a class="nav-link" @click="selectInfo_eCharts()" data-toggle="pill" href="#analyseData" role="tab"
+                   aria-controls="v-pills-settings" aria-selected="true">
+                    <i class="iconfont">&#xe615;</i>浏览数据分析</a>
+            </div>
+        </nav>
+        <!--底部 右侧页面主体-->
+        <div class="content-inner">
+            <!-- 底部 右侧页面主体-->
+            <div class="tab-content " id="v-pills-tabContent">
+                <!-- 1.查看举报-->
+                <div class="tab-pane fade" id="queryReport" role="tabpanel"
+                     aria-labelledby="v-pills-home-tab">
+                    <!--1.2 查看举报内容-->
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                        <div class="card">
+                            <!--1.2.1 查看举报Header(下拉框和搜索框)-->
+                            <div class="card-header d-flex align-items-center justify-content-between">
+                                <!--下拉框-->
+                                <select v-model="selected" @change="chooseReportType(selected)"
+                                        class="form-control col-2 col-sm-2 col-md-2 col-lg-2">
+                                    <option v-for="reportItem in reportTypeList" v-bind:value="reportItem.value">
+                                        {{ reportItem.reportType }}
+                                    </option>
+                                </select>
+                                <!--搜索框-->
+                                <form class="reportSearch navbar-form navbar-right form-inline"
+                                      name="userInfoQuery">
+                                    <div class="input-group">
+                                        <div class="form-group">
+                                            <input type="search" id="queryReportSearch" class="form-control"
+                                                   v-model="searchValue" placeholder="输入举报编号"/>
+                                            <button type="button" class="btn btn-outline-primary"
+                                                    @click="searchReport()">
+                                                查询
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <!--1.2.2 查看举报Body（列表和分页）-->
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <!--1.2.2.1 查看举报列表（视频和评论）-->
+                                    <table class="table table-striped table-hover">
+                                        <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>举报原因</th>
+                                            <th>被举报用户</th>
+                                            <th>举报用户</th>
+                                            <th>举报时间</th>
+                                            <th>查看详情</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <!--视频举报 列表-->
+                                        <tr v-if="showVideoReport" v-for="item in videoReportList">
+                                            <th>{{item.reportVideoIdentityDocument}}</th>
+                                            <th>{{item.reportedReason}}</th>
+                                            <th>{{item.beReportedUser}}</th>
+                                            <th>{{item.reportedUser}}</th>
+                                            <th>{{item.reportedTime}}</th>
+                                            <th
+                                                    @click="queryVideoReportDetails(item.reportVideoIdentityDocument)"
+                                                    class="btn-outline-primary"
+                                                    data-toggle="modal" data-target="#showVideoReporteportDetails">
+                                                <span>查看详情</span>
+                                            </th>
+                                        </tr>
+                                        <!--评论举报 列表-->
+                                        <tr v-if="showCommentReport" v-for="item in commentReportList">
+                                            <th>{{item.commentIdentityDocument}}</th>
+                                            <th>{{item.reportedReason}}</th>
+                                            <th>{{item.beReportedUser}}</th>
+                                            <th>{{item.reportedUser}}</th>
+                                            <th>{{item.reportedTime}}</th>
+                                            <th
+                                                    @click="queryCommentReportDetails(item.commentIdentityDocument)"
+                                                    class="btn-outline-primary"
+                                                    data-toggle="modal" data-target="#showCommentReporteportDetails">
+                                                <span>查看详情</span>
+                                            </th>
+                                        </tr>
+
+                                        </tbody>
+                                    </table>
+                                    <!--1.2.2.2 查看举报分页（视频和评论）-->
+                                    <div>
+                                        <!--视频举报 分页-->
+                                        <div v-if="showVideoReport" id="page-break-queryVReport">
+
+                                            <ul>
+                                                <li v-if="cur>1">
+                                                    <a @click="cur--,pageNumSub(),selectVideoReport()">上一页</a>
+                                                </li>
+                                                <li v-if="cur==1">
+                                                    <a class="banclick">上一页</a>
+                                                </li>
+                                                <li v-for="item in indexs" v-bind:class="{'active':cur==item}">
+                                                    <a @click="btnClick(item),selectVideoReport()">{{item}}</a>
+                                                </li>
+                                                <li v-if="cur!=all">
+                                                    <a @click="cur++,pageNumAdd(),selectVideoReport()">下一页</a>
+                                                </li>
+                                                <li v-if="cur==all">
+                                                    <a class="banclick">下一页</a>
+                                                </li>
+                                                <li><a>共<i>{{all}}</i>页</a></li>
+                                                <div class="jumpbox">
+                                                    <input type="number" class="jumppage"
+                                                           id="input-queryVideoReport"/>
+                                                    <a class="jumpbtn" @click="queryVideoReportPageSkip()">跳转</a>
+                                                </div>
+                                            </ul>
+
+                                        </div>
+                                        <!--评论举报 分页-->
+                                        <div v-if="showCommentReport" id="page-break-queryCReport">
+
+                                            <ul>
+                                                <li v-if="cur>1">
+                                                    <a @click="cur--,pageNumSub(),selectCommentReport()">上一页</a>
+                                                </li>
+                                                <li v-if="cur==1">
+                                                    <a class="banclick">上一页</a>
+                                                </li>
+                                                <li v-for="item in indexs" v-bind:class="{'active':cur==item}">
+                                                    <a @click="btnClick(item),selectCommentReport()">{{item}}</a>
+                                                </li>
+                                                <li v-if="cur!=all">
+                                                    <a @click="cur++,pageNumAdd(),selectCommentReport()">下一页</a>
+                                                </li>
+                                                <li v-if="cur==all">
+                                                    <a class="banclick">下一页</a>
+                                                </li>
+                                                <li><a>共<i>{{all}}</i>页</a></li>
+                                                <div class="jumpbox">
+                                                    <input type="number" class="jumppage"
+                                                           id="input-queryCommentReport"/>
+                                                    <a class="jumpbtn" @click="queryCommentReportPageSkip()">跳转</a>
+                                                </div>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2 视频信息-->
+                <div class="tab-pane fade" id="queryVideoInfo" role="tabpanel"
+                     aria-labelledby="v-pills-profile-tab">
+                    <!--3.2 查看视频信息内容-->
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                        <div class="card">
+                            <!--3.2.1 查看用户信息Header （表名和搜索框）-->
+                            <div class="card-header d-flex align-items-center justify-content-between">
+                                <span>视频信息</span>
+                                <!--搜索框-->
+                                <form class="userInfoQuery navbar-form navbar-right form-inline" name="userInfoQuery">
+                                    <div class="input-group">
+                                        <div class="form-group">
+                                            <input type="search" id="" class="form-control"
+                                                   placeholder="输入用户名查询用户视频" v-model="searchValue"/>
+                                            <button type="button" class="btn btn-outline-primary"
+                                                    @click="searchUserVideos()">
+                                                查询
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <!--3.2.2 查看举报Body （列表和分页）-->
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <!--列表-->
+                                    <table class="table table-striped table-hover">
+                                        <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>用户名</th>
+                                            <th>视频名称</th>
+                                            <th>上传时间</th>
+                                            <th>视频状态</th>
+                                            <th>详细信息</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr v-for="item in allVideoList">
+                                            <th>{{item.videoIdentityDocument}}</th>
+                                            <th>{{item.username}}</th>
+                                            <th>{{item.videoName}}</th>
+                                            <th>{{item.videoData}}</th>
+                                            <th v-if="item.videoState==0">未审核</th>
+                                            <th v-if="item.videoState==1">已通过</th>
+                                            <th v-if="item.videoState==2">封禁中</th>
+                                            <th v-if="item.videoState==3">被举报</th>
+                                            <th @click="queryVideoDetailsInfo(item.videoIdentityDocument)"
+                                                class="btn-outline-secondary"
+                                                data-toggle="modal" data-target="#showVideoDetails">
+                                                <span>视频详情</span>
+                                            </th>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                    <!--分页-->
+                                    <div id="page-break-queryVideoInfo">
+                                        <ul>
+                                            <li v-if="cur>1">
+                                                <a @click="cur--,pageNumSub(),selectVideoInfo();">上一页</a>
+                                            </li>
+                                            <li v-if="cur==1">
+                                                <a class="banclick">上一页</a>
+                                            </li>
+                                            <li v-for="item in indexs" v-bind:class="{'active':cur==item}">
+                                                <a @click="btnClick(item),selectVideoInfo();">{{item}}</a>
+                                            </li>
+                                            <li v-if="cur!=all">
+                                                <a @click="cur++,pageNumAdd(),selectVideoInfo();">下一页</a>
+                                            </li>
+                                            <li v-if="cur==all">
+                                                <a class="banclick">下一页</a>
+                                            </li>
+                                            <li><a>共<i>{{all}}</i>页</a></li>
+                                            <div class="jumpbox">
+                                                <input type="number" class="jumppage" id="input-queryVideoInfo"/>
+                                                <a class="jumpbtn" @click="queryVideoInfoPageSkip()">跳转</a>
+                                            </div>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3 音乐信息-->
+                <div class="tab-pane fade" id="queryMusicInfo" role="tabpanel"
+                     aria-labelledby="v-pills-profile-tab">
+                    <!--3.2 查看音乐信息内容-->
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                        <div class="card">
+                            <!--3.2.1 查看音乐信息Header （表名和搜索框）-->
+                            <div class="card-header d-flex align-items-center justify-content-between">
+                                <span>音乐信息</span>
+                                <!--搜索框-->
+                                <form class="userInfoQuery navbar-form navbar-right form-inline" name="userInfoQuery">
+                                    <div class="input-group">
+                                        <div class="form-group">
+                                            <input type="search" class="form-control"
+                                                   placeholder="输入用户名查询用户音乐" v-model="searchValue"/>
+                                            <button type="button" class="btn btn-outline-primary"
+                                                    @click="searchUserMusics()">
+                                                查询
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <!--3.2.2 查看举报Body （列表和分页）-->
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <!--列表-->
+                                    <table class="table table-striped table-hover">
+                                        <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>用户名</th>
+                                            <th>音乐名称</th>
+                                            <th>上传时间</th>
+                                            <th>音乐类型</th>
+                                            <th>音乐状态</th>
+                                            <th>详细信息</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr v-for="item in allMusicList">
+                                            <th>{{item.musicIdentityDocument}}</th>
+                                            <th>{{item.username}}</th>
+                                            <th>{{item.musicName}}</th>
+                                            <th>{{item.date}}</th>
+                                            <th>{{item.musicType}}</th>
+                                            <th v-if="item.musicState==0">正常</th>
+                                            <!--<th v-if="item.musicState==1">封禁中</th>-->
+                                            <th @click="queryMusicDetailsInfo(item.musicFilename)"
+                                                class="btn-outline-secondary"
+                                                data-toggle="modal" data-target="#showMusicDetails">
+                                                <span>音乐详情</span>
+                                            </th>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                    <!--分页-->
+                                    <div id="page-break-queryMusicInfo">
+                                        <ul>
+                                            <li v-if="cur>1">
+                                                <a @click="cur--,pageNumSub(),selectMusicInfo();">上一页</a>
+                                            </li>
+                                            <li v-if="cur==1">
+                                                <a class="banclick">上一页</a>
+                                            </li>
+                                            <li v-for="item in indexs" v-bind:class="{'active':cur==item}">
+                                                <a @click="btnClick(item),selectMusicInfo();">{{item}}</a>
+                                            </li>
+                                            <li v-if="cur!=all">
+                                                <a @click="cur++,pageNumAdd(),selectMusicInfo();">下一页</a>
+                                            </li>
+                                            <li v-if="cur==all">
+                                                <a class="banclick">下一页</a>
+                                            </li>
+                                            <li><a>共<i>{{all}}</i>页</a></li>
+                                            <div class="jumpbox">
+                                                <input type="number" class="jumppage" id="input-queryMusicInfo"/>
+                                                <a class="jumpbtn" @click="queryMusicInfoPageSkip()">跳转</a>
+                                            </div>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4 审核视频-->
+                <div class="tab-pane fade" id="checkVideos" role="tabpanel"
+                     aria-labelledby="v-pills-profile-tab">
+                    <!--3.2 审核视频内容-->
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                        <div class="card">
+                            <!--3.2.1 审核视频Header （表名和搜索框）-->
+                            <div class="card-header d-flex align-items-center justify-content-between">
+                                <span>审核视频</span>
+                                <!--搜索框-->
+                                <form class="userInfoQuery navbar-form navbar-right form-inline" name="userInfoQuery">
+                                    <div class="input-group">
+                                        <div class="form-group">
+                                            <input type="search" class="form-control"
+                                                   placeholder="输入用户名查询用户视频" v-model="searchValue"/>
+                                            <button type="button" class="btn btn-outline-primary"
+                                                    @click="searchUserVideos()">
+                                                查询
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <!--3.2.2 审核视频Body （列表和分页）-->
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <!--列表-->
+                                    <table class="table table-striped table-hover">
+                                        <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>用户名</th>
+                                            <th>视频名称</th>
+                                            <th>上传时间</th>
+                                            <th>视频状态</th>
+                                            <th>审核</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr v-for="(item,index) in allUncheckedVideoList">
+                                            <th>{{item.videoIdentityDocument}}</th>
+                                            <th>{{item.username}}</th>
+                                            <th>{{item.videoName}}</th>
+                                            <th>{{item.videoData}}</th>
+                                            <th v-if="item.videoState==0"><span class="changeColor">待审核</span></th>
+                                            <th v-if="item.videoState==1"><span class="changeColor">已通过</span></th>
+                                            <th @click="queryUncheckVideoDetailsInfo(item.videoIdentityDocument)"
+                                                class="btn-outline-secondary"
+                                                data-toggle="modal" data-target="#showUncheckVideoDetails">
+                                                <span>审核视频</span>
+                                            </th>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                    <!--分页-->
+                                    <div id="page-break-queryUncheckVideoInfo">
+                                        <ul>
+                                            <li v-if="cur>1">
+                                                <a @click="cur--,pageNumSub(),selectUncheckVideoInfo();"
+                                                   onclick="colorChange()">上一页</a>
+                                            </li>
+                                            <li v-if="cur==1">
+                                                <a class="banclick" onclick="colorChange()">上一页</a>
+                                            </li>
+                                            <li v-for="item in indexs" v-bind:class="{'active':cur==item}">
+                                                <a @click="btnClick(item),selectUncheckVideoInfo();">{{item}}</a>
+                                            </li>
+                                            <li v-if="cur!=all">
+                                                <a @click="cur++,pageNumAdd(),selectUncheckVideoInfo();"
+                                                   onclick="colorChange()">下一页</a>
+                                            </li>
+                                            <li v-if="cur==all">
+                                                <a class="banclick" onclick="colorChange()">下一页</a>
+                                            </li>
+                                            <li><a>共<i>{{all}}</i>页</a></li>
+                                            <div class="jumpbox">
+                                                <input type="number" class="jumppage" id="input-queryUncheckVideoInfo"/>
+                                                <a class="jumpbtn" @click="queryUncheckVideoInfoPageSkip()"
+                                                   onclick="colorChange()">跳转</a>
+                                            </div>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--4 查看用户信息-->
+                <div class="tab-pane fade" id="queryUserInfo" role="tabpanel"
+                     aria-labelledby="v-pills-home-tab">
+                    <!--3.2 查看用户信息内容-->
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                        <div class="card">
+                            <!--3.2.1 查看用户信息Header （表名和搜索框）-->
+                            <div class="card-header d-flex align-items-center justify-content-between">
+                                <span>用户信息</span>
+                                <!--搜索框-->
+                                <form class="userInfoQuery navbar-form navbar-right form-inline" name="userInfoQuery">
+                                    <div class="input-group">
+                                        <div class="form-group">
+                                            <input type="search" id="usernameQuery" class="form-control"
+                                                   placeholder="输入用户名进行查询" v-model="searchValue"/>
+                                            <button type="button" class="btn btn-outline-primary" @click="searchUser()">
+                                                查询
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <!--3.2.2 查看举报Body （列表和分页）-->
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <!--列表-->
+                                    <table class="table table-striped table-hover">
+                                        <thead>
+                                        <tr>
+                                            <th>用户名</th>
+                                            <th>VIP</th>
+                                            <th>会员等级</th>
+                                            <th>举报时间</th>
+                                            <th>邮箱</th>
+                                            <th>详细信息</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr v-for="item in allUserList">
+                                            <th>{{item.username}}</th>
+                                            <th>{{item.isVip}}</th>
+                                            <th>{{item.userLevel}}</th>
+                                            <th>{{item.userEmail}}</th>
+                                            <th>{{item.userPhoneNumber}}</th>
+                                            <th @click="queryUserDetailsInfo(item.username)"
+                                                class="btn-outline-secondary"
+                                                data-toggle="modal" data-target="#showDetails">
+                                                <span>查看详情</span>
+                                            </th>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                    <!--分页-->
+                                    <div id="page-break-queryUserInfo">
+                                        <ul>
+                                            <li v-if="cur>1">
+                                                <a @click="cur--,pageNumSub(),selectUserInfo();">上一页</a>
+                                            </li>
+                                            <li v-if="cur==1">
+                                                <a class="banclick">上一页</a>
+                                            </li>
+                                            <li v-for="item in indexs" v-bind:class="{'active':cur==item}">
+                                                <a @click="btnClick(item),selectUserInfo();">{{item}}</a>
+                                            </li>
+                                            <li v-if="cur!=all">
+                                                <a @click="cur++,pageNumAdd(),selectUserInfo();">下一页</a>
+                                            </li>
+                                            <li v-if="cur==all">
+                                                <a class="banclick">下一页</a>
+                                            </li>
+                                            <li><a>共<i>{{all}}</i>页</a></li>
+                                            <div class="jumpbox">
+                                                <input type="number" class="jumppage" id="input-queryUserInfo"/>
+                                                <a class="jumpbtn" @click="queryUserInfoPageSkip()">跳转</a>
+                                            </div>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--6 数据分析-->
+                <div class="tab-pane fade show active" id="analyseData" role="tabpanel"
+                     aria-labelledby="v-pills-settings-tab">
+                    <!--4.2 数据分析内容-->
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                        <div class="card">
+                            <!--4.2.1 数据分析内容Header （表名和搜索框）-->
+                            <div class="card-header d-flex align-items-center justify-content-between">
+                                <span>数据分析</span>
+                            </div>
+                            <!--4.2.2 数据分析内容Body （列表和分页）-->
+                            <!--echar div -->
+                            <div class="card-body" id="eChartsData">
+                                <div class="page">
+                                    <div class="page-content d-flex align-items-stretch">
+                                        <!-- Charts Section-->
+                                        <section class="charts">
+                                            <div class="container-fluid">
+                                                <div class="row">
+                                                    <div class="col-lg-12">
+                                                        <div class="">
+                                                            <div id="main7"
+                                                                 style="height:500px;"></div>
+                                                            <!-- <div id="main" style="width: 600px;height:400px;"></div>-->
+                                                            <!--<canvas id="lineChartExample"></canvas>-->
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-lg-2 dataCount dc1">
+                                                        <div class="">
+                                                            <span>
+                                                                用户总量:
+                                                            </span>
+                                                            <span>
+                                                                {{totalList[0]}}
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-1"></div>
+                                                    <div class="col-lg-2 dataCount dc2">
+                                                        <div class="">
+                                                            <span>
+                                                                会员总量:
+                                                            </span>
+                                                            <span>
+                                                                {{totalList[1]}}
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-1"></div>
+                                                    <div class="col-lg-2 dataCount dc3">
+                                                        <div class="">
+                                                          <span>
+                                                                视频总量:
+                                                            </span>
+                                                            <span>
+                                                                {{totalList[2]}}
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-1"></div>
+                                                    <div class="col-lg-2 dataCount dc4">
+                                                        <div class="">
+                                                           <span>
+                                                               音乐总量:
+                                                            </span>
+                                                            <span>
+                                                                {{totalList[3]}}
+                                                            </span>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-lg-7">
+                                                        <div class="">
+                                                            <div id="main" style="height:300px;"></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-5">
+                                                        <div class="">
+                                                            <div id="main2"
+                                                                 style="height:300px;"></div>
+                                                            <!-- <div id="main" style="width: 600px;height:400px;"></div>-->
+                                                            <!--<canvas id="lineChartExample"></canvas>-->
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-lg-4">
+                                                        <div class="line-chart-example card">
+                                                            <div class="card-header d-flex align-items-center">
+                                                                <h3 class="h4">筱筱弹幕网会员总量</h3>
+                                                            </div>
+                                                            <div class="card-body">
+                                                                <div id="main4"
+                                                                     style="width: 400px;height:400px;"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4">
+                                                        <div class="line-chart-example card">
+                                                            <div class="card-header d-flex align-items-center">
+                                                                <h3 class="h4">筱筱弹幕网视频总量</h3>
+                                                            </div>
+                                                            <div class="card-body">
+                                                                <div id="main6"
+                                                                     style="width: 400px;height:400px;"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4">
+                                                        <div class="line-chart-example card">
+                                                            <div class="card-header d-flex align-items-center">
+                                                                <h3 class="h4">筱筱弹幕网音乐总量</h3>
+                                                            </div>
+                                                            <div class="card-body">
+                                                                80
+                                                                <!-- <div id="main" style="width: 600px;height:400px;"></div>-->
+                                                                <!--<canvas id="lineChartExample"></canvas>-->
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-lg-12">
+                                                        <div class="line-chart-example card">
+                                                            <div class="card-header d-flex align-items-center">
+                                                                <h3 class="h4">筱筱弹幕网各类视频相关量统计</h3>
+                                                            </div>
+                                                            <div class="card-body">
+                                                                <div id="main5" class="col-12"
+                                                                     style="height:600px;"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
+                                        </section>
+                                    </div>
+
+                                </div>
+                                <!-- <div class="container card-body-container">
+                                     <div id="main" style="width: 600px;height:400px;"></div>
+                                     <div id="main2" style="width: 600px;height:400px;"></div>
+                                     <div id="main3" style="width: 600px;height:400px;"></div>
+                                 </div>-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--底部 右侧页面主体 Footer-->
+            <footer class="main-footer">
+                <div class="container-fluid">
+                    <div class="row justify-content-between">
+                        <div class="col-sm-6 justify-content-between">
+                            <p>Copyright © 2019 Kaciry. All rights reserved.
+                                <span>筱筱弹幕网</span> - Collect from </p>
+                        </div>
+                        <div class="col-sm-6">
+                            <span>互联网ICP备案：鲁ICP备19037510号</span>
+                            <span>联系方式：kaciry@126.com</span>
+                            <!-- Please do not remove the backlink to us unless you support further theme's development at https://bootstrapious.com/donate. It is part of the license conditions. Thank you for understanding :)-->
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+
+        <!--模态框-->
+        <div>
+            <!--查看视频举报信息模态框-->
+            <div class="modal fade bd-example-modal-lg" id="showVideoReporteportDetails" tabindex="-1" role="dialog"
+                 aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="showVideoReporteportDetailsTitle">视频详情</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body row justify-content-between">
+                            <div class="bVideoLeft col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                                <video ref='video1' id="videoShow" width="320" height="240" controls>
+                                    <source src="" type="video/mp4">
+                                    您的浏览器不支持Video标签。
+                                </video>
+                            </div>
+                            <div class="bVideoRight col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                                <ul class="list-group">
+                                    <li class="row list-group-item">
+                                        <span class="col-10 col-sm-10 col-md-10 col-lg-10 col-xl-10">举报编号:{{videoReportDetailsList.reportVideoIdentityDocument}}</span>
+                                    </li>
+                                    <li class="row list-group-item">
+                                        <span class="col-10 col-sm-10 col-md-10 col-lg-10 col-xl-10">举报类型:{{videoReportDetailsList.reportedType}}</span>
+                                    </li>
+                                    <li class="row list-group-item">
+                                        <span class="col-10 col-sm-10 col-md-10 col-lg-10 col-xl-10">被举报用户:{{videoReportDetailsList.beReportedUser}}</span>
+                                    </li>
+                                    <li class="row list-group-item">
+                                        <span class="col-10 col-sm-10 col-md-10 col-lg-10 col-xl-10">举报用户:{{videoReportDetailsList.reportedUser}}</span>
+                                    </li>
+                                    <li class="row list-group-item">
+                                        <span class="col-10 col-sm-10 col-md-10 col-lg-10 col-xl-10">举报时间:{{videoReportDetailsList.reportedTime}}</span>
+                                    </li>
+                                    <li class="row list-group-item">
+                                        <span class="col-10 col-sm-10 col-md-10 col-lg-10 col-xl-10">举报原因:{{videoReportDetailsList.reportedReason}}</span>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button @click="banVideo(videoReportDetailsList.videoFilename)" type="button"
+                                    class="btn btn-primary" data-dismiss="modal">封禁视频
+                            </button>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">暂不处理</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--查看评论举报信息模态框-->
+            <div class="modal fade bd-example-modal-lg" id="showCommentReporteportDetails" tabindex="-1"
+                 role="dialog"
+                 aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="showCommentReporteportDetailsTitle">评论详情</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body row justify-content-between">
+                            <div class="bVideoLeft col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                                <div>评论内容:</div>
+                                <div>{{commentReportDetailsList.commentContent}}</div>
+                            </div>
+                            <div class="bVideoRight col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                                <ul class="list-group">
+                                    <li class="row list-group-item">
+                                        <span class="col-10 col-sm-10 col-md-10 col-lg-10 col-xl-10">举报编号:{{commentReportDetailsList.commentIdentityDocument}}</span>
+                                    </li>
+                                    <li class="row list-group-item">
+                                        <span class="col-10 col-sm-10 col-md-10 col-lg-10 col-xl-10">举报类型:{{commentReportDetailsList.reportedType}}</span>
+                                    </li>
+                                    <li class="row list-group-item">
+                                        <span class="col-10 col-sm-10 col-md-10 col-lg-10 col-xl-10">被举报用户:{{commentReportDetailsList.beReportedUser}}</span>
+                                    </li>
+                                    <li class="row list-group-item">
+                                        <span class="col-10 col-sm-10 col-md-10 col-lg-10 col-xl-10">举报用户:{{commentReportDetailsList.reportedUser}}</span>
+                                    </li>
+                                    <li class="row list-group-item">
+                                        <span class="col-10 col-sm-10 col-md-10 col-lg-10 col-xl-10">举报时间:{{commentReportDetailsList.reportedTime}}</span>
+                                    </li>
+                                    <li class="row list-group-item">
+                                        <span class="col-10 col-sm-10 col-md-10 col-lg-10 col-xl-10">举报原因:{{commentReportDetailsList.reportedReason}}</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button @click="banComment(commentReportDetailsList.commentIdentityDocument)" type="button" class="btn btn-primary" data-dismiss="modal">
+                                封禁评论
+                            </button>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">暂不处理</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--查看用户详细信息模态框-->
+            <div class="modal fade bd-example-modal-lg" id="showDetails" tabindex="-1" role="dialog"
+                 aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="showDetailsTitle">用户详细信息</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body row">
+                            <div class="userModal1 col-5 col-sm-5 col-md-5 col-lg-5 col-xl-5">
+                                <img :src='"/files/HeadIcon/"+userList.userHeadIcon'
+                                     alt="Promote-one-img">
+                                <span><h5>个性签名:</h5>{{userList.userSignature}}</span>
+                                <div>
+                                    <span>视频投稿量:888</span>
+                                </div>
+                                <div>
+                                    <span>音乐投稿量:888</span>
+                                </div>
+                            </div>
+                            <div class="userModal2 col-5 col-sm-5 col-md-5 col-lg-5 col-xl-5">
+                                <ul class=" list-group">
+                                    <li class="row list-group-item">
+                                        <span><h5>用户名:</h5>{{userList.username}}</span>
+                                    </li>
+                                    <li class="row list-group-item"><span><h5>昵称:</h5>{{userList.userNickName}}</span>
+                                    </li>
+                                    <li class="row list-group-item"><span><h5>姓名:</h5>{{userList.userRealName}}</span>
+                                    </li>
+                                    <li class="row list-group-item"><span><h5>性别:</h5>{{userList.userSex}}</span></li>
+                                    <li class="row list-group-item"><span><h5>会员:</h5>{{userList.isVip}}</span></li>
+                                    <li class="row list-group-item"><span><h5>用户等级:</h5>{{userList.userLevel}}</span>
+                                    </li>
+                                    <li class="row list-group-item"><span><h5>邮箱:</h5>{{userList.userEmail}}</span></li>
+                                    <li class="row list-group-item">
+                                        <span><h5>电话:</h5>{{userList.userPhoneNumber}}</span></li>
+
+
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--查看视频详细信息模态框-->
+            <div class="modal fade bd-example-modal-lg" id="showVideoDetails" tabindex="-1" role="dialog"
+                 aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="showVideoDetailsTitle">视频详情</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body row justify-content-between">
+                            <div class="bVideoLeft col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                                <video ref='video2' id="videoShow2" width="320" height="240" controls>
+                                    <source src="" type="video/mp4">
+                                    您的浏览器不支持Video标签。
+                                </video>
+                            </div>
+                            <div class="bVideoRight col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                                <ul class="list-group">
+                                    <li class="row list-group-item">
+                                        <span class="col-10 col-sm-10 col-md-10 col-lg-10 col-xl-10">视频名称:{{videoList.videoName}}</span>
+                                    </li>
+                                    <li class="row list-group-item">
+                                        <span class="col-10 col-sm-10 col-md-10 col-lg-10 col-xl-10">视频类型:{{videoList.videoType}}</span>
+                                    </li>
+                                    <li class="row list-group-item">
+                                        <span class="col-10 col-sm-10 col-md-10 col-lg-10 col-xl-10">播放量:{{videoList.videoPlayNum}}</span>
+                                    </li>
+                                    <li class="row list-group-item">
+                                        <span class="col-10 col-sm-10 col-md-10 col-lg-10 col-xl-10">弹幕量:{{videoList.videoBarrages}}</span>
+                                    </li>
+                                    <li class="row list-group-item">
+                                        <span class="col-10 col-sm-10 col-md-10 col-lg-10 col-xl-10">点赞量:{{videoList.videoStars}}</span>
+                                    </li>
+                                    <li class="row list-group-item">
+                                        <span class="col-10 col-sm-10 col-md-10 col-lg-10 col-xl-10">收藏量:{{videoList.videoConnections}}</span>
+                                    </li>
+                                    <li class="row list-group-item">
+                                        <span class="col-10 col-sm-10 col-md-10 col-lg-10 col-xl-10">分享量:{{videoList.videoShares}}</span>
+                                    </li>
+
+
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button @click="banVideo(videoList.videoFilename)" type="button"
+                                    class="btn btn-primary" data-dismiss="modal">封禁视频
+                            </button>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">暂不处理</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--查看音乐详细信息模态框-->
+            <div class="modal fade bd-example-modal-lg" id="showMusicDetails" tabindex="-1" role="dialog"
+                 aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="showMusicDetailsTitle">音乐详情</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body row justify-content-between">
+                            <div class="bVideoLeft col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                                <div id="player1">
+
+                                </div>
+                            </div>
+                            <div class="bVideoLeft col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                                <ul class="list-group">
+                                    <li class="row list-group-item">
+                                        <span class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">音乐名称:{{musicList.musicName}}</span>
+                                        <span class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">音乐类型:{{musicList.musicType}}</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">关闭</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--审核视频详细信息模态框-->
+            <div class="modal fade bd-example-modal-lg" id="showUncheckVideoDetails" tabindex="-1" role="dialog"
+                 aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="showUncheckVideoDetailsTitle">视频详情</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body row ">
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                                <video ref='video5' id="videoShow3" width="700" height="500" controls>
+                                    <source src="" type="video/mp4">
+                                    您的浏览器不支持Video标签。
+                                </video>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button @click="passedCheck(uncheckVideoList.videoIdentityDocument)" type="button"
+                                    class="btn btn-primary" data-dismiss="modal">通过
+                            </button>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">未通过</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+
+<!-- JavaScript files-->
+<script src="/static/js/vendor/jquery/jquery.js"></script>
+<script src="/static/js/vendor/popper.js/umd/popper.min.js"></script>
+<script src="/static/js/vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="/static/js/vendor/jquery.cookie/jquery.cookie.js"></script>
+<script src="/static/js/vendor/chart.js/Chart.min.js"></script>
+<script src="/static/js/vendor/jquery-validation/jquery.validate.min.js"></script>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+
+
+<!-- adminFont-->
+<script src="/static/js/vendor/front.js"></script>
+
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+<script src="/static/js/vendor/jquery/jquery-3.4.1.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="/static/js/vendor/bootstrap/js/bootstrap.js"></script>
+<script src="/static/js/pagePulg/mricode.pagination.js"></script>
+<script src="/static/js/echarts/echarts.min.js"></script>
+<script type="text/javascript" src="http://gallery.echartsjs.com/dep/echarts/map/js/china.js"></script>
+<script src="/static/js/echarts/adminEcharts.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.bootcss.com/vue-resource/1.5.1/vue-resource.min.js"></script>
+<script src="/static/js/admin/admin.js"></script>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdn.bootcss.com/aplayer/1.10.1/APlayer.min.js"></script>
+
+
+<script>
+    function colorChange() {
+        for (let i = 0; i < 8; i++) {
+            document.getElementsByClassName('changeColor')[i].style.color = '#000';
+            document.getElementsByClassName('changeColor')[i].innerHTML = '待审核';
+        }
+    }
+</script>
+</body>
+</html>
+

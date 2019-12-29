@@ -50,13 +50,13 @@ public interface UserService {
     User selectUserInfoByUsername(String username);
 
     /**
-     * @param videoInfo VideoInfo实体，包含信息见实现类
+     * @param videoInfoDO VideoInfo实体，包含信息见实现类
      * @return boolean
      * @author kaciry
      * @description 上传视频
      * @date 2019/10/26 13:23
      **/
-    boolean uploadVideo(VideoInfo videoInfo);
+    boolean uploadVideo(VideoInfoDO videoInfoDO);
 
     /**
      * @param username 用户名
@@ -65,7 +65,7 @@ public interface UserService {
      * @description 根据用户名查询用户上传的视频
      * @date 2019/10/26 13:23
      **/
-    List<VideoInfo> queryVideosByUsername(String username);
+    List<VideoInfoDO> queryVideosByUsername(String username);
 
     /**
      * @param email 邮箱
@@ -94,7 +94,7 @@ public interface UserService {
      * @description 通过用户名查询投稿
      * @date 2019/10/26 13:23
      **/
-    List<VideoInfo> queryCollectionsByUsername(String username);
+    List<VideoInfoDO> queryCollectionsByUsername(String username);
 
     /**
      * @param videoFilename 视频文件名
@@ -103,7 +103,7 @@ public interface UserService {
      * @description 通过视频文件名查询视频信息
      * @date 2019/10/26 13:23
      **/
-    VideoInfo selectVideoInfoByVideoFilename(String videoFilename);
+    VideoInfoDO selectVideoInfoByVideoFilename(String videoFilename);
 
     /**
      * @author kaciry
@@ -132,7 +132,7 @@ public interface UserService {
      * @description
      * @date 2019/10/26 13:23
      **/
-    List<UnionFansDO> queryFollows(String username);
+    List<UnionFansDTO> queryFollows(String username);
 
     /**
      * @param reportCommentDO ReportCommentBean实体，包含信息见实体类
@@ -151,4 +151,6 @@ public interface UserService {
      * @date 2019/10/26 13:23
      **/
     CommentDO queryCommentByIdentityDocument(long commentIdentityDocument);
+
+    boolean setMusic(Music music);
 }

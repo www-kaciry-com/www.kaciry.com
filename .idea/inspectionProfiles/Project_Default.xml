@@ -63,8 +63,13 @@
     <inspection_tool class="HtmlUnknownAttribute" enabled="true" level="WARNING" enabled_by_default="true">
       <option name="myValues">
         <value>
-          <list size="1">
+          <list size="6">
             <item index="0" class="java.lang.String" itemvalue="missingmessage" />
+            <item index="1" class="java.lang.String" itemvalue="v-model" />
+            <item index="2" class="java.lang.String" itemvalue="@change" />
+            <item index="3" class="java.lang.String" itemvalue="v-for" />
+            <item index="4" class="java.lang.String" itemvalue="v-bind:value" />
+            <item index="5" class="java.lang.String" itemvalue="@click" />
           </list>
         </value>
       </option>

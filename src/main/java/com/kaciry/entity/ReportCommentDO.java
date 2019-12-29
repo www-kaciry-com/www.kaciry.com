@@ -5,7 +5,7 @@ package com.kaciry.entity;
  */
 public class ReportCommentDO {
     //评论的ID
-    private long commentIdentityDocument;
+    private int commentIdentityDocument;
     //举报类型
     private String reportedType;
     //被举报者ID
@@ -19,16 +19,12 @@ public class ReportCommentDO {
     //评论内容
     private String commentContent;
 
-/*  ----------------------------------  */
-    //封禁原因
-    private String bannedReason;
-    //处理时间
-    private int handleState;
+
 
     public ReportCommentDO() {
     }
 
-    public ReportCommentDO(long commentIdentityDocument, String reportedType, String beReportedUser, String reportedUser, String reportedTime, String reportedReason, String commentContent) {
+    public ReportCommentDO(int commentIdentityDocument, String reportedType, String beReportedUser, String reportedUser, String reportedTime, String reportedReason, String commentContent) {
         this.commentIdentityDocument = commentIdentityDocument;
         this.reportedType = reportedType;
         this.beReportedUser = beReportedUser;
@@ -38,23 +34,11 @@ public class ReportCommentDO {
         this.commentContent = commentContent;
     }
 
-    public ReportCommentDO(long commentIdentityDocument, String reportedType, String beReportedUser, String reportedUser, String reportedTime, String reportedReason, String commentContent, String bannedReason, int handleState) {
-        this.commentIdentityDocument = commentIdentityDocument;
-        this.reportedType = reportedType;
-        this.beReportedUser = beReportedUser;
-        this.reportedUser = reportedUser;
-        this.reportedTime = reportedTime;
-        this.reportedReason = reportedReason;
-        this.commentContent = commentContent;
-        this.bannedReason = bannedReason;
-        this.handleState = handleState;
-    }
-
-    public long getCommentIdentityDocument() {
+    public int getCommentIdentityDocument() {
         return commentIdentityDocument;
     }
 
-    public void setCommentIdentityDocument(long commentIdentityDocument) {
+    public void setCommentIdentityDocument(int commentIdentityDocument) {
         this.commentIdentityDocument = commentIdentityDocument;
     }
 
@@ -104,21 +88,5 @@ public class ReportCommentDO {
 
     public void setCommentContent(String commentContent) {
         this.commentContent = commentContent;
-    }
-
-    public String getBannedReason() {
-        return bannedReason;
-    }
-
-    public void setBannedReason(String bannedReason) {
-        this.bannedReason = bannedReason;
-    }
-
-    public int getHandleState() {
-        return handleState;
-    }
-
-    public void setHandleState(int handleState) {
-        this.handleState = handleState;
     }
 }

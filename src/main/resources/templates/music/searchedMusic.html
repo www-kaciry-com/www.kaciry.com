@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/css/music-css.css">
+    <link rel="stylesheet" href="/static/css/pagePlugCSS/bootstrap-grid.css">
+    <link rel="stylesheet" href="/static/css/pagePlugCSS/bootstrap.css">
+    <link rel="stylesheet" href="/static/css/pagePlugCSS/adminPageHandle.css">
+
+</head>
+<style>
+    .musicSkip {
+        color: #0f0f0f;
+        font-weight: bolder;
+    }
+</style>
+<body>
+<div id="moreMusic">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#"><h4>筱筱音乐</h4></a>
+
+            <!--<div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="javascript:void(0)" >{{searchedMusicList[0].musicType}} <span
+                                class="sr-only">(current)</span></a>
+                    </li>
+
+                </ul>
+
+            </div>-->
+        </div>
+    </nav>
+    <div class="container">
+        <div class="Promote" id="hot">
+            <div class="row Promote-content Animation">
+                <div v-for="item in searchedMusicList" class="col-6 col-sm-6  col-md-3 col-lg-2 col-xl-2  Animation-one">
+                    <div @click="playMusic(item.musicFilename)" >
+                        <a href="" class="musicSkip" target="_blank">
+                            <div class="Promote-one-img">
+                                <img :src='"/files/musicCover/"+item.musicCover' alt="Promote-one-img">
+                            </div>
+                            <span>{{item.musicName}}</span>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+   <!--         &lt;!&ndash;分页&ndash;&gt;
+            <div id="page-break-queryUserInfo">
+                <ul>
+                    <li v-if="cur>1">
+                        <a @click="cur&#45;&#45;,pageNumSub(),selectUserInfo();">上一页</a>
+                    </li>
+                    <li v-if="cur==1">
+                        <a class="banclick">上一页</a>
+                    </li>
+                    <li v-for="item in indexs" v-bind:class="{'active':cur==item}">
+                        <a @click="btnClick(item),selectUserInfo();">{{item}}</a>
+                    </li>
+                    <li v-if="cur!=all">
+                        <a @click="cur++,pageNumAdd(),selectUserInfo();">下一页</a>
+                    </li>
+                    <li v-if="cur==all">
+                        <a class="banclick">下一页</a>
+                    </li>
+                    <li><a>共<i>{{all}}</i>页</a></li>
+                    <div class="jumpbox">
+                        <input type="number" class="jumppage" id="input-queryUserInfo"/>
+                        <a class="jumpbtn" @click="queryUserInfoPageSkip()">跳转</a>
+                    </div>
+                </ul>
+            </div>-->
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.bootcss.com/vue-resource/1.5.1/vue-resource.min.js"></script>
+<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="https://cdn.bootcss.com/aplayer/1.10.1/APlayer.min.js"></script>
+<script src="/static/js/music/searchedMusic.js"></script>
+
+</body>
+</html>
+
+
+

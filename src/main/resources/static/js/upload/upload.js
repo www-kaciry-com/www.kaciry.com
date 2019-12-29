@@ -62,6 +62,137 @@ function submitForm() {
     })
 }
 
+function submitMusic() {
+    alert(11);
+    $('#uploadFilesModal').modal('show');
+
+    let musicFile = document.getElementById("choice-music-file").files[0]; // js 获取文件对象
+    let musicCoverFile = document.getElementById("choice-music-cover-file").files[0]; // js 获取文件对象
+    let musicLrcFile = document.getElementById("choice-music-lrc-file").files[0]; // js 获取文件对象
+
+    let musicAuthor = $("#musicAuthor").val();
+
+    let musicTitle = $("#musicTitle").val();
+    let musicType = $("#musicType option:selected").val();
+    let musicName = $("#musicName").val();
+
+
+    let musicInfo = {
+        "username": username,
+        "musicAuthor": musicAuthor,
+        "musicTitle": musicTitle,
+        "musicType": musicType,
+        "musicName": musicName,
+    };
+
+    let formFile = new FormData();
+    formFile.append("musicFile", musicFile); //加入文件对象
+    formFile.append("musicCoverFile", musicCoverFile); //加入文件对象
+    formFile.append("musicLrcFile", musicLrcFile); //加入文件对象
+    formFile.append("musicInfo", JSON.stringify(musicInfo)); //加入文件对象
+
+    $.ajax({
+        url: "/uploadMusic",
+        data: formFile,
+        type: "post",
+        dataType: "json",
+        cache: false,//上传文件无需缓存
+        processData: false,//用于对data参数进行序列化处理 这里必须false
+        contentType: false, //必须
+        xhr: xhrOnProgress(function (e) {
+            let percent = e.loaded / e.total;
+            $("#progress").width(percent * 100 + "%");
+        }),
+        success: function (result) {
+            document.getElementById("uploadFilesModalTitle").innerHTML = result.data;
+        }
+    })
+}
+
+<!--富文本框-->
+
+//调用富文本编辑
+$(document).ready(function () {
+    //var text = $($("#summernote").summernote("code")).text();
+    //console.log(text);
+    // var markupStr = '<p><img src="/files/columnImgShortTime/20191222221151262.jpg" style="width: 300px;"><img src="/files/columnImgShortTime/20191222221156097.jpg" style="width: 25%;"></p><p>十大法萨芬</p><h1>撒的撒的</h1><p><span style="background-color: rgb(255, 0, 0);">撒旦法撒旦反反复复反反复复发股份</span></p><p>撒地方大师傅</p>';
+    // $('#summernote').summernote('code', markupStr);
+    var $summernote = $('#summernote').summernote({
+        placeholder: 'Hello bootstrap 4',
+        height: 300,
+        minHeight: null,
+        maxHeight: null,
+        focus: true,
+        //调用图片上传
+        callbacks: {//回调函数，重写onImageUpload方法
+            onImageUpload: function (files, editor, welEditable) {
+                sendFile(this, files[0], editor, welEditable);
+            }
+        }
+
+    });
+});
+
+function sendFile(val, files, editor, welEditable) {
+    let result;
+    let data = new FormData();
+    data.append("files", files);
+    $.ajax({
+        data: data,
+        //dataType: 'string',
+        type: "POST",
+        url: "/uploadColumn",
+        cache: false,
+        contentType: false,
+        processData: false,
+        responseType: "json",
+        success: function (callback) {
+            result = callback;
+            //alert(result);
+            $(val).summernote('editor.insertImage', "/files/columnImgShortTime/" + callback);
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            alert(XMLHttpRequest.status);
+            alert(XMLHttpRequest.readyState);
+            alert(textStatus);
+        }
+    });
+}
+
+function submitColumn() {
+
+    let columnContent = $("#summernote").summernote("code");
+    console.log(columnContent);
+    let columnInfo = {
+        "username": username,
+        "columnContent": columnContent,
+    };
+    let formFile = new FormData();
+    formFile.append("columnInfo", JSON.stringify(columnInfo)); //加入文件对象
+    $.ajax({
+        data: formFile,
+        //dataType: 'string',
+        type: "POST",
+        url: "/submitColumn",
+        cache: false,
+        contentType: false,
+        processData: false,
+        responseType: "json",
+        success: function (result) {
+            //document.getElementById("uploadFilesModalTitle").innerHTML = result.data;
+            alert(result.data);
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            alert(XMLHttpRequest.status);
+            alert(XMLHttpRequest.readyState);
+            alert(textStatus);
+        }
+    });
+    //$summernote.onImageUpload().saveFile (files, editor, $editable) {
+
+
+}
+
 function getCookie(cookie_name) {
     if (document.cookie.length > 0) {//判断cookie是否存在
         //获取cookie名称加=的索引值

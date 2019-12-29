@@ -2,7 +2,7 @@ package com.kaciry.controller;
 
 import com.kaciry.entity.PromoteVideosDO;
 import com.kaciry.entity.ResultBean;
-import com.kaciry.entity.VideoInfo;
+import com.kaciry.entity.VideoInfoDO;
 import com.kaciry.service.Impl.PromoteVideosServiceImpl;
 import com.kaciry.utils.TimeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +25,7 @@ public class PromoteVideosController {
 
     @PostMapping(value = "/selectNormalVideo")
     @ResponseBody
-    public List<VideoInfo> selectNormalVideo(String username) {
+    public List<VideoInfoDO> selectNormalVideo(String username) {
         return promoteVideosService.selectNormalVideos(username);
     }
 
@@ -66,7 +66,7 @@ public class PromoteVideosController {
      **/
     @PostMapping(value = "/initPromoteVideos4Carousel")
     @ResponseBody
-    public List<VideoInfo> initPromoteVideos4Carousel() {
+    public List<VideoInfoDO> initPromoteVideos4Carousel() {
         return promoteVideosService.getPromoteVideos4Carousel();
     }
 
@@ -78,7 +78,7 @@ public class PromoteVideosController {
      **/
     @PostMapping(value = "/initPromoteVideos4List")
     @ResponseBody
-    public List<VideoInfo> initPromoteVideos4List() {
+    public List<VideoInfoDO> initPromoteVideos4List() {
         return promoteVideosService.getPromoteVideos4List();
     }
 

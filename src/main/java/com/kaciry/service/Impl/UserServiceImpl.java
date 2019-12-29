@@ -70,13 +70,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean uploadVideo(VideoInfo videoInfo) {
+    public boolean uploadVideo(VideoInfoDO videoInfoDO) {
 
-        return userDao.insertVideo(videoInfo);
+        return userDao.insertVideo(videoInfoDO);
     }
 
     @Override
-    public List<VideoInfo> queryVideosByUsername(String username) {
+    public List<VideoInfoDO> queryVideosByUsername(String username) {
         return userDao.selectVideos(username);
     }
 
@@ -91,18 +91,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<VideoInfo> queryCollectionsByUsername(String username) {
-        List<VideoInfo> videoInfoList = new ArrayList<>();
+    public List<VideoInfoDO> queryCollectionsByUsername(String username) {
+        List<VideoInfoDO> videoInfoDOList = new ArrayList<>();
         List<String> videoName = userDao.selectCollections(username, 1);
         for (String item : videoName) {
-            VideoInfo videoInfo = userDao.selectVideosByVideoFilename(item);
-            videoInfoList.add(videoInfo);
+            VideoInfoDO videoInfoDO = userDao.selectVideosByVideoFilename(item);
+            videoInfoDOList.add(videoInfoDO);
         }
-        return videoInfoList;
+        return videoInfoDOList;
     }
 
     @Override
-    public VideoInfo selectVideoInfoByVideoFilename(String videoFilename) {
+    public VideoInfoDO selectVideoInfoByVideoFilename(String videoFilename) {
 
         return userDao.selectVideosByVideoFilename(videoFilename);
     }
@@ -146,7 +146,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UnionFansDO> queryFollows(String username) {
+    public List<UnionFansDTO> queryFollows(String username) {
         return userDao.selectMyFollows(username);
     }
 
@@ -163,5 +163,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public CommentDO queryCommentByIdentityDocument(long commentIdentityDocument) {
         return userDao.selectCommentByIdentityDocument(commentIdentityDocument);
+    }
+
+    @Override
+    public boolean setMusic(Music music) {
+        return userDao.insertMusic(music);
     }
 }

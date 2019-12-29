@@ -3,7 +3,7 @@ package com.kaciry.dao;
 import com.kaciry.entity.CommentDO;
 import com.kaciry.entity.OperationsDO;
 import com.kaciry.entity.ReportVideoDO;
-import com.kaciry.entity.VideoInfo;
+import com.kaciry.entity.VideoInfoDO;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Component;
 
@@ -48,7 +48,7 @@ public interface VideoDao {
      * @date 2019/10/25 18:47
      **/
     @Select("select * from user_video LEFT JOIN user ON user.username = user_video.username WHERE videoFilename = #{videoAddress}")
-    VideoInfo selectVideoInfo(String videoAddress);
+    VideoInfoDO selectVideoInfo(String videoAddress);
 
     /**
      * @param videoFilename 视频文件名

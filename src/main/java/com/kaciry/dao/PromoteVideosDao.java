@@ -1,7 +1,7 @@
 package com.kaciry.dao;
 
 import com.kaciry.entity.PromoteVideosDO;
-import com.kaciry.entity.VideoInfo;
+import com.kaciry.entity.VideoInfoDO;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -19,7 +19,7 @@ import java.util.List;
 public interface PromoteVideosDao {
 
     @Select("SELECT * FROM user_video WHERE videoState = 1 AND username = #{username}")
-    List<VideoInfo> selectNormalVideos(String username);
+    List<VideoInfoDO> selectNormalVideos(String username);
     /**
      * @author kaciry
      * @description  查询推广视频需要等待的时间

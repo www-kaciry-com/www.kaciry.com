@@ -1,6 +1,6 @@
 package com.kaciry.controller;
 
-import com.kaciry.entity.VideoInfo;
+import com.kaciry.entity.VideoInfoDO;
 import com.kaciry.service.Impl.IndexDataServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,7 +29,7 @@ public class IndexDataController {
      * @date 2019/10/25 17:06
      **/
     @PostMapping(value = "/indexDataInit")
-    public List<VideoInfo> indexDataInit(String videoType, int length) {
+    public List<VideoInfoDO> indexDataInit(String videoType, int length) {
         return indexDataService.selectIndexDataByType(videoType, length);
     }
 
@@ -42,7 +42,7 @@ public class IndexDataController {
      * @date 2019/10/25 17:12
      **/
     @PostMapping(value = "/playRank")
-    public List<VideoInfo> indexPlayRankInit(String videoType, int length) {
+    public List<VideoInfoDO> indexPlayRankInit(String videoType, int length) {
         return indexDataService.selectIndexDataByType(videoType, length, true);
     }
 
@@ -53,7 +53,7 @@ public class IndexDataController {
      * @date 2019/12/8 15:18
      **/
     @PostMapping(value = "/countVideoNum")
-    public List<VideoInfo> indexVideoNumInit() {
+    public List<VideoInfoDO> indexVideoNumInit() {
         return indexDataService.countVideoType();
     }
 

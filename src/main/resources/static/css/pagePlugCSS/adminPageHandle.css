@@ -1,0 +1,409 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+/*查看用户信息---分页CSS*/
+#page-break-queryUserInfo {
+    margin: 50px auto;
+}
+
+#page-break-queryUserInfo li {
+    list-style: none;
+}
+
+#page-break-queryUserInfo a {
+    border: 1px solid #ddd;
+    text-decoration: none;
+    float: left;
+    padding: 6px 12px;
+    color: #337ab7;
+    cursor: pointer
+}
+
+#page-break-queryUserInfo a:hover {
+    background-color: #eee;
+}
+
+#page-break-queryUserInfo a .banclick {
+    cursor: not-allowed;
+}
+
+#page-break-queryUserInfo .active a {
+    color: #fff;
+    cursor: default;
+    background-color: #337ab7;
+    border-color: #337ab7;
+}
+
+#page-break-queryUserInfo i {
+    font-style: normal;
+    color: #d44950;
+    margin: 0px 4px;
+    font-size: 12px;
+}
+
+#page-break-queryUserInfo .jumpbox .jumppage {
+    border: 1px solid #ddd;
+    margin-left: 40px;
+    height: 33px;
+    width: 40px;
+    float: left;
+}
+
+#page-break-queryUserInfo .jumpbox .jumpbtn {
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+#page-break-queryUserInfo .jumpbox .jumpbtn:active {
+    color: #337ab7;
+}
+
+
+/*查看视频举报---分页CSS*/
+#page-break-queryVReport {
+    margin: 10px auto;
+}
+
+#page-break-queryVReport li {
+    list-style: none;
+}
+
+#page-break-queryVReport a {
+    border: 1px solid #ddd;
+    text-decoration: none;
+    float: left;
+    padding: 6px 12px;
+    color: #337ab7;
+    cursor: pointer
+}
+
+#page-break-queryVReport a:hover {
+    background-color: #eee;
+}
+
+#page-break-queryVReport a .banclick {
+    cursor: not-allowed;
+}
+
+#page-break-queryVReport .active a {
+    color: #fff;
+    cursor: default;
+    background-color: #337ab7;
+    border-color: #337ab7;
+}
+
+#page-break-queryVReport i {
+    font-style: normal;
+    color: #d44950;
+    margin: 0px 4px;
+    font-size: 12px;
+}
+
+#page-break-queryVReport .jumpbox .jumppage {
+    border: 1px solid #ddd;
+    margin-left: 40px;
+    height: 33px;
+    width: 40px;
+    float: left;
+}
+
+#page-break-queryVReport .jumpbox .jumpbtn {
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+#page-break-queryVReport .jumpbox .jumpbtn:active {
+    color: #337ab7;
+}
+
+/*查看视频信息---分页CSS*/
+#page-break-queryVideoInfo {
+    margin: 10px auto;
+}
+
+#page-break-queryVideoInfo li {
+    list-style: none;
+}
+
+#page-break-queryVideoInfo a {
+    border: 1px solid #ddd;
+    text-decoration: none;
+    float: left;
+    padding: 6px 12px;
+    color: #337ab7;
+    cursor: pointer
+}
+
+#page-break-queryVideoInfo a:hover {
+    background-color: #eee;
+}
+
+#page-break-queryVideoInfo a .banclick {
+    cursor: not-allowed;
+}
+
+#page-break-queryVideoInfo .active a {
+    color: #fff;
+    cursor: default;
+    background-color: #337ab7;
+    border-color: #337ab7;
+}
+
+#page-break-queryVideoInfo i {
+    font-style: normal;
+    color: #d44950;
+    margin: 0px 4px;
+    font-size: 12px;
+}
+
+#page-break-queryVideoInfo .jumpbox .jumppage {
+    border: 1px solid #ddd;
+    margin-left: 40px;
+    height: 33px;
+    width: 40px;
+    float: left;
+}
+
+#page-break-queryVideoInfo .jumpbox .jumpbtn {
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+#page-break-queryVideoInfo .jumpbox .jumpbtn:active {
+    color: #337ab7;
+}
+
+
+/*查看音乐信息---分页CSS*/
+#page-break-queryMusicInfo {
+    margin: 10px auto;
+}
+
+#page-break-queryMusicInfo li {
+    list-style: none;
+}
+
+#page-break-queryMusicInfo a {
+    border: 1px solid #ddd;
+    text-decoration: none;
+    float: left;
+    padding: 6px 12px;
+    color: #337ab7;
+    cursor: pointer
+}
+
+#page-break-queryMusicInfo a:hover {
+    background-color: #eee;
+}
+
+#page-break-queryMusicInfo a .banclick {
+    cursor: not-allowed;
+}
+
+#page-break-queryMusicInfo .active a {
+    color: #fff;
+    cursor: default;
+    background-color: #337ab7;
+    border-color: #337ab7;
+}
+
+#page-break-queryMusicInfo i {
+    font-style: normal;
+    color: #d44950;
+    margin: 0px 4px;
+    font-size: 12px;
+}
+
+#page-break-queryMusicInfo .jumpbox .jumppage {
+    border: 1px solid #ddd;
+    margin-left: 40px;
+    height: 33px;
+    width: 40px;
+    float: left;
+}
+
+#page-break-queryMusicInfo .jumpbox .jumpbtn {
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+#page-break-queryMusicInfo .jumpbox .jumpbtn:active {
+    color: #337ab7;
+}
+
+
+    /*审核视频---分页CSS*/
+#page-break-queryUncheckVideoInfo {
+    margin: 10px auto;
+}
+
+#page-break-queryUncheckVideoInfo li {
+    list-style: none;
+}
+
+#page-break-queryUncheckVideoInfo a {
+    border: 1px solid #ddd;
+    text-decoration: none;
+    float: left;
+    padding: 6px 12px;
+    color: #337ab7;
+    cursor: pointer
+}
+
+#page-break-queryUncheckVideoInfo a:hover {
+    background-color: #eee;
+}
+
+#page-break-queryUncheckVideoInfo a .banclick {
+    cursor: not-allowed;
+}
+
+#page-break-queryUncheckVideoInfo .active a {
+    color: #fff;
+    cursor: default;
+    background-color: #337ab7;
+    border-color: #337ab7;
+}
+
+#page-break-queryUncheckVideoInfo i {
+    font-style: normal;
+    color: #d44950;
+    margin: 0px 4px;
+    font-size: 12px;
+}
+
+#page-break-queryUncheckVideoInfo .jumpbox .jumppage {
+    border: 1px solid #ddd;
+    margin-left: 40px;
+    height: 33px;
+    width: 40px;
+    float: left;
+}
+
+#page-break-queryUncheckVideoInfo .jumpbox .jumpbtn {
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+#page-break-queryUncheckVideoInfo .jumpbox .jumpbtn:active {
+    color: #337ab7;
+}
+
+
+/*查看音乐信息---分页CSS*/
+#page-break-queryMusicInfo {
+    margin: 10px auto;
+}
+
+#page-break-queryMusicInfo li {
+    list-style: none;
+}
+
+#page-break-queryMusicInfo a {
+    border: 1px solid #ddd;
+    text-decoration: none;
+    float: left;
+    padding: 6px 12px;
+    color: #337ab7;
+    cursor: pointer
+}
+
+#page-break-queryMusicInfo a:hover {
+    background-color: #eee;
+}
+
+#page-break-queryMusicInfo a .banclick {
+    cursor: not-allowed;
+}
+
+#page-break-queryMusicInfo .active a {
+    color: #fff;
+    cursor: default;
+    background-color: #337ab7;
+    border-color: #337ab7;
+}
+
+#page-break-queryMusicInfo i {
+    font-style: normal;
+    color: #d44950;
+    margin: 0px 4px;
+    font-size: 12px;
+}
+
+#page-break-queryMusicInfo .jumpbox .jumppage {
+    border: 1px solid #ddd;
+    margin-left: 40px;
+    height: 33px;
+    width: 40px;
+    float: left;
+}
+
+#page-break-queryMusicInfo .jumpbox .jumpbtn {
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+#page-break-queryMusicInfo .jumpbox .jumpbtn:active {
+    color: #337ab7;
+}
+
+
+
+/*查看评论举报---分页CSS*/
+#page-break-queryCReport {
+    margin: 10px auto;
+}
+
+#page-break-queryCReport li {
+    list-style: none;
+}
+
+#page-break-queryCReport a {
+    border: 1px solid #ddd;
+    text-decoration: none;
+    float: left;
+    padding: 6px 12px;
+    color: #337ab7;
+    cursor: pointer
+}
+
+#page-break-queryCReport a:hover {
+    background-color: #eee;
+}
+
+#page-break-queryCReport a .banclick {
+    cursor: not-allowed;
+}
+
+#page-break-queryCReport .active a {
+    color: #fff;
+    cursor: default;
+    background-color: #337ab7;
+    border-color: #337ab7;
+}
+
+#page-break-queryCReport i {
+    font-style: normal;
+    color: #d44950;
+    margin: 0px 4px;
+    font-size: 12px;
+}
+
+#page-break-queryCReport .jumpbox .jumppage {
+    border: 1px solid #ddd;
+    margin-left: 40px;
+    height: 33px;
+    width: 40px;
+    float: left;
+}
+
+#page-break-queryCReport .jumpbox .jumpbtn {
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+#page-break-queryCReport .jumpbox .jumpbtn:active {
+    color: #337ab7;
+}

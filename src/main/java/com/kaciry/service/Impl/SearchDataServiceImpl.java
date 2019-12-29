@@ -1,7 +1,7 @@
 package com.kaciry.service.Impl;
 
 import com.kaciry.dao.IndexDataDao;
-import com.kaciry.entity.VideoInfo;
+import com.kaciry.entity.VideoInfoDO;
 import com.kaciry.service.SearchDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,12 +18,12 @@ public class SearchDataServiceImpl implements SearchDataService {
     private IndexDataDao indexDataDao;
 
     @Override
-    public List<VideoInfo> searchKeyword(String keyword) {
+    public List<VideoInfoDO> searchKeyword(String keyword) {
         return indexDataDao.selectFuzzySearch(keyword);
     }
 
     @Override
-    public List<VideoInfo> searchByType(String keyword) {
+    public List<VideoInfoDO> searchByType(String keyword) {
         return indexDataDao.selectVideoData(keyword);
     }
 }

@@ -1,0 +1,131 @@
+
+html, body {
+    height: 100%;
+
+}
+
+.container-fluid, .row, .left, .right {
+    height: 100%;
+}
+
+.left a {
+    color: aliceblue !important;
+}
+
+.right .container {
+    height: 90%;
+}
+
+.nav-link.active {
+    background-color: #dcb0c12e !important;
+}
+
+
+.userInfo .row {
+    margin: 0 !important;
+
+}
+
+.userInfoQuery {
+    float: right;
+}
+
+.userInfoQuery button, .reportSearch button {
+    margin: 0 10px;
+}
+
+.queryReportTitle h5 {
+    font-weight: 700;
+    line-height: 2.0;
+    text-align: center;
+}
+
+.bVideoLeft, .bVideoRight {
+    display: inline-block;
+}
+
+.thin {
+    font-weight: normal;
+}
+
+.card-body thead {
+    color: cornflowerblue;
+}
+
+.card-header h3 {
+    margin: auto;
+}
+
+.dataCount {
+    margin: auto;
+    border-radius: 50%;
+    /* border: 2px solid #000;*/
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+.dc1 {
+    height: 50px;
+    background: #61D1FF;
+}
+
+.dc2 {
+    height: 50px;
+    background: #81C226;
+}
+
+.dc3 {
+    height: 50px;
+    background: #F69B55;
+}
+
+.dc4 {
+    height: 50px;
+    background: #dd3715;
+}
+
+.userModal1, .userModal2 {
+    display: inline-block;
+}
+
+.userModal1 {
+    position: relative;
+    text-align: center;
+}
+
+.userModal1 img {
+    width: 50%;
+    height: 30%;
+    border-radius: 50%;
+}
+
+.userModal1 > div > span {
+    font-family: cursive;
+    font-weight: 700;
+    margin: auto;
+}
+
+.userModal1 > span {
+
+    font-style: oblique;
+    font-family: cursive;
+    color: #110d0d
+}
+
+.userModal1 > DIV > span {
+
+}
+
+.userModal2 h5 {
+    display: inline;
+    font-style: normal;
+    font-family: cursive;
+    color: initial;
+}
+.adminHead {
+    width: 50px;
+    height: 50px;
+}
+

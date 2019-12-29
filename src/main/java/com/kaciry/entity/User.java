@@ -1,5 +1,7 @@
 package com.kaciry.entity;
 
+import java.math.BigInteger;
+
 /**
  * @author Kaciry
  */
@@ -28,6 +30,15 @@ public class User {
     private String userSex;
     //币的个数
     private int userCoins;
+    private BigInteger num;
+
+    public BigInteger getNum() {
+        return num;
+    }
+
+    public void setNum(BigInteger num) {
+        this.num = num;
+    }
 
     public User() {
     }

@@ -1,6 +1,6 @@
 package com.kaciry.service;
 
-import com.kaciry.entity.VideoInfo;
+import com.kaciry.entity.VideoInfoDO;
 
 import java.util.List;
 
@@ -17,7 +17,7 @@ public interface SearchDataService {
      * @param keyword 关键字
      * @return java.util.List<com.kaciry.entity.VideoInfo>
     **/
-    List<VideoInfo> searchKeyword(String keyword);
+    List<VideoInfoDO> searchKeyword(String keyword);
     /**
      * @author kaciry
      * @description  通过视频类型查询视频信息
@@ -25,6 +25,6 @@ public interface SearchDataService {
      * @param keyword 关键词
      * @return java.util.List<com.kaciry.entity.VideoInfo>
     **/
-    List<VideoInfo> searchByType(String keyword);
+    List<VideoInfoDO> searchByType(String keyword);
 
 }

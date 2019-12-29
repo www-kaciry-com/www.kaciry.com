@@ -51,7 +51,7 @@ public class UserInfoController {
      **/
     @PostMapping(value = "/selectUserVideos")
     @ResponseBody
-    public List<VideoInfo> selectUserVideos(String token, String username) {
+    public List<VideoInfoDO> selectUserVideos(String token, String username) {
         return userService.queryVideosByUsername(username);
     }
 
@@ -127,7 +127,7 @@ public class UserInfoController {
      **/
     @PostMapping(value = "/selectMyVideo")
     @ResponseBody
-    public PageInfo<VideoInfo> queryMyVideos(String username, Integer pageNum, Integer pageSize) {
+    public PageInfo<VideoInfoDO> queryMyVideos(String username, Integer pageNum, Integer pageSize) {
         if (pageNum == null || pageSize == null) {
             PageHelper.startPage(1, 16);
         } else {
@@ -147,7 +147,7 @@ public class UserInfoController {
      **/
     @PostMapping("/postQueryCollect")
     @ResponseBody
-    public PageInfo<VideoInfo> queryCollections(String username, Integer pageNum, Integer pageSize) {
+    public PageInfo<VideoInfoDO> queryCollections(String username, Integer pageNum, Integer pageSize) {
         if (pageNum == null || pageSize == null) {
             PageHelper.startPage(1, 20);
         } else {
@@ -167,9 +167,9 @@ public class UserInfoController {
      **/
     @PostMapping(value = "/postQueryFollows")
     @ResponseBody
-    public PageInfo<UnionFansDO> queryMyFollows(String username, Integer pageNum, Integer pageSize) {
+    public PageInfo<UnionFansDTO> queryMyFollows(String username, Integer pageNum, Integer pageSize) {
         PageHelper.startPage(pageNum, pageSize);
-        List<UnionFansDO> list = userService.queryFollows(username);
+        List<UnionFansDTO> list = userService.queryFollows(username);
         return new PageInfo<>(list);
     }
 

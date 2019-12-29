@@ -5,9 +5,9 @@ package com.kaciry.entity;
  */
 public class ReportVideoDO {
     //自增ID
-    private long reportVideoIdentityDocument;
+    private int reportVideoIdentityDocument;
     //视频文件名
-    private String videoFileName;
+    private String videoFilename;
     //举报类型
     private String reportedType;
     //被举报者ID
@@ -20,38 +20,39 @@ public class ReportVideoDO {
     private String reportedReason;
     //封禁原因
     private String bannedReason;
-    //处理时间
-    private int handleState;
+
+
+
 
     public ReportVideoDO() {
     }
 
-    public ReportVideoDO(String videoFileName, String reportedType, String beReportedUser, String reportedUser, String reportedTime, String reportedReason) {
-        this.videoFileName = videoFileName;
-        this.reportedType = reportedType;
-        this.beReportedUser = beReportedUser;
-        this.reportedUser = reportedUser;
-        this.reportedTime = reportedTime;
-        this.reportedReason = reportedReason;
-    }
-
-    public ReportVideoDO(String videoFileName, String reportedType, String beReportedUser, String reportedUser, String reportedTime, String reportedReason, String bannedReason, int handleState) {
-        this.videoFileName = videoFileName;
+    public ReportVideoDO(int reportVideoIdentityDocument, String videoFilename, String reportedType, String beReportedUser, String reportedUser, String reportedTime, String reportedReason, String bannedReason) {
+        this.reportVideoIdentityDocument = reportVideoIdentityDocument;
+        this.videoFilename = videoFilename;
         this.reportedType = reportedType;
         this.beReportedUser = beReportedUser;
         this.reportedUser = reportedUser;
         this.reportedTime = reportedTime;
         this.reportedReason = reportedReason;
         this.bannedReason = bannedReason;
-        this.handleState = handleState;
+
     }
 
-    public String getVideoFileName() {
-        return videoFileName;
+    public int getReportVideoIdentityDocument() {
+        return reportVideoIdentityDocument;
     }
 
-    public void setVideoFileName(String videoFileName) {
-        this.videoFileName = videoFileName;
+    public void setReportVideoIdentityDocument(int reportVideoIdentityDocument) {
+        this.reportVideoIdentityDocument = reportVideoIdentityDocument;
+    }
+
+    public String getVideoFilename() {
+        return videoFilename;
+    }
+
+    public void setVideoFilename(String videoFilename) {
+        this.videoFilename = videoFilename;
     }
 
     public String getReportedType() {
@@ -102,11 +103,5 @@ public class ReportVideoDO {
         this.bannedReason = bannedReason;
     }
 
-    public int getHandleState() {
-        return handleState;
-    }
 
-    public void setHandleState(int handleState) {
-        this.handleState = handleState;
-    }
 }
