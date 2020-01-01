@@ -6,6 +6,7 @@ package com.kaciry.entity;
  * @description 音乐实体
  */
 public class Music {
+    private int musicIdentityDocument;
     private String username;
     private String musicType;
     private String musicTittle;
@@ -18,8 +19,8 @@ public class Music {
     private int musicPlayNum;
     private int musicState;
 
-    public Music(String username, String musicType, String musicTittle, String musicName, String musicFilename, String date, String musicCover, String musicLrc, int musicPlayNum, int musicState) {
-
+    public Music(int musicIdentityDocument, String username, String musicType, String musicTittle, String musicName, String musicFilename, String date, String musicCover, String musicLrc, int musicPlayNum, int musicState) {
+        this.musicIdentityDocument = musicIdentityDocument;
         this.username = username;
         this.musicType = musicType;
         this.musicTittle = musicTittle;
@@ -51,6 +52,14 @@ public class Music {
                 ", musicPlayNum=" + musicPlayNum +
                 ", musicState=" + musicState +
                 '}';
+    }
+
+    public int getMusicIdentityDocument() {
+        return musicIdentityDocument;
+    }
+
+    public void setMusicIdentityDocument(int musicIdentityDocument) {
+        this.musicIdentityDocument = musicIdentityDocument;
     }
 
     public String getDate() {

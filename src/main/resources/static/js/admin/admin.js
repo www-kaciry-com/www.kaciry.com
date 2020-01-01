@@ -159,7 +159,6 @@ let vm = new Vue({
             if (pn !== 0) {
                 pn--;
             }
-            console.log(pn);
             this.$http.post('/adminSelectVideoReport',
                 {
                     star: pn * 8,
@@ -167,7 +166,9 @@ let vm = new Vue({
                 },
                 {emulateJSON: true}).then(result => {
                 if (result.status === 200) {
-                    console.log(result);
+                    if (result.body.length<0) {
+                        alert("未查询到视频举报信息!!!")
+                    }
                     this.videoReportList = result.body;
                 } else {
                     alert('wrong!!!')

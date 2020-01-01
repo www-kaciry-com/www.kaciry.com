@@ -143,7 +143,7 @@ let vm1 = new Vue({
             }
             this.$router.push({
                 //path: '/music/playMusic',
-                path: '/qwe',
+                path: '/playMusic',
                 // component: resolve => require(['../jumpMusic/music/playMusic'],resolve),
                 query: {musicId: musicFilename},
             });

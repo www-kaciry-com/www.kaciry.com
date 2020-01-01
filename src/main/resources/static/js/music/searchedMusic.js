@@ -45,7 +45,7 @@ let vm2 = new Vue({
         },
         playMusic(musicFilename) {
             this.$router.push({
-                path: '/qwe',
+                path: '/playMusic',
                 query: {musicId: musicFilename},
             });
             this.addPlayNum(musicFilename);

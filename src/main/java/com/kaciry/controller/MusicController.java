@@ -30,7 +30,7 @@ public class MusicController {
         return "music/music";
     }
 
-    @GetMapping("/qwe")
+    @GetMapping("/playMusic")
     public String playMusic() {
         return "music/playMusic";
     }

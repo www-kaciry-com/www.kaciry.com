@@ -182,7 +182,7 @@ public interface UserDao {
      **/
     @Select("SELECT * FROM user LEFT JOIN follow_others on user.username = follow_others.followedUser WHERE" +
             " userIdentityDocument = #{username} and  user.username = follow_others.followedUser")
-    List<UnionFansDO> selectMyFollows(@Param("username") String username);
+    List<UnionFansDTO> selectMyFollows(@Param("username") String username);
 
     /**
      * @param reportCommentDO ReportCommentBean实体
@@ -214,4 +214,17 @@ public interface UserDao {
      **/
     @Select("SELECT * FROM comment WHERE commentIdentityDocument = #{commentIdentityDocument}")
     CommentDO selectCommentByIdentityDocument(long commentIdentityDocument);
+
+    /**
+     * @author FLLH
+     * @description
+     * @date  2019/11/17 16:13
+     * @date  2019/11/17 16:13
+     * @param musicInfo
+     * @return booleans
+     **/
+    @Insert("insert into user_music (username,musicType,musicTittle,musicName,musicFilename,date,musicCover,musicLrc,musicPlayNum,musicState)" +
+            " values(#{username},#{musicType},#{musicTittle},#{musicName},#{musicFilename}," +
+            "#{date},#{musicCover},#{musicLrc},#{musicPlayNum},#{musicState})")
+    boolean insertMusic(Music musicInfo);
 }
