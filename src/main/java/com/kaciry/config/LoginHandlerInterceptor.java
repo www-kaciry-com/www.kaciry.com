@@ -4,10 +4,10 @@ import com.kaciry.utils.GetAuthorization;
 import com.kaciry.utils.GetCookiesValueByKey;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Date;
 
 /**
  * @author kaciry
@@ -16,7 +16,6 @@ import javax.servlet.http.HttpServletResponse;
  */
 @Component
 public class LoginHandlerInterceptor implements HandlerInterceptor {
-
     //目标方法执行之前
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -24,23 +23,12 @@ public class LoginHandlerInterceptor implements HandlerInterceptor {
         String username = GetCookiesValueByKey.getValue(request, "username");
         if (username.equals("") || token.equals("") || !GetAuthorization.isAuthorization(username, token)) {
             //未登录,返回登录页面
-            System.out.println("执行了一次拦截-->" + System.currentTimeMillis());
+            System.out.println("执行了一次拦截-->" + new Date().toString());
             request.getRequestDispatcher("/login").forward(request, response);
-//            response.sendRedirect("/login");
             return false;
         } else {
             //放行
             return true;
         }
-    }
-
-    @Override
-    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) {
-
-    }
-
-    @Override
-    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
-
     }
 }

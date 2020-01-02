@@ -27,5 +27,16 @@ public interface IndexDataService {
      **/
     List<VideoInfoDO> countVideoType();
 
+    /**
+     * @param ip   IP地址
+     * @param city 城市
+     * @author kaciry
+     * @description
+     * @date 2020/1/1 9:30
+     **/
+    void collectUserInfos(String ip, String city);
+
+    boolean invalidIPData();
+
 
 }

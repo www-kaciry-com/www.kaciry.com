@@ -36,4 +36,14 @@ public class IndexDataServiceImpl implements IndexDataService {
     public List<VideoInfoDO> countVideoType() {
         return indexDataDao.selectVideoNum();
     }
+
+    @Override
+    public void collectUserInfos(String ip, String city) {
+        indexDataDao.insertUserIPAndAddress(ip, city);
+    }
+
+    @Override
+    public boolean invalidIPData() {
+        return indexDataDao.invalidIPData();
+    }
 }

@@ -375,6 +375,7 @@ function clickStar() {
         url: '/opsStar', //请求的url
         type: 'post', //请求的方式
         dateType: "json",
+        async: false,
         data: {
             username: username,
             videoFilename: videoAddress,
@@ -384,37 +385,39 @@ function clickStar() {
             showNoticeModal("服务器错误！", "服务器未响应，稍后再试！");
         },
         success: function (result) {
-            console.log(result);
-            if (result === true) {
-                $('.ops img').eq(0).attr("src", "/static/img/videoOps/star_after.png");
-                let stars = document.getElementById("starNum");
+            if (result == true || result == false) {
                 let num;
+                let stars = document.getElementById("starNum");
                 let a = stars.innerText.indexOf("万");
-                if (a !== -1) {
-                    num = parseInt(stars.innerText) * 10000 + 1;
-                    stars.innerText = Math.round(num / 10000.0) + "万";
+                if (result == true) {
+                    $('.ops img').eq(0).attr("src", "/static/img/videoOps/star_after.png");
+                    if (a !== -1) {
+                        stars.innerText = Math.round((parseInt(stars.innerText) * 10000 + 1) / 10000.0) + "万";
+                    } else {
+                        num = parseInt(stars.innerText) + 1;
+                        if (num < 0) {
+                            stars.innerText = 0;
+                        } else {
+                            stars.innerText = num;
+                        }
+                    }
                 } else {
-                    num = parseInt(stars.innerText) + 1;
-                    stars.innerText = num;
+                    $('.ops img').eq(0).attr("src", "/static/img/videoOps/star_before.png");
+                    if (a !== -1) {
+                        stars.innerText = Math.round(num / 10000.0) + "万";
+                    } else {
+                        stars.innerText = parseInt(stars.innerText) - 1
+                    }
                 }
-                // stars.innerHTML = parseInt(stars.innerText) + 1;
             } else {
-                $('.ops img').eq(0).attr("src", "/static/img/videoOps/star_before.png");
-                let stars = document.getElementById("starNum");
-                let num;
-                let a = stars.innerText.indexOf("万");
-                if (a !== -1) {
-                    num = parseInt(stars.innerText) * 10000 - 1;
-                    stars.innerText = Math.round(num / 10000.0) + "万";
-                } else {
-                    num = parseInt(stars.innerText) - 1;
-                    stars.innerText = num;
-                }
-
+                window.location.href = "/login"
             }
+
 
         }
     });
+
+    return false;
 }
 
 //收藏
@@ -435,34 +438,30 @@ function clickCollect() {
                 showNoticeModal("服务器错误！", "服务器未响应，稍后再试！");
             },
             success: function (result) {
-                // console.log(result);
-
-                if (result === true) {
-                    $('.ops img').eq(2).attr("src", "/static/img/videoOps/cn_after.png");
-                    let collections = document.getElementById("connectionNum");
-                    let num;
-                    let a = collections.innerText.indexOf("万");
-                    if (a !== -1) {
-                        num = parseInt(collections.innerText) * 10000 + 1;
-                        collections.innerText = Math.round(num / 10000.0) + "万";
+                if (result == true || result == false) {
+                    if (result === true) {
+                        $('.ops img').eq(2).attr("src", "/static/img/videoOps/cn_after.png");
+                        let collections = document.getElementById("connectionNum");
+                        let a = collections.innerText.indexOf("万");
+                        if (a !== -1) {
+                            collections.innerText = Math.round((parseInt(collections.innerText) * 10000 + 1) / 10000.0) + "万";
+                        } else {
+                            collections.innerText = parseInt(collections.innerText) + 1;
+                        }
                     } else {
-                        num = parseInt(collections.innerText) + 1;
-                        collections.innerText = num;
+                        $('.ops img').eq(2).attr("src", "/static/img/videoOps/cn_before.png");
+                        let collections = document.getElementById("connectionNum");
+                        let a = collections.innerText.indexOf("万");
+                        if (a !== -1) {
+                            collections.innerText = Math.round((parseInt(collections.innerText) * 10000 - 1) / 10000.0) + "万";
+                        } else {
+                            collections.innerText = parseInt(collections.innerText) - 1;
+                        }
                     }
-                    // stars.innerHTML = parseInt(stars.innerText) + 1;
                 } else {
-                    $('.ops img').eq(2).attr("src", "/static/img/videoOps/cn_before.png");
-                    let collections = document.getElementById("connectionNum");
-                    let num;
-                    let a = collections.innerText.indexOf("万");
-                    if (a !== -1) {
-                        num = parseInt(collections.innerText) * 10000 - 1;
-                        collections.innerText = Math.round(num / 10000.0) + "万";
-                    } else {
-                        num = parseInt(collections.innerText) - 1;
-                        collections.innerText = num;
-                    }
+                    window.location.href = "/login"
                 }
+
             }
         });
     }
@@ -553,6 +552,11 @@ function clickShare() {
         },
         error: function () {
             showNoticeModal("服务器错误！", "服务器未响应，稍后再试！");
+        },
+        success: function (result) {
+            if (result != true && result != false) {
+                window.location.href = "/login"
+            }
         }
     })
 }
@@ -587,8 +591,6 @@ function complaintVideo() {
             }
         })
     }
-
-
 }
 
 //举报评论

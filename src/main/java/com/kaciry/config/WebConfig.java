@@ -4,10 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.config.annotation.*;
 
 import java.nio.charset.Charset;
 
@@ -20,13 +17,14 @@ import java.nio.charset.Charset;
 @EnableWebMvc
 public class WebConfig implements WebMvcConfigurer {
 
+
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new LoginHandlerInterceptor()).addPathPatterns("/**")
                 .excludePathPatterns("/index", "/", "/indexDataInit", "/playRank", "/login", "/register", "/initVideo",
                         "/selectVideoComment", "/getVideoUser", "/rsaKey1", "/rsaKey2", "/static/**", "/search", "/video",
                         "/initPromoteVideos4Carousel", "/initPromoteVideos4List", "/files/**", "/postResetPwd",
-                        "/resetPassword", "/countVideoNum", "/signup");
+                        "/resetPassword", "/countVideoNum", "/signup", "/getIPAddress");
     }
 
     @Bean
@@ -41,7 +39,7 @@ public class WebConfig implements WebMvcConfigurer {
         //addResourceHandler是指你想在url请求的路径
         //addResourceLocations是图片存放的真实路径
         //Linux 下目录配置
-//        registry.addResourceHandler("/files/**").addResourceLocations("file:/www/wwwroot/www.kaciry.com/upload/");
+        //registry.addResourceHandler("/files/**").addResourceLocations("file:/www/wwwroot/www.kaciry.com/upload/");
         //Windows下目录配置
         registry.addResourceHandler("/files/**").addResourceLocations("file:F://upload/");
 

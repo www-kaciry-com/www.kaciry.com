@@ -39,6 +39,21 @@ function trySend() {
                 },
                 success:function (data) {
                     if (data.data === "success"){
+                        $.ajax({
+                            url: '/getIPAddress',//请求的地址
+                            type: 'post', //请求的方式
+                            dateType: "json", //请求的数据格式
+                            data: {
+                                ip: returnCitySN["cip"],
+                                city: returnCitySN["cname"]
+                            },
+                            success: function () {
+                                console.log("success");
+                            },
+                            error: function () {
+                                console.log(error);
+                            }
+                        });
                         window.location.href = "index.html"
                     }else {
                         document.getElementsByClassName("notice-p")[0].innerHTML = "";
@@ -53,8 +68,9 @@ function trySend() {
         error:function () {
             console.log("fail1");
         }
-
     });
     return false;
 }
+
+
 

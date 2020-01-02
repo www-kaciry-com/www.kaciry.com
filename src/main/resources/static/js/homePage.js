@@ -217,14 +217,10 @@ function changePassword() {
                 showNoticeModal("服务器错误！", "服务器未响应，稍后再试！");
             },
             success: function (result) {
-                // $("#noticeModalTitle").text("提示！");
-                // $("#notice-modal-body").text(result.data);
-                // $('#noticeModal').modal('toggle');
                 showNoticeModal("提示！", result.data);
             }
         })
     }
-
     return false;
 }
 

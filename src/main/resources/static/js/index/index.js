@@ -644,6 +644,7 @@ $(document).ready(function () {
     return false;
 });
 
+
 //工具 , 导航栏中固定定位对锚点链接影响的解决方法
 function locateAt(e) {
     e = document.getElementById(e);/*以id命名的锚点*/

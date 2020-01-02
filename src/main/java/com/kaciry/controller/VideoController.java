@@ -160,7 +160,8 @@ public class VideoController {
                 res = videoService.operationOfShare(operationsDO);
                 break;
             }
-            default:
+            default: {
+            }
         }
         videoService.deleteOpsData(operationsDO);
         return res;

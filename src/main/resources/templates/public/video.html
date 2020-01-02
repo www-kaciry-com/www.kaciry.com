@@ -18,7 +18,7 @@
 
 <div class="container content">
 
-    <div class="row videoInfoDO justify-content-between">
+    <div class="row videoInfo justify-content-between">
         <div class="video-data col-12 col-sm-12 col-md-8 col-lg-8">
             <h3 id="videoTitle">【测试】这是一个筱筱弹幕网的测试视频。</h3>
             <span id="videoPlayNum">44.6万</span><span>播放 · </span><span id="barrageNum">999+弹幕</span>
@@ -42,36 +42,31 @@
             <div id="dplayer"></div>
         </div>
     </div>
-
-    <div class="row operationsDO justify-content-between">
-        <div class="" style="width: 400px;min-width: 400px">
+    <div class="row ops justify-content-between">
+        <div class="" style="width: 400px;min-width: 400px;">
             <span class="star">
                     <a href="#" onclick="return clickStar()">
                         <img src="/static/img/videoOps/star_before.png" alt=""/>
-                        <em id="starNum">99万</em>
+                        <em id="starNum"></em>
                     </a>
                 </span>
-            <span class="coin">
+            <span class="coin" style="margin-left: 20px">
                         <a href="#">
                             <img src="/static/img/videoOps/coin-before.png" alt=""/>
-                            <em id="coinNum">99万</em>
+                            <em id="coinNum"></em>
                         </a>
                     </span>
-            <span class="connection">
+            <span class="connection" style="margin-left: 20px">
                         <a href="#" onclick="clickCollect()">
                             <img src="/static/img/videoOps/cn_before.png" alt=""/>
-                           <em id="connectionNum">99万</em>
+                           <em id="connectionNum"></em>
                         </a>
-                    </span>
-            <span class="share">
+            </span>
+            <span class="share" style="margin-left: 20px">
                         <input id="share-text" name="share-text" type="text" hidden="hidden" value="null">
-                <!--            <a class="share-btn" href="#" data-toggle="modal" data-target="#shareModal" onclick="shareHtml()">-->
-                <!--                <img src="/static/img/videoOps/share_before.png" alt=""/>-->
-                <!--                <em id="shareNum">99万</em>-->
-                <!--            </a>-->
                         <a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <img src="/static/img/videoOps/share_before.png" alt=""/>
-                            <em id="shareNum">99万</em>
+                            <em id="shareNum"></em>
                          </a>
                         <span class="dropdown-menu dropdown-menu-share">
                             <a class="dropdown-item share-btn" href="#" data-toggle="modal" data-target="#shareModal">分享到贴吧</a>
@@ -80,19 +75,18 @@
                             <a class="dropdown-item share-btn" href="#" data-toggle="modal"
                                data-target="#shareModal">分享到新浪微博</a>
                         </span>
-                    </span>
+             </span>
         </div>
         <div class="complaint-video">
-            <button class="btn btn-outline-secondary" type="button" data-toggle="modal" data-target="#complaintModalCenter">稿件投诉</button>
+            <button class="btn btn-outline-secondary" type="button" data-toggle="modal"
+                    data-target="#complaintModalCenter">稿件投诉
+            </button>
             <button class="btn btn-outline-secondary" type="button" onclick="sendDanmu()">测试按钮</button>
         </div>
     </div>
     <hr>
     <div class="video-desc">
         <div class="info open" id="info">
-            玄机出，斗罗行，歌行舞，缘起足，红娘现。为了制作这个视频，书生把所有的素材都看了一遍，并且记下每一个片段的时间，后期再进行长期的剪辑，希望大家喜欢这个视频。
-            求二连三连，求二连三连，求二连三连，重要的事说三遍。
-            素材：秦时明月之君临天下，秦时明月之天行九歌，秦时明月之沧海横流，狐妖小红娘，斗罗大陆，少年歌行，白蛇缘起。
         </div>
     </div>
 
@@ -115,7 +109,7 @@
                     </div>
                 </a>
                 <div class="media-body col-10">
-                    <form class="form row" id="commentDO" method="post" style="margin-top: 10px">
+                    <form class="form row" id="comment" method="post" style="margin-top: 10px">
                         <label for="nickname"></label><input hidden="hidden" id="nickname" name="nickname"
                                                              th:each="cookie :${#httpServletRequest.getCookies()}"
                                                              th:if="${cookie.getName().equals('nickname')}"

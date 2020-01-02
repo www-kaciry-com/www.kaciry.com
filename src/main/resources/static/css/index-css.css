@@ -25,6 +25,7 @@
     animation: b 1s ease-out;
     position: relative;
     border-radius: 5px;
+    min-height: 230px;
 }
 .site-master .site-master-avatar {
     width: 100px;

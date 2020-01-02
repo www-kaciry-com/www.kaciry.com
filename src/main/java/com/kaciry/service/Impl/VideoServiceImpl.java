@@ -173,16 +173,19 @@ public class VideoServiceImpl implements VideoService {
     //分享视频
     @Override
     public boolean operationOfShare(OperationsDO operationsDO) {
-        if (videoDao.selectOperationsData(operationsDO) != null) {
-            operationsDO.setIsShare(1);
-            videoDao.updateShareData(operationsDO);
+        if (operationsDO.getUsername() == null) {
+            return false;
         } else {
-            operationsDO.setIsShare(1);
-            videoDao.insertOperationsData(operationsDO);
+            if (videoDao.selectOperationsData(operationsDO) != null) {
+                operationsDO.setIsShare(1);
+                videoDao.updateShareData(operationsDO);
+            } else {
+                operationsDO.setIsShare(1);
+                videoDao.insertOperationsData(operationsDO);
+            }
+            videoDao.updateVideoShareAdd(operationsDO.getVideoFilename());
+            return true;
         }
-        // TODO: 2019/10/14 未解决恶意分享影响视频热度BUG
-        videoDao.updateVideoShareAdd(operationsDO.getVideoFilename());
-        return true;
     }
 
     //检查数据项是否为空

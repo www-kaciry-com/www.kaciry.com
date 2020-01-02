@@ -1,8 +1,10 @@
 package com.kaciry.dao;
 
 import com.kaciry.entity.VideoInfoDO;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -48,4 +50,9 @@ public interface IndexDataDao {
     @Select("Select videoType,COUNT(videoIdentityDocument) As videoCoins FROM user_video group by videoType")
     List<VideoInfoDO> selectVideoNum();
 
+    @Insert("INSERT INTO user_ip (userIp,userAddress) VALUES (#{ip},#{city})")
+    boolean insertUserIPAndAddress(@Param("ip") String ip, @Param("city") String city);
+
+    @Update("DELETE FROM user_ip")
+    boolean invalidIPData();
 }

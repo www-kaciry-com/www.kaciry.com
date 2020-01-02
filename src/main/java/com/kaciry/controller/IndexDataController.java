@@ -57,4 +57,10 @@ public class IndexDataController {
         return indexDataService.countVideoType();
     }
 
+    @PostMapping(value = "/getIPAddress")
+    @ResponseBody
+    public void getIPAddress(String ip, String city) {
+        indexDataService.collectUserInfos(ip, city);
+    }
+
 }

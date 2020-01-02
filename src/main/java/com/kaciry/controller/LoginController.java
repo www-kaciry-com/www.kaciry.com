@@ -158,7 +158,6 @@ public class LoginController {
             map.put("msgs", "账号已存在！");
             return "public/signup";
         } else {
-//            User resUser = userServiceImpl.login(user.getUsername(), user.getUserPassword());
             return "public/signin";
         }
 

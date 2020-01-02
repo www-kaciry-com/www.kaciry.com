@@ -19,7 +19,8 @@ public class Music {
     private int musicPlayNum;
     private int musicState;
 
-    public Music(int musicIdentityDocument, String username, String musicType, String musicTittle, String musicName, String musicFilename, String date, String musicCover, String musicLrc, int musicPlayNum, int musicState) {
+    public Music(int musicIdentityDocument, String username, String musicType, String musicTittle, String musicName, String musicFilename,
+                 String date, String musicCover, String musicLrc, int musicPlayNum, int musicState) {
         this.musicIdentityDocument = musicIdentityDocument;
         this.username = username;
         this.musicType = musicType;
