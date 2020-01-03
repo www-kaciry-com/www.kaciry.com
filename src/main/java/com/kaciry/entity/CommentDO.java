@@ -19,27 +19,27 @@ public class CommentDO {
     //用户昵称
     private String userNickName;
     //评论点赞数
-    private int commentStars;
+    private int state;
 
     public CommentDO() {
     }
 
-    public CommentDO(String videoFilename, String username, String content, String sendDate, int commentStars) {
+    public CommentDO(String videoFilename, String username, String content, String sendDate, int state) {
         this.videoFilename = videoFilename;
         this.username = username;
         this.content = content;
         this.sendDate = sendDate;
-        this.commentStars = commentStars;
+        this.state = state;
     }
 
-    public CommentDO(String videoFilename, String username, String content, String sendDate, String userHeadIcon, String userNickName, int commentStars) {
+    public CommentDO(String videoFilename, String username, String content, String sendDate, String userHeadIcon, String userNickName, int state) {
         this.videoFilename = videoFilename;
         this.username = username;
         this.content = content;
         this.sendDate = sendDate;
         this.userHeadIcon = userHeadIcon;
         this.userNickName = userNickName;
-        this.commentStars = commentStars;
+        this.state = state;
     }
 
     public String getVideoFilename() {
@@ -98,25 +98,11 @@ public class CommentDO {
         this.userNickName = userNickName;
     }
 
-    public int getCommentStars() {
-        return commentStars;
+    public int getState() {
+        return state;
     }
 
-    public void setCommentStars(int commentStars) {
-        this.commentStars = commentStars;
-    }
-
-    @Override
-    public String toString() {
-        return "Comment{" +
-                "videoFilename='" + videoFilename + '\'' +
-                ", username='" + username + '\'' +
-                ", commentIdentityDocument='" + commentIdentityDocument + '\'' +
-                ", content='" + content + '\'' +
-                ", sendDate='" + sendDate + '\'' +
-                ", userHeadIcon='" + userHeadIcon + '\'' +
-                ", userNickName='" + userNickName + '\'' +
-                ", commentStars=" + commentStars +
-                '}';
+    public void setState(int state) {
+        this.state = state;
     }
 }

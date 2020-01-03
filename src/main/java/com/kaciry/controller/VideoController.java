@@ -3,6 +3,7 @@ package com.kaciry.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.kaciry.constant.ConstantClassField;
 import com.kaciry.entity.*;
 import com.kaciry.service.Impl.UserServiceImpl;
 import com.kaciry.service.Impl.VideoServiceImpl;
@@ -81,7 +82,7 @@ public class VideoController {
     @RequestMapping(value = "/comment", method = RequestMethod.POST)
     @ResponseBody
     public boolean setComment(String username, String content, String videoAddress) {
-        CommentDO commentDO = new CommentDO(videoAddress, username, content, simpleDateFormat.format(new Date()), 0);
+        CommentDO commentDO = new CommentDO(videoAddress, username, content, simpleDateFormat.format(new Date()), ConstantClassField.NORMAL_STATE);
         return videoService.addComment(commentDO);
     }
 

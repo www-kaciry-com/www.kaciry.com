@@ -18,7 +18,7 @@ import java.util.List;
 public interface VideoDao {
 
     @Update("update user_video set videoPlayNum = videoPlayNum + 1 where videoFilename = #{videoFilename}")
-    int addVideoPlayNumByVideoFilename(String videoFilename);
+    int updateVideoPlayNumByVideoFilename(String videoFilename);
 
     /**
      * @param commentDO Comment实体
@@ -27,7 +27,7 @@ public interface VideoDao {
      * @description 添加新评论
      * @date 2019/10/25 18:46
      **/
-    @Insert("insert into comment (videoFilename,username,content,sendDate,commentStars) values(#{videoFilename},#{username},#{content},#{sendDate},#{commentStars})")
+    @Insert("insert into comment (videoFilename,username,content,sendDate,state) values(#{videoFilename},#{username},#{content},#{sendDate},#{state})")
     boolean insertComment(CommentDO commentDO);
 
     /**
@@ -179,8 +179,8 @@ public interface VideoDao {
      * @description 添加一条视频举报信息数据
      * @date 2019/10/25 18:50
      **/
-    @Insert("insert reportVideo (videoFileName,reportedType,beReportedUser,reportedUser,reportedTime,reportedReason)" +
-            " values (#{videoFileName},#{reportedType},#{beReportedUser},#{reportedUser},#{reportedTime},#{reportedReason})")
+    @Insert("insert reportVideo (videoFilename,reportedType,beReportedUser,reportedUser,reportedTime,reportedReason)" +
+            " values (#{videoFilename},#{reportedType},#{beReportedUser},#{reportedUser},#{reportedTime},#{reportedReason})")
     boolean insertReportVideoData(ReportVideoDO reportVideoDO);
 
     /**
@@ -190,7 +190,7 @@ public interface VideoDao {
      * @description 查询该用户是否举报过该视频
      * @date 2019/10/25 18:50
      **/
-    @Select("select * from reportVideo where reportedUser=#{reportedUser} and videoFileName=#{videoFileName}")
+    @Select("select * from reportVideo where reportedUser=#{reportedUser} and videoFileName=#{videoFilename}")
     Integer selectReportData(ReportVideoDO reportVideoDO);
 
     @Delete("DELETE user_video,comment,ops FROM user_video LEFT JOIN (comment LEFT JOIN ops ON comment.videoFilename = ops.videoFilename) " +

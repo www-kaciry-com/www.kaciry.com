@@ -58,6 +58,9 @@ function submitForm() {
         }),
         success: function (result) {
             document.getElementById("uploadFilesModalTitle").innerHTML = result.data;
+        },
+        error: function (result) {
+            document.getElementById("uploadFilesModalTitle").innerHTML = result.data;
         }
     })
 }

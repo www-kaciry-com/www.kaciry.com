@@ -191,7 +191,7 @@ public interface UserDao {
      * @description 查询是否存在该用户对同一评论重复举报
      * @date 2019/10/25 18:43
      **/
-    @Select("SELECT * FROM reportComment WHERE commentIdentityDocument = #{commentIdentityDocument} AND reportedUser = #{reportedUser}")
+    @Select("SELECT * FROM report_comments WHERE commentIdentityDocument = #{commentIdentityDocument} AND reportedUser = #{reportedUser}")
     Integer selectReportCommentData(ReportCommentDO reportCommentDO);
 
     /**
@@ -201,7 +201,7 @@ public interface UserDao {
      * @description 添加举报评论信息
      * @date 2019/10/25 18:44
      **/
-    @Insert("INSERT INTO reportComment (commentIdentityDocument,reportedType,beReportedUser,reportedUser,reportedTime,reportedReason,commentContent)" +
+    @Insert("INSERT INTO report_comments (commentIdentityDocument,reportedType,beReportedUser,reportedUser,reportedTime,reportedReason,commentContent)" +
             " VALUES (#{commentIdentityDocument},#{reportedType},#{beReportedUser},#{reportedUser},#{reportedTime},#{reportedReason},#{commentContent})")
     boolean insertReportCommentData(ReportCommentDO reportCommentDO);
 

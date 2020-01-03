@@ -69,8 +69,8 @@ $(document).ready(function () {
             "                        <button class=\"btn btn-outline-primary my-2 my-sm-0\" type=\"submit\">搜索</button>\n" +
             "                    </form>\n" +
             "                </li>\n" +
-            "                <li class=\"nav-item\"><a class=\"nav-link\" href=\"/login\" th:href=\"@{/login}\">登陆</a></li>\n" +
-            "                <li class=\"nav-item\"><a class=\"nav-link\" href=\"/login\" th:href=\"@{/register}\">注册</a></li>\n" +
+            "                <li class=\"nav-item\"><a class=\"nav-link\" href=\"/login\">登陆</a></li>\n" +
+            "                <li class=\"nav-item\"><a class=\"nav-link\" href=\"/register\">注册</a></li>\n" +
             "            </ul>\n" +
             "        </div>")
     }

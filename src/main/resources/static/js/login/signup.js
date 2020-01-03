@@ -20,7 +20,6 @@ let passwordPattern = /(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[$@!%*#?&])[A-Za-z\d$@
 //检查用户名合法性
 function checkUsername() {
     let username = $("#username").val();
-    console.log("username : " + username);
     if (!usernamePattern.test(username)) {
         $(".username-msg").empty();
         $(".username-msg").append("用户名错误！（4到16位，仅支持字母数字下划线，减号）");
@@ -31,7 +30,6 @@ function checkUsername() {
 // 检查Email的合法性
 function checkEmail() {
     let email = $("#email").val();
-    console.log("email : " + email);
     return emailPattern.test(email);
 
 }
@@ -43,12 +41,10 @@ function checkPassword() {
     let pwd2 = $("#password2").val();
 
     if (pwd1 !== pwd2) {
-        console.log("pwd not equals!");
         $(".password-msg").empty();
         $(".password-msg").append("两次密码不一致！");
         return false;
     } else {
-        console.log("pwd equals!");
         if (!passwordPattern.test(pwd1)){
             $(".password-msg").empty();
             $(".password-msg").append("密码格式错误！（最少8位，包括至少一位大写字母，一位小写字母，一个数字，一个特殊字符：$@!%*#?&）");

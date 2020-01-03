@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @description 页面跳转Controller
  */
 @Controller
-public class WebpageController {
+public class WebPageController {
     @RequestMapping(value = {"/login"})
     public String login() {
         return "public/signin";

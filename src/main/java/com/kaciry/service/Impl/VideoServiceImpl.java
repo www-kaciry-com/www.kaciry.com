@@ -26,12 +26,11 @@ public class VideoServiceImpl implements VideoService {
 
     @Override
     public void addVideoPlayNumByVideoFilename(String videoFilename) {
-        int res = videoDao.addVideoPlayNumByVideoFilename(videoFilename);
+        int res = videoDao.updateVideoPlayNumByVideoFilename(videoFilename);
         if (res != 1) {
             System.out.println("addVideoPlayNumByVideoFilename : " + res);
             // TODO: 2019/11/4 出错打野日志
         }
-
     }
 
     @Override

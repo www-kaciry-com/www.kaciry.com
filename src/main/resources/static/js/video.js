@@ -472,32 +472,29 @@ function clickCollect() {
 //关注UP主
 function clickFollow() {
 
-    if (typeof (username) == "undefined") {
-        window.location.href = "/login";
-    } else {
-        $.ajax({
-            url: '/followHim',//请求的地址
-            type: 'post', //请求的方式
-            dateType: "json", //请求的数据格式
-            data: {
-                token: token,
-                username: username,
-                hisUsername: hisUsername,
-            },
-            error: function () {
-                showNoticeModal("服务器错误！", "服务器未响应，稍后再试！");
-            },
-            success: function (result) {
-                if (result.code === 200) {
-                    follow_sate.text(result.msg)
-                } else if (result.code === 502) {
-                    follow_sate.text(result.msg);
-                } else {
-                    follow_sate.text(result.msg);
-                }
-            }
-        })
-    }
+    $.ajax({
+        url: '/followHim',//请求的地址
+        type: 'post', //请求的方式
+        dateType: "json", //请求的数据格式
+        data: {
+            username: username,
+            hisUsername: hisUsername,
+        },
+        error: function () {
+            showNoticeModal("服务器错误！", "服务器未响应，稍后再试！");
+        },
+        success: function (result) {
+            // if (result.code === 200) {
+            //     follow_sate.text(result.msg)
+            // } else if (result.code === 502) {
+            //     follow_sate.text(result.msg);
+            // } else {
+            //     follow_sate.text(result.msg);
+            // }
+            // if (result)
+        }
+    })
+
 
     return false;
 }
@@ -566,7 +563,7 @@ function complaintVideo() {
     let radioChoice = $("input[name='Radios']:checked").val();
     let complaintReason = $("#description-input").val();
     let reportVideoBean = {
-        "videoFileName": videoAddress,
+        "videoFilename": videoAddress,
         "reportedType": radioChoice,
         "beReportedUser": hisUsername,
         "reportedUser": username,
@@ -574,7 +571,7 @@ function complaintVideo() {
         "reportedReason": complaintReason,
     };
     if (complaintReason.length === 0) {
-        confirm("请输入举报理由！")
+        showNoticeModal("提示", "请输入举报理由！");
     } else {
         $.ajax({
             url: '/reportVideo',//请求的地址
@@ -587,7 +584,7 @@ function complaintVideo() {
             },
             success: function (result) {
                 $('#complaintModalCenter').modal('hide');
-                confirm(result.data);
+                showNoticeModal("提示", result.data);
             }
         })
     }
@@ -621,6 +618,7 @@ function sendReportComment() {
         "reportedUser": username,
         "reportedReason": reason,
     };
+
     $.ajax({
         url: '/reportComment',//请求的地址
         type: 'post', //请求的方式
@@ -632,9 +630,8 @@ function sendReportComment() {
             $('#reportCommentModal').modal('hide');
         },
         success: function (result) {
-            confirm(result.data);
+            showNoticeModal("提示", result.data)
             $('#reportCommentModal').modal('hide');
-
         }
     })
 }
