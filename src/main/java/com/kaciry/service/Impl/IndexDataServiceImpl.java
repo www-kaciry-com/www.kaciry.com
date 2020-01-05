@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 /**
  * @author kaciry
  * @date 2019/10/26 13:05
@@ -23,13 +24,13 @@ public class IndexDataServiceImpl implements IndexDataService {
         List<VideoInfoDO> videoInfoDO = indexDataDao.selectVideoData(videoType);
         if (videoInfoDO.size() < length) {
             return videoInfoDO;
-        }else {
+        } else {
             return DataWeightSort.dataWeightSort(videoInfoDO, length);
         }
     }
 
-    public List<VideoInfoDO> selectIndexDataByType(String videoType, int length, boolean rank) {
-        return indexDataDao.selectVideoDataByType(videoType, length);
+    public List<VideoInfoDO> selectIndexDataByType(int length) {
+        return indexDataDao.selectVideoDataByType(length);
     }
 
     @Override
@@ -45,5 +46,15 @@ public class IndexDataServiceImpl implements IndexDataService {
     @Override
     public boolean invalidIPData() {
         return indexDataDao.invalidIPData();
+    }
+
+    @Override
+    public List<VideoInfoDO> querySynthesizeVideos(int length) {
+        List<VideoInfoDO> videoInfoDO = indexDataDao.selectVideos();
+        if (videoInfoDO.size() < length) {
+            return videoInfoDO;
+        } else {
+            return DataWeightSort.dataWeightSort(videoInfoDO, length);
+        }
     }
 }

@@ -1,5 +1,6 @@
 package com.kaciry.dao;
 
+import com.kaciry.entity.User;
 import com.kaciry.entity.VideoInfoDO;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
@@ -17,15 +18,14 @@ import java.util.List;
 @Component
 public interface IndexDataDao {
     /**
-     * @param videoType 视频的类型
      * @param length    视频的个数
      * @return java.util.List<com.kaciry.entity.VideoInfo>
      * @author kaciry
      * @description 查询视频类型为VideoType排序后的前8条数据(降序)
      * @date 2019/10/25 17:59
      **/
-    @Select("select * from user_video where videoType = #{videoType} ORDER BY videoPlayNum DESC limit #{length}")
-    List<VideoInfoDO> selectVideoDataByType(@Param("videoType") String videoType, @Param("length") int length);
+    @Select("select videoFilename,videoName from user_video ORDER BY videoPlayNum DESC limit #{length}")
+    List<VideoInfoDO> selectVideoDataByType(int length);
 
     /**
      * @param videoType 视频类型
@@ -36,6 +36,9 @@ public interface IndexDataDao {
      **/
     @Select("select * from user_video LEFT JOIN user ON user.username = user_video.username WHERE videoType = #{videoType} AND videoState = 1")
     List<VideoInfoDO> selectVideoData(String videoType);
+
+    @Select("SELECT * FROM user_video ")
+    List<VideoInfoDO> selectVideos();
 
     /**
      * @param keyword 关键词
@@ -51,8 +54,15 @@ public interface IndexDataDao {
     List<VideoInfoDO> selectVideoNum();
 
     @Insert("INSERT INTO user_ip (userIp,userAddress) VALUES (#{ip},#{city})")
-    boolean insertUserIPAndAddress(@Param("ip") String ip, @Param("city") String city);
+    void insertUserIPAndAddress(@Param("ip") String ip, @Param("city") String city);
 
     @Update("DELETE FROM user_ip")
     boolean invalidIPData();
+
+    @Select("SELECT username,userNickName,userSignature,userHeadIcon FROM user WHERE INSTR(username,#{keyword})>0")
+    List<User> selectUserByUsername(String keyword);
+
+    @Select("SELECT username,userNickName,userSignature,userHeadIcon FROM user WHERE INSTR(userNickName,#{keyword})>0")
+    List<User> selectUserByUserNickname(String keyword);
+
 }

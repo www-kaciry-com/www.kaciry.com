@@ -72,5 +72,12 @@ function trySend() {
     return false;
 }
 
+//回车事件绑定
+$('#password').bind('keyup', function (event) {
+    if (event.keyCode == "13") {
+        trySend();
+    }
+});
+
 
 

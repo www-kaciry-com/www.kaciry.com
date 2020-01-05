@@ -15,7 +15,8 @@
     overflow: hidden;
     width: 100%;
     height: 100%;
-    margin-bottom: 1%
+    margin-bottom: 1%;
+    box-shadow: 0 0 5px #434343;
 }
 
 #player1 {

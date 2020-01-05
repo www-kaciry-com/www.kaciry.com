@@ -1,4 +1,3 @@
-let token = getCookie("Token");
 let senderID = getCookie("username");
 let userChatID = 10;
 let currentUser;
@@ -23,22 +22,20 @@ $(document).ready(function () {
             res = analysisChatDetailsData(json);
             $(".detail-chat").append(res);
             currentUser = json[0].username;
-            $(".chat[data-chat=" + json[0].username + "]").addClass('active-chat');
-            $(".person[data-chat=" + json[0].username + "]").addClass('active');
+            document.querySelector(".chat[data-chat=" + json[0].username + "]").classList.add('active-chat');
+            document.querySelector(".person[data-chat=" + json[0].username + "]").classList.add('active');
 
             friends = {
-                // list: document.querySelector('ul.people'),
-                // all: document.querySelectorAll('.left .person'),
-                list: document.getElementsByClassName('ul.people')[0],
-                all: $('.left .person'),
+                list: document.querySelector('ul.people'),
+                all: document.querySelectorAll('.left .person'),
                 name: ''
             };
 
             chat = {
-                container: document.getElementsByClassName('.container .right')[0],
+                container: document.querySelector('.container .right'),
                 current: null,
                 person: null,
-                name: document.getElementsByClassName('.container .right .top .name')[0]
+                name: document.querySelector('.container .right .top .name')
             };
 
             friends.all.forEach(function (f) {
@@ -229,6 +226,15 @@ function getCookie(cookie_name) {
     }
     return "" //不存在返回空字符串
 }
+
+
+//回车事件绑定
+$('#msg-input').bind('keyup', function (event) {
+    if (event.keyCode == "13") {
+        sendMsg();
+    }
+});
+
 
 //模态框
 function showNoticeModal(title, body) {

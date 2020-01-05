@@ -34,7 +34,6 @@ public class IndexDataController {
     }
 
     /**
-     * @param videoType 视频类型
      * @param length    视频个数
      * @return java.util.List<com.kaciry.entity.VideoInfo>
      * @author kaciry
@@ -42,8 +41,14 @@ public class IndexDataController {
      * @date 2019/10/25 17:12
      **/
     @PostMapping(value = "/playRank")
-    public List<VideoInfoDO> indexPlayRankInit(String videoType, int length) {
-        return indexDataService.selectIndexDataByType(videoType, length, true);
+    public List<VideoInfoDO> indexPlayRankInit(int length) {
+        return indexDataService.selectIndexDataByType(length);
+    }
+
+    @PostMapping(value = "/indexSynthesizeVideos")
+    @ResponseBody
+    public List<VideoInfoDO> indexSynthesizeVideos(int length) {
+        return indexDataService.querySynthesizeVideos(length);
     }
 
     /**

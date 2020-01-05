@@ -8,8 +8,35 @@
     <link rel="stylesheet" href="/static/css/pagePlugCSS/mricode.pagination.css">
     <title>Search</title>
     <style>
+        .container {
+            min-height: 100vh;
+        }
         .nav-search {
             margin-right: 10px;
+        }
+
+        .follow-item {
+            display: block;
+            padding-top: 5px;
+        }
+
+        .media {
+            padding-top: 10px;
+            padding-left: 10px;
+        }
+
+        .media img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+        }
+
+        .media button {
+            margin-right: 10px;
+        }
+
+        .follow-check {
+            display: inline;
         }
     </style>
 </head>
@@ -46,7 +73,7 @@
                 <a class="nav-link" href="#films" data-toggle="tab">影视</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#users" data-toggle="tab">用户</a>
+                <a class="nav-link" href="#users" data-toggle="tab" onclick="searchUserInfo()">用户</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#users1" data-toggle="tab">专栏</a>
@@ -80,7 +107,7 @@
                 Film
             </div>
             <div class="users tab-pane fade" role="tabpanel" id="users">
-                user
+
             </div>
             <div class="user tab-pane fade" role="tabpanel" id="users1">
                 user1

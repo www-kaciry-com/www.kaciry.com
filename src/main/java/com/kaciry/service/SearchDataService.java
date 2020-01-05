@@ -1,5 +1,6 @@
 package com.kaciry.service;
 
+import com.kaciry.entity.User;
 import com.kaciry.entity.VideoInfoDO;
 
 import java.util.List;
@@ -26,5 +27,7 @@ public interface SearchDataService {
      * @return java.util.List<com.kaciry.entity.VideoInfo>
     **/
     List<VideoInfoDO> searchByType(String keyword);
+
+    List<User> searchUserByUsername(String keyword);
 
 }

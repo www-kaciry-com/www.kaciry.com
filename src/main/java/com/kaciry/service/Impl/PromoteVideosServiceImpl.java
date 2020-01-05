@@ -41,9 +41,9 @@ public class PromoteVideosServiceImpl implements PromoteVideosService {
         //判断目标为哪一类推广
         if (promoteType == ConstantClassField.PROMOTE_CAROUSEL) {
             //轮播图，最小数量为3
-            index = ConstantClassField.PROMOTE_CAROUSEL;
+            index = ConstantClassField.PROMOTE_CAROUSEL_NUM;
             //查询promoteType为1的最后3条数据
-            list = promoteVideosDao.selectPromoteVideo(promoteType, ConstantClassField.PROMOTE_CAROUSEL);
+            list = promoteVideosDao.selectPromoteVideo(promoteType, ConstantClassField.PROMOTE_CAROUSEL_NUM);
         } else {
             //列表区域推广，最小数量为6
             index = ConstantClassField.PROMOTE_LIST_NUM;
@@ -72,10 +72,10 @@ public class PromoteVideosServiceImpl implements PromoteVideosService {
         //判断目标为哪一类推广
         if (promoteType == ConstantClassField.PROMOTE_CAROUSEL) {
             index = ConstantClassField.PROMOTE_CAROUSEL_NUM;
-            list = promoteVideosDao.selectPromoteVideo(promoteType, ConstantClassField.PROMOTE_CAROUSEL_NUM);
+            list = promoteVideosDao.selectPromoteVideo(promoteType, index);
         } else {
             index = ConstantClassField.PROMOTE_LIST_NUM;
-            list = promoteVideosDao.selectPromoteVideo(promoteType, ConstantClassField.PROMOTE_LIST_NUM);
+            list = promoteVideosDao.selectPromoteVideo(promoteType, index);
         }
         //如果数量小于3个，直接进行推荐
         if (list.size() < index) {

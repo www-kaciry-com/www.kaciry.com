@@ -1,7 +1,9 @@
 package com.kaciry.controller;
 
 import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
+import com.kaciry.constant.ConstantClassField;
+import com.kaciry.entity.ResultBean;
+import com.kaciry.entity.User;
 import com.kaciry.entity.VideoInfoDO;
 import com.kaciry.service.Impl.SearchDataServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,17 +36,25 @@ public class SearchController {
      **/
     @PostMapping(value = "/searchMsg")
     @ResponseBody
-    public PageInfo<VideoInfoDO> searchMessage(Integer pageNum, Integer pageSize, String keyword, String type) {
+    public ResultBean searchMessage(Integer pageNum, Integer pageSize, String keyword, String type) {
         List<VideoInfoDO> videoInfoDOList = null;
         PageHelper.startPage(pageNum, pageSize);
-        if ("s".equals(type)) {
-            videoInfoDOList = searchDataService.searchKeyword(keyword);
-        } else if ("n".equals(type)) {
-            videoInfoDOList = searchDataService.searchByType(keyword);
-        } else {
-            System.out.println("Search error!");
+        switch (type) {
+            case ConstantClassField.SEARCH_KEYWORD: {
+                videoInfoDOList = searchDataService.searchKeyword(keyword);
+                break;
+            }
+            case ConstantClassField.SEARCH_NAVIGATION: {
+                videoInfoDOList = searchDataService.searchByType(keyword);
+                break;
+            }
+            case ConstantClassField.SEARCH_USER: {
+                List<User> userList = searchDataService.searchUserByUsername(keyword);
+                return new ResultBean<>(userList);
+            }
+
         }
-        return new PageInfo<>(videoInfoDOList);
+        return new ResultBean<>(videoInfoDOList);
     }
 
 }

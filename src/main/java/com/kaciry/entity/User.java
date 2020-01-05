@@ -30,6 +30,7 @@ public class User {
     private String userSex;
     //币的个数
     private int userCoins;
+
     private BigInteger num;
 
     public BigInteger getNum() {
@@ -183,5 +184,17 @@ public class User {
     public User(String username, String userPassword) {
         this.username = username;
         this.userPassword = userPassword;
+    }
+
+    @Override
+    public int hashCode() {
+        String in = username;
+        return in.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        User u = (User) obj;
+        return username.equals(u.username);
     }
 }

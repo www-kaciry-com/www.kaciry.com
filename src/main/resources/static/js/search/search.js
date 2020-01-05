@@ -1,9 +1,10 @@
 let keyword = GetQueryString("information");
 let type = GetQueryString("k");
-if (!type && typeof(type)!="undefined" && type!==0) {
-    type = "s";
+if (!type && typeof (type) != "undefined" && type !== 0) {
+    type = "video";
 }
 $(document).ready(function () {
+    $(".search-input input").val(keyword);
     $.ajax({
         url: '/searchMsg',//请求的地址
         type: 'post', //请求的方式
@@ -12,12 +13,13 @@ $(document).ready(function () {
             pageNum: 1,
             pageSize: 20,
             keyword: keyword,
-            type:type,
+            type: type,
         },
         error: function () {
             showNoticeModal("服务器错误！", "服务器未响应，稍后再试！");
         },
         success: function (result) {
+            console.log(result);
             $('.video-items').children().remove();
             let isInited = $("#page").pagination();
             if (!isInited) {
@@ -39,11 +41,9 @@ $(document).ready(function () {
                     infoFormat: '{start}~{end},共{total}个投稿',
                 });
             }
-            let json = eval(result.list);
+            let json = eval(result.data);
             let str = analysisData(json);
             $('.video-items').append(str);
-
-
         }
     })
 });
@@ -58,18 +58,19 @@ $("#page").on("pageClicked", function (event, data) {
             pageNum: data.pageIndex + 1,
             pageSize: 20,
             keyword: keyword,
-            type:type,
+            type: type,
         },
         success: function (result) {
 
             $('.video-items').children().remove();
-            let json = eval(result.list);
+            let json = eval(result.data);
             let str = analysisData(json);
             $('.video-items').append(str);
 
         }
     })
 });
+
 $("#page").on("jumpClicked", function (event, data) {
 
     $.ajax({
@@ -80,12 +81,12 @@ $("#page").on("jumpClicked", function (event, data) {
             pageNum: data.pageIndex + 1,
             pageSize: 20,
             keyword: keyword,
-            type:type,
+            type: type,
         },
         success: function (result) {
 
             $('.video-items').children().remove();
-            let json = eval(result.list);
+            let json = eval(result.data);
             let str = analysisData(json);
             $('.video-items').append(str);
         }
@@ -123,6 +124,45 @@ function analysisData(data) {
     return str;
 }
 
+function searchUserInfo() {
+    $.ajax({
+        url: '/searchMsg',//请求的地址
+        type: 'POST', //请求的方式
+        dateType: "JSON", //请求的数据格式
+        data: {
+            pageNum: 1,
+            pageSize: 20,
+            keyword: $(".search-input input").val(),
+            type: 'user',
+        },
+        error: function () {
+            alert("服务器未响应，加载视频信息失败！");
+        },
+        success: function (result) {
+            console.log(result);
+            $('#users').children().remove();
+            let json = eval(result.data);
+            let str = '';
+            $.each(json, function (i, element) {
+                str += "<div class=\"follow-item\">\n" +
+                    "                <div class=\"media\">\n" +
+                    "                    <img class=\"align-self-start mr-3 follow-img\" src=\"" + element.userHeadIcon + "\" alt=\"Generic placeholder image\">\n" +
+                    "                    <div class=\"media-body\">\n" +
+                    "                        <p class=\"username-data\" hidden=\"hidden\">" + element.username + "</p>\n" +
+                    "                        <h5 class=\"mt-0 follow-nickname\">" + element.userNickName + "</h5>\n" +
+                    "                        <p class=\"follow-signature\">" + element.userSignature + "</p>\n" +
+                    "                    </div>\n" +
+                    "                    <div class=\"follow-check\">\n" +
+                    "                        <button class=\"btn btn-primary btn-sm\" type=\"button\" onclick=\"followHim(this)\">关注</button>\n" +
+                    "                    </div>\n" +
+                    "                </div>\n" +
+                    "                <hr>\n" +
+                    "            </div>";
+            });
+            $("#users").append(str);
+        }
+    })
+}
 
 //解决了中文乱码的问题
 function GetQueryString(name) {
@@ -144,3 +184,12 @@ $('#noticeModalTitle').on('hidden.bs.modal', function (e) {
     $("#noticeModalTitle").text("");
     $("#notice-modal-body").text("");
 });
+
+//替换指定传入参数的值,paramName为参数,replaceWith为新值
+function replaceParamVal(paramName, replaceWith) {
+    let oUrl = this.location.href.toString();
+    let re = eval('/(' + paramName + '=)([^&]*)/gi');
+    let nUrl = oUrl.replace(re, paramName + '=' + replaceWith);
+    this.location = nUrl;
+    window.location.href = nUrl
+}

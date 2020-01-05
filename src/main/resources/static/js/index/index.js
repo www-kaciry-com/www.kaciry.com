@@ -154,7 +154,6 @@ $(document).ready(function () {
                 // videoTag.eq(i).attr("value",element.videoFileName);
                 videoTag1.eq(i).attr("href", "/video?videoid=" + element.videoFilename);
             });
-            // console.log(videoTag.eq(0).val());
         }
     })
 });
@@ -585,14 +584,12 @@ $(document).ready(function () {
 
 //舞蹈板块1
 $(document).ready(function () {
-    let videoType = "舞蹈";
     let length = 6;
     $.ajax({
-        url: '/indexDataInit',//请求的地址
+        url: '/indexSynthesizeVideos',//请求的地址
         type: 'post', //请求的方式
         dateType: "json", //请求的数据格式
         data: {
-            videoType: videoType,
             length: length,
         },
         error: function () {
@@ -614,16 +611,14 @@ $(document).ready(function () {
     })
 });
 
-//音乐排行榜
+//播放排行榜
 $(document).ready(function () {
-    let videoType = "音乐";
     let length = 8;
     $.ajax({
         url: '/playRank',//请求的地址
         type: 'post', //请求的方式
         dateType: "json", //请求的数据格式
         data: {
-            videoType: videoType,
             length: length
         },
         error: function () {
@@ -632,7 +627,6 @@ $(document).ready(function () {
         success: function (result) {
             let json = eval(result);
             let aTag = $(".rank a");
-
             $.each(json, function (i, element) {
                 aTag.eq(i).attr("href", "/video?videoid=" + element.videoFilename);
                 aTag.eq(i).text(element.videoName);

@@ -38,5 +38,6 @@ public interface IndexDataService {
 
     boolean invalidIPData();
 
+    List<VideoInfoDO> querySynthesizeVideos(int length);
 
 }

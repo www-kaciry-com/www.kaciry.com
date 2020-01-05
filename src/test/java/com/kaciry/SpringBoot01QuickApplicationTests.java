@@ -12,6 +12,9 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class SpringBoot01QuickApplicationTests {
@@ -52,5 +55,19 @@ public class SpringBoot01QuickApplicationTests {
         for (String data : datas) {
             System.out.println(data);
         }
+    }
+
+    @Test
+    public void addAllStr() {
+        List<String> list1 = new ArrayList<>();
+        list1.add("1");
+        list1.add("2");
+
+        List<String> list2 = new ArrayList<>();
+        list2.add("3");
+        list2.add("4");
+
+        list1.addAll(list2);
+        System.out.println(list1);
     }
 }

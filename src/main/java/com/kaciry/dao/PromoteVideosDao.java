@@ -26,7 +26,7 @@ public interface PromoteVideosDao {
      * @date  2019/11/1 22:39
      * @return com.kaciry.entity.PromoteVideosBean
     **/
-    @Select("SELECT * from promote_videos WHERE promoteType = #{option} ORDER BY tableIndex DESC  LIMIT #{limitNum}")
+    @Select("SELECT surplusDuration from promote_videos WHERE promoteType = #{option} LIMIT #{limitNum}")
     List<PromoteVideosDO> selectPromoteVideo(@Param("option") int option, @Param("limitNum") int limitNum);
 
     /**
@@ -46,7 +46,7 @@ public interface PromoteVideosDao {
      * @param promoteVideosDO PromoteVideosBean实体，详情见PromoteVideosBean类
      * @return java.lang.Integer
     **/
-    @Select("SELECT * FROM promote_videos WHERE videoFilename = #{videoFilename} AND promoteType = #{promoteType}")
+    @Select("SELECT tableIndex FROM promote_videos WHERE videoFilename = #{videoFilename} AND promoteType = #{promoteType}")
     Integer selectVideoIsPromoted(PromoteVideosDO promoteVideosDO);
 
     /**

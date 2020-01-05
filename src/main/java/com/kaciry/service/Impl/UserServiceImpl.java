@@ -49,9 +49,9 @@ public class UserServiceImpl implements UserService {
     public boolean register(User user) {
         if (userDao.selectLogin(user.getUsername(), user.getUserPassword()) == null) {
             userDao.insertUserAccount(user);
-            return true;
-        } else {
             return false;
+        } else {
+            return true;
         }
     }
 

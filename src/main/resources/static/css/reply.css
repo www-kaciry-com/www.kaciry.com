@@ -15,7 +15,7 @@ html {
 }
 
 .nav-op {
-    height: 895px;
+    min-height: 100vh;
     background-color: hsla(0, 0%, 100%, .8);
     font-size: 14px;
 }

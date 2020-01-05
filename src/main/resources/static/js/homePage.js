@@ -26,6 +26,7 @@ function changeInfo() {
             document.getElementById("nickname").value = result.userNickName;
             document.getElementById("mobilephone").value = result.userPhoneNumber;
             document.getElementById("sex").value = result.userSex;
+            document.getElementById("userSignature").value = result.userSignature;
         }
     });
 }
@@ -47,6 +48,7 @@ function selectInfo() {
             document.getElementById("nickname").value = result.userNickName;
             document.getElementById("mobilephone").value = result.userPhoneNumber;
             document.getElementById("sex").value = result.userSex;
+            document.getElementById("userSignature").value = result.userSignature;
         }
     });
 }
