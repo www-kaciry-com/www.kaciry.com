@@ -37,7 +37,7 @@ public interface IndexDataDao {
     @Select("select * from user_video LEFT JOIN user ON user.username = user_video.username WHERE videoType = #{videoType} AND videoState = 1")
     List<VideoInfoDO> selectVideoData(String videoType);
 
-    @Select("SELECT * FROM user_video ")
+    @Select("SELECT * FROM user_video where DATE_SUB(CURDATE(), INTERVAL 7 DAY) <= date(videoData)")
     List<VideoInfoDO> selectVideos();
 
     /**

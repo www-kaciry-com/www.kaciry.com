@@ -1,9 +1,9 @@
 package com.kaciry.service.Impl;
 
-import com.kaciry.entity.VideoInfoDO;
-import com.kaciry.utils.DataWeightSort;
 import com.kaciry.dao.IndexDataDao;
+import com.kaciry.entity.VideoInfoDO;
 import com.kaciry.service.IndexDataService;
+import com.kaciry.utils.DataWeightSort;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

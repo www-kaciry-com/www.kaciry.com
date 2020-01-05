@@ -39,4 +39,5 @@ public class TimeUtils {
         //中西方相差8小时，配置serverTimezone=GMT%2B8
         return new Timestamp(date.getTime());
     }
+
 }

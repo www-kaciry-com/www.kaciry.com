@@ -298,15 +298,15 @@ function analysisData(data) {
     let str = '';
     $.each(data, function (i, element) {
         str += "<div class=\"media\">\n" +
-            "        <span class=\"commentIdentityDocument\" hidden=\"hidden\">" + element.commentIdentityDocument + "</span>\n" +
             "        <img class=\"align-self-start mr-3\" src=\"" + element.userHeadIcon + "\" alt=\"HeadIcon\">\n" +
             "        <div class=\"media-body\">\n" +
             "            <h5 class=\"mt-0 media-nickname\">" + element.userNickName + "</h5>\n" +
             "            <p>" + element.content + "</p>\n" +
+            "             " +
             "            <div class=\"row media-p justify-content-between\">\n" +
             "                <div style=\"margin-left: 15px\">\n" +
             "                    <span>" + element.sendDate + "</span>\n" +
-            "                    <a href=\"#\" class=\"reply-child\">回复</a>\n" +
+            "                    <a  href=\"#\" class=\"reply-child\" onclick='replyComment(this)'>回复</a>\n" +
             "                </div>\n" +
             "\n" +
             "                <div class=\"btn-group\">\n" +
@@ -318,6 +318,7 @@ function analysisData(data) {
             "        </span>\n" +
             "                </div>\n" +
             "            </div>\n" +
+            "        <span class=\"commentIdentityDocument\" hidden=\"hidden\">" + element.commentIdentityDocument + "</span>\n" +
             "            <hr class=\"media-hr\">\n" +
             "        </div>\n" +
             "        <div class=\"media-bottom\"></div>\n" +
@@ -358,6 +359,22 @@ function sendComment() {
         alert("Content is null msg !");
     }
     return false;
+}
+
+//回复评论
+function replyComment(btn) {
+    // let commentID = btn.parentElement.parentElement.parentElement.children[3].innerHTML;
+    // console.log(commentID);
+    console.log($(".commentIdentityDocument:hidden"));
+    $(".commentIdentityDocument:hidden").before("<div class=\"media mt-3\">\n" +
+        "                <a class=\"pr-3\" href=\"#\">\n" +
+        "                    <img src=\"/static/img/null.jpeg\" alt=\"Generic placeholder image\">\n" +
+        "                </a>\n" +
+        "                <div class=\"media-body\">\n" +
+        "                    <h5 class=\"mt-0\">Media heading</h5>\n" +
+        "                    Cras sit amet nibh libero,\n" +
+        "                </div>\n" +
+        "            </div>");
 }
 
 //获取URl栏的某个属性

@@ -64,8 +64,7 @@ public class UserInfoController {
      * @date 2019/10/25 17:44
      **/
     @PostMapping(value = "modifyHeadIcon")
-    @ResponseBody
-    public boolean modifyHeadIcon(MultipartFile file, HttpServletRequest request) {
+    public String modifyHeadIcon(MultipartFile file, HttpServletRequest request) {
         String username = GetCookiesValueByKey.getValue(request, "username");
         try {
             //获取文件名
@@ -81,12 +80,11 @@ public class UserInfoController {
             //创建文件路径
             String userHeadIconPathName = "/files/HeadIcon/" + username + fileSuffix;
             //修改数据库中头像路径
-            return userService.updateUserHeadIcon(userHeadIconPathName, username);
+            userService.updateUserHeadIcon(userHeadIconPathName, username);
         } catch (Exception e) {
             e.printStackTrace();
-            return false;
         }
-
+        return "user/homePage";
     }
 
     /**
