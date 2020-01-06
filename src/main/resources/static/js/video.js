@@ -300,6 +300,7 @@ function analysisData(data) {
         str += "<div class=\"media\">\n" +
             "        <img class=\"align-self-start mr-3\" src=\"" + element.userHeadIcon + "\" alt=\"HeadIcon\">\n" +
             "        <div class=\"media-body\">\n" +
+            "        <span class=\"commentIdentityDocument\" hidden=\"hidden\">" + element.commentIdentityDocument + "</span>\n" +
             "            <h5 class=\"mt-0 media-nickname\">" + element.userNickName + "</h5>\n" +
             "            <p>" + element.content + "</p>\n" +
             "             " +
@@ -318,8 +319,7 @@ function analysisData(data) {
             "        </span>\n" +
             "                </div>\n" +
             "            </div>\n" +
-            "        <span class=\"commentIdentityDocument\" hidden=\"hidden\">" + element.commentIdentityDocument + "</span>\n" +
-            "            <hr class=\"media-hr\">\n" +
+            "            <hr  data-id='" + element.commentIdentityDocument + "' class=\"media-hr\">\n" +
             "        </div>\n" +
             "        <div class=\"media-bottom\"></div>\n" +
             "    </div>";
@@ -363,10 +363,9 @@ function sendComment() {
 
 //回复评论
 function replyComment(btn) {
-    // let commentID = btn.parentElement.parentElement.parentElement.children[3].innerHTML;
-    // console.log(commentID);
-    console.log($(".commentIdentityDocument:hidden"));
-    $(".commentIdentityDocument:hidden").before("<div class=\"media mt-3\">\n" +
+    let commentID = btn.parentElement.parentElement.parentElement.children[0].innerHTML;
+    console.log(commentID);
+    $("[data-id = " + commentID + "]").before("<div class=\"media mt-3\">\n" +
         "                <a class=\"pr-3\" href=\"#\">\n" +
         "                    <img src=\"/static/img/null.jpeg\" alt=\"Generic placeholder image\">\n" +
         "                </a>\n" +
