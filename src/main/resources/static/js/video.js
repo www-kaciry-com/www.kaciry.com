@@ -500,14 +500,7 @@ function clickFollow() {
             showNoticeModal("服务器错误！", "服务器未响应，稍后再试！");
         },
         success: function (result) {
-            // if (result.code === 200) {
-            //     follow_sate.text(result.msg)
-            // } else if (result.code === 502) {
-            //     follow_sate.text(result.msg);
-            // } else {
-            //     follow_sate.text(result.msg);
-            // }
-            // if (result)
+            follow_sate.text(result.msg);
         }
     })
 
@@ -608,15 +601,14 @@ function complaintVideo() {
 
 //举报评论
 function reportComment(btn) {
-    let mediaNode = btn.parentElement.parentElement.parentElement.parentElement.parentElement;
+    let mediaNode = btn.parentElement.parentElement.parentElement.parentElement;
     //当前评论的ID
     let curCommentID = mediaNode.children[0].innerHTML;
     //当前评论的内容
-    let curCommentContent = mediaNode.children[2].children[1].innerHTML;
+    let curCommentContent = mediaNode.children[2].innerHTML;
+    console.log(curCommentContent);
     $(".comment-id").text(curCommentID);
     $(".reported-content").text(curCommentContent);
-
-
     $('#reportCommentModal').modal('show');
 
 }

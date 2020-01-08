@@ -596,7 +596,6 @@ $(document).ready(function () {
             showNoticeModal("服务器错误！", "服务器未响应，稍后再试！");
         },
         success: function (result) {
-            // console.log(result);
             let json = eval(result);
             let imgTag = $('.recommend img');
             let pTag = $('.card-mark p');

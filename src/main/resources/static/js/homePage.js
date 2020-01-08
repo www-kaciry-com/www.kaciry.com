@@ -476,7 +476,6 @@ function cancelFollow(btn) {
 
 //跳转到聊天界面
 function toSendMsg() {
-    //TODO 2019年10月11日14:42:04 转到发送消息界面
     window.location.href = "/reply#privateLetters";
 }
 

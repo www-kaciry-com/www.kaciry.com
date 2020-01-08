@@ -20,10 +20,18 @@ public class VideoServiceImplTest {
     @Test
     public void operationOfStar() {
         OperationsDO operationsDO = new OperationsDO();
-        operationsDO.setUsername("kaciry");
-        operationsDO.setVideoFilename("av20200104191411187.mp4");
+        operationsDO.setUsername("kaciry123");
+        operationsDO.setVideoFilename("av2020010419040813.mp4");
         boolean b = videoService.operationOfStar(operationsDO);
         //断言为true
-        Assert.assertSame(true, b);
+        Assert.assertSame("成功点赞-->", true, b);
+
+        operationsDO.setVideoFilename("av20200104190102827.mp4");
+        b = videoService.operationOfStar(operationsDO);
+        Assert.assertSame("取消点赞-->", false, b);
+
+        operationsDO.setVideoFilename("av20200104191218257.mp4");
+        b = videoService.operationOfStar(operationsDO);
+        Assert.assertSame("成功点赞-->", true, b);
     }
 }

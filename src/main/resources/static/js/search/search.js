@@ -1,5 +1,6 @@
 let keyword = GetQueryString("information");
 let type = GetQueryString("k");
+let username = getCookie("username");
 if (!type && typeof (type) != "undefined" && type !== 0) {
     type = "video";
 }
@@ -19,7 +20,6 @@ $(document).ready(function () {
             showNoticeModal("服务器错误！", "服务器未响应，稍后再试！");
         },
         success: function (result) {
-            console.log(result);
             $('.video-items').children().remove();
             let isInited = $("#page").pagination();
             if (!isInited) {
@@ -139,7 +139,6 @@ function searchUserInfo() {
             alert("服务器未响应，加载视频信息失败！");
         },
         success: function (result) {
-            console.log(result);
             $('#users').children().remove();
             let json = eval(result.data);
             let str = '';
@@ -153,13 +152,38 @@ function searchUserInfo() {
                     "                        <p class=\"follow-signature\">" + element.userSignature + "</p>\n" +
                     "                    </div>\n" +
                     "                    <div class=\"follow-check\">\n" +
-                    "                        <button class=\"btn btn-primary btn-sm\" type=\"button\" onclick=\"followHim(this)\">关注</button>\n" +
+                    "                        <button class=\"btn btn-primary btn-sm\" data-id='" + element.username + "' type=\"button\" onclick=\"followHim(this)\">关注</button>\n" +
                     "                    </div>\n" +
                     "                </div>\n" +
                     "                <hr>\n" +
                     "            </div>";
             });
             $("#users").append(str);
+        }
+    })
+}
+
+//取消关注
+function followHim(btn) {
+    let res = btn.parentElement.parentElement.children[1].children[0];
+    $.ajax({
+        url: '/followHim',//请求的地址
+        type: 'post', //请求的方式
+        dateType: "json", //请求的数据格式
+        data: {
+            username: username,
+            hisUsername: res.innerHTML
+        },
+        error: function () {
+            showNoticeModal("服务器错误！", "服务器未响应，稍后再试！");
+        },
+        success: function (result) {
+            $("[data-id = " + res.innerHTML + "]").text(result.msg);
+            if (result.code === 200) {
+                showNoticeModal("提示", "关注成功，请到我的关注中查看！");
+            } else {
+                showNoticeModal("提示", "取消关注成功！");
+            }
         }
     })
 }
@@ -177,6 +201,25 @@ function showNoticeModal(title, body) {
     $("#noticeModalTitle").text(title);
     $("#notice-modal-body").text(body);
     $('#noticeModal').modal('toggle');
+}
+
+function getCookie(cookie_name) {
+    if (document.cookie.length > 0) {//判断cookie是否存在
+        //获取cookie名称加=的索引值
+        let c_start = document.cookie.indexOf(cookie_name + "=");
+        if (c_start != -1) { //说明这个cookie存在
+            //获取cookie名称对应值的开始索引值
+            c_start = c_start + cookie_name.length + 1;
+            //从c_start位置开始找第一个分号的索引值，也就是cookie名称对应值的结束索引值
+            c_end = document.cookie.indexOf(";", c_start);
+            //如果找不到，说明是cookie名称对应值的结束索引值就是cookie的长度
+            if (c_end == -1) c_end = document.cookie.length;
+            //unescape() 函数可对通过 escape() 编码的字符串进行解码
+            //获取cookie名称对应的值，并返回
+            return unescape(document.cookie.substring(c_start, c_end))
+        }
+    }
+    return "" //不存在返回空字符串
 }
 
 //模态框消失时自动清空标题和内容，以便下次调用
