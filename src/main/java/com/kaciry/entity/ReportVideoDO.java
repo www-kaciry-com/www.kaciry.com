@@ -18,8 +18,7 @@ public class ReportVideoDO {
     private String reportedTime;
     //举报原因
     private String reportedReason;
-    //封禁原因
-    private String bannedReason;
+
 
 
 
@@ -27,7 +26,7 @@ public class ReportVideoDO {
     public ReportVideoDO() {
     }
 
-    public ReportVideoDO(int reportVideoIdentityDocument, String videoFilename, String reportedType, String beReportedUser, String reportedUser, String reportedTime, String reportedReason, String bannedReason) {
+    public ReportVideoDO(int reportVideoIdentityDocument, String videoFilename, String reportedType, String beReportedUser, String reportedUser, String reportedTime, String reportedReason) {
         this.reportVideoIdentityDocument = reportVideoIdentityDocument;
         this.videoFilename = videoFilename;
         this.reportedType = reportedType;
@@ -35,8 +34,6 @@ public class ReportVideoDO {
         this.reportedUser = reportedUser;
         this.reportedTime = reportedTime;
         this.reportedReason = reportedReason;
-        this.bannedReason = bannedReason;
-
     }
 
     public int getReportVideoIdentityDocument() {
@@ -95,13 +92,6 @@ public class ReportVideoDO {
         this.reportedReason = reportedReason;
     }
 
-    public String getBannedReason() {
-        return bannedReason;
-    }
-
-    public void setBannedReason(String bannedReason) {
-        this.bannedReason = bannedReason;
-    }
 
 
 }

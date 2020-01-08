@@ -19,4 +19,34 @@ public interface ColumnDao {
             "\tuser_column\n" +
             "LEFT JOIN `user` ON user_column.username = `user` .username")
     List<ColumnShow> selectColumn();
+
+    @Select("SELECT\n" +
+            "\tuser_column.username,\n" +
+            "\tcolumnContent,\n" +
+            "\tuploadTime,\n" +
+            "\tuserHeadIcon,\n" +
+            "\tuserNickName,\n" +
+            "\tisVip,\n" +
+            "\tuserSignature\n" +
+            "FROM\n" +
+            "\tuser_column\n" +
+            "LEFT JOIN `user` ON user_column.username = `user`.username\n" +
+            "WHERE\n" +
+            "\tDATE_SUB(CURDATE(), INTERVAL 1 DAY) <= DATE(uploadTime)")
+    List<ColumnShow> selectTodayColumn();
+
+    @Select("SELECT\n" +
+            "\tuser_column.username,\n" +
+            "\tcolumnContent,\n" +
+            "\tuploadTime,\n" +
+            "\tuserHeadIcon,\n" +
+            "\tuserNickName,\n" +
+            "\tisVip,\n" +
+            "\tuserSignature\n" +
+            "FROM\n" +
+            "\tuser_column\n" +
+            "LEFT JOIN `user` ON user_column.username = `user`.username\n" +
+            "WHERE\n" +
+            "\tDATE_SUB(CURDATE(), INTERVAL 3 DAY) <= DATE(uploadTime)")
+    List<ColumnShow> selectThreeDaysColumn();
 }

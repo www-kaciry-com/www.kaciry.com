@@ -305,6 +305,7 @@ let vm = new Vue({
                 this.selectCommentReport();
             }
         },
+
         //封禁视频
         banVideo(videoFilename) {
             this.$http.post('/adminBanVideoById',

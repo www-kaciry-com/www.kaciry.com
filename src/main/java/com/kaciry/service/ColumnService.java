@@ -9,4 +9,8 @@ public interface ColumnService {
     ResultBean setColumn(String columnInfo);
 
     List<ColumnShow> findColumn();
+
+    List<ColumnShow> findTodayColumn();
+
+    List<ColumnShow> findThreeDaysColumn();
 }

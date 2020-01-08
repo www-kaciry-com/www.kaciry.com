@@ -37,7 +37,7 @@ public interface VideoDao {
      * @description 查询视频评论信息
      * @date 2019/10/25 18:46
      **/
-    @Select("select * from comment LEFT JOIN user on user.username = comment.username WHERE videoFilename=#{videoFilename}")
+    @Select("select * from comment LEFT JOIN user on user.username = comment.username WHERE videoFilename=#{videoFilename} AND state = 1")
     List<CommentDO> selectVideoComment(String videoFilename);
 
     /**

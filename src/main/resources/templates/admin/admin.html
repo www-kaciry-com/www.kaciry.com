@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Title</title>
+    <title>筱筱&nbsp;-&nbsp;后台</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="robots" content="all,follow">
@@ -156,31 +156,7 @@
                                 <i class="iconfont">&#xe611;</i>
                                 <span class="badge bg-orange badge-corner">10</span>
                             </a>
-                            <ul aria-labelledby="notifications" class="dropdown-menu">
-                                <li><a rel="nofollow" href="#" class="dropdown-item d-flex">
-                                    <div class="msg-profile"><img src="img/avatar-1.jpg" alt="..."
-                                                                  class="img-fluid rounded-circle"></div>
-                                    <div class="msg-body">
-                                        <h3 class="h5">Jason Doe</h3><span>Sent You Message</span>
-                                    </div>
-                                </a></li>
-                                <li><a rel="nofollow" href="#" class="dropdown-item d-flex">
-                                    <div class="msg-profile"><img src="img/avatar-2.jpg" alt="..."
-                                                                  class="img-fluid rounded-circle"></div>
-                                    <div class="msg-body">
-                                        <h3 class="h5">Frank Williams</h3><span>Sent You Message</span>
-                                    </div>
-                                </a></li>
-                                <li><a rel="nofollow" href="#" class="dropdown-item d-flex">
-                                    <div class="msg-profile"><img src="img/avatar-3.jpg" alt="..."
-                                                                  class="img-fluid rounded-circle"></div>
-                                    <div class="msg-body">
-                                        <h3 class="h5">Ashley Wood</h3><span>Sent You Message</span>
-                                    </div>
-                                </a></li>
-                                <li><a rel="nofollow" href="#" class="dropdown-item all-notifications text-center">
-                                    <strong>Read all messages </strong></a></li>
-                            </ul>
+
                         </li>
                         <!-- Logout    -->
                         <li class="nav-item">
@@ -297,6 +273,7 @@
                                                 <span>查看详情</span>
                                             </th>
                                         </tr>
+
                                         <!--评论举报 列表-->
                                         <tr v-if="showCommentReport" v-for="item in commentReportList">
                                             <th>{{item.commentIdentityDocument}}</th>
@@ -426,7 +403,7 @@
                                             <th v-if="item.videoState==0">未审核</th>
                                             <th v-if="item.videoState==1">已通过</th>
                                             <th v-if="item.videoState==2">封禁中</th>
-                                            <th v-if="item.videoState==3">被举报</th>
+                                            <!--                                            <th v-if="item.videoState==4">被举报</th>-->
                                             <th @click="queryVideoDetailsInfo(item.videoIdentityDocument)"
                                                 class="btn-outline-secondary"
                                                 data-toggle="modal" data-target="#showVideoDetails">
@@ -569,7 +546,7 @@
                                             <input type="search" class="form-control"
                                                    placeholder="输入用户名查询用户视频" v-model="searchValue"/>
                                             <button type="button" class="btn btn-outline-primary"
-                                                    @click="searchUserVideos()">
+                                                    @click="">
                                                 查询
                                             </button>
                                         </div>
@@ -747,8 +724,6 @@
                                                         <div class="">
                                                             <div id="main7"
                                                                  style="height:500px;"></div>
-                                                            <!-- <div id="main" style="width: 600px;height:400px;"></div>-->
-                                                            <!--<canvas id="lineChartExample"></canvas>-->
                                                         </div>
                                                     </div>
 
@@ -805,43 +780,6 @@
                                                         <div class="">
                                                             <div id="main2"
                                                                  style="height:300px;"></div>
-                                                            <!-- <div id="main" style="width: 600px;height:400px;"></div>-->
-                                                            <!--<canvas id="lineChartExample"></canvas>-->
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-lg-4">
-                                                        <div class="line-chart-example card">
-                                                            <div class="card-header d-flex align-items-center">
-                                                                <h3 class="h4">筱筱弹幕网会员总量</h3>
-                                                            </div>
-                                                            <div class="card-body">
-                                                                <div id="main4"
-                                                                     style="width: 400px;height:400px;"></div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-4">
-                                                        <div class="line-chart-example card">
-                                                            <div class="card-header d-flex align-items-center">
-                                                                <h3 class="h4">筱筱弹幕网视频总量</h3>
-                                                            </div>
-                                                            <div class="card-body">
-                                                                <div id="main6"
-                                                                     style="width: 400px;height:400px;"></div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-4">
-                                                        <div class="line-chart-example card">
-                                                            <div class="card-header d-flex align-items-center">
-                                                                <h3 class="h4">筱筱弹幕网音乐总量</h3>
-                                                            </div>
-                                                            <div class="card-body">
-                                                                80
-                                                                <!-- <div id="main" style="width: 600px;height:400px;"></div>-->
-                                                                <!--<canvas id="lineChartExample"></canvas>-->
-                                                            </div>
                                                         </div>
                                                     </div>
 
@@ -864,11 +802,6 @@
                                     </div>
 
                                 </div>
-                                <!-- <div class="container card-body-container">
-                                     <div id="main" style="width: 600px;height:400px;"></div>
-                                     <div id="main2" style="width: 600px;height:400px;"></div>
-                                     <div id="main3" style="width: 600px;height:400px;"></div>
-                                 </div>-->
                             </div>
                         </div>
                     </div>
@@ -987,7 +920,8 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button @click="banComment(commentReportDetailsList.commentIdentityDocument)" type="button" class="btn btn-primary" data-dismiss="modal">
+                            <button @click="banComment(commentReportDetailsList.commentIdentityDocument)" type="button"
+                                    class="btn btn-primary" data-dismiss="modal">
                                 封禁评论
                             </button>
                             <button type="button" class="btn btn-primary" data-dismiss="modal">暂不处理</button>
@@ -1008,9 +942,10 @@
                         </div>
                         <div class="modal-body row">
                             <div class="userModal1 col-5 col-sm-5 col-md-5 col-lg-5 col-xl-5">
-                                <img :src='"/files/HeadIcon/"+userList.userHeadIcon'
-                                     alt="Promote-one-img">
-                                <span><h5>个性签名:</h5>{{userList.userSignature}}</span>
+                                <div style="text-align: center;margin: 50px;">
+                                    <img :src='userList.userHeadIcon' style="width: 50px">
+                                    <span>个性签名:{{userList.userSignature}}</span>
+                                </div>
                                 <div>
                                     <span>视频投稿量:888</span>
                                 </div>
@@ -1021,19 +956,19 @@
                             <div class="userModal2 col-5 col-sm-5 col-md-5 col-lg-5 col-xl-5">
                                 <ul class=" list-group">
                                     <li class="row list-group-item">
-                                        <span><h5>用户名:</h5>{{userList.username}}</span>
+                                        <span><h6>用户名:</h6>{{userList.username}}</span>
                                     </li>
-                                    <li class="row list-group-item"><span><h5>昵称:</h5>{{userList.userNickName}}</span>
+                                    <li class="row list-group-item"><span><h6>昵称:</h6>{{userList.userNickName}}</span>
                                     </li>
-                                    <li class="row list-group-item"><span><h5>姓名:</h5>{{userList.userRealName}}</span>
+                                    <li class="row list-group-item"><span><h6>姓名:</h6>{{userList.userRealName}}</span>
                                     </li>
-                                    <li class="row list-group-item"><span><h5>性别:</h5>{{userList.userSex}}</span></li>
-                                    <li class="row list-group-item"><span><h5>会员:</h5>{{userList.isVip}}</span></li>
-                                    <li class="row list-group-item"><span><h5>用户等级:</h5>{{userList.userLevel}}</span>
+                                    <li class="row list-group-item"><span><h6>性别:</h6>{{userList.userSex}}</span></li>
+                                    <li class="row list-group-item"><span><h6>会员:</h6>{{userList.isVip}}</span></li>
+                                    <li class="row list-group-item"><span><h6>用户等级:</h6>{{userList.userLevel}}</span>
                                     </li>
-                                    <li class="row list-group-item"><span><h5>邮箱:</h5>{{userList.userEmail}}</span></li>
+                                    <li class="row list-group-item"><span><h6>邮箱:</h6>{{userList.userEmail}}</span></li>
                                     <li class="row list-group-item">
-                                        <span><h5>电话:</h5>{{userList.userPhoneNumber}}</span></li>
+                                        <span><h6>电话:</h6>{{userList.userPhoneNumber}}</span></li>
 
 
                                 </ul>
@@ -1122,6 +1057,7 @@
                                     <li class="row list-group-item">
                                         <span class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">音乐名称:{{musicList.musicName}}</span>
                                         <span class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">音乐类型:{{musicList.musicType}}</span>
+                                        <span class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">播放量:{{musicList.musicPlayNum}}</span>
                                     </li>
                                 </ul>
                             </div>

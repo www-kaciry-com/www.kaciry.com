@@ -15,31 +15,27 @@
     }
 
     .columnContent {
-        background: #eaf2ff;
+        background: rgba(224, 225, 204, 0.95);
     }
 </style>
 <body>
 <div id="column">
 
     <div class="container">
-        <nav aria-label="breadcrumb" role="navigation">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item"><a href="#">Library</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Data</li>
+        <nav aria-label="breadcrumb" role="navigation" style="cursor:pointer">
+            <ol class="breadcrumb" style="margin: 0px">
+                <li class="breadcrumb-item active" aria-current="page" @click="resetNum(0)">全部专栏</li>
+                <li class="breadcrumb-item" @click="resetNum(1)">今日</li>
+                <li class="breadcrumb-item" @click="resetNum(2)">最近三天</li>
             </ol>
         </nav>
-        <div class="columnContent" style="border: #0f0f0f solid 1px;">
-            <!--     <p><img src="/files/columnImgShortTime/20191223134649476.jpg" style="width: 58.984px;"></p>
-                 <p>是的撒的</p>
-                 <p><br></p>
-     -->
-            <div v-for="item in columnList">
-                <div class="" style="border-bottom: #0f0f0f solid 1px;">
-                    <div style="margin-top: 5px">
+        <div class="columnContent" style="padding: 15px;">
+            <div v-for="item in columnList.slice(b,a)">
+                <div class=>
+                    <div style="margin-top:5px;font-family: cursive;font-weight: 700;">
                         <div>
-                            <img :src='"/files/HeadIcon/"+item.userHeadIcon'
-                                 style="height: 50px;width: 50px;border-radius: 50%" class="col">
+                            <img :src='item.userHeadIcon'
+                                 style="height: 50px;width: 80px;border-radius: 50%" class="col">
                             <span>昵称:{{item.userNickName}}</span>
                             <span>用户名:{{item.username}}</span>
                             <span>会员等级:{{item.isVip}}</span>
@@ -50,8 +46,14 @@
                         </div>
                     </div>
                 </div>
-
-                <div v-html="item.columnContent" style="border-bottom: #0f0f0f solid 2px">{{item.columnContent}}</div>
+                <hr>
+                <div v-html="item.columnContent" style="padding: 0 50px">{{item.columnContent}}</div>
+                <hr>
+                <div style="margin-top: 50px"></div>
+            </div>
+            <div class="load-more mr-bottom" v-if="a<columnList.length" @click='loadMore()'
+                 style="text-align: center;font-family: monospace;"><span>点击加载更多</span></div>
+            <div class="load-more mr-bottom" style="text-align: center;font-family: monospace;" v-else>拜托 我也是有底线的好吗！！！
             </div>
         </div>
     </div>

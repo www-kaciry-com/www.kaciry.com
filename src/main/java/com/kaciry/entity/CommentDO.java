@@ -18,7 +18,7 @@ public class CommentDO {
     private String userHeadIcon;
     //用户昵称
     private String userNickName;
-    //评论点赞数
+    //状态
     private int state;
 
     public CommentDO() {

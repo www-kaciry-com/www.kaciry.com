@@ -1,48 +1,76 @@
 let vm1 = new Vue({
     el: '#column',
     data: {
+        b: 0,
+        a: 5,
+        num: 0,
+        page: 1,
+        page_count: '',
         columnList: [],
     },
-    created() {
+    mounted() {
         this.selectColumn();
     },
     methods: {
+        loadMore() {
+            this.a += 5;
+            this.b += 5;
+            this.selectColumn();
+        },
+        resetNum(a) {
+            this.a = 5;
+            this.b = 0;
+            this.num = a;
+            this.selectColumn()
+        },
         selectColumn() {
-            this.$http.post('/selectColumn',
-                {},
-                {emulateJSON: true}).then(result => {
-                if (result.status === 200) {
-                    if (result.body.length < 1) {
-                        alert("3333333");
-                    }
-                    console.log(result);
-                    this.columnList = result.body;
+            if (this.num === 0) {
+                this.$http.post('/selectColumn',
+                    {},
+                    {emulateJSON: true}).then(result => {
+                    if (result.status === 200) {
+                        if (result.body.length < 1) {
+                            alert("未查询到专栏信息");
+                        }
+                        console.log(result);
+                        this.columnList = result.body.concat(result.body);
 
-                } else {
-                    alert('111111111');
-                }
-            })
+                    } else {
+                        alert('加载失败');
+                    }
+                })
+            } else if (this.num === 1) {
+                this.$http.post('/selectTodayColumn',
+                    {},
+                    {emulateJSON: true}).then(result => {
+                    if (result.status === 200) {
+                        if (result.body.length < 1) {
+                            alert("今日没有用户发布专栏信息");
+                        }
+                        console.log(result);
+                        this.columnList = result.body.concat(result.body);
+                    } else {
+                        alert('加载失败');
+                    }
+                })
+            } else if (this.num === 2) {
+                this.$http.post('/selectThreeDaysColumn',
+                    {},
+                    {emulateJSON: true}).then(result => {
+                    if (result.status === 200) {
+                        if (result.body.length < 1) {
+                            alert("最近三天没有用户专栏信息");
+                        }
+                        console.log(result);
+                        this.columnList = result.body.concat(result.body);
+                    } else {
+                        alert('加载失败');
+                    }
+                })
+            }
+
         },
 
 
-        /* handleScroll() {
-             //变量scrollTop是滚动条滚动时，距离顶部的距离
-             var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-             //变量windowHeight是可视区的高度
-             var windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
-             //变量scrollHeight是滚动条的总高度
-             var scrollHeight = document.documentElement.scrollHeight || document.body.scrollHeight;
-             //滚动条到底部的条件
-             if (scrollTop + windowHeight == scrollHeight && this.list.length !== 0) {
-                 this.loadMore() // 加载的列表数据
-             }
-         }*/
-
-    },
-    mounted() {
-        //window.addEventListener('scroll', this.handleScroll)
-    },
-    destroyed() {
-        //window.removeEventListener('scroll', this.handleScroll)
     },
 });

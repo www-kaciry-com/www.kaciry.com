@@ -10,8 +10,6 @@ public class VideoInfoDO {
     private BigInteger videoIdentityDocument;
     //用户名
     private String username;
-    //昵称
-    private String userNickName;
     //视频标题
     private String videoTitle;
     //视频类型
@@ -91,6 +89,7 @@ public class VideoInfoDO {
         this.videoIdentityDocument = videoIdentityDocument;
     }
 
+    private String userNickName;
     public String getUsername() {
         return username;
     }

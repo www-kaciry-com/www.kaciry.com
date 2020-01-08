@@ -31,8 +31,10 @@ public class ColumnServiceImpl implements ColumnService {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String time = simpleDateFormat.format(new Date());
         column.setUploadTime(time);
+        System.out.println(column);
         if (columnDao.insertColumn(column)) {
             return new ResultBean<>("上传成功！success");
+
         } else {
             return new ResultBean<>("上传失败，请检查网络！error!");
         }
@@ -41,5 +43,15 @@ public class ColumnServiceImpl implements ColumnService {
     @Override
     public List<ColumnShow> findColumn() {
         return columnDao.selectColumn();
+    }
+
+    @Override
+    public List<ColumnShow> findTodayColumn() {
+        return columnDao.selectTodayColumn();
+    }
+
+    @Override
+    public List<ColumnShow> findThreeDaysColumn() {
+        return columnDao.selectThreeDaysColumn();
     }
 }

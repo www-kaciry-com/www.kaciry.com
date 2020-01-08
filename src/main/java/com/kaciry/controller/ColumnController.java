@@ -10,8 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -30,7 +28,7 @@ public class ColumnController {
     }
 
     /**
-     * @param columnImg
+     * @param columnImg 富文本框中的图片
      * @return java.lang.String
      * @author FLLH
      * @description 富文本框上传图片到服务器  指定文件夹
@@ -55,12 +53,31 @@ public class ColumnController {
     @RequestMapping(value = "/submitColumn", method = RequestMethod.POST)
     @ResponseBody
     public ResultBean submitColumn(@RequestParam("columnInfo") String columnInfo) {
-      return columnService.setColumn(columnInfo);
+        return columnService.setColumn(columnInfo);
     }
 
+    /**
+     * @param
+     * @return java.util.List<com.kaciry.entity.ColumnShow>
+     * @author FLLH
+     * @description 查看专栏
+     * @date 2020/1/7 11:20
+     **/
     @RequestMapping(value = "/selectColumn", method = RequestMethod.POST)
     @ResponseBody
     public List<ColumnShow> queryColumn() {
         return columnService.findColumn();
+    }
+
+    @RequestMapping(value = "/selectTodayColumn", method = RequestMethod.POST)
+    @ResponseBody
+    public List<ColumnShow> queryTodayColumn() {
+        return columnService.findTodayColumn();
+    }
+
+    @RequestMapping(value = "/selectThreeDaysColumn", method = RequestMethod.POST)
+    @ResponseBody
+    public List<ColumnShow> queryThreeDaysColumn() {
+        return columnService.findThreeDaysColumn();
     }
 }

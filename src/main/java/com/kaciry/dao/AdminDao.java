@@ -43,7 +43,7 @@ public interface AdminDao {
      * @description 查看视频举报
      * @date 2019/10/30 23:43
      **/
-    @Select("SELECT * FROM reportvideo LEFT JOIN user_video ON reportvideo.videoFilename = user_video.videoFilename WHERE user_video.videoState = 3 LIMIT #{star},#{pageSize}")
+    @Select("SELECT * FROM reportvideo LEFT JOIN user_video ON reportvideo.videoFilename = user_video.videoFilename LIMIT #{star},#{pageSize}")
     List<ReportVideoDO> selectVideoReport(@Param("star") Integer star, @Param("pageSize") Integer pageSize);
 
     /**
@@ -54,7 +54,7 @@ public interface AdminDao {
      * @description 查看评论举报
      * @date 2019/10/30 23:49
      **/
-    @Select("SELECT * FROM reportcomments LEFT JOIN COMMENT ON reportcomments.commentIdentityDocument = COMMENT .commentIdentityDocument WHERE COMMENT.state = 3 LIMIT #{star},#{pageSize}")
+    @Select("SELECT * FROM report_comments LEFT JOIN COMMENT ON report_comments.commentIdentityDocument = COMMENT .commentIdentityDocument WHERE COMMENT.state = 3 LIMIT #{star},#{pageSize}")
     List<ReportCommentDO> selectCommentReport(@Param("star") Integer star, @Param("pageSize") Integer pageSize);
 
     /**
@@ -74,7 +74,7 @@ public interface AdminDao {
      * @description 根据用户输入的举报编号查询评论举报详细信息
      * @date 2019/10/30 11:58
      **/
-    @Select("SELECT * FROM reportcomments WHERE commentIdentityDocument = #{reportCommentId}")
+    @Select("SELECT * FROM report_comments WHERE commentIdentityDocument = #{reportCommentId}")
     List<ReportCommentDO> searchCommentReportDetailsInfoByReportCommentId(@Param("reportCommentId") int reportCommentId);
 
     /**
@@ -134,7 +134,7 @@ public interface AdminDao {
      * @description 查询举报评论数据信息数量
      * @date 2019/11/18 20:25
      **/
-    @Select("SELECT count(*) FROM reportcomments;")
+    @Select("SELECT count(*) FROM report_comments;")
     int selectCommentReportNum();
 
     /**
