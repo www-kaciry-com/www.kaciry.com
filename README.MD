@@ -1,6 +1,4 @@
-# [筱筱弹幕网]
+# 筱筱弹幕网
 - With the development of website technology and media, users urgently need a free website where they can use video and text for communication. However, the current video website has some defects in transmitting inaccurate information and the content cost is too high, Video clip advertisement has a long time, so we need to develop a system to enable users to upload their favorite videos, learning, TV art, video website, let users join the website, and share with the webmaster voluntarily Other friends.From a technical point of view, the spring boot framework is being used to develop the management module of the system, which is introduced to users in the initial part of the website. Identify the sustainability of system access and access through JSON Web Token: in terms of data management, all user information is managed through MySQL relational database. Using alicloud Linux as the carrier, GitHub (DPlayer) startup project is a part of video scene information exchange, and regular access to MySQL data is used as a means of communication between users for interaction between users.
 ## Development environment
 JDK 1.8
-
-## 
